@@ -63,23 +63,23 @@
 
     /* Lane Results Container */
     .lanes-container {
-      padding: 16px 50px;
+      padding: 12px 50px 16px 50px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      height: calc(1080px - 200px);
+      gap: 6px;
+      height: calc(1080px - 180px);
       overflow: hidden;
     }
 
     /* Individual Lane Row */
     .lane {
       display: grid;
-      grid-template-columns: 90px 110px 520px 360px 240px 270px;
-      gap: 28px;
+      grid-template-columns: 85px 105px 500px 350px 230px 260px;
+      gap: 26px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 16px 35px;
-      border-radius: 14px;
+      padding: 13px 32px;
+      border-radius: 12px;
       border-left: 6px solid var(--barbie-accent);
       transition: all 0.3s ease;
     }
@@ -90,7 +90,7 @@
     }
 
     .lane-number {
-      font-size: 64px;
+      font-size: 60px;
       font-weight: 900;
       color: var(--text-green);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -98,7 +98,7 @@
     }
 
     .place {
-      font-size: 64px;
+      font-size: 60px;
       font-weight: 900;
       color: var(--text-red);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -110,7 +110,7 @@
     }
 
     .swimmer-name {
-      font-size: 50px;
+      font-size: 46px;
       font-weight: 700;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
@@ -119,14 +119,14 @@
     }
 
     .team {
-      font-size: 44px;
+      font-size: 40px;
       font-weight: 600;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       opacity: 0.95;
     }
 
     .split-time {
-      font-size: 52px;
+      font-size: 48px;
       font-weight: 800;
       color: var(--text-yellow);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -135,7 +135,7 @@
     }
 
     .final-time {
-      font-size: 64px;
+      font-size: 60px;
       font-weight: 900;
       color: var(--barbie-accent);
       text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
@@ -152,7 +152,7 @@
 
     .lane.first-place .final-time {
       color: #FFD700;
-      font-size: 70px;
+      font-size: 66px;
     }
 
     /* Footer Info */
