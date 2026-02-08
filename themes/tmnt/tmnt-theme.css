@@ -374,18 +374,18 @@ body {
     display: none;
 }
 
-/* Timer digits - same size as Event/Heat values */
+/* Timer digits - BIG and bold to fill the pizza box */
 .running-time {
-    font-size: 4rem;
+    font-size: 6.5rem;
     color: #000;
     text-shadow:
-        2px 2px 0 var(--pizza-yellow),
-        -1px -1px 0 var(--pizza-yellow);
+        3px 3px 0 var(--pizza-yellow),
+        -2px -2px 0 var(--pizza-yellow);
     font-weight: bold;
     font-family: var(--theme-font);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.05em;
-    min-width: 280px;
+    min-width: 320px;
     display: inline-block;
     text-align: center;
 }
