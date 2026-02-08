@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Barbie Castaway - Linear Story</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      background: linear-gradient(135deg, #E0218A 0%, #C71585 100%);
+      color: #FFFFFF;
+      overflow: hidden;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    /* Story Canvas - Top portion only */
+    #storyStage {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 220px;
+      overflow: hidden;
+      background: linear-gradient(180deg, 
+        #FFB6D9 0%, 
+        #48b7ff 60%, 
+        #f3e1b5 90%
+      );
+    }
+
+    /* Malibu backdrop */
+    #backdrop {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image: url('day1-scene1-surfboard.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+    }
+
+    /* Story elements */
+    .storyElement {
+      position: absolute;
+      user-select: none;
+      transition: none;
+    }
+
+    #surfboard {
+      width: 120px;
+      height: auto;
+      left: -150px;
+      top: 140px;
+      z-index: 10;
+    }
+
+    #barbie {
+      width: 100px;
+      height: auto;
+      left: -120px;
+      top: 120px;
+      z-index: 11;
+    }
+
+    /* Idle bobbing animation */
+    .bob {
+      animation: bob 2.6s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Day indicator */
+    #dayIndicator {
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      z-index: 100;
+    }
+
+    /* Header with Event + Clock */
+    .header {
+      position: absolute;
+      top: 220px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 50px;
+      background: rgba(255, 255, 255, 0.15);
+      border-bottom: 4px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .event-name {
+      font-size: 62px;
+      font-weight: 800;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .race-clock {
+      font-size: 120px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+      color: #FFF0F5;
+    }
+
+    /* Lane Results */
+    .lanes-container {
+      position: absolute;
+      top: 330px;
+      left: 0;
+      right: 0;
+      bottom: 80px;
+      padding: 10px 50px 12px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow: hidden;
+    }
+
+    .lane {
+      display: grid;
+      grid-template-columns: 80px 100px 490px 340px 220px 250px;
+      gap: 24px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 11px 30px;
+      border-radius: 10px;
+      border-left: 6px solid rgba(255, 240, 245, 1);
+      transition: all 0.3s ease;
+    }
+
+    .lane-number {
+      font-size: 56px;
+      font-weight: 900;
+      color: #00FF00;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      text-align: center;
+    }
+
+    .place {
+      font-size: 56px;
+      font-weight: 900;
+      color: #FF1493;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      text-align: center;
+    }
+
+    .place.empty {
+      opacity: 0;
+    }
+
+    .swimmer-name {
+      font-size: 44px;
+      font-weight: 700;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .team {
+      font-size: 38px;
+      font-weight: 600;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      opacity: 0.95;
+    }
+
+    .split-time {
+      font-size: 46px;
+      font-weight: 800;
+      color: #FFD700;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .final-time {
+      font-size: 56px;
+      font-weight: 900;
+      color: #FFF0F5;
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .lane.first-place {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3));
+      border-left-color: #FFD700;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    }
+
+    .lane.first-place .final-time {
+      color: #FFD700;
+      font-size: 62px;
+    }
+
+    /* Footer */
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(0, 0, 0, 0.4);
+      border-top: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-item {
+      font-size: 36px;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .footer-label {
+      color: #00FF00;
+      margin-right: 12px;
+      font-weight: 700;
+    }
+
+    .footer-value {
+      color: #FFFFFF;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <!-- Story Stage (Top 220px) -->
+  <div id="storyStage">
+    <div id="backdrop"></div>
+    <img id="surfboard" class="storyElement" src="day1-scene1-surfboard.png" alt="Surfboard" />
+    <img id="barbie" class="storyElement" src="day1-scene2-floating.png" alt="Barbie" />
+    <div id="dayIndicator">Day 1 — Arrival</div>
+  </div>
+
+  <!-- Scoreboard Header -->
+  <div class="header">
+    <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
+    <div class="race-clock" id="raceClock">0:00.00</div>
+  </div>
+
+  <!-- Lane Results -->
+  <div class="lanes-container" id="lanesContainer">
+    <!-- Lanes populated by JavaScript -->
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-item">
+      <span class="footer-label">EV:</span>
+      <span class="footer-value" id="eventNumber">12</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">HT:</span>
+      <span class="footer-value" id="heatNumber">3 of 4</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">Lengths:</span>
+      <span class="footer-value" id="lengths">4</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">Record:</span>
+      <span class="footer-value" id="record">2:03.45</span>
+    </div>
+  </div>
+
+  <script>
+    // ===== LINEAR DAY PLAYER (Johnny Castaway Style) =====
+    const STORAGE_KEY = "barbie_castaway_day_v1";
+
+    function loadStartTime() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) return Number(raw);
+      const now = Date.now();
+      localStorage.setItem(STORAGE_KEY, String(now));
+      return now;
+    }
+
+    const startTime = loadStartTime();
+    const msPerDay = 24 * 60 * 60 * 1000;
+
+    function getDayIndex() {
+      const day = Math.floor((Date.now() - startTime) / msPerDay) + 1;
+      return Math.max(1, day);
+    }
+
+    const el = {
+      surfboard: document.getElementById("surfboard"),
+      barbie: document.getElementById("barbie"),
+      dayIndicator: document.getElementById("dayIndicator"),
+    };
+
+    function wait(ms) {
+      return new Promise(r => setTimeout(r, ms));
+    }
+
+    function resetStage() {
+      el.surfboard.classList.remove("bob");
+      el.barbie.classList.remove("bob");
+      el.surfboard.style.transition = "none";
+      el.barbie.style.transition = "none";
+      el.surfboard.style.left = "-150px";
+      el.surfboard.style.top = "140px";
+      el.barbie.style.left = "-120px";
+      el.barbie.style.top = "120px";
+    }
+
+    // DAY 1 — ARRIVAL (Linear sequence)
+    async function playDay1Arrival() {
+      resetStage();
+      el.dayIndicator.textContent = "Day 1 — Arrival";
+
+      // Scene 1: Surfboard washes in
+      el.surfboard.src = "day1-scene1-surfboard.png";
+      await wait(300);
+      el.surfboard.style.transition = "left 8s ease-out";
+      el.surfboard.style.left = "25%";
+
+      // Scene 2: Barbie floats in behind
+      await wait(2000);
+      el.barbie.src = "day1-scene2-floating.png";
+      el.barbie.style.transition = "left 7s ease-out";
+      el.barbie.style.left = "35%";
+
+      // Scene 3: She sits up
+      await wait(7000);
+      el.barbie.src = "day1-scene3-sitting-up.png";
+      el.barbie.style.transition = "opacity 1s ease";
+
+      // Scene 4: Shrug "okay"
+      await wait(3000);
+      el.barbie.src = "day1-scene4-shrug-okay.png";
+
+      // Idle bob
+      await wait(1500);
+      el.surfboard.classList.add("bob");
+      el.barbie.classList.add("bob");
+    }
+
+    // Map days to functions
+    async function playForDay(day) {
+      if (day === 1) return playDay1Arrival();
+      
+      // Placeholder for future days
+      return playDay1Arrival();
+    }
+
+    let currentDay = null;
+
+    async function mainLoop() {
+      const day = getDayIndex();
+      if (day !== currentDay) {
+        currentDay = day;
+        await playForDay(day);
+      }
+      // Check every 60 seconds for day change
+      setTimeout(mainLoop, 60_000);
+    }
+
+    // Dev helpers
+    window.__barbie = {
+      reset: () => {
+        localStorage.removeItem(STORAGE_KEY);
+        location.reload();
+      },
+      skipToDay: (n) => {
+        const fakeStart = Date.now() - (n - 1) * msPerDay;
+        localStorage.setItem(STORAGE_KEY, String(fakeStart));
+        location.reload();
+      }
+    };
+
+    // ===== SCOREBOARD FUNCTIONALITY =====
+    function updateLanes(lanes) {
+      const container = document.getElementById('lanesContainer');
+      container.innerHTML = '';
+      
+      lanes.forEach((lane, index) => {
+        const laneDiv = document.createElement('div');
+        laneDiv.className = 'lane';
+        if (lane.place === 1) laneDiv.classList.add('first-place');
+        
+        const placeHTML = lane.place 
+          ? `<div class="place">${lane.place}</div>` 
+          : `<div class="place empty">-</div>`;
+        
+        laneDiv.innerHTML = `
+          <div class="lane-number">${lane.lane}</div>
+          ${placeHTML}
+          <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
+          <div class="team">${lane.team || 'Team'}</div>
+          <div class="split-time">${lane.split || ''}</div>
+          <div class="final-time">${lane.time || ''}</div>
+        `;
+        
+        container.appendChild(laneDiv);
+      });
+    }
+
+    // Demo lanes
+    const demoLanes = [
+      { lane: 1, name: 'Sarah Johnson', team: 'NOVA', split: '1:01.23', time: '2:08.45', place: null },
+      { lane: 2, name: 'Emma Williams', team: 'RAYS', split: '59.87', time: '2:05.67', place: 3 },
+      { lane: 3, name: 'Katie Martinez', team: 'TIDE', split: '58.34', time: '2:03.12', place: 1 },
+      { lane: 4, name: 'Olivia Davis', team: 'WAVE', split: '59.12', time: '2:04.89', place: 2 },
+      { lane: 5, name: 'Sophia Brown', team: 'HEAT', split: '1:00.45', time: '2:07.23', place: 4 },
+      { lane: 6, name: 'Ava Garcia', team: 'BOLT', split: '1:01.89', time: '2:09.01', place: null },
+      { lane: 7, name: 'Isabella Lopez', team: 'FAST', split: '1:02.34', time: '2:10.56', place: null },
+      { lane: 8, name: 'Mia Rodriguez', team: 'FIRE', split: '1:00.78', time: '2:07.89', place: 5 },
+    ];
+
+    // Start everything
+    updateLanes(demoLanes);
+    mainLoop();
+  </script>
+</body>
+</html>
