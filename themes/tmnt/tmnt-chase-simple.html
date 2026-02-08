@@ -46,8 +46,8 @@
     /* Individual character sprites */
     .character {
       position: absolute;
-      width: 64px;
-      height: 64px;
+      width: 120px;   /* 2x bigger! */
+      height: 120px;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
@@ -58,17 +58,17 @@
 
     /* Villain sprites are slightly bigger */
     .character.villain {
-      width: 70px;
-      height: 70px;
+      width: 140px;   /* 2x bigger! */
+      height: 140px;
     }
 
-    /* Character colors (drop shadows) */
-    .character.leonardo { filter: drop-shadow(0 0 8px #2196F3); }
-    .character.raphael { filter: drop-shadow(0 0 8px #F44336); }
-    .character.donatello { filter: drop-shadow(0 0 8px #9C27B0); }
-    .character.michelangelo { filter: drop-shadow(0 0 8px #FF9800); }
-    .character.bebop { filter: drop-shadow(0 0 10px #8B4513); }
-    .character.rocksteady { filter: drop-shadow(0 0 10px #708090); }
+    /* Character colors (drop shadows) - BIGGER GLOWS! */
+    .character.leonardo { filter: drop-shadow(0 0 20px #2196F3) drop-shadow(0 0 40px #2196F3); }
+    .character.raphael { filter: drop-shadow(0 0 20px #F44336) drop-shadow(0 0 40px #F44336); }
+    .character.donatello { filter: drop-shadow(0 0 20px #9C27B0) drop-shadow(0 0 40px #9C27B0); }
+    .character.michelangelo { filter: drop-shadow(0 0 20px #FF9800) drop-shadow(0 0 40px #FF9800); }
+    .character.bebop { filter: drop-shadow(0 0 25px #8B4513) drop-shadow(0 0 50px #8B4513); }
+    .character.rocksteady { filter: drop-shadow(0 0 25px #708090) drop-shadow(0 0 50px #708090); }
 
     /* Background images */
     .character.leonardo { background-image: url('leonardo-arcade.png'); }
@@ -80,17 +80,17 @@
 
     /* RUNNING ANIMATION (copied from Mario) */
     .character.running {
-      animation: characterRun 8s linear forwards,
+      animation: characterRun 12s linear forwards,   /* Slower - easier to see */
                  characterBounce 0.3s ease-in-out infinite;
       opacity: 1;
     }
 
     @keyframes characterRun {
       0% {
-        left: -100px;
+        left: -200px;   /* Start further off-screen */
       }
       100% {
-        left: calc(100% + 100px);
+        left: calc(100% + 200px);   /* End further off-screen */
       }
     }
 
