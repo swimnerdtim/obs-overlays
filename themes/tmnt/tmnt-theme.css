@@ -374,9 +374,9 @@ body {
     display: none;
 }
 
-/* Timer digits - BIG and bold to fill the pizza box */
+/* Timer digits - fill the pizza box without expanding it */
 .running-time {
-    font-size: 6.5rem;
+    font-size: 5rem;
     color: #000;
     text-shadow:
         3px 3px 0 var(--pizza-yellow),
@@ -385,7 +385,7 @@ body {
     font-family: var(--theme-font);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.05em;
-    min-width: 320px;
+    min-width: 240px;
     display: inline-block;
     text-align: center;
 }
