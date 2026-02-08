@@ -7,11 +7,21 @@
  */
 
 /* ==================== */
+/* TMNT FONT            */
+/* ==================== */
+@font-face {
+    font-family: 'TMNT';
+    src: url('tmnt-font.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* ==================== */
 /* BASE THEME VARIABLES */
 /* ==================== */
 :root {
     /* Fonts */
-    --theme-font: Impact, 'Arial Black', sans-serif;
+    --theme-font: 'TMNT', Impact, 'Arial Black', sans-serif;
 
     /* TMNT Color Palette */
     --tmnt-green: #4CAF50;
