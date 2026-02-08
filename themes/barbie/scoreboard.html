@@ -37,64 +37,49 @@
       height: 1080px;
     }
 
-    /* Header Section */
+    /* Single Header Row - Event + Clock */
     .header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 40px;
-      background: rgba(255, 255, 255, 0.1);
+      padding: 24px 50px;
+      background: rgba(255, 255, 255, 0.15);
       border-bottom: 4px solid var(--barbie-accent);
     }
 
-    .title {
-      font-size: 72px;
-      font-weight: 900;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-      letter-spacing: 2px;
+    .event-name {
+      font-size: 62px;
+      font-weight: 800;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
     }
 
     .race-clock {
-      font-size: 108px;
+      font-size: 120px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
-      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
       color: var(--barbie-accent);
-    }
-
-    /* Event Info */
-    .event-info {
-      text-align: center;
-      padding: 16px 40px;
-      background: rgba(255, 255, 255, 0.15);
-      border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .event-name {
-      font-size: 54px;
-      font-weight: 800;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
 
     /* Lane Results Container */
     .lanes-container {
-      padding: 12px 40px;
+      padding: 16px 50px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      height: calc(1080px - 260px);
+      gap: 8px;
+      height: calc(1080px - 200px);
       overflow: hidden;
     }
 
     /* Individual Lane Row */
     .lane {
       display: grid;
-      grid-template-columns: 80px 100px 500px 350px 220px 250px;
-      gap: 24px;
+      grid-template-columns: 90px 110px 520px 360px 240px 270px;
+      gap: 28px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 14px 30px;
-      border-radius: 12px;
+      padding: 16px 35px;
+      border-radius: 14px;
       border-left: 6px solid var(--barbie-accent);
       transition: all 0.3s ease;
     }
@@ -105,18 +90,18 @@
     }
 
     .lane-number {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 900;
       color: var(--text-green);
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
       text-align: center;
     }
 
     .place {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 900;
       color: var(--text-red);
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
       text-align: center;
     }
 
@@ -125,35 +110,35 @@
     }
 
     .swimmer-name {
-      font-size: 44px;
+      font-size: 50px;
       font-weight: 700;
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .team {
-      font-size: 38px;
+      font-size: 44px;
       font-weight: 600;
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       opacity: 0.95;
     }
 
     .split-time {
-      font-size: 46px;
+      font-size: 52px;
       font-weight: 800;
       color: var(--text-yellow);
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
 
     .final-time {
-      font-size: 56px;
+      font-size: 64px;
       font-weight: 900;
       color: var(--barbie-accent);
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
@@ -167,7 +152,7 @@
 
     .lane.first-place .final-time {
       color: #FFD700;
-      font-size: 62px;
+      font-size: 70px;
     }
 
     /* Footer Info */
@@ -226,6 +211,53 @@
     .fullscreen-btn.hidden {
       display: none;
     }
+
+    /* Barbie Character Animation Area */
+    .barbie-character {
+      position: fixed;
+      bottom: 120px;
+      right: 80px;
+      width: 300px;
+      height: 300px;
+      pointer-events: none;
+      z-index: 500;
+    }
+
+    .barbie-character img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
+    }
+
+    /* Character animations */
+    @keyframes wave {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes cheer {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.1) rotate(-5deg); }
+      75% { transform: scale(1.1) rotate(5deg); }
+    }
+
+    .barbie-character.wave {
+      animation: wave 2s ease-in-out infinite;
+    }
+
+    .barbie-character.bounce {
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+
+    .barbie-character.cheer {
+      animation: cheer 1s ease-in-out infinite;
+    }
   </style>
 </head>
 <body>
@@ -234,15 +266,16 @@
     Enter Fullscreen (F11)
   </button>
 
-  <!-- Header with Title and Clock -->
+  <!-- Single Header - Event Name + Race Clock -->
   <div class="header">
-    <div class="title">Barbie Scoreboard</div>
+    <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
     <div class="race-clock" id="raceClock">0:00.00</div>
   </div>
 
-  <!-- Event Info -->
-  <div class="event-info">
-    <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
+  <!-- Animated Barbie Character (Johnny Castaway style) -->
+  <div class="barbie-character wave" id="barbieCharacter">
+    <!-- Character animation will cycle through different activities -->
+    <div id="barbieAnimation" style="font-size: 120px; text-align: center;">💁‍♀️</div>
   </div>
 
   <!-- Lane Results -->
@@ -438,6 +471,43 @@
         }
       }, 2000);
     }
+
+    // Barbie Character Activities (Johnny Castaway style)
+    const barbieActivities = [
+      { emoji: '💁‍♀️', animation: 'wave', duration: 5000 },      // Waving
+      { emoji: '🤸‍♀️', animation: 'bounce', duration: 4000 },    // Gymnastics
+      { emoji: '📱', animation: 'wave', duration: 6000 },        // On phone
+      { emoji: '💅', animation: 'cheer', duration: 5000 },       // Doing nails
+      { emoji: '🕶️', animation: 'wave', duration: 5000 },        // Sunglasses
+      { emoji: '🎉', animation: 'cheer', duration: 4000 },       // Celebrating
+      { emoji: '🏊‍♀️', animation: 'bounce', duration: 5000 },     // Swimming
+      { emoji: '☕', animation: 'wave', duration: 6000 },        // Coffee break
+      { emoji: '💃', animation: 'cheer', duration: 4000 },       // Dancing
+      { emoji: '📸', animation: 'wave', duration: 5000 },        // Taking selfie
+      { emoji: '🎀', animation: 'bounce', duration: 5000 },      // Getting ready
+      { emoji: '🌺', animation: 'wave', duration: 5000 },        // Relaxing
+    ];
+
+    let currentActivityIndex = 0;
+
+    function updateBarbieActivity() {
+      const activity = barbieActivities[currentActivityIndex];
+      const barbieEl = document.getElementById('barbieCharacter');
+      const animationEl = document.getElementById('barbieAnimation');
+      
+      // Update emoji and animation class
+      animationEl.textContent = activity.emoji;
+      barbieEl.className = 'barbie-character ' + activity.animation;
+      
+      // Move to next activity
+      currentActivityIndex = (currentActivityIndex + 1) % barbieActivities.length;
+      
+      // Schedule next activity change
+      setTimeout(updateBarbieActivity, activity.duration);
+    }
+
+    // Start Barbie activities
+    setTimeout(updateBarbieActivity, 2000);
 
     // Start demo mode
     setTimeout(runDemo, 500);
