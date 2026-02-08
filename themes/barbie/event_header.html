@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Barbie Theme - Event Header</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="event-header">
+    <div class="event-title" id="eventTitle">Event 12 - Girls 200 IM</div>
+    <div class="event-info" id="eventInfo">Heat 3 of 4</div>
+  </div>
+
+  <script>
+    // Listen for event data from Swimnerd Live via BroadcastChannel
+    const channel = new BroadcastChannel('swimnerd-live');
+    
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventHeader(data);
+      }
+    };
+
+    function updateEventHeader(data) {
+      const titleEl = document.getElementById('eventTitle');
+      const infoEl = document.getElementById('eventInfo');
+      
+      if (data.eventNumber && data.eventName) {
+        titleEl.textContent = `Event ${data.eventNumber} - ${data.eventName}`;
+      }
+      
+      if (data.heatNumber && data.totalHeats) {
+        infoEl.textContent = `Heat ${data.heatNumber} of ${data.totalHeats}`;
+      } else if (data.round) {
+        infoEl.textContent = data.round; // "Finals", "Semi-Finals", etc.
+      }
+    }
+
+    // Demo mode - cycles through sample events
+    let demoMode = true;
+    let demoIndex = 0;
+    const demoEvents = [
+      { eventNumber: 12, eventName: 'Girls 200 IM', heatNumber: 3, totalHeats: 4 },
+      { eventNumber: 13, eventName: 'Boys 50 Free', round: 'Finals' },
+      { eventNumber: 14, eventName: 'Girls 100 Fly', heatNumber: 2, totalHeats: 5 },
+    ];
+
+    function runDemo() {
+      if (!demoMode) return;
+      
+      const event = demoEvents[demoIndex];
+      updateEventHeader(event);
+      
+      demoIndex = (demoIndex + 1) % demoEvents.length;
+      setTimeout(runDemo, 5000);
+    }
+
+    // Start demo after 2 seconds
+    setTimeout(() => {
+      if (demoMode) runDemo();
+    }, 2000);
+
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      if (data.type === 'event_update') {
+        updateEventHeader(data);
+      }
+    };
+  </script>
+</body>
+</html>

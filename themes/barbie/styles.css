@@ -1,0 +1,179 @@
+/* Barbie Theme for Swimnerd Live 💖 */
+
+:root {
+  /* Barbie Pink Palette */
+  --barbie-pink: #E0218A;
+  --barbie-hot-pink: #FF69B4;
+  --barbie-light-pink: #FFB6D9;
+  --barbie-dark-pink: #C71585;
+  --barbie-accent: #FFF0F5;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #E0218A 0%, #FF69B4 100%);
+  --gradient-secondary: linear-gradient(135deg, #FF69B4 0%, #FFB6D9 100%);
+  --gradient-overlay: linear-gradient(180deg, rgba(224, 33, 138, 0.9) 0%, rgba(255, 105, 180, 0.85) 100%);
+  
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #FFF0F5;
+  --text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  
+  /* Spacing */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 30px;
+  
+  /* Shadows */
+  --shadow-soft: 0 8px 32px rgba(224, 33, 138, 0.3);
+  --shadow-strong: 0 12px 48px rgba(199, 21, 133, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', 'Arial', sans-serif;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* Event Header */
+.event-header {
+  background: var(--gradient-primary);
+  padding: 24px 40px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-strong);
+  text-align: center;
+  margin: 20px;
+  border: 4px solid var(--barbie-accent);
+  animation: slideIn 0.6s ease-out;
+}
+
+.event-title {
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--text-primary);
+  text-shadow: var(--text-shadow);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.event-info {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-shadow: var(--text-shadow);
+}
+
+/* Lane Results */
+.lane-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.lane-result {
+  background: var(--gradient-overlay);
+  padding: 20px 32px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 6px solid var(--barbie-accent);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lane-result:hover {
+  transform: translateX(8px);
+  box-shadow: var(--shadow-strong);
+}
+
+.lane-number {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--text-primary);
+  text-shadow: var(--text-shadow);
+  min-width: 60px;
+}
+
+.swimmer-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-shadow: var(--text-shadow);
+  flex: 1;
+  padding: 0 20px;
+}
+
+.swimmer-time {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--barbie-accent);
+  text-shadow: var(--text-shadow);
+  font-variant-numeric: tabular-nums;
+}
+
+.place-badge {
+  background: var(--gradient-secondary);
+  color: var(--barbie-dark-pink);
+  font-size: 20px;
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-left: 16px;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* First Place Highlight */
+.lane-result.first-place {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  border-left-color: #FFD700;
+  box-shadow: 0 12px 48px rgba(255, 215, 0, 0.5);
+}
+
+.lane-result.first-place .swimmer-time {
+  color: #FFFFFF;
+  font-size: 42px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1920px) {
+  .event-title { font-size: 42px; }
+  .event-info { font-size: 24px; }
+  .swimmer-name { font-size: 24px; }
+  .swimmer-time { font-size: 32px; }
+}
+
+@media (max-width: 1280px) {
+  .event-title { font-size: 36px; }
+  .event-info { font-size: 20px; }
+  .swimmer-name { font-size: 20px; }
+  .swimmer-time { font-size: 28px; }
+}

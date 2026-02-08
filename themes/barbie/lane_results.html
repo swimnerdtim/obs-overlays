@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Barbie Theme - Lane Results</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="lane-container" id="laneContainer">
+    <!-- Lanes will be populated dynamically -->
+  </div>
+
+  <script>
+    // Listen for lane data from Swimnerd Live via BroadcastChannel
+    const channel = new BroadcastChannel('swimnerd-live');
+    
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.type === 'lane_results') {
+        updateLaneResults(data.lanes);
+      }
+    };
+
+    function updateLaneResults(lanes) {
+      const container = document.getElementById('laneContainer');
+      container.innerHTML = '';
+      
+      lanes.forEach((lane, index) => {
+        const laneDiv = document.createElement('div');
+        laneDiv.className = 'lane-result';
+        if (index === 0) laneDiv.classList.add('first-place');
+        
+        laneDiv.innerHTML = `
+          <div class="lane-number">Lane ${lane.lane}</div>
+          <div class="swimmer-name">${lane.name}</div>
+          <div class="swimmer-time">${lane.time}</div>
+          ${lane.place ? `<div class="place-badge">#${lane.place}</div>` : ''}
+        `;
+        
+        container.appendChild(laneDiv);
+      });
+    }
+
+    // Demo mode - shows sample results
+    let demoMode = true;
+    const demoLanes = [
+      { lane: 4, name: 'Katie Ledecky', time: '1:52.34', place: 1 },
+      { lane: 5, name: 'Emma McKeon', time: '1:53.12', place: 2 },
+      { lane: 3, name: 'Sarah Sjöström', time: '1:53.89', place: 3 },
+      { lane: 6, name: 'Simone Manuel', time: '1:54.21', place: 4 },
+      { lane: 2, name: 'Penny Oleksiak', time: '1:54.67', place: 5 },
+      { lane: 7, name: 'Cate Campbell', time: '1:55.03', place: 6 },
+    ];
+
+    function runDemo() {
+      if (!demoMode) return;
+      updateLaneResults(demoLanes);
+    }
+
+    // Start demo after 1 second
+    setTimeout(() => {
+      if (demoMode) runDemo();
+    }, 1000);
+
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      if (data.type === 'lane_results') {
+        updateLaneResults(data.lanes);
+      }
+    };
+  </script>
+</body>
+</html>
