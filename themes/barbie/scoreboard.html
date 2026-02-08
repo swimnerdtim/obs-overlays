@@ -48,14 +48,14 @@
     }
 
     .title {
-      font-size: 64px;
+      font-size: 72px;
       font-weight: 900;
       text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
       letter-spacing: 2px;
     }
 
     .race-clock {
-      font-size: 96px;
+      font-size: 108px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
       text-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
@@ -71,7 +71,7 @@
     }
 
     .event-name {
-      font-size: 48px;
+      font-size: 54px;
       font-weight: 800;
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     }
@@ -89,11 +89,11 @@
     /* Individual Lane Row */
     .lane {
       display: grid;
-      grid-template-columns: 40px 50px 60px 400px 300px 180px 180px;
-      gap: 16px;
+      grid-template-columns: 80px 100px 500px 350px 220px 250px;
+      gap: 24px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 12px 20px;
+      padding: 14px 30px;
       border-radius: 12px;
       border-left: 6px solid var(--barbie-accent);
       transition: all 0.3s ease;
@@ -105,17 +105,19 @@
     }
 
     .lane-number {
-      font-size: 36px;
+      font-size: 56px;
       font-weight: 900;
       color: var(--text-green);
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+      text-align: center;
     }
 
     .place {
-      font-size: 36px;
+      font-size: 56px;
       font-weight: 900;
       color: var(--text-red);
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+      text-align: center;
     }
 
     .place.empty {
@@ -123,35 +125,35 @@
     }
 
     .swimmer-name {
-      font-size: 32px;
+      font-size: 44px;
       font-weight: 700;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .team {
-      font-size: 28px;
+      font-size: 38px;
       font-weight: 600;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
       opacity: 0.95;
     }
 
     .split-time {
-      font-size: 34px;
+      font-size: 46px;
       font-weight: 800;
       color: var(--text-yellow);
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
 
     .final-time {
-      font-size: 42px;
+      font-size: 56px;
       font-weight: 900;
       color: var(--barbie-accent);
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
@@ -165,7 +167,7 @@
 
     .lane.first-place .final-time {
       color: #FFD700;
-      font-size: 48px;
+      font-size: 62px;
     }
 
     /* Footer Info */
@@ -182,18 +184,20 @@
     }
 
     .footer-item {
-      font-size: 28px;
+      font-size: 36px;
       font-weight: 600;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .footer-label {
       color: var(--text-green);
-      margin-right: 8px;
+      margin-right: 12px;
+      font-weight: 700;
     }
 
     .footer-value {
       color: var(--text-primary);
+      font-weight: 600;
     }
 
     /* Fullscreen Button */
@@ -319,13 +323,13 @@
         laneDiv.className = 'lane';
         if (lane.place === 1) laneDiv.classList.add('first-place');
         
-        // Build HTML with proper 7-column grid: L, lane#, Place (P#), Name, Team, Split, Final
+        // Build HTML with 6-column grid: lane#, place, name, team, split, final
+        // Place only shows after finish (when lane.place exists)
         const placeHTML = lane.place 
-          ? `<div class="place">P ${lane.place}</div>` 
+          ? `<div class="place">${lane.place}</div>` 
           : `<div class="place empty">-</div>`;
         
         laneDiv.innerHTML = `
-          <div class="lane-number">L</div>
           <div class="lane-number">${lane.lane}</div>
           ${placeHTML}
           <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
