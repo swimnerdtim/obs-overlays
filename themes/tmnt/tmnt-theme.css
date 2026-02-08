@@ -351,75 +351,80 @@ body {
 /* TIMER OVERLAY THEME  */
 /* ==================== */
 
+/* Pizza Box Timer - checkered pattern like a pizza box top */
 .timer-content {
-    background: linear-gradient(135deg, var(--tmnt-green) 0%, var(--color-primary-dark) 100%);
-    border: var(--border-width) solid var(--color-gold);
-    border-radius: var(--border-radius);
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            var(--pizza-orange) 0px,
+            var(--pizza-orange) 20px,
+            var(--pizza-red) 20px,
+            var(--pizza-red) 40px
+        );
+    border: 10px solid var(--pizza-yellow);
+    border-radius: 20px;
     box-shadow:
-        inset 0 -4px 0 rgba(0,0,0,0.3),
-        0 4px 12px var(--shadow-color);
+        inset 0 0 0 5px var(--pizza-red),
+        inset 0 0 30px rgba(0,0,0,0.5),
+        0 8px 20px var(--shadow-color);
+    position: relative;
+    padding: 30px 60px;
+}
+
+/* Manhole cover rivets decoration */
+.timer-content::after {
+    content: "🍕 🍕 🍕";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    opacity: 0.3;
 }
 
 .timer-content.visible {
-    animation: powerUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: pizzaBoxOpen 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 .timer-content.hiding {
-    animation: powerDown 0.3s ease-in forwards;
+    animation: pizzaBoxClose 0.3s ease-in forwards;
 }
 
-@keyframes powerUp {
-    0% { transform: scale(0); opacity: 0; }
-    50% { transform: scale(1.2); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+@keyframes pizzaBoxOpen {
+    0% { 
+        transform: scale(0) rotate(-10deg); 
+        opacity: 0; 
+    }
+    100% { 
+        transform: scale(1) rotate(0deg); 
+        opacity: 1; 
+    }
 }
 
-@keyframes powerDown {
-    0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(0); opacity: 0; }
+@keyframes pizzaBoxClose {
+    0% { 
+        transform: scale(1) rotate(0deg); 
+        opacity: 1; 
+    }
+    100% { 
+        transform: scale(0) rotate(10deg); 
+        opacity: 0; 
+    }
 }
 
+/* Hide the "TIME" label */
 .timer-label {
-    font-size: 3rem;
-    color: var(--color-gold);
-    text-shadow: 2px 2px 0 #000;
+    display: none;
 }
 
+/* Big, bold timer - center of the pizza box */
 .running-time {
-    font-size: 8rem;
+    font-size: 10rem;
     color: #fff;
     text-shadow:
-        3px 3px 0 #000,
-        -2px -2px 0 #000;
-    animation: timerPulse 1s ease-in-out infinite;
-}
-
-@keyframes timerPulse {
-    0%, 100% {
-        text-shadow:
-            3px 3px 0 #000,
-            -2px -2px 0 #000,
-            0 0 10px rgba(255, 215, 0, 0.5);
-    }
-    50% {
-        text-shadow:
-            3px 3px 0 #000,
-            -2px -2px 0 #000,
-            0 0 20px rgba(255, 215, 0, 0.8);
-    }
-}
-
-/* Pizza emoji decoration */
-.timer-content::before {
-    content: "🍕";
-    position: relative;
-    display: inline-block;
-    font-size: 2rem;
-    margin-right: 12px;
-    animation: pizzaSpin 3s ease-in-out infinite;
-}
-
-@keyframes pizzaSpin {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(15deg) scale(1.1); }
+        5px 5px 0 #000,
+        -3px -3px 0 #000,
+        0 0 20px rgba(255, 255, 255, 0.8);
+    font-weight: bold;
+    letter-spacing: 0.1em;
 }
