@@ -62,6 +62,13 @@
       border-bottom: 8px solid #8B2500;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
       z-index: 100;
+      animation: pizzaBoxDrop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes pizzaBoxDrop {
+      0% { transform: translateY(-100%); opacity: 0; }
+      60% { transform: translateY(10px); }
+      100% { transform: translateY(0); opacity: 1; }
     }
 
     .event-name {
@@ -114,6 +121,18 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5),
                   inset 0 2px 0px rgba(255, 255, 255, 0.2);
       transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+
+    .lane.visible {
+      animation: sewerSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes sewerSlideIn {
+      0% { transform: translateX(-100%); opacity: 0; }
+      60% { transform: translateX(5%); }
+      100% { transform: translateX(0); opacity: 1; }
     }
 
     /* Turtle color rotation per lane */
@@ -146,10 +165,16 @@
                    1px -1px 0px #000000,
                    -1px 1px 0px #000000;
       text-align: center;
+      animation: pizzaBounce 0.6s ease-out;
     }
 
     .place.empty {
       opacity: 0;
+    }
+
+    @keyframes pizzaBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
     }
 
     .swimmer-name {
@@ -197,14 +222,30 @@
       background: linear-gradient(135deg, rgba(255, 235, 59, 0.95) 0%, rgba(255, 193, 7, 0.95) 100%);
       border-color: #FFC107;
       border-width: 6px;
-      box-shadow: 0 6px 20px rgba(255, 193, 7, 0.6),
-                  inset 0 2px 0px rgba(255, 255, 255, 0.4);
+      animation: turtlePower 0.4s ease-in-out infinite alternate;
       transform: scale(1.02);
+    }
+
+    @keyframes turtlePower {
+      0% {
+        box-shadow: 0 6px 20px rgba(255, 193, 7, 0.6),
+                    inset 0 2px 0px rgba(255, 255, 255, 0.4),
+                    0 0 30px rgba(255, 235, 59, 0.8);
+        filter: brightness(1);
+      }
+      100% {
+        box-shadow: 0 6px 20px rgba(255, 193, 7, 0.8),
+                    inset 0 2px 0px rgba(255, 255, 255, 0.6),
+                    0 0 50px rgba(255, 255, 255, 1),
+                    0 0 80px rgba(255, 193, 7, 0.9);
+        filter: brightness(1.2);
+      }
     }
 
     .lane.first-place .final-time {
       color: #FF5722;
       font-size: 64px;
+      animation: pizzaBounce 0.6s ease-out infinite;
     }
 
     /* Footer - Sewer grate style */
@@ -257,7 +298,9 @@
 
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-10px) rotate(5deg); }
       50% { transform: translateY(-20px) rotate(10deg); }
+      75% { transform: translateY(-10px) rotate(15deg); }
     }
 
     /* Fullscreen Button */
@@ -403,7 +446,15 @@
           <div class="final-time">${lane.time || ''}</div>
         `;
         
+        // Stagger lane animations
+        laneDiv.style.animationDelay = `${index * 0.08}s`;
+        
         container.appendChild(laneDiv);
+        
+        // Trigger animation
+        setTimeout(() => {
+          laneDiv.classList.add('visible');
+        }, 50 + (index * 80));
       });
     }
 
