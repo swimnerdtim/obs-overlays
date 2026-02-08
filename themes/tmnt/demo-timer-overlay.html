@@ -43,20 +43,20 @@
   <div class="timer-container">
     <div class="timer-content visible">
       <div class="timer-label">TIME</div>
-      <div class="running-time" id="clock">0:52.34</div>
+      <div class="running-time" id="clock">0:52</div>
     </div>
   </div>
 
   <script>
-    // Demo clock counting
-    let seconds = 52.34;
+    // Demo clock counting - MM:SS format only (no decimals)
+    let totalSeconds = 52;
     setInterval(() => {
-      seconds += 0.01;
-      const mins = Math.floor(seconds / 60);
-      const secs = (seconds % 60).toFixed(2);
+      totalSeconds += 1;
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
       document.getElementById('clock').textContent = 
-        `${mins}:${secs.padStart(5, '0')}`;
-    }, 10);
+        `${mins}:${secs.toString().padStart(2, '0')}`;
+    }, 1000);
   </script>
 </body>
 </html>
