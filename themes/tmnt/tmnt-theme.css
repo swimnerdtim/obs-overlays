@@ -370,29 +370,23 @@ body {
     animation: pizzaRise 0.3s ease-in forwards;
 }
 
-/* Spinning pizza decoration near timer */
+/* Pizza orbiting around timer like analog clock */
 .timer-content::before {
     content: "🍕";
     position: absolute;
-    left: -60px;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
     font-size: 3rem;
-    animation: pizzaSpinFloat 3s ease-in-out infinite;
+    animation: pizzaOrbit 4s linear infinite;
+    transform-origin: 0 0;
 }
 
-@keyframes pizzaSpinFloat {
-    0%, 100% { 
-        transform: translateY(-50%) rotate(0deg) scale(1);
+@keyframes pizzaOrbit {
+    0% {
+        transform: rotate(0deg) translateX(100px) rotate(0deg);
     }
-    25% {
-        transform: translateY(-60%) rotate(90deg) scale(1.1);
-    }
-    50% { 
-        transform: translateY(-50%) rotate(180deg) scale(1);
-    }
-    75% {
-        transform: translateY(-40%) rotate(270deg) scale(0.9);
+    100% {
+        transform: rotate(360deg) translateX(100px) rotate(-360deg);
     }
 }
 
