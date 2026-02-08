@@ -500,25 +500,25 @@
       }, 2000);
     }
 
-    // Barbie Character Activities - travels across header
-    const barbieActivities = [
-      { image: 'barbie-waving.png', duration: 12000 },
-      { image: 'barbie-selfie.png', duration: 12000 },
-      { image: 'barbie-dancing.png', duration: 12000 },
-      { image: 'barbie-swimming.png', duration: 12000 },
-      { image: 'barbie-celebrating.png', duration: 12000 },
+    // "Barbie Washes Ashore" - Day 1 Story Sequence
+    const storyScenes = [
+      { image: 'day1-scene1-surfboard.png', duration: 10000, caption: 'Day 1 — A pink surfboard washes in...' },
+      { image: 'day1-scene2-floating.png', duration: 10000, caption: 'Day 1 — Barbie floats ashore' },
+      { image: 'day1-scene3-sitting-up.png', duration: 10000, caption: 'Day 1 — She sits up, looks around' },
+      { image: 'day1-scene4-shrug-okay.png', duration: 10000, caption: 'Day 1 — "...okay."' },
     ];
 
-    let currentActivityIndex = 0;
-    let travelDirection = 'right'; // alternates between 'right' and 'left'
+    // Load story progress from localStorage
+    let currentSceneIndex = parseInt(localStorage.getItem('barbieStoryScene') || '0');
+    let travelDirection = 'right';
 
-    function startBarbieTravel() {
-      const activity = barbieActivities[currentActivityIndex];
+    function startStoryScene() {
+      const scene = storyScenes[currentSceneIndex];
       const barbieEl = document.getElementById('barbieCharacter');
       const barbieImg = document.getElementById('barbieImage');
       
       // Update image
-      barbieImg.src = activity.image;
+      barbieImg.src = scene.image;
       
       // Alternate direction
       travelDirection = (travelDirection === 'right') ? 'left' : 'right';
@@ -526,15 +526,21 @@
       // Reset position and start animation
       barbieEl.className = 'barbie-character travel-' + travelDirection;
       
-      // Move to next activity
-      currentActivityIndex = (currentActivityIndex + 1) % barbieActivities.length;
+      // Optional: Log scene caption to console for debugging
+      console.log(scene.caption);
       
-      // Schedule next travel after animation completes
-      setTimeout(startBarbieTravel, activity.duration);
+      // Move to next scene
+      currentSceneIndex = (currentSceneIndex + 1) % storyScenes.length;
+      
+      // Save progress
+      localStorage.setItem('barbieStoryScene', currentSceneIndex);
+      
+      // Schedule next scene
+      setTimeout(startStoryScene, scene.duration);
     }
 
-    // Start Barbie travels after a short delay
-    setTimeout(startBarbieTravel, 3000);
+    // Start story after a short delay
+    setTimeout(startStoryScene, 3000);
 
     // Start demo mode
     setTimeout(runDemo, 500);
