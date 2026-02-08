@@ -351,12 +351,12 @@
     /* Turtle chase sequence */
     .chase-container {
       position: absolute;
-      top: 120px;
+      top: 35px;
       left: -200px;
       width: 100%;
       height: 80px;
       pointer-events: none;
-      z-index: 50;
+      z-index: 150;
       opacity: 0;
     }
 
@@ -382,37 +382,38 @@
       animation: turtleLegs 0.2s steps(2) infinite;
       image-rendering: pixelated;
       filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+      background-color: transparent !important;
     }
 
     /* Leonardo - Blue */
     .turtle:nth-child(1) { 
       left: 0px;
-      background: url('leonardo.png') no-repeat center;
-      background-size: contain;
+      background: transparent url('leonardo.png') no-repeat center !important;
+      background-size: contain !important;
       filter: drop-shadow(0 0 10px #2196F3) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
     }
     
     /* Raphael - Red */
     .turtle:nth-child(2) { 
       left: 100px;
-      background: url('raphael.png') no-repeat center;
-      background-size: contain;
+      background: transparent url('raphael.png') no-repeat center !important;
+      background-size: contain !important;
       filter: drop-shadow(0 0 10px #F44336) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
     }
     
     /* Donatello - Purple */
     .turtle:nth-child(3) { 
       left: 200px;
-      background: url('donatello.png') no-repeat center;
-      background-size: contain;
+      background: transparent url('donatello.png') no-repeat center !important;
+      background-size: contain !important;
       filter: drop-shadow(0 0 10px #9C27B0) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
     }
     
     /* Michelangelo - Orange */
     .turtle:nth-child(4) { 
       left: 300px;
-      background: url('michelangelo.png') no-repeat center;
-      background-size: contain;
+      background: transparent url('michelangelo.png') no-repeat center !important;
+      background-size: contain !important;
       filter: drop-shadow(0 0 10px #FF9800) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
     }
 
@@ -428,19 +429,20 @@
       animation: villainChase 0.3s ease-in-out infinite alternate;
       image-rendering: pixelated;
       filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.6));
+      background-color: transparent !important;
     }
 
     .villain:nth-child(5) { 
       left: 420px;
-      background: url('shredder.png') no-repeat center;
-      background-size: contain;
+      background: transparent url('shredder.png') no-repeat center !important;
+      background-size: contain !important;
       filter: drop-shadow(0 0 12px #8B2500) drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.6));
     }
     
     .villain:nth-child(6) { 
       left: 530px;
-      background: url('krang.png') no-repeat center;
-      background-size: contain;
+      background: transparent url('krang.png') no-repeat center !important;
+      background-size: contain !important;
       filter: drop-shadow(0 0 12px #FF00FF) drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.6));
     }
 
@@ -453,15 +455,15 @@
     .manhole {
       position: absolute;
       left: 0;
-      top: 120px;
-      width: 100px;
-      height: 100px;
+      top: 25px;
+      width: 80px;
+      height: 80px;
       background: radial-gradient(circle, #404040 0%, #1a1a1a 70%, #000000 100%);
       border-radius: 50%;
       border: 5px solid #808080;
       box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8),
                   0 4px 10px rgba(0, 0, 0, 0.6);
-      z-index: 40;
+      z-index: 140;
       opacity: 0;
     }
 
