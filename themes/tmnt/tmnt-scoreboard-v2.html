@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>TMNT Scoreboard - Turtle Power!</title>
+  <style>
+    /* TMNT Theme Variables */
+    :root {
+      --sewer-green: #2d5016;
+      --turtle-green: #4CAF50;
+      --pizza-orange: #FF6B35;
+      --pizza-red: #E52521;
+      --pizza-yellow: #FFD93D;
+      --text-white: #FFFFFF;
+      --text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Impact, 'Arial Black', sans-serif;
+      background: linear-gradient(180deg, #1a1a1a 0%, #0a3d0a 50%, #000000 100%);
+      color: var(--text-white);
+      overflow: hidden;
+      width: 1920px;
+      height: 1080px;
+      text-transform: uppercase;
+    }
+
+    /* Pizza Box Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 50px;
+      background: linear-gradient(135deg, var(--pizza-orange) 0%, var(--pizza-red) 100%);
+      border-bottom: 6px solid var(--pizza-yellow);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .event-name {
+      font-size: 62px;
+      font-weight: 900;
+      text-shadow: var(--text-shadow);
+      color: var(--text-white);
+    }
+
+    .race-clock {
+      font-size: 120px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 6px 20px rgba(0, 0, 0, 0.9);
+      color: var(--pizza-yellow);
+    }
+
+    /* Lanes Container */
+    .lanes-container {
+      padding: 15px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Individual Lane */
+    .lane {
+      display: grid;
+      grid-template-columns: 80px 100px 490px 340px 220px 250px;
+      gap: 24px;
+      align-items: center;
+      background: rgba(76, 175, 80, 0.15);
+      padding: 14px 30px;
+      border-radius: 8px;
+      border-left: 8px solid var(--turtle-green);
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateX(-50px);
+    }
+
+    .lane.visible {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Turtle Color Borders - Rotate Through 4 Colors */
+    .lane:nth-child(1) { border-left-color: #2196F3; } /* Leonardo - Blue */
+    .lane:nth-child(2) { border-left-color: #F44336; } /* Raphael - Red */
+    .lane:nth-child(3) { border-left-color: #9C27B0; } /* Donatello - Purple */
+    .lane:nth-child(4) { border-left-color: #FF9800; } /* Michelangelo - Orange */
+    .lane:nth-child(5) { border-left-color: #2196F3; } /* Leonardo - Blue */
+    .lane:nth-child(6) { border-left-color: #F44336; } /* Raphael - Red */
+    .lane:nth-child(7) { border-left-color: #9C27B0; } /* Donatello - Purple */
+    .lane:nth-child(8) { border-left-color: #FF9800; } /* Michelangelo - Orange */
+
+    .lane-number {
+      font-size: 56px;
+      font-weight: 900;
+      color: var(--turtle-green);
+      text-shadow: var(--text-shadow);
+      text-align: center;
+    }
+
+    .place {
+      font-size: 64px;
+      font-weight: 900;
+      color: var(--pizza-yellow);
+      text-shadow: var(--text-shadow);
+      text-align: center;
+    }
+
+    .swimmer-name {
+      font-size: 42px;
+      font-weight: 700;
+      text-shadow: var(--text-shadow);
+    }
+
+    .team {
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--pizza-yellow);
+      text-shadow: var(--text-shadow);
+    }
+
+    .split-time {
+      font-size: 44px;
+      font-weight: 700;
+      color: var(--turtle-green);
+      text-shadow: var(--text-shadow);
+      text-align: right;
+    }
+
+    .final-time {
+      font-size: 54px;
+      font-weight: 900;
+      color: var(--text-white);
+      text-shadow: var(--text-shadow);
+      text-align: right;
+    }
+
+    /* First Place - Golden Shell */
+    .lane.first-place {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      border-left-color: #FFFFFF !important;
+      animation: shellGlow 1s ease-in-out infinite alternate;
+    }
+
+    @keyframes shellGlow {
+      0% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 40px rgba(255, 215, 0, 1);
+      }
+    }
+
+    .lane.first-place .swimmer-name,
+    .lane.first-place .team,
+    .lane.first-place .split-time,
+    .lane.first-place .final-time {
+      color: #000000;
+      text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+    }
+
+    .lane.first-place .place {
+      color: #FFFFFF;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Pool Record Display */
+    .pool-record {
+      position: absolute;
+      bottom: 20px;
+      right: 50px;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--pizza-yellow);
+      text-shadow: var(--text-shadow);
+      background: rgba(0, 0, 0, 0.6);
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 3px solid var(--turtle-green);
+    }
+
+    /* Floating Pizza Slices */
+    .pizza-slice {
+      position: absolute;
+      font-size: 48px;
+      opacity: 0.3;
+      animation: floatPizza 15s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatPizza {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(15deg); }
+    }
+
+    .pizza-slice:nth-child(1) { top: 200px; left: 100px; animation-delay: 0s; }
+    .pizza-slice:nth-child(2) { top: 400px; right: 150px; animation-delay: 3s; }
+    .pizza-slice:nth-child(3) { bottom: 250px; left: 200px; animation-delay: 6s; }
+    .pizza-slice:nth-child(4) { top: 600px; right: 300px; animation-delay: 9s; }
+  </style>
+</head>
+<body>
+  <!-- Floating Pizza Decorations -->
+  <div class="pizza-slice">🍕</div>
+  <div class="pizza-slice">🍕</div>
+  <div class="pizza-slice">🍕</div>
+  <div class="pizza-slice">🍕</div>
+
+  <!-- Pizza Box Header -->
+  <div class="header">
+    <div class="event-name">Event 2 - Girls 200 IM</div>
+    <div class="race-clock">0:00.00</div>
+  </div>
+
+  <!-- 8 Lane Results -->
+  <div class="lanes-container">
+    <div class="lane">
+      <div class="lane-number">1</div>
+      <div class="place">1</div>
+      <div class="swimmer-name">KATIE LEDECKY</div>
+      <div class="team">STANFORD</div>
+      <div class="split-time">28.45</div>
+      <div class="final-time">1:52.34</div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-number">2</div>
+      <div class="place">2</div>
+      <div class="swimmer-name">SIMONE MANUEL</div>
+      <div class="team">CAL</div>
+      <div class="split-time">28.92</div>
+      <div class="final-time">1:53.12</div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-number">3</div>
+      <div class="place">3</div>
+      <div class="swimmer-name">MISSY FRANKLIN</div>
+      <div class="team">BERKELEY</div>
+      <div class="split-time">29.01</div>
+      <div class="final-time">1:53.78</div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-number">4</div>
+      <div class="place">4</div>
+      <div class="swimmer-name">NATALIE COUGHLIN</div>
+      <div class="team">USC</div>
+      <div class="split-time">29.34</div>
+      <div class="final-time">1:54.23</div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-number">5</div>
+      <div class="place">5</div>
+      <div class="swimmer-name">EMMA WEYANT</div>
+      <div class="team">UVA</div>
+      <div class="split-time">29.56</div>
+      <div class="final-time">1:54.89</div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-number">6</div>
+      <div class="place">6</div>
+      <div class="swimmer-name">KATIE GRIMES</div>
+      <div class="team">SANDPIPERS</div>
+      <div class="split-time">29.78</div>
+      <div class="final-time">1:55.34</div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-number">7</div>
+      <div class="place">7</div>
+      <div class="swimmer-name">ALEX WALSH</div>
+      <div class="team">UVA</div>
+      <div class="split-time">30.12</div>
+      <div class="final-time">1:55.92</div>
+    </div>
+
+    <div class="lane">
+      <div class="lane-number">8</div>
+      <div class="place">8</div>
+      <div class="swimmer-name">KATE DOUGLASS</div>
+      <div class="team">UVA</div>
+      <div class="split-time">30.45</div>
+      <div class="final-time">1:56.45</div>
+    </div>
+  </div>
+
+  <!-- Pool Record -->
+  <div class="pool-record">Pool Record: 1:48.22</div>
+
+  <script>
+    // Simulate lane visibility (like race starting)
+    setTimeout(() => {
+      const lanes = document.querySelectorAll('.lane');
+      lanes.forEach((lane, index) => {
+        setTimeout(() => {
+          lane.classList.add('visible');
+        }, index * 80); // Stagger by 80ms
+      });
+    }, 500);
+
+    // Simulate first place winning
+    setTimeout(() => {
+      document.querySelector('.lane:first-child').classList.add('first-place');
+    }, 2000);
+
+    // Demo race clock
+    let seconds = 0;
+    setInterval(() => {
+      seconds += 0.1;
+      const mins = Math.floor(seconds / 60);
+      const secs = (seconds % 60).toFixed(2);
+      document.querySelector('.race-clock').textContent = 
+        `${mins}:${secs.padStart(5, '0')}`;
+    }, 100);
+  </script>
+</body>
+</html>
