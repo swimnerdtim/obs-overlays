@@ -23,20 +23,20 @@
     /* Story Canvas - Overlays top of scoreboard */
     #storyStage {
       position: absolute;
-      top: 20px;
+      top: 15px;
       left: 50%;
       transform: translateX(-50%);
-      width: 1800px;
-      height: 280px;
+      width: 1700px;
+      height: 180px;
       overflow: hidden;
       background: linear-gradient(180deg, 
         #FFB6D9 0%, 
         #48b7ff 60%, 
         #f3e1b5 90%
       );
-      border-radius: 20px;
-      border: 6px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      border-radius: 16px;
+      border: 4px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
       z-index: 1000;
     }
 
@@ -59,18 +59,18 @@
     }
 
     #surfboard {
-      width: 140px;
+      width: 100px;
       height: auto;
-      left: -150px;
-      top: 180px;
+      left: -120px;
+      top: 110px;
       z-index: 10;
     }
 
     #barbie {
-      width: 120px;
+      width: 85px;
       height: auto;
-      left: -130px;
-      top: 160px;
+      left: -100px;
+      top: 95px;
       z-index: 11;
     }
 
@@ -100,25 +100,25 @@
     /* Header with Event + Clock */
     .header {
       position: absolute;
-      top: 320px;
+      top: 210px;
       left: 0;
       right: 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 50px;
+      padding: 16px 50px;
       background: rgba(255, 255, 255, 0.15);
       border-bottom: 4px solid rgba(255, 255, 255, 0.3);
     }
 
     .event-name {
-      font-size: 54px;
+      font-size: 50px;
       font-weight: 800;
       text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
     }
 
     .race-clock {
-      font-size: 100px;
+      font-size: 90px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
       text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
@@ -128,31 +128,31 @@
     /* Lane Results */
     .lanes-container {
       position: absolute;
-      top: 420px;
+      top: 290px;
       left: 0;
       right: 0;
       bottom: 80px;
-      padding: 10px 50px 12px 50px;
+      padding: 8px 50px 10px 50px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
       overflow: hidden;
     }
 
     .lane {
       display: grid;
-      grid-template-columns: 80px 100px 490px 340px 220px 250px;
-      gap: 24px;
+      grid-template-columns: 75px 95px 480px 330px 210px 240px;
+      gap: 22px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 11px 30px;
-      border-radius: 10px;
+      padding: 9px 28px;
+      border-radius: 8px;
       border-left: 6px solid rgba(255, 240, 245, 1);
       transition: all 0.3s ease;
     }
 
     .lane-number {
-      font-size: 56px;
+      font-size: 52px;
       font-weight: 900;
       color: #00FF00;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -160,7 +160,7 @@
     }
 
     .place {
-      font-size: 56px;
+      font-size: 52px;
       font-weight: 900;
       color: #FF1493;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -172,7 +172,7 @@
     }
 
     .swimmer-name {
-      font-size: 44px;
+      font-size: 40px;
       font-weight: 700;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
@@ -181,14 +181,14 @@
     }
 
     .team {
-      font-size: 38px;
+      font-size: 35px;
       font-weight: 600;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       opacity: 0.95;
     }
 
     .split-time {
-      font-size: 46px;
+      font-size: 42px;
       font-weight: 800;
       color: #FFD700;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -197,7 +197,7 @@
     }
 
     .final-time {
-      font-size: 56px;
+      font-size: 52px;
       font-weight: 900;
       color: #FFF0F5;
       text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
@@ -213,7 +213,7 @@
 
     .lane.first-place .final-time {
       color: #FFD700;
-      font-size: 62px;
+      font-size: 58px;
     }
 
     /* Footer */
@@ -245,10 +245,42 @@
       color: #FFFFFF;
       font-weight: 600;
     }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: var(--barbie-hot-pink);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 2000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .fullscreen-btn:hover {
+      background: #C71585;
+      transform: scale(1.05);
+    }
+
+    .fullscreen-btn.hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <!-- Story Stage (Top 220px) -->
+  <!-- Fullscreen Button -->
+  <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+    Enter Fullscreen (F11)
+  </button>
+
+  <!-- Story Stage -->
   <div id="storyStage">
     <div id="backdrop"></div>
     <img id="surfboard" class="storyElement" src="day1-scene1-surfboard.png" alt="Surfboard" />
@@ -322,11 +354,41 @@
       el.barbie.classList.remove("bob");
       el.surfboard.style.transition = "none";
       el.barbie.style.transition = "none";
-      el.surfboard.style.left = "-150px";
-      el.surfboard.style.top = "180px";
-      el.barbie.style.left = "-130px";
-      el.barbie.style.top = "160px";
+      el.surfboard.style.left = "-120px";
+      el.surfboard.style.top = "110px";
+      el.barbie.style.left = "-100px";
+      el.barbie.style.top = "95px";
     }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        document.getElementById('fullscreenBtn').classList.add('hidden');
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          document.getElementById('fullscreenBtn').classList.remove('hidden');
+        }
+      }
+    }
+
+    // Hide fullscreen button when in fullscreen
+    document.addEventListener('fullscreenchange', () => {
+      const btn = document.getElementById('fullscreenBtn');
+      if (document.fullscreenElement) {
+        btn.classList.add('hidden');
+      } else {
+        btn.classList.remove('hidden');
+      }
+    });
+
+    // F11 key handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F11') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+    });
 
     // DAY 1 — ARRIVAL (Linear sequence)
     async function playDay1Arrival() {
