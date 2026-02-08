@@ -22,10 +22,13 @@ Cowabunga! The Teenage Mutant Ninja Turtles come to your swim meet.
 - **First place time** - Bounces continuously to celebrate the win!
 - **TURTLE CHASE!** 🐢🥷👾 - All 4 turtles (with colored glows!) run across the screen chased by Shredder and Krang
   - Manhole cover spins in at left
+  - **Retro 8-bit sprites** generated with AI (authentic arcade game aesthetic!)
   - Leonardo (blue glow), Raphael (red), Donatello (purple), Michelangelo (orange)
-  - Shredder 🥷 and Krang 👾 chase them
+  - Shredder and Krang chase them with evil glows
   - 8-second run across the screen
   - Triggers 1.5 seconds after lanes load
+  - Each turtle: 80x80px, villains: 85x85px
+  - Pixelated rendering for authentic retro look
 
 ## Color Palette
 
