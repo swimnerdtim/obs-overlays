@@ -121,8 +121,8 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5),
                   inset 0 2px 0px rgba(255, 255, 255, 0.2);
       transition: all 0.3s ease;
-      opacity: 0;
-      transform: translateX(-100%);
+      opacity: 1;
+      transform: translateX(0);
     }
 
     .lane.visible {
@@ -626,18 +626,35 @@
     // Start
     updateLanes(demoLanes);
 
-    // Trigger turtle chase after lanes load
-    setTimeout(() => {
-      // Show manhole
+    // Function to run the chase
+    function runChaseSequence() {
       const manhole = document.getElementById('manhole');
-      manhole.classList.add('visible');
-
-      // Start chase 0.5s after manhole appears
+      const chase = document.getElementById('chaseContainer');
+      
+      // Reset chase
+      chase.classList.remove('running');
+      manhole.classList.remove('visible');
+      
+      // Show manhole
       setTimeout(() => {
-        const chase = document.getElementById('chaseContainer');
-        chase.classList.add('running');
-      }, 500);
-    }, 1500);
+        manhole.classList.add('visible');
+        
+        // Start chase 0.5s after manhole appears
+        setTimeout(() => {
+          chase.classList.add('running');
+        }, 500);
+      }, 100);
+    }
+
+    // Trigger turtle chase after lanes load
+    setTimeout(runChaseSequence, 1500);
+
+    // Listen for simulator commands
+    window.addEventListener('message', (event) => {
+      if (event.data.action === 'runChase') {
+        runChaseSequence();
+      }
+    });
   </script>
 </body>
 </html>

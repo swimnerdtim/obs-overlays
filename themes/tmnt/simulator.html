@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>TMNT Scoreboard Simulator</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #1a1a1a;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .controls {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      border: 2px solid #4CAF50;
+      z-index: 10000;
+    }
+
+    .controls h3 {
+      margin-top: 0;
+      color: #4CAF50;
+      font-family: Impact, sans-serif;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: Impact, sans-serif;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background: #66BB6A;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    iframe {
+      border: 3px solid #4CAF50;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .info {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255, 235, 59, 0.2);
+      border-radius: 8px;
+      border-left: 4px solid #FFEB3B;
+      font-size: 14px;
+    }
+
+    .info strong {
+      color: #FFEB3B;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="font-family: Impact, sans-serif; color: #4CAF50;">🐢 TMNT Scoreboard Simulator</h1>
+  
+  <div class="controls">
+    <h3>🎮 CONTROLS</h3>
+    <button onclick="triggerChase()">🐢 RUN TURTLE CHASE!</button>
+    <button onclick="reloadScoreboard()">🔄 Reload Scoreboard</button>
+    <button onclick="toggleFullscreen()">⛶ Toggle Fullscreen</button>
+    
+    <div class="info">
+      <strong>💡 TIP:</strong><br>
+      Click "RUN TURTLE CHASE!" to see the turtles escape from Shredder and Krang!
+    </div>
+  </div>
+
+  <iframe 
+    id="scoreboard" 
+    src="tmnt-scoreboard.html" 
+    width="1920" 
+    height="1080"
+    allow="autoplay">
+  </iframe>
+
+  <script>
+    function triggerChase() {
+      const iframe = document.getElementById('scoreboard');
+      iframe.contentWindow.postMessage({ action: 'runChase' }, '*');
+    }
+
+    function reloadScoreboard() {
+      document.getElementById('scoreboard').src = 'tmnt-scoreboard.html';
+    }
+
+    function toggleFullscreen() {
+      const iframe = document.getElementById('scoreboard');
+      if (!document.fullscreenElement) {
+        iframe.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  </script>
+</body>
+</html>
