@@ -93,13 +93,13 @@ body {
 }
 
 @keyframes sewerSlideIn {
-    0% { transform: translateX(-100%); opacity: 0; }
-    100% { transform: translateX(0); opacity: 1; }
+    0% { transform: scaleX(0); opacity: 0; }
+    100% { transform: scaleX(1); opacity: 1; }
 }
 
 @keyframes sewerSlideOut {
-    0% { transform: translateX(0); opacity: 1; }
-    100% { transform: translateX(-100%); opacity: 0; }
+    0% { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(0); opacity: 0; }
 }
 
 /* Turtle color rotation for lanes */
@@ -127,12 +127,7 @@ body {
 }
 
 .lineup-content.hiding {
-    animation: fadeOutQuick 0.2s ease-out forwards;
-}
-
-@keyframes fadeOutQuick {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
+    animation: sewerSlideOut 0.2s ease-out forwards;
 }
 
 .lineup-name {
@@ -270,14 +265,14 @@ body {
 }
 
 @keyframes pizzaDrop {
-    0% { transform: translateY(-100%) scale(0.5); opacity: 0; }
-    60% { transform: translateY(10%) scale(1.1); opacity: 1; }
-    100% { transform: translateY(0) scale(1); opacity: 1; }
+    0% { transform: scaleX(0); opacity: 0; }
+    60% { transform: scaleX(1.1); opacity: 1; }
+    100% { transform: scaleX(1); opacity: 1; }
 }
 
 @keyframes pizzaRise {
-    0% { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(-100%) scale(0.5); opacity: 0; }
+    0% { transform: scaleX(1); opacity: 1; }
+    100% { transform: scaleX(0); opacity: 0; }
 }
 
 .split-time {

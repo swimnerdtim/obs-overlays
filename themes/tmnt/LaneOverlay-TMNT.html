@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lane Overlay - TMNT Theme</title>
+
+    <!-- TMNT THEME -->
+    <link href="tmnt-theme.css" rel="stylesheet">
+
+    <style>
+        /* ==================== */
+        /* STRUCTURAL CSS ONLY */
+        /* (Layout, positioning) */
+        /* ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: transparent;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .lanes-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100vh;
+            padding: 20px 0;
+        }
+
+        .lane-box {
+            position: relative;
+            height: calc((100vh - 40px) / 8 - 8px);
+            margin: 4px 0;
+            overflow: hidden;
+        }
+
+        .lane-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(100% - 70px);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            transform: scaleX(0);
+            transform-origin: right center;
+            opacity: 0;
+            transition: none;
+        }
+
+        .lane-info {
+            display: flex;
+            flex: 1;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .place-indicator {
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
+            margin-right: 15px;
+        }
+
+        .swimmer-name {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .final-time {
+            font-variant-numeric: tabular-nums;
+            min-width: 200px;
+            text-align: right;
+        }
+
+        .split-content {
+            position: absolute;
+            right: 70px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            transform: scaleX(0);
+            transform-origin: right center;
+            opacity: 0;
+        }
+
+        .split-time {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Pre-race lineup display */
+        .lineup-content {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: calc(100% - 70px);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            transform: scaleX(0);
+            transform-origin: right center;
+            opacity: 0;
+        }
+
+        .lineup-info {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            padding: 0 10px;
+        }
+
+        .lineup-lane {
+            display: none;
+        }
+
+        .lineup-name {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 20px;
+        }
+
+        .lineup-team {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Persistent lane number indicator */
+        .lane-indicator {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 10;
+        }
+
+        /* Demo mode styles */
+        .demo-mode {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            border: 4px solid #FFD93D;
+            font-family: Impact, sans-serif;
+            font-size: 24px;
+            z-index: 9999;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-mode">🐢 TMNT DEMO MODE</div>
+
+    <div class="lanes-container">
+        <!-- Lane 8 -->
+        <div class="lane-box" id="lane-8">
+            <div class="lane-indicator">8</div>
+            <div class="lane-content visible">
+                <div class="place-indicator">5</div>
+                <div class="lane-info">
+                    <span class="swimmer-name">BELLA SIMS</span>
+                    <span class="final-time">1:54.67</span>
+                </div>
+            </div>
+            <div class="split-content">
+                <span class="split-time">29.12</span>
+            </div>
+        </div>
+
+        <!-- Lane 7 -->
+        <div class="lane-box" id="lane-7">
+            <div class="lane-indicator">7</div>
+            <div class="lane-content visible">
+                <div class="place-indicator"></div>
+                <div class="lane-info">
+                    <span class="swimmer-name">KATE DOUGLASS</span>
+                    <span class="final-time">1:55.89</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lane 6 -->
+        <div class="lane-box" id="lane-6">
+            <div class="lane-indicator">6</div>
+            <div class="lane-content visible">
+                <div class="place-indicator"></div>
+                <div class="lane-info">
+                    <span class="swimmer-name">ALEX WALSH</span>
+                    <span class="final-time">1:55.12</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lane 5 -->
+        <div class="lane-box" id="lane-5">
+            <div class="lane-indicator">5</div>
+            <div class="lane-content visible">
+                <div class="place-indicator">4</div>
+                <div class="lane-info">
+                    <span class="swimmer-name">EMMA WEYANT</span>
+                    <span class="final-time">1:54.23</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lane 4 -->
+        <div class="lane-box" id="lane-4">
+            <div class="lane-indicator">4</div>
+            <div class="lane-content visible">
+                <div class="place-indicator">2</div>
+                <div class="lane-info">
+                    <span class="swimmer-name">KATIE GRIMES</span>
+                    <span class="final-time">1:52.89</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lane 3 - FIRST PLACE -->
+        <div class="lane-box" id="lane-3">
+            <div class="lane-indicator">3</div>
+            <div class="lane-content visible first-place">
+                <div class="place-indicator">1</div>
+                <div class="lane-info">
+                    <span class="swimmer-name">MISSY FRANKLIN</span>
+                    <span class="final-time">1:51.78</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lane 2 -->
+        <div class="lane-box" id="lane-2">
+            <div class="lane-indicator">2</div>
+            <div class="lane-content visible">
+                <div class="place-indicator">3</div>
+                <div class="lane-info">
+                    <span class="swimmer-name">SIMONE MANUEL</span>
+                    <span class="final-time">1:53.12</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lane 1 -->
+        <div class="lane-box" id="lane-1">
+            <div class="lane-indicator">1</div>
+            <div class="lane-content visible">
+                <div class="place-indicator"></div>
+                <div class="lane-info">
+                    <span class="swimmer-name">KATIE LEDECKY</span>
+                    <span class="final-time">1:52.34</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
