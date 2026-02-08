@@ -20,14 +20,14 @@ Cowabunga! The Teenage Mutant Ninja Turtles come to your swim meet.
 - **Pizza Box Drop** - Header drops from above with satisfying bounce
 - **Pizza Float** - Background pizza slices float and rotate gently
 - **First place time** - Bounces continuously to celebrate the win!
-- **TURTLE CHASE!** 🐢🥷👾 - All 4 turtles (with colored glows!) run across the screen chased by Shredder and Krang
+- **TURTLE CHASE!** 🐢🥷👾 - All 4 turtles (with colored glows!) run across the screen chased by Bebop and Rocksteady
   - Manhole cover spins in at left
-  - **Retro 8-bit sprites** generated with AI (authentic arcade game aesthetic!)
+  - **Authentic 1989 arcade sprites** from Konami's TMNT game!
   - Leonardo (blue glow), Raphael (red), Donatello (purple), Michelangelo (orange)
-  - Shredder and Krang chase them with evil glows
+  - Bebop (brown warthog) and Rocksteady (gray rhino) chase them with evil glows
   - 8-second run across the screen
   - Triggers 1.5 seconds after lanes load
-  - Each turtle: 80x80px, villains: 85x85px
+  - Each turtle: 64x64px, villains: 70x70px
   - Pixelated rendering for authentic retro look
 
 ## Color Palette
