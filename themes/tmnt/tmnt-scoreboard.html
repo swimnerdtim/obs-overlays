@@ -358,6 +358,7 @@
       pointer-events: none;
       z-index: 150;
       opacity: 0;
+      background: none !important;
     }
 
     .chase-container.running {
@@ -377,44 +378,40 @@
 
     .turtle {
       position: absolute;
-      width: 80px;
-      height: 80px;
+      width: 65px;
+      height: 65px;
       animation: turtleLegs 0.2s steps(2) infinite;
       image-rendering: pixelated;
-      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
-      background-color: transparent !important;
+      background: none !important;
+      border: none !important;
     }
 
     /* Leonardo - Blue */
     .turtle:nth-child(1) { 
-      left: 0px;
-      background: url('leonardo-orange.png?v=2') no-repeat center !important;
-      background-size: contain !important;
-      filter: drop-shadow(0 0 10px #2196F3) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+      left: 150px;
+      background: url('leonardo-orange.png?v=3') no-repeat center / cover !important;
+      filter: drop-shadow(0 0 8px #2196F3);
     }
     
     /* Raphael - Red */
     .turtle:nth-child(2) { 
-      left: 100px;
-      background: url('raphael-orange.png?v=2') no-repeat center !important;
-      background-size: contain !important;
-      filter: drop-shadow(0 0 10px #F44336) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+      left: 230px;
+      background: url('raphael-orange.png?v=3') no-repeat center / cover !important;
+      filter: drop-shadow(0 0 8px #F44336);
     }
     
     /* Donatello - Purple */
     .turtle:nth-child(3) { 
-      left: 200px;
-      background: url('donatello-orange.png?v=2') no-repeat center !important;
-      background-size: contain !important;
-      filter: drop-shadow(0 0 10px #9C27B0) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+      left: 310px;
+      background: url('donatello-orange.png?v=3') no-repeat center / cover !important;
+      filter: drop-shadow(0 0 8px #9C27B0);
     }
     
     /* Michelangelo - Orange */
     .turtle:nth-child(4) { 
-      left: 300px;
-      background: url('michelangelo-orange.png?v=2') no-repeat center !important;
-      background-size: contain !important;
-      filter: drop-shadow(0 0 10px #FF9800) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+      left: 390px;
+      background: url('michelangelo-orange.png?v=3') no-repeat center / cover !important;
+      filter: drop-shadow(0 0 8px #FF9800);
     }
 
     @keyframes turtleLegs {
@@ -424,26 +421,24 @@
 
     .villain {
       position: absolute;
-      width: 85px;
-      height: 85px;
+      width: 70px;
+      height: 70px;
       animation: villainChase 0.3s ease-in-out infinite alternate;
       image-rendering: pixelated;
-      filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.6));
-      background-color: transparent !important;
+      background: none !important;
+      border: none !important;
     }
 
     .villain:nth-child(5) { 
-      left: 420px;
-      background: url('shredder-orange.png?v=2') no-repeat center !important;
-      background-size: contain !important;
-      filter: drop-shadow(0 0 12px #8B2500) drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.6));
+      left: 500px;
+      background: url('shredder-orange.png?v=3') no-repeat center / cover !important;
+      filter: drop-shadow(0 0 10px #8B2500);
     }
     
     .villain:nth-child(6) { 
-      left: 530px;
-      background: url('krang-orange.png?v=2') no-repeat center !important;
-      background-size: contain !important;
-      filter: drop-shadow(0 0 12px #FF00FF) drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.6));
+      left: 590px;
+      background: url('krang-orange.png?v=3') no-repeat center / cover !important;
+      filter: drop-shadow(0 0 10px #FF00FF);
     }
 
     @keyframes villainChase {
@@ -454,13 +449,13 @@
     /* Manhole cover entrance */
     .manhole {
       position: absolute;
-      left: 0;
+      left: 150px;
       top: 25px;
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       background: radial-gradient(circle, #404040 0%, #1a1a1a 70%, #000000 100%);
       border-radius: 50%;
-      border: 5px solid #808080;
+      border: 4px solid #808080;
       box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8),
                   0 4px 10px rgba(0, 0, 0, 0.6);
       z-index: 140;
