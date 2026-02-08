@@ -20,16 +20,27 @@
       height: 1080px;
     }
 
-    /* Johnny Castaway iframe at top */
-    #johnnyFrame {
+    /* Container to clip overflow */
+    #johnnyContainer {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      background: #87CEEB;
+    }
+    
+    /* Johnny Castaway iframe - scaled up to fill width */
+    #johnnyFrame {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%) scale(1.6);
+      width: 1200px;
       height: 300px;
       border: none;
-      background: #87CEEB;
+      transform-origin: center top;
     }
 
     /* Header with Event + Clock */
@@ -241,8 +252,10 @@
     Enter Fullscreen (F11)
   </button>
 
-  <!-- Johnny Castaway iframe -->
-  <iframe id="johnnyFrame" src="https://castaway.xesf.net" allow="autoplay"></iframe>
+  <!-- Johnny Castaway iframe (stretched to fill width) -->
+  <div id="johnnyContainer">
+    <iframe id="johnnyFrame" src="https://castaway.xesf.net" allow="autoplay"></iframe>
+  </div>
 
   <!-- Scoreboard Header -->
   <div class="header">
