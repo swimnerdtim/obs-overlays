@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>TMNT Chase Animation - Simple Test</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 1920px;
+      height: 1080px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #0a3d0a 50%, #000000 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Test header to show where chase will run */
+    .test-header {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: Impact, sans-serif;
+      font-size: 3rem;
+      color: #4CAF50;
+      text-shadow: 4px 4px 0 #000;
+      text-align: center;
+    }
+
+    /* TURTLE CHASE CONTAINER */
+    .tmnt-chase-container {
+      position: absolute;
+      bottom: 100px;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* Individual character sprites */
+    .character {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      image-rendering: pixelated;
+      opacity: 0;
+      bottom: 0;
+    }
+
+    /* Villain sprites are slightly bigger */
+    .character.villain {
+      width: 70px;
+      height: 70px;
+    }
+
+    /* Character colors (drop shadows) */
+    .character.leonardo { filter: drop-shadow(0 0 8px #2196F3); }
+    .character.raphael { filter: drop-shadow(0 0 8px #F44336); }
+    .character.donatello { filter: drop-shadow(0 0 8px #9C27B0); }
+    .character.michelangelo { filter: drop-shadow(0 0 8px #FF9800); }
+    .character.bebop { filter: drop-shadow(0 0 10px #8B4513); }
+    .character.rocksteady { filter: drop-shadow(0 0 10px #708090); }
+
+    /* Background images */
+    .character.leonardo { background-image: url('leonardo-arcade.png'); }
+    .character.raphael { background-image: url('raphael-arcade.png'); }
+    .character.donatello { background-image: url('donatello-arcade.png'); }
+    .character.michelangelo { background-image: url('michelangelo-arcade.png'); }
+    .character.bebop { background-image: url('bebop-arcade.png'); }
+    .character.rocksteady { background-image: url('rocksteady-arcade.png'); }
+
+    /* RUNNING ANIMATION (copied from Mario) */
+    .character.running {
+      animation: characterRun 8s linear forwards,
+                 characterBounce 0.3s ease-in-out infinite;
+      opacity: 1;
+    }
+
+    @keyframes characterRun {
+      0% {
+        left: -100px;
+      }
+      100% {
+        left: calc(100% + 100px);
+      }
+    }
+
+    @keyframes characterBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Stagger each character slightly */
+    .character:nth-child(1) { animation-delay: 0s; }
+    .character:nth-child(2) { animation-delay: 0.15s; }
+    .character:nth-child(3) { animation-delay: 0.3s; }
+    .character:nth-child(4) { animation-delay: 0.45s; }
+    .character:nth-child(5) { animation-delay: 0.8s; }   /* Villains lag behind */
+    .character:nth-child(6) { animation-delay: 0.95s; }
+
+    /* Button to trigger animation */
+    button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 20px 40px;
+      font-family: Impact, sans-serif;
+      font-size: 1.5rem;
+      background: #4CAF50;
+      color: white;
+      border: 4px solid #000;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 2000;
+      text-transform: uppercase;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+
+    button:hover {
+      background: #66BB6A;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+<body>
+  <div class="test-header">
+    🐢 TMNT CHASE ANIMATION TEST 🐢
+    <div style="font-size: 1.5rem; margin-top: 20px;">Click button to start</div>
+  </div>
+
+  <div class="tmnt-chase-container">
+    <!-- Turtles -->
+    <div class="character leonardo"></div>
+    <div class="character raphael"></div>
+    <div class="character donatello"></div>
+    <div class="character michelangelo"></div>
+    
+    <!-- Villains chasing them -->
+    <div class="character villain bebop"></div>
+    <div class="character villain rocksteady"></div>
+  </div>
+
+  <button onclick="startChase()">🐢 RUN TURTLE CHASE!</button>
+
+  <script>
+    function startChase() {
+      // Remove any previous running classes
+      const characters = document.querySelectorAll('.character');
+      characters.forEach(char => {
+        char.classList.remove('running');
+        // Force reflow to restart animation
+        void char.offsetWidth;
+      });
+
+      // Add running class to trigger CSS animation
+      setTimeout(() => {
+        characters.forEach(char => {
+          char.classList.add('running');
+        });
+      }, 10);
+    }
+
+    // Auto-start after 2 seconds for testing
+    setTimeout(startChase, 2000);
+  </script>
+</body>
+</html>
