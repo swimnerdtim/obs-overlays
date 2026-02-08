@@ -52,7 +52,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 8px 50px;
+      padding: 6px 50px;
       background: rgba(255, 235, 156, 0.9);
       border-bottom: 3px solid #D4A574;
       border-top: 3px solid #D4A574;
@@ -61,7 +61,7 @@
     .event-name {
       font-size: 40px;
       font-weight: 700;
-      color: #2C3E50;
+      color: #000080;
       text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
     }
 
@@ -69,50 +69,50 @@
       font-size: 70px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
-      color: #E74C3C;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      color: #000000;
+      text-shadow: 2px 2px 4px rgba(255, 255, 0, 0.6);
     }
 
     /* Lane Results */
     .lanes-container {
       position: absolute;
-      top: 390px;
+      top: 385px;
       left: 0;
       right: 0;
-      bottom: 60px;
+      bottom: 40px;
       padding: 2px 50px 2px 50px;
       display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 1px;
       overflow: hidden;
     }
 
     .lane {
       display: grid;
-      grid-template-columns: 80px 100px 360px 280px 220px 1fr;
-      gap: 25px;
+      grid-template-columns: 70px 90px 340px 260px 200px 1fr;
+      gap: 20px;
       align-items: center;
-      background: rgba(255, 255, 255, 0.8);
-      padding: 6px 120px 6px 40px;
-      border-radius: 8px;
-      border-left: 6px solid #3498DB;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 4px 100px 4px 30px;
+      border-radius: 6px;
+      border-left: 5px solid #0000FF;
       transition: all 0.3s ease;
-      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
     }
 
     .lane-number {
-      font-size: 56px;
+      font-size: 50px;
       font-weight: 900;
-      color: #3498DB;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      color: #0000FF;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
 
     .place {
-      font-size: 56px;
+      font-size: 50px;
       font-weight: 900;
-      color: #F39C12;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      color: #FFFF00;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
       text-align: center;
     }
 
@@ -121,51 +121,48 @@
     }
 
     .swimmer-name {
-      font-size: 44px;
+      font-size: 38px;
       font-weight: 700;
-      color: #2C3E50;
-      text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+      color: #000000;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
     .team {
-      font-size: 40px;
+      font-size: 36px;
       font-weight: 600;
-      color: #34495E;
-      text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+      color: #000080;
       opacity: 0.9;
     }
 
     .split-time {
-      font-size: 48px;
+      font-size: 42px;
       font-weight: 800;
-      color: #9B59B6;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      color: #008000;
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
 
     .final-time {
-      font-size: 58px;
+      font-size: 50px;
       font-weight: 900;
-      color: #27AE60;
-      text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+      color: #008000;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
 
     .lane.first-place {
-      background: rgba(255, 235, 156, 0.95);
-      border-left-color: #F39C12;
-      box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
+      background: rgba(255, 255, 0, 0.3);
+      border-left-color: #FFFF00;
+      box-shadow: 0 3px 8px rgba(255, 255, 0, 0.4);
     }
 
     .lane.first-place .final-time {
-      color: #F39C12;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      font-size: 64px;
+      color: #FFFF00;
+      text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+      font-size: 56px;
     }
 
     /* Footer */
@@ -176,7 +173,7 @@
       right: 0;
       display: flex;
       justify-content: space-between;
-      padding: 6px 40px;
+      padding: 4px 40px;
       background: rgba(212, 165, 116, 0.9);
       border-top: 3px solid #A67C52;
     }
@@ -184,18 +181,18 @@
     .footer-item {
       font-size: 22px;
       font-weight: 600;
-      color: #2C3E50;
+      color: #000000;
       text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
     }
 
     .footer-label {
-      color: #E74C3C;
+      color: #000080;
       margin-right: 10px;
       font-weight: 700;
     }
 
     .footer-value {
-      color: #2C3E50;
+      color: #000000;
       font-weight: 600;
     }
 
