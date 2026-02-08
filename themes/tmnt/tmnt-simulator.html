@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMNT Scoreboard Simulator - Turtle Power!</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #2d5016 0%, #0a3d0a 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: #FFD93D;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 48px;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.8);
+      font-family: Impact, sans-serif;
+      text-transform: uppercase;
+    }
+
+    .info-box {
+      background: #fff3cd;
+      border-left: 6px solid #FF6B35;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: #856404;
+      line-height: 1.6;
+    }
+
+    .controls {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      margin-bottom: 30px;
+    }
+
+    .control-section {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .control-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .control-section h2 {
+      color: #4CAF50;
+      margin-bottom: 16px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      font-family: Impact, sans-serif;
+    }
+
+    button:hover {
+      background: #66BB6A;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .preview-container {
+      background: white;
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: 4px solid #4CAF50;
+      border-radius: 8px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🐢 TMNT Scoreboard Simulator 🍕</h1>
+
+    <div class="info-box">
+      <p><strong>Cowabunga!</strong> Use the controls below to test the TMNT scoreboard. Click "Open Scoreboard" to see it in action!</p>
+    </div>
+
+    <div class="controls">
+      <div class="control-section">
+        <h2>🎮 Quick Actions</h2>
+        <div class="button-group">
+          <button onclick="openScoreboard()">📺 Open Scoreboard</button>
+          <button onclick="openFullscreen()">⛶ Open Fullscreen</button>
+          <button onclick="openSimple()">🏃 Test Chase Animation</button>
+        </div>
+      </div>
+
+      <div class="control-section">
+        <h2>📋 Available Themes</h2>
+        <div class="button-group">
+          <button onclick="window.open('tmnt-scoreboard-v2.html', '_blank')" style="background: #4CAF50;">🐢 TMNT Scoreboard</button>
+          <button onclick="window.open('tmnt-chase-simple.html', '_blank')" style="background: #FF6B35;">🏃 Chase Test</button>
+          <button onclick="window.open('../barbie/scoreboard.html', '_blank')" style="background: #E0218A;">💖 Barbie Theme</button>
+          <button onclick="window.open('../johnny-castaway/johnny-scoreboard.html', '_blank')" style="background: #049CD8;">🏝️ Johnny Castaway</button>
+        </div>
+      </div>
+
+      <div class="control-section">
+        <h2>ℹ️ Theme Features</h2>
+        <ul style="line-height: 2; color: #333; padding-left: 24px;">
+          <li><strong>Pizza Box Header</strong> - Orange/red gradient (because turtles love pizza!)</li>
+          <li><strong>Turtle Color Borders</strong> - Lanes rotate through Leonardo (blue), Raphael (red), Donatello (purple), Michelangelo (orange)</li>
+          <li><strong>Sewer Background</strong> - Dark green NYC underground aesthetic</li>
+          <li><strong>Golden Shell First Place</strong> - Pulsing glow for the winner</li>
+          <li><strong>Floating Pizza Slices</strong> - Decorative emoji animations</li>
+          <li><strong>Comic Book Style</strong> - Bold Impact font, all caps</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="preview-container">
+      <h2 style="margin-bottom: 16px; color: #4CAF50; font-weight: 700;">Preview</h2>
+      <iframe id="preview" src="tmnt-scoreboard-v2.html"></iframe>
+    </div>
+  </div>
+
+  <script>
+    function openScoreboard() {
+      window.open('tmnt-scoreboard-v2.html', '_blank');
+    }
+
+    function openFullscreen() {
+      const win = window.open('tmnt-scoreboard-v2.html', '_blank');
+      setTimeout(() => {
+        if (win && win.document) {
+          win.document.documentElement.requestFullscreen?.();
+        }
+      }, 1000);
+    }
+
+    function openSimple() {
+      window.open('tmnt-chase-simple.html', '_blank');
+    }
+  </script>
+</body>
+</html>
