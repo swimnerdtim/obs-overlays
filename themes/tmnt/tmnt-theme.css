@@ -382,7 +382,7 @@ body {
         3px 3px 0 #000,
         -2px -2px 0 #000;
     font-weight: bold;
-    font-family: 'Courier New', 'Courier', monospace;
+    font-family: var(--theme-font);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.05em;
     min-width: 350px;
