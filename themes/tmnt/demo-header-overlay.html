@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>TMNT Header Overlay Demo</title>
+  <link href="tmnt-theme.css" rel="stylesheet">
+  <style>
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 20px;
+      padding: 20px 40px;
+    }
+
+    .header-box {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-box.fixed {
+      flex: 0 0 auto;
+    }
+
+    .header-box.stretch {
+      flex: 1;
+    }
+
+    .header-content {
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .label {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .value {
+      font-weight: 900;
+    }
+
+    .event-name {
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-container">
+    <!-- Event Box -->
+    <div class="header-box fixed">
+      <div class="header-content visible">
+        <span class="label">EVENT:</span>
+        <span class="value">12</span>
+      </div>
+    </div>
+
+    <!-- Heat Box -->
+    <div class="header-box fixed">
+      <div class="header-content visible">
+        <span class="label">HEAT:</span>
+        <span class="value">3 of 4</span>
+      </div>
+    </div>
+
+    <!-- Event Name (Sewer Pipe) -->
+    <div class="header-box stretch">
+      <div class="header-content visible">
+        <span class="event-name">Girls 200 IM</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

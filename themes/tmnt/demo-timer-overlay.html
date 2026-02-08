@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>TMNT Timer Overlay Demo</title>
+  <link href="tmnt-theme.css" rel="stylesheet">
+  <style>
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .timer-container {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+    }
+
+    .timer-content {
+      padding: 24px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timer-label {
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .running-time {
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer-container">
+    <div class="timer-content visible">
+      <div class="timer-label">TIME</div>
+      <div class="running-time" id="clock">0:52.34</div>
+    </div>
+  </div>
+
+  <script>
+    // Demo clock counting
+    let seconds = 52.34;
+    setInterval(() => {
+      seconds += 0.01;
+      const mins = Math.floor(seconds / 60);
+      const secs = (seconds % 60).toFixed(2);
+      document.getElementById('clock').textContent = 
+        `${mins}:${secs.padStart(5, '0')}`;
+    }, 10);
+  </script>
+</body>
+</html>

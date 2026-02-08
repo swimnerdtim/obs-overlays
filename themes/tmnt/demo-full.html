@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>TMNT Theme Full Demo - Cowabunga!</title>
+  <link href="tmnt-theme.css" rel="stylesheet">
+  <style>
+    body {
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Header Section */
+    .header-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 20px;
+      padding: 20px 40px;
+      z-index: 10;
+    }
+
+    .header-box {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-box.fixed {
+      flex: 0 0 auto;
+    }
+
+    .header-box.stretch {
+      flex: 1;
+    }
+
+    .header-content {
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .label {
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .value {
+      font-weight: 900;
+    }
+
+    .event-name {
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    /* Timer Section */
+    .timer-container {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      z-index: 20;
+    }
+
+    .timer-content {
+      padding: 24px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .timer-label {
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    .running-time {
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -2px;
+    }
+
+    /* Lanes Section */
+    .lanes-container {
+      position: absolute;
+      right: 40px;
+      top: 180px;
+      width: 900px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lane-content {
+      display: grid;
+      grid-template-columns: 80px 80px 320px 160px 200px;
+      gap: 12px;
+      align-items: center;
+      padding: 16px 20px;
+    }
+
+    .lane-indicator {
+      font-size: 48px;
+      font-weight: 900;
+      text-align: center;
+      padding: 8px;
+    }
+
+    .place-indicator {
+      font-size: 48px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .swimmer-name {
+      font-size: 32px;
+      font-weight: 700;
+    }
+
+    .split-time {
+      font-size: 36px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .final-time {
+      font-size: 42px;
+      font-weight: 900;
+      text-align: right;
+    }
+
+    /* Info Banner */
+    .info-banner {
+      position: absolute;
+      top: 50%;
+      left: 50px;
+      transform: translateY(-50%);
+      background: rgba(255, 107, 53, 0.95);
+      border: 6px solid #FFD93D;
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 600px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+    }
+
+    .info-banner h1 {
+      font-size: 64px;
+      margin: 0 0 20px 0;
+      color: white;
+      text-shadow: 4px 4px 0 #000;
+    }
+
+    .info-banner p {
+      font-size: 28px;
+      margin: 12px 0;
+      color: white;
+      text-shadow: 2px 2px 0 #000;
+      line-height: 1.6;
+    }
+
+    .info-banner .emoji {
+      font-size: 48px;
+      display: inline-block;
+      animation: bounce 1s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Info Banner -->
+  <div class="info-banner">
+    <h1><span class="emoji">🐢</span> TMNT THEME <span class="emoji">🍕</span></h1>
+    <p><strong>Cowabunga!</strong> This is the TMNT theme for Swimnerd Live overlays.</p>
+    <p>✅ Turtle color borders (blue/red/purple/orange)</p>
+    <p>✅ Pizza box style headers</p>
+    <p>✅ Sewer pipe event name</p>
+    <p>✅ Turtle Power first place glow</p>
+    <p>✅ Comic book text shadows</p>
+  </div>
+
+  <!-- Header Overlays -->
+  <div class="header-container">
+    <div class="header-box fixed">
+      <div class="header-content visible">
+        <span class="label">EVENT:</span>
+        <span class="value">12</span>
+      </div>
+    </div>
+
+    <div class="header-box fixed">
+      <div class="header-content visible">
+        <span class="label">HEAT:</span>
+        <span class="value">3 of 4</span>
+      </div>
+    </div>
+
+    <div class="header-box stretch">
+      <div class="header-content visible">
+        <span class="event-name">Girls 200 IM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timer Overlay -->
+  <div class="timer-container">
+    <div class="timer-content visible">
+      <div class="timer-label">TIME</div>
+      <div class="running-time" id="clock">0:52.34</div>
+    </div>
+  </div>
+
+  <!-- Lane Overlays -->
+  <div class="lanes-container">
+    <div class="lane-content visible">
+      <div class="lane-indicator">1</div>
+      <div class="place-indicator"></div>
+      <div class="swimmer-name">KATIE LEDECKY</div>
+      <div class="split-time">28.45</div>
+      <div class="final-time">1:52.34</div>
+    </div>
+
+    <div class="lane-content visible">
+      <div class="lane-indicator">2</div>
+      <div class="place-indicator">3</div>
+      <div class="swimmer-name">SIMONE MANUEL</div>
+      <div class="split-time">28.92</div>
+      <div class="final-time">1:53.12</div>
+    </div>
+
+    <div class="lane-content visible first-place">
+      <div class="lane-indicator">3</div>
+      <div class="place-indicator">1</div>
+      <div class="swimmer-name">MISSY FRANKLIN</div>
+      <div class="split-time">28.15</div>
+      <div class="final-time">1:51.78</div>
+    </div>
+
+    <div class="lane-content visible">
+      <div class="lane-indicator">4</div>
+      <div class="place-indicator">2</div>
+      <div class="swimmer-name">KATIE GRIMES</div>
+      <div class="split-time">28.67</div>
+      <div class="final-time">1:52.89</div>
+    </div>
+
+    <div class="lane-content visible">
+      <div class="lane-indicator">5</div>
+      <div class="place-indicator">4</div>
+      <div class="swimmer-name">EMMA WEYANT</div>
+      <div class="split-time">29.01</div>
+      <div class="final-time">1:54.23</div>
+    </div>
+
+    <div class="lane-content visible">
+      <div class="lane-indicator">6</div>
+      <div class="place-indicator"></div>
+      <div class="swimmer-name">ALEX WALSH</div>
+      <div class="split-time">29.34</div>
+      <div class="final-time">1:55.12</div>
+    </div>
+
+    <div class="lane-content visible">
+      <div class="lane-indicator">7</div>
+      <div class="place-indicator"></div>
+      <div class="swimmer-name">KATE DOUGLASS</div>
+      <div class="split-time">29.56</div>
+      <div class="final-time">1:55.89</div>
+    </div>
+
+    <div class="lane-content visible">
+      <div class="lane-indicator">8</div>
+      <div class="place-indicator">5</div>
+      <div class="swimmer-name">BELLA SIMS</div>
+      <div class="split-time">29.12</div>
+      <div class="final-time">1:54.67</div>
+    </div>
+  </div>
+
+  <script>
+    // Stagger lane visibility
+    const lanes = document.querySelectorAll('.lane-content');
+    lanes.forEach((lane, i) => {
+      lane.style.animationDelay = `${i * 0.08}s`;
+    });
+
+    // Demo clock counting
+    let seconds = 52.34;
+    setInterval(() => {
+      seconds += 0.01;
+      const mins = Math.floor(seconds / 60);
+      const secs = (seconds % 60).toFixed(2);
+      document.getElementById('clock').textContent = 
+        `${mins}:${secs.padStart(5, '0')}`;
+    }, 10);
+  </script>
+</body>
+</html>
