@@ -12,9 +12,9 @@
     }
 
     body {
-      font-family: 'Courier New', monospace;
-      background: #000000;
-      color: #00FF00;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(180deg, #87CEEB 0%, #4A90E2 50%, #1E5A8E 100%);
+      color: #2C3E50;
       overflow: hidden;
       width: 1920px;
       height: 1080px;
@@ -53,23 +53,24 @@
       justify-content: space-between;
       align-items: center;
       padding: 8px 50px;
-      background: #1a1a1a;
-      border-bottom: 2px solid #00FF00;
+      background: rgba(255, 235, 156, 0.9);
+      border-bottom: 3px solid #D4A574;
+      border-top: 3px solid #D4A574;
     }
 
     .event-name {
       font-size: 40px;
       font-weight: 700;
-      color: #00FF00;
-      text-shadow: 0 0 10px #00FF00;
+      color: #2C3E50;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
     }
 
     .race-clock {
       font-size: 70px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
-      color: #FFFF00;
-      text-shadow: 0 0 15px #FFFF00;
+      color: #E74C3C;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     /* Lane Results */
@@ -91,26 +92,27 @@
       grid-template-columns: 80px 100px 360px 280px 220px 1fr;
       gap: 25px;
       align-items: center;
-      background: #0a0a0a;
+      background: rgba(255, 255, 255, 0.8);
       padding: 6px 120px 6px 40px;
-      border-radius: 4px;
-      border-left: 4px solid #00FF00;
+      border-radius: 8px;
+      border-left: 6px solid #3498DB;
       transition: all 0.3s ease;
+      box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .lane-number {
       font-size: 56px;
       font-weight: 900;
-      color: #00FFFF;
-      text-shadow: 0 0 10px #00FFFF;
+      color: #3498DB;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
       text-align: center;
     }
 
     .place {
       font-size: 56px;
       font-weight: 900;
-      color: #FFFF00;
-      text-shadow: 0 0 10px #FFFF00;
+      color: #F39C12;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
       text-align: center;
     }
 
@@ -121,8 +123,8 @@
     .swimmer-name {
       font-size: 44px;
       font-weight: 700;
-      color: #00FF00;
-      text-shadow: 0 0 8px #00FF00;
+      color: #2C3E50;
+      text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -131,16 +133,16 @@
     .team {
       font-size: 40px;
       font-weight: 600;
-      color: #00FF00;
-      text-shadow: 0 0 8px #00FF00;
-      opacity: 0.8;
+      color: #34495E;
+      text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+      opacity: 0.9;
     }
 
     .split-time {
       font-size: 48px;
       font-weight: 800;
-      color: #FF00FF;
-      text-shadow: 0 0 10px #FF00FF;
+      color: #9B59B6;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
@@ -148,21 +150,21 @@
     .final-time {
       font-size: 58px;
       font-weight: 900;
-      color: #00FF00;
-      text-shadow: 0 0 12px #00FF00;
+      color: #27AE60;
+      text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
 
     .lane.first-place {
-      background: #1a1a00;
-      border-left-color: #FFFF00;
-      box-shadow: 0 0 20px rgba(255, 255, 0, 0.3);
+      background: rgba(255, 235, 156, 0.95);
+      border-left-color: #F39C12;
+      box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
     }
 
     .lane.first-place .final-time {
-      color: #FFFF00;
-      text-shadow: 0 0 15px #FFFF00;
+      color: #F39C12;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
       font-size: 64px;
     }
 
@@ -175,45 +177,26 @@
       display: flex;
       justify-content: space-between;
       padding: 6px 40px;
-      background: #1a1a1a;
-      border-top: 2px solid #00FF00;
+      background: rgba(212, 165, 116, 0.9);
+      border-top: 3px solid #A67C52;
     }
 
     .footer-item {
       font-size: 22px;
       font-weight: 600;
-      color: #00FF00;
-      text-shadow: 0 0 8px #00FF00;
+      color: #2C3E50;
+      text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.3);
     }
 
     .footer-label {
-      color: #FFFF00;
+      color: #E74C3C;
       margin-right: 10px;
       font-weight: 700;
     }
 
     .footer-value {
-      color: #00FF00;
+      color: #2C3E50;
       font-weight: 600;
-    }
-
-    /* Scanline effect */
-    body::after {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.15),
-        rgba(0, 0, 0, 0.15) 1px,
-        transparent 1px,
-        transparent 2px
-      );
-      pointer-events: none;
-      z-index: 9999;
     }
 
     /* Fullscreen Button */
@@ -221,24 +204,24 @@
       position: fixed;
       top: 10px;
       right: 10px;
-      background: #00FF00;
-      color: #000000;
-      border: 2px solid #00FF00;
+      background: #F39C12;
+      color: #FFFFFF;
+      border: 2px solid #E67E22;
       padding: 10px 20px;
       font-size: 16px;
       font-weight: 700;
-      font-family: 'Courier New', monospace;
-      border-radius: 4px;
+      font-family: 'Arial', sans-serif;
+      border-radius: 8px;
       cursor: pointer;
       z-index: 10000;
-      box-shadow: 0 0 10px #00FF00;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       transition: all 0.3s ease;
     }
 
     .fullscreen-btn:hover {
-      background: #000000;
-      color: #00FF00;
-      box-shadow: 0 0 20px #00FF00;
+      background: #E67E22;
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
     }
 
     .fullscreen-btn.hidden {
