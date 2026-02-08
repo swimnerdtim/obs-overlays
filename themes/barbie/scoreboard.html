@@ -212,51 +212,80 @@
       display: none;
     }
 
-    /* Barbie Character Animation Area */
+    /* Barbie Character Animation - Travels across top header */
     .barbie-character {
-      position: fixed;
-      bottom: 120px;
-      right: 80px;
-      width: 300px;
-      height: 300px;
+      position: absolute;
+      top: 20px;
+      left: -200px;
+      width: 180px;
+      height: 180px;
       pointer-events: none;
-      z-index: 500;
+      z-index: 600;
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
     }
 
     .barbie-character img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
     }
 
-    /* Character animations */
-    @keyframes wave {
-      0%, 100% { transform: rotate(-5deg); }
-      50% { transform: rotate(5deg); }
+    /* Character travels from left to right across header */
+    @keyframes travel-right {
+      0% { 
+        left: -200px;
+        transform: translateY(0) scale(1);
+      }
+      10% {
+        transform: translateY(-10px) scale(1.05);
+      }
+      20% {
+        transform: translateY(0) scale(1);
+      }
+      30% {
+        transform: translateY(-8px) scale(1.03);
+      }
+      40% {
+        transform: translateY(0) scale(1);
+      }
+      100% { 
+        left: calc(100% + 200px);
+        transform: translateY(0) scale(1);
+      }
     }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
+    /* Alternate: travels from right to left */
+    @keyframes travel-left {
+      0% { 
+        right: -200px;
+        left: auto;
+        transform: translateY(0) scale(1) scaleX(-1);
+      }
+      10% {
+        transform: translateY(-10px) scale(1.05) scaleX(-1);
+      }
+      20% {
+        transform: translateY(0) scale(1) scaleX(-1);
+      }
+      30% {
+        transform: translateY(-8px) scale(1.03) scaleX(-1);
+      }
+      40% {
+        transform: translateY(0) scale(1) scaleX(-1);
+      }
+      100% { 
+        right: calc(100% + 200px);
+        left: auto;
+        transform: translateY(0) scale(1) scaleX(-1);
+      }
     }
 
-    @keyframes cheer {
-      0%, 100% { transform: scale(1) rotate(0deg); }
-      25% { transform: scale(1.1) rotate(-5deg); }
-      75% { transform: scale(1.1) rotate(5deg); }
+    .barbie-character.travel-right {
+      animation: travel-right 12s linear;
     }
 
-    .barbie-character.wave {
-      animation: wave 2s ease-in-out infinite;
-    }
-
-    .barbie-character.bounce {
-      animation: bounce 1.5s ease-in-out infinite;
-    }
-
-    .barbie-character.cheer {
-      animation: cheer 1s ease-in-out infinite;
+    .barbie-character.travel-left {
+      animation: travel-left 12s linear;
     }
   </style>
 </head>
@@ -272,10 +301,9 @@
     <div class="race-clock" id="raceClock">0:00.00</div>
   </div>
 
-  <!-- Animated Barbie Character (Johnny Castaway style) -->
-  <div class="barbie-character wave" id="barbieCharacter">
-    <!-- Character animation will cycle through different activities -->
-    <div id="barbieAnimation" style="font-size: 120px; text-align: center;">💁‍♀️</div>
+  <!-- Animated Barbie Character (travels across header) -->
+  <div class="barbie-character travel-right" id="barbieCharacter">
+    <img id="barbieImage" src="barbie-waving.png" alt="Barbie" />
   </div>
 
   <!-- Lane Results -->
@@ -472,42 +500,40 @@
       }, 2000);
     }
 
-    // Barbie Character Activities (Johnny Castaway style)
+    // Barbie Character Activities - travels across header
     const barbieActivities = [
-      { emoji: '💁‍♀️', animation: 'wave', duration: 5000 },      // Waving
-      { emoji: '🤸‍♀️', animation: 'bounce', duration: 4000 },    // Gymnastics
-      { emoji: '📱', animation: 'wave', duration: 6000 },        // On phone
-      { emoji: '💅', animation: 'cheer', duration: 5000 },       // Doing nails
-      { emoji: '🕶️', animation: 'wave', duration: 5000 },        // Sunglasses
-      { emoji: '🎉', animation: 'cheer', duration: 4000 },       // Celebrating
-      { emoji: '🏊‍♀️', animation: 'bounce', duration: 5000 },     // Swimming
-      { emoji: '☕', animation: 'wave', duration: 6000 },        // Coffee break
-      { emoji: '💃', animation: 'cheer', duration: 4000 },       // Dancing
-      { emoji: '📸', animation: 'wave', duration: 5000 },        // Taking selfie
-      { emoji: '🎀', animation: 'bounce', duration: 5000 },      // Getting ready
-      { emoji: '🌺', animation: 'wave', duration: 5000 },        // Relaxing
+      { image: 'barbie-waving.png', duration: 12000 },
+      { image: 'barbie-selfie.png', duration: 12000 },
+      { image: 'barbie-dancing.png', duration: 12000 },
+      { image: 'barbie-swimming.png', duration: 12000 },
     ];
 
     let currentActivityIndex = 0;
+    let travelDirection = 'right'; // alternates between 'right' and 'left'
 
-    function updateBarbieActivity() {
+    function startBarbieTravel() {
       const activity = barbieActivities[currentActivityIndex];
       const barbieEl = document.getElementById('barbieCharacter');
-      const animationEl = document.getElementById('barbieAnimation');
+      const barbieImg = document.getElementById('barbieImage');
       
-      // Update emoji and animation class
-      animationEl.textContent = activity.emoji;
-      barbieEl.className = 'barbie-character ' + activity.animation;
+      // Update image
+      barbieImg.src = activity.image;
+      
+      // Alternate direction
+      travelDirection = (travelDirection === 'right') ? 'left' : 'right';
+      
+      // Reset position and start animation
+      barbieEl.className = 'barbie-character travel-' + travelDirection;
       
       // Move to next activity
       currentActivityIndex = (currentActivityIndex + 1) % barbieActivities.length;
       
-      // Schedule next activity change
-      setTimeout(updateBarbieActivity, activity.duration);
+      // Schedule next travel after animation completes
+      setTimeout(startBarbieTravel, activity.duration);
     }
 
-    // Start Barbie activities
-    setTimeout(updateBarbieActivity, 2000);
+    // Start Barbie travels after a short delay
+    setTimeout(startBarbieTravel, 3000);
 
     // Start demo mode
     setTimeout(runDemo, 500);
