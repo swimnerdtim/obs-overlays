@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbie Theme Simulator - Swimnerd Live</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 36px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .controls {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+    }
+
+    .control-group {
+      margin-bottom: 20px;
+    }
+
+    .control-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .control-group input,
+    .control-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus {
+      outline: none;
+      border-color: #E0218A;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #E0218A, #FF69B4);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(224, 33, 138, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .preview-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .preview-box {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .preview-header {
+      background: linear-gradient(135deg, #E0218A, #FF69B4);
+      padding: 16px 24px;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .preview-frame {
+      position: relative;
+      background: #1a1a1a;
+      aspect-ratio: 16/9;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 1200px) {
+      .preview-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .info-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💖 Barbie Theme Simulator 💖</h1>
+
+    <div class="info-box">
+      <p><strong>✨ Test the Barbie theme live!</strong> Change event details and see updates in real-time. Perfect for previewing before going live at your meet.</p>
+    </div>
+
+    <div class="controls">
+      <h2 style="margin-bottom: 20px; color: #E0218A;">Event Controls</h2>
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div class="control-group">
+          <label>Event Number</label>
+          <input type="number" id="eventNumber" value="12" min="1" max="100">
+        </div>
+
+        <div class="control-group">
+          <label>Event Name</label>
+          <input type="text" id="eventName" value="Girls 200 IM">
+        </div>
+
+        <div class="control-group">
+          <label>Heat Number</label>
+          <input type="number" id="heatNumber" value="3" min="1" max="20">
+        </div>
+
+        <div class="control-group">
+          <label>Total Heats</label>
+          <input type="number" id="totalHeats" value="4" min="1" max="20">
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="updateEvent()">Update Event</button>
+        <button class="btn-secondary" onclick="loadPreset()">Load Random Event</button>
+      </div>
+
+      <hr style="margin: 30px 0; border: none; border-top: 2px solid #f0f0f0;">
+
+      <h2 style="margin-bottom: 20px; color: #E0218A;">Lane Results</h2>
+      
+      <div class="button-group">
+        <button class="btn-primary" onclick="updateLanes()">Simulate Results</button>
+        <button class="btn-secondary" onclick="clearLanes()">Clear Results</button>
+      </div>
+    </div>
+
+    <div class="preview-container">
+      <div class="preview-box">
+        <div class="preview-header">📋 Event Header</div>
+        <div class="preview-frame">
+          <iframe id="eventFrame" src="event_header.html"></iframe>
+        </div>
+      </div>
+
+      <div class="preview-box">
+        <div class="preview-header">🏊 Lane Results</div>
+        <div class="preview-frame">
+          <iframe id="laneFrame" src="lane_results.html"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const channel = new BroadcastChannel('swimnerd-live');
+
+    function updateEvent() {
+      const data = {
+        type: 'event_update',
+        eventNumber: document.getElementById('eventNumber').value,
+        eventName: document.getElementById('eventName').value,
+        heatNumber: document.getElementById('heatNumber').value,
+        totalHeats: document.getElementById('totalHeats').value
+      };
+      channel.postMessage(data);
+    }
+
+    function updateLanes() {
+      const swimmers = [
+        'Katie Ledecky', 'Emma McKeon', 'Sarah Sjöström', 
+        'Simone Manuel', 'Penny Oleksiak', 'Cate Campbell',
+        'Taylor Ruck', 'Abbey Weitzeil'
+      ];
+
+      const lanes = [];
+      const numLanes = 6 + Math.floor(Math.random() * 3); // 6-8 lanes
+
+      for (let i = 0; i < numLanes; i++) {
+        const minutes = Math.random() < 0.3 ? 1 : 0;
+        const seconds = minutes ? (50 + Math.random() * 10) : (23 + Math.random() * 5);
+        const time = minutes 
+          ? `${minutes}:${seconds.toFixed(2).padStart(5, '0')}`
+          : `${seconds.toFixed(2)}`;
+
+        lanes.push({
+          lane: i + 1,
+          name: swimmers[Math.floor(Math.random() * swimmers.length)],
+          time: time,
+          place: i + 1
+        });
+      }
+
+      // Sort by time
+      lanes.sort((a, b) => {
+        const parseTime = (t) => {
+          const parts = t.split(':');
+          return parts.length > 1 
+            ? parseFloat(parts[0]) * 60 + parseFloat(parts[1])
+            : parseFloat(t);
+        };
+        return parseTime(a.time) - parseTime(b.time);
+      });
+
+      // Update place
+      lanes.forEach((lane, idx) => lane.place = idx + 1);
+
+      channel.postMessage({
+        type: 'lane_results',
+        lanes: lanes
+      });
+    }
+
+    function clearLanes() {
+      channel.postMessage({
+        type: 'lane_results',
+        lanes: []
+      });
+    }
+
+    function loadPreset() {
+      const presets = [
+        { event: 1, name: 'Boys 200 Free', heat: 2, total: 5 },
+        { event: 5, name: 'Girls 50 Fly', heat: 1, total: 3 },
+        { event: 12, name: 'Boys 100 Back', heat: 4, total: 6 },
+        { event: 18, name: 'Girls 200 Breast', heat: 3, total: 4 },
+        { event: 24, name: 'Boys 400 IM', heat: 1, total: 2 },
+      ];
+
+      const preset = presets[Math.floor(Math.random() * presets.length)];
+      document.getElementById('eventNumber').value = preset.event;
+      document.getElementById('eventName').value = preset.name;
+      document.getElementById('heatNumber').value = preset.heat;
+      document.getElementById('totalHeats').value = preset.total;
+
+      updateEvent();
+    }
+
+    // Auto-update on first load
+    setTimeout(() => {
+      updateEvent();
+      setTimeout(updateLanes, 1000);
+    }, 500);
+  </script>
+</body>
+</html>
