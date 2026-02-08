@@ -24,7 +24,8 @@ No cables. No hardware. Just beautiful, themed scoreboards.
 ## 🎨 Available Themes
 
 - **Barbie** - Hot pink paradise with Castaway-style story animations ⭐ **LIVE NOW**
-- **Johnny Castaway** - Classic 90s screensaver meets scoreboard (retro terminal style) ⭐ **LIVE NOW**
+- **Johnny Castaway** - Classic 90s screensaver meets scoreboard (VGA tropical vibes) ⭐ **LIVE NOW**
+- **TMNT** - Teenage Mutant Ninja Turtles sewer power! (80s arcade style) ⭐ **LIVE NOW**
 - More coming soon! (Olympics, Ocean, Neon, Christmas)
 
 ## 🏊 Built For Swimnerd Live
