@@ -5,27 +5,50 @@ Hot pink paradise for your swim meet! Perfect for fun invitationals, charity mee
 ## 🎨 Features
 
 - Hot pink gradient backgrounds
-- Playful rounded corners and shadows
-- Barbie-inspired color palette
+- Full-screen digital scoreboard (no Cat6 cabling needed!)
+- Live race timer with split times
+- Dynamic place updates on touch
 - Smooth animations
 - High contrast for readability
 
-## 🎯 OBS Settings
+## 📺 Full-Screen Scoreboard (Recommended!)
 
-- **Width**: 1920px
-- **Height**: 1080px
-- **URL**: Point to `event_header.html` (or specific overlay)
+**Perfect for TVs around the pool deck** - eliminates Cat6 satellite cabling!
 
-## 📦 What's Included
+- Open `scoreboard.html` on any TV browser or cast it
+- Shows 8 lanes with live results
+- Race timer, event info, pool records
+- Updates via BroadcastChannel API from Swimnerd Live
+- **Test it**: `scoreboard_simulator.html`
+
+### What It Shows:
+- Event number and name
+- Heat info (3 of 4)
+- Lane (L) and Place (P) for each swimmer
+- Split times (yellow) + Final times (white)
+- Live race clock (top right)
+- Lengths and pool record (bottom)
+
+## 🎯 OBS Overlays (Alternative)
+
+If you still want OBS overlays instead of full-screen:
 
 - `event_header.html` - Event name and heat info
 - `lane_results.html` - Individual lane times and placements
-- `styles.css` - Barbie theme styling
-- `preview.png` - Screenshot for reference
+- **Width**: 1920px, **Height**: 1080px
+
+## 📦 Files Included
+
+- `scoreboard.html` - **Full-screen digital scoreboard** ⭐
+- `scoreboard_simulator.html` - Test the scoreboard with demo data
+- `event_header.html` - OBS overlay (event info)
+- `lane_results.html` - OBS overlay (lane results)
+- `simulator.html` - OBS overlay simulator
+- `styles.css` - Barbie theme styling (shared)
 
 ## 🔧 Customization
 
-All colors are defined in CSS variables at the top of `styles.css`. Easy to tweak!
+All colors are defined in CSS variables. Easy to tweak the pink shades!
 
 ## 💡 Inspired By
 
@@ -33,4 +56,4 @@ The iconic Barbie aesthetic - playful, bold, and unapologetically pink! 🎀
 
 ---
 
-**Built for Swimnerd Live** • [lgbeno's original work](https://github.com/lgbeno/swimnerd-templates)
+**Built for Swimnerd Live** • Inspired by [lgbeno's work](https://github.com/lgbeno/swimnerd-templates)

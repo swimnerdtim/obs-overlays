@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Barbie Scoreboard - Swimnerd Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* Barbie Theme Variables */
+    :root {
+      --barbie-pink: #E0218A;
+      --barbie-hot-pink: #FF69B4;
+      --barbie-light-pink: #FFB6D9;
+      --barbie-dark-pink: #C71585;
+      --barbie-accent: #FFF0F5;
+      --gradient-bg: linear-gradient(135deg, #E0218A 0%, #C71585 100%);
+      --text-primary: #FFFFFF;
+      --text-green: #00FF00;
+      --text-red: #FF1493;
+      --text-yellow: #FFD700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      background: var(--gradient-bg);
+      color: var(--text-primary);
+      overflow: hidden;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    /* Header Section */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-bottom: 4px solid var(--barbie-accent);
+    }
+
+    .title {
+      font-size: 64px;
+      font-weight: 900;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+    }
+
+    .race-clock {
+      font-size: 96px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+      color: var(--barbie-accent);
+    }
+
+    /* Event Info */
+    .event-info {
+      text-align: center;
+      padding: 16px 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .event-name {
+      font-size: 48px;
+      font-weight: 800;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    /* Lane Results Container */
+    .lanes-container {
+      padding: 20px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      height: calc(1080px - 280px);
+      overflow: hidden;
+    }
+
+    /* Individual Lane Row */
+    .lane {
+      display: grid;
+      grid-template-columns: 60px 60px 500px 400px 180px 180px;
+      gap: 20px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 16px 24px;
+      border-radius: 16px;
+      border-left: 6px solid var(--barbie-accent);
+      transition: all 0.3s ease;
+    }
+
+    .lane:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
+    }
+
+    .lane-number {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--text-green);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .place {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--text-red);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .place.empty {
+      opacity: 0;
+    }
+
+    .swimmer-name {
+      font-size: 36px;
+      font-weight: 700;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .team {
+      font-size: 32px;
+      font-weight: 600;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      opacity: 0.95;
+    }
+
+    .split-time {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--text-yellow);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .final-time {
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--barbie-accent);
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    /* First Place Highlight */
+    .lane.first-place {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3));
+      border-left-color: #FFD700;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    }
+
+    .lane.first-place .final-time {
+      color: #FFD700;
+      font-size: 54px;
+    }
+
+    /* Footer Info */
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(0, 0, 0, 0.4);
+      border-top: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .footer-item {
+      font-size: 28px;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .footer-label {
+      color: var(--text-green);
+      margin-right: 8px;
+    }
+
+    .footer-value {
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Title and Clock -->
+  <div class="header">
+    <div class="title">Barbie Scoreboard</div>
+    <div class="race-clock" id="raceClock">0:00.00</div>
+  </div>
+
+  <!-- Event Info -->
+  <div class="event-info">
+    <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
+  </div>
+
+  <!-- Lane Results -->
+  <div class="lanes-container" id="lanesContainer">
+    <!-- Lanes populated by JavaScript -->
+  </div>
+
+  <!-- Footer Info -->
+  <div class="footer">
+    <div class="footer-item">
+      <span class="footer-label">EV:</span>
+      <span class="footer-value" id="eventNumber">12</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">HT:</span>
+      <span class="footer-value" id="heatNumber">3 of 4</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">Lengths:</span>
+      <span class="footer-value" id="lengths">4</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">Record:</span>
+      <span class="footer-value" id="record">2:03.45</span>
+    </div>
+  </div>
+
+  <script>
+    // BroadcastChannel for Swimnerd Live integration
+    const channel = new BroadcastChannel('swimnerd-live');
+
+    // State
+    let raceStartTime = null;
+    let raceRunning = false;
+
+    // Listen for data from Swimnerd Live
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      } else if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_update') {
+        updateLanes(data.lanes);
+      } else if (data.type === 'race_finish') {
+        stopRace();
+        updateLanes(data.lanes);
+      }
+    };
+
+    function updateEventInfo(data) {
+      if (data.eventNumber) {
+        document.getElementById('eventNumber').textContent = data.eventNumber;
+      }
+      if (data.eventName) {
+        document.getElementById('eventName').textContent = 
+          `Event ${data.eventNumber || ''} - ${data.eventName}`;
+      }
+      if (data.heatNumber && data.totalHeats) {
+        document.getElementById('heatNumber').textContent = 
+          `${data.heatNumber} of ${data.totalHeats}`;
+      }
+      if (data.lengths) {
+        document.getElementById('lengths').textContent = data.lengths;
+      }
+      if (data.record) {
+        document.getElementById('record').textContent = data.record;
+      }
+    }
+
+    function updateLanes(lanes) {
+      const container = document.getElementById('lanesContainer');
+      container.innerHTML = '';
+      
+      lanes.forEach((lane, index) => {
+        const laneDiv = document.createElement('div');
+        laneDiv.className = 'lane';
+        if (lane.place === 1) laneDiv.classList.add('first-place');
+        
+        laneDiv.innerHTML = `
+          <div class="lane-number">L</div>
+          <div class="lane-number">${lane.lane}</div>
+          <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
+          <div class="team">${lane.team || 'Team'}</div>
+          <div class="split-time">${lane.split || ''}</div>
+          <div class="final-time">${lane.time || ''}</div>
+        `;
+        
+        // Add place if available
+        if (lane.place) {
+          const placeDiv = document.createElement('div');
+          placeDiv.className = 'place';
+          placeDiv.textContent = `P ${lane.place}`;
+          laneDiv.insertBefore(placeDiv, laneDiv.children[1]);
+        } else {
+          const emptyPlace = document.createElement('div');
+          emptyPlace.className = 'place empty';
+          laneDiv.insertBefore(emptyPlace, laneDiv.children[1]);
+        }
+        
+        container.appendChild(laneDiv);
+      });
+    }
+
+    function startRace() {
+      raceStartTime = Date.now();
+      raceRunning = true;
+      updateRaceClock();
+    }
+
+    function stopRace() {
+      raceRunning = false;
+    }
+
+    function updateRaceClock() {
+      if (!raceRunning) return;
+      
+      const elapsed = Date.now() - raceStartTime;
+      const minutes = Math.floor(elapsed / 60000);
+      const seconds = Math.floor((elapsed % 60000) / 1000);
+      const centis = Math.floor((elapsed % 1000) / 10);
+      
+      const clockEl = document.getElementById('raceClock');
+      clockEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
+      
+      requestAnimationFrame(updateRaceClock);
+    }
+
+    // Demo mode for testing
+    let demoMode = true;
+
+    function runDemo() {
+      if (!demoMode) return;
+      
+      // Demo event info
+      updateEventInfo({
+        eventNumber: 12,
+        eventName: 'Girls 200 IM',
+        heatNumber: 3,
+        totalHeats: 4,
+        lengths: 4,
+        record: '2:03.45'
+      });
+      
+      // Demo lanes (8 lanes)
+      const demoLanes = [
+        { lane: 1, name: 'Sarah Johnson', team: 'NOVA', split: '1:01.23', time: '2:08.45', place: null },
+        { lane: 2, name: 'Emma Williams', team: 'RAYS', split: '59.87', time: '2:05.67', place: 3 },
+        { lane: 3, name: 'Katie Martinez', team: 'TIDE', split: '58.34', time: '2:03.12', place: 1 },
+        { lane: 4, name: 'Olivia Davis', team: 'WAVE', split: '59.12', time: '2:04.89', place: 2 },
+        { lane: 5, name: 'Sophia Brown', team: 'HEAT', split: '1:00.45', time: '2:07.23', place: 4 },
+        { lane: 6, name: 'Ava Garcia', team: 'BOLT', split: '1:01.89', time: '2:09.01', place: null },
+        { lane: 7, name: 'Isabella Lopez', team: 'FAST', split: '1:02.34', time: '2:10.56', place: null },
+        { lane: 8, name: 'Mia Rodriguez', team: 'FIRE', split: '1:00.78', time: '2:07.89', place: 5 },
+      ];
+      
+      updateLanes(demoLanes);
+      
+      // Simulate race start after 2 seconds
+      setTimeout(() => {
+        if (demoMode) {
+          startRace();
+          
+          // Stop race after 10 seconds
+          setTimeout(() => {
+            if (demoMode) stopRace();
+          }, 10000);
+        }
+      }, 2000);
+    }
+
+    // Start demo mode
+    setTimeout(runDemo, 500);
+
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      } else if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_update') {
+        updateLanes(data.lanes);
+      } else if (data.type === 'race_finish') {
+        stopRace();
+        updateLanes(data.lanes);
+      }
+    };
+  </script>
+</body>
+</html>

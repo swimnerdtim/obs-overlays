@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbie Scoreboard Simulator - Swimnerd Live</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 36px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .info-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .info-box p {
+      margin: 0;
+      color: #856404;
+      line-height: 1.6;
+    }
+
+    .controls {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+    }
+
+    .control-section {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .control-section:last-child {
+      border-bottom: none;
+    }
+
+    .control-section h2 {
+      color: #E0218A;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .control-group {
+      margin-bottom: 16px;
+    }
+
+    .control-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .control-group input,
+    .control-group select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus {
+      outline: none;
+      border-color: #E0218A;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #E0218A, #FF69B4);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(224, 33, 138, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .btn-success {
+      background: #28a745;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #218838;
+    }
+
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background: #c82333;
+    }
+
+    .preview-container {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    }
+
+    .preview-header {
+      background: linear-gradient(135deg, #E0218A, #FF69B4);
+      padding: 16px 24px;
+      color: white;
+      font-weight: 700;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .preview-frame {
+      position: relative;
+      background: #1a1a1a;
+      aspect-ratio: 16/9;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .fullscreen-btn {
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .fullscreen-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💖 Barbie Full-Screen Scoreboard 💖</h1>
+
+    <div class="info-box">
+      <p><strong>✨ Full-screen digital scoreboard for TVs!</strong> No Cat6 cabling needed - just open this URL on any TV browser or cast it. Perfect for satellite displays around the pool.</p>
+    </div>
+
+    <div class="controls">
+      <!-- Event Controls -->
+      <div class="control-section">
+        <h2>📋 Event Information</h2>
+        <div class="control-grid">
+          <div class="control-group">
+            <label>Event Number</label>
+            <input type="number" id="eventNumber" value="12" min="1">
+          </div>
+          <div class="control-group">
+            <label>Event Name</label>
+            <input type="text" id="eventName" value="Girls 200 IM">
+          </div>
+          <div class="control-group">
+            <label>Heat Number</label>
+            <input type="number" id="heatNumber" value="3" min="1">
+          </div>
+          <div class="control-group">
+            <label>Total Heats</label>
+            <input type="number" id="totalHeats" value="4" min="1">
+          </div>
+          <div class="control-group">
+            <label>Lengths</label>
+            <input type="number" id="lengths" value="4" min="1">
+          </div>
+          <div class="control-group">
+            <label>Pool Record</label>
+            <input type="text" id="record" value="2:03.45">
+          </div>
+        </div>
+        <div class="button-group" style="margin-top: 16px;">
+          <button class="btn-primary" onclick="updateEvent()">Update Event Info</button>
+          <button class="btn-secondary" onclick="loadRandomEvent()">Random Event</button>
+        </div>
+      </div>
+
+      <!-- Race Controls -->
+      <div class="control-section">
+        <h2>🏊 Race Controls</h2>
+        <div class="button-group">
+          <button class="btn-success" onclick="startRace()">▶ Start Race</button>
+          <button class="btn-danger" onclick="stopRace()">⏹ Stop Race</button>
+          <button class="btn-primary" onclick="simulateFinish()">🏁 Simulate Finish</button>
+          <button class="btn-secondary" onclick="clearLanes()">Clear Lanes</button>
+        </div>
+      </div>
+
+      <!-- Quick Presets -->
+      <div class="control-section">
+        <h2>⚡ Quick Presets</h2>
+        <div class="button-group">
+          <button class="btn-secondary" onclick="load50Free()">50 Free</button>
+          <button class="btn-secondary" onclick="load100Back()">100 Back</button>
+          <button class="btn-secondary" onclick="load200IM()">200 IM</button>
+          <button class="btn-secondary" onclick="load500Free()">500 Free</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview -->
+    <div class="preview-container">
+      <div class="preview-header">
+        <span>📺 Full-Screen Barbie Scoreboard</span>
+        <button class="fullscreen-btn" onclick="openFullscreen()">Open Fullscreen</button>
+      </div>
+      <div class="preview-frame">
+        <iframe id="scoreboardFrame" src="scoreboard.html"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const channel = new BroadcastChannel('swimnerd-live');
+
+    function updateEvent() {
+      const data = {
+        type: 'event_update',
+        eventNumber: document.getElementById('eventNumber').value,
+        eventName: document.getElementById('eventName').value,
+        heatNumber: document.getElementById('heatNumber').value,
+        totalHeats: document.getElementById('totalHeats').value,
+        lengths: document.getElementById('lengths').value,
+        record: document.getElementById('record').value
+      };
+      channel.postMessage(data);
+    }
+
+    function startRace() {
+      // Generate demo lanes
+      const lanes = [];
+      for (let i = 1; i <= 8; i++) {
+        lanes.push({
+          lane: i,
+          name: `Swimmer ${i}`,
+          team: ['NOVA', 'RAYS', 'TIDE', 'WAVE', 'HEAT', 'BOLT', 'FAST', 'FIRE'][i-1],
+          split: '',
+          time: '',
+          place: null
+        });
+      }
+      
+      channel.postMessage({ type: 'race_update', lanes });
+      channel.postMessage({ type: 'race_start' });
+    }
+
+    function stopRace() {
+      channel.postMessage({ type: 'race_finish', lanes: [] });
+    }
+
+    function simulateFinish() {
+      const names = [
+        'Katie Ledecky', 'Emma McKeon', 'Sarah Sjöström', 
+        'Simone Manuel', 'Penny Oleksiak', 'Cate Campbell',
+        'Taylor Ruck', 'Abbey Weitzeil'
+      ];
+      
+      const lanes = [];
+      for (let i = 1; i <= 8; i++) {
+        const baseTime = 120 + Math.random() * 10; // 2:00 - 2:10
+        const split = baseTime / 2;
+        
+        lanes.push({
+          lane: i,
+          name: names[i-1],
+          team: ['NOVA', 'RAYS', 'TIDE', 'WAVE', 'HEAT', 'BOLT', 'FAST', 'FIRE'][i-1],
+          split: formatTime(split),
+          time: formatTime(baseTime),
+          place: null
+        });
+      }
+      
+      // Sort by time and assign places
+      lanes.sort((a, b) => parseTime(a.time) - parseTime(b.time));
+      lanes.forEach((lane, idx) => {
+        lane.place = idx + 1;
+      });
+      
+      channel.postMessage({ type: 'race_finish', lanes });
+    }
+
+    function clearLanes() {
+      channel.postMessage({ type: 'race_update', lanes: [] });
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = (seconds % 60).toFixed(2);
+      return mins > 0 ? `${mins}:${secs.padStart(5, '0')}` : secs;
+    }
+
+    function parseTime(timeStr) {
+      const parts = timeStr.split(':');
+      if (parts.length > 1) {
+        return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
+      }
+      return parseFloat(timeStr);
+    }
+
+    function loadRandomEvent() {
+      const events = [
+        { num: 1, name: 'Boys 200 Free', heats: 5, lengths: 4, record: '1:38.45' },
+        { num: 5, name: 'Girls 50 Fly', heats: 3, lengths: 1, record: '24.87' },
+        { num: 12, name: 'Girls 200 IM', heats: 4, lengths: 4, record: '2:03.45' },
+        { num: 18, name: 'Boys 100 Back', heats: 6, lengths: 2, record: '49.23' },
+      ];
+      
+      const event = events[Math.floor(Math.random() * events.length)];
+      document.getElementById('eventNumber').value = event.num;
+      document.getElementById('eventName').value = event.name;
+      document.getElementById('heatNumber').value = Math.floor(Math.random() * event.heats) + 1;
+      document.getElementById('totalHeats').value = event.heats;
+      document.getElementById('lengths').value = event.lengths;
+      document.getElementById('record').value = event.record;
+      
+      updateEvent();
+    }
+
+    function load50Free() {
+      document.getElementById('eventNumber').value = 1;
+      document.getElementById('eventName').value = 'Girls 50 Free';
+      document.getElementById('heatNumber').value = 1;
+      document.getElementById('totalHeats').value = 3;
+      document.getElementById('lengths').value = 1;
+      document.getElementById('record').value = '22.89';
+      updateEvent();
+    }
+
+    function load100Back() {
+      document.getElementById('eventNumber').value = 5;
+      document.getElementById('eventName').value = 'Boys 100 Back';
+      document.getElementById('heatNumber').value = 2;
+      document.getElementById('totalHeats').value = 4;
+      document.getElementById('lengths').value = 2;
+      document.getElementById('record').value = '49.12';
+      updateEvent();
+    }
+
+    function load200IM() {
+      document.getElementById('eventNumber').value = 12;
+      document.getElementById('eventName').value = 'Girls 200 IM';
+      document.getElementById('heatNumber').value = 3;
+      document.getElementById('totalHeats').value = 4;
+      document.getElementById('lengths').value = 4;
+      document.getElementById('record').value = '2:03.45';
+      updateEvent();
+    }
+
+    function load500Free() {
+      document.getElementById('eventNumber').value = 24;
+      document.getElementById('eventName').value = 'Boys 500 Free';
+      document.getElementById('heatNumber').value = 1;
+      document.getElementById('totalHeats').value = 2;
+      document.getElementById('lengths').value = 10;
+      document.getElementById('record').value = '4:28.67';
+      updateEvent();
+    }
+
+    function openFullscreen() {
+      window.open('scoreboard.html', '_blank');
+    }
+
+    // Auto-load demo on start
+    setTimeout(() => {
+      updateEvent();
+      setTimeout(simulateFinish, 1000);
+    }, 500);
+  </script>
+</body>
+</html>
