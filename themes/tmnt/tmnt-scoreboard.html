@@ -347,6 +347,122 @@
       z-index: 2;
       letter-spacing: 10px;
     }
+
+    /* Turtle chase sequence */
+    .chase-container {
+      position: absolute;
+      top: 120px;
+      left: -200px;
+      width: 100%;
+      height: 80px;
+      pointer-events: none;
+      z-index: 50;
+      opacity: 0;
+    }
+
+    .chase-container.running {
+      animation: chaseRun 8s linear forwards;
+    }
+
+    @keyframes chaseRun {
+      0% {
+        left: -400px;
+        opacity: 1;
+      }
+      100% {
+        left: calc(100% + 200px);
+        opacity: 1;
+      }
+    }
+
+    .turtle {
+      position: absolute;
+      font-size: 70px;
+      animation: turtleLegs 0.2s steps(2) infinite;
+      filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    /* Leonardo - Blue */
+    .turtle:nth-child(1) { 
+      left: 0px; 
+      filter: drop-shadow(0 0 10px #2196F3) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+    }
+    
+    /* Raphael - Red */
+    .turtle:nth-child(2) { 
+      left: 90px; 
+      filter: drop-shadow(0 0 10px #F44336) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+    }
+    
+    /* Donatello - Purple */
+    .turtle:nth-child(3) { 
+      left: 180px; 
+      filter: drop-shadow(0 0 10px #9C27B0) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+    }
+    
+    /* Michelangelo - Orange */
+    .turtle:nth-child(4) { 
+      left: 270px; 
+      filter: drop-shadow(0 0 10px #FF9800) drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    @keyframes turtleLegs {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .villain {
+      position: absolute;
+      font-size: 75px;
+      animation: villainChase 0.3s ease-in-out infinite alternate;
+    }
+
+    .villain:nth-child(5) { left: 380px; }
+    .villain:nth-child(6) { left: 470px; }
+
+    @keyframes villainChase {
+      0% { transform: translateY(0px) scale(1); }
+      100% { transform: translateY(-8px) scale(1.05); }
+    }
+
+    /* Manhole cover entrance */
+    .manhole {
+      position: absolute;
+      left: 0;
+      top: 120px;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #404040 0%, #1a1a1a 70%, #000000 100%);
+      border-radius: 50%;
+      border: 5px solid #808080;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8),
+                  0 4px 10px rgba(0, 0, 0, 0.6);
+      z-index: 40;
+      opacity: 0;
+    }
+
+    .manhole.visible {
+      animation: manholeAppear 0.5s ease-out forwards;
+    }
+
+    @keyframes manholeAppear {
+      0% { opacity: 0; transform: scale(0) rotate(-90deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    .manhole::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      height: 80%;
+      background: 
+        repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.1) 8px, rgba(255,255,255,0.1) 10px),
+        repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(255,255,255,0.1) 8px, rgba(255,255,255,0.1) 10px);
+      border-radius: 50%;
+    }
   </style>
 </head>
 <body>
@@ -360,6 +476,19 @@
   <div class="pizza-slice">🍕</div>
   <div class="pizza-slice">🍕</div>
   <div class="tmnt-logo">TMNT</div>
+
+  <!-- Manhole entrance -->
+  <div class="manhole" id="manhole"></div>
+
+  <!-- Turtle chase sequence -->
+  <div class="chase-container" id="chaseContainer">
+    <div class="turtle">🐢</div>
+    <div class="turtle">🐢</div>
+    <div class="turtle">🐢</div>
+    <div class="turtle">🐢</div>
+    <div class="villain">🥷</div>
+    <div class="villain">👾</div>
+  </div>
 
   <!-- Scoreboard Header -->
   <div class="header">
@@ -472,6 +601,19 @@
 
     // Start
     updateLanes(demoLanes);
+
+    // Trigger turtle chase after lanes load
+    setTimeout(() => {
+      // Show manhole
+      const manhole = document.getElementById('manhole');
+      manhole.classList.add('visible');
+
+      // Start chase 0.5s after manhole appears
+      setTimeout(() => {
+        const chase = document.getElementById('chaseContainer');
+        chase.classList.add('running');
+      }, 500);
+    }, 1500);
   </script>
 </body>
 </html>
