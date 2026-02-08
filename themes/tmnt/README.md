@@ -72,3 +72,10 @@ Click "🐢 RUN TURTLE CHASE!" to trigger the animation on demand!
 - Brick texture overlay (sewer walls)
 
 **Heroes in a half shell... SWIM POWER!** 🏊‍♀️🍕
+
+## Attribution
+
+**Arcade Sprites:** Teenage Mutant Ninja Turtles © Konami 1989  
+Sprites sourced from [The Spriters Resource](https://www.spriters-resource.com/arcade/tmnt/)
+
+This is a fan project for non-commercial swim meet entertainment. All TMNT trademarks and copyrights belong to Konami and the respective rights holders.
