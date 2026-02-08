@@ -8,9 +8,18 @@ Cowabunga! The Teenage Mutant Ninja Turtles come to your swim meet.
 - **Pizza box header** - Orange/red gradient (because turtles love pizza!)
 - **Turtle color borders** - Each lane rotates through Leonardo (blue), Raphael (red), Donatello (purple), and Michelangelo (orange)
 - **Comic book style** - Bold Impact font with thick black text shadows
-- **Pizza slice decorations** - Floating 🍕 emojis in the background
-- **First place shell** - Golden yellow highlight for winners
+- **Pizza slice decorations** - Floating 🍕 emojis with rotation animation
+- **First place shell** - Golden yellow highlight with pulsing "Turtle Power" glow
 - **Sewer grate footer** - Dark metallic finish
+
+## Animations (Inspired by Luke's Mario Theme)
+
+- **Sewer Slide-In** - Lanes slide in from left with bounce (staggered by 80ms per lane)
+- **Pizza Bounce** - Place numbers bounce up like jumping turtles
+- **Turtle Power Glow** - First place pulsates with golden energy (infinite loop)
+- **Pizza Box Drop** - Header drops from above with satisfying bounce
+- **Pizza Float** - Background pizza slices float and rotate gently
+- **First place time** - Bounces continuously to celebrate the win!
 
 ## Color Palette
 
