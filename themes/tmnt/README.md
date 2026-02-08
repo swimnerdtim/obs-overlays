@@ -20,6 +20,12 @@ Cowabunga! The Teenage Mutant Ninja Turtles come to your swim meet.
 - **Pizza Box Drop** - Header drops from above with satisfying bounce
 - **Pizza Float** - Background pizza slices float and rotate gently
 - **First place time** - Bounces continuously to celebrate the win!
+- **TURTLE CHASE!** 🐢🥷👾 - All 4 turtles (with colored glows!) run across the screen chased by Shredder and Krang
+  - Manhole cover spins in at left
+  - Leonardo (blue glow), Raphael (red), Donatello (purple), Michelangelo (orange)
+  - Shredder 🥷 and Krang 👾 chase them
+  - 8-second run across the screen
+  - Triggers 1.5 seconds after lanes load
 
 ## Color Palette
 
