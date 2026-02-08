@@ -29,56 +29,22 @@
       width: 100%;
       height: 140px;
       overflow: hidden;
-      background: linear-gradient(180deg, 
-        #FFB6D9 0%, 
-        #48b7ff 60%, 
-        #f3e1b5 90%
-      );
+      background: #48b7ff;
       border-bottom: 3px solid rgba(255, 255, 255, 0.6);
     }
 
-    /* Malibu backdrop */
-    #backdrop {
+    /* Full scene image */
+    #sceneImage {
       position: absolute;
       width: 100%;
       height: 100%;
-      background-image: url('day1-scene1-surfboard.png');
-      background-size: cover;
-      background-position: center;
-      opacity: 0.3;
+      object-fit: cover;
+      object-position: center;
+      transition: opacity 1s ease-in-out;
     }
 
-    /* Story elements */
-    .storyElement {
-      position: absolute;
-      user-select: none;
-      transition: none;
-    }
-
-    #surfboard {
-      width: 80px;
-      height: auto;
-      left: -100px;
-      top: 80px;
-      z-index: 10;
-    }
-
-    #barbie {
-      width: 70px;
-      height: auto;
-      left: -85px;
-      top: 68px;
-      z-index: 11;
-    }
-
-    /* Idle bobbing animation */
-    .bob {
-      animation: bob 2.6s ease-in-out infinite;
-    }
-
-    @keyframes bob {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
+    #sceneImage.fade-out {
+      opacity: 0;
     }
 
     /* Day indicator */
@@ -281,9 +247,7 @@
 
   <!-- Story Stage -->
   <div id="storyStage">
-    <div id="backdrop"></div>
-    <img id="surfboard" class="storyElement" src="day1-scene1-surfboard.png" alt="Surfboard" />
-    <img id="barbie" class="storyElement" src="day1-scene2-floating.png" alt="Barbie" />
+    <img id="sceneImage" src="day1-scene1-shipwreck.png" alt="Story scene" />
     <div id="dayIndicator">Day 1 — Arrival</div>
   </div>
 
@@ -339,8 +303,7 @@
     }
 
     const el = {
-      surfboard: document.getElementById("surfboard"),
-      barbie: document.getElementById("barbie"),
+      sceneImage: document.getElementById("sceneImage"),
       dayIndicator: document.getElementById("dayIndicator"),
     };
 
@@ -348,15 +311,18 @@
       return new Promise(r => setTimeout(r, ms));
     }
 
-    function resetStage() {
-      el.surfboard.classList.remove("bob");
-      el.barbie.classList.remove("bob");
-      el.surfboard.style.transition = "none";
-      el.barbie.style.transition = "none";
-      el.surfboard.style.left = "-100px";
-      el.surfboard.style.top = "80px";
-      el.barbie.style.left = "-85px";
-      el.barbie.style.top = "68px";
+    function changeScene(imagePath) {
+      return new Promise((resolve) => {
+        // Fade out
+        el.sceneImage.classList.add('fade-out');
+        setTimeout(() => {
+          // Change image
+          el.sceneImage.src = imagePath;
+          // Fade in
+          el.sceneImage.classList.remove('fade-out');
+          resolve();
+        }, 1000);
+      });
     }
 
     function toggleFullscreen() {
@@ -389,36 +355,25 @@
       }
     });
 
-    // DAY 1 — ARRIVAL (Linear sequence)
+    // DAY 1 — ARRIVAL (Full scene sequence)
     async function playDay1Arrival() {
-      resetStage();
       el.dayIndicator.textContent = "Day 1 — Arrival";
 
-      // Scene 1: Surfboard washes in
-      el.surfboard.src = "day1-scene1-surfboard.png";
-      await wait(300);
-      el.surfboard.style.transition = "left 8s ease-out";
-      el.surfboard.style.left = "25%";
+      // Scene 1: Shipwreck - floating in water
+      el.sceneImage.src = "day1-scene1-shipwreck.png";
+      await wait(8000);
 
-      // Scene 2: Barbie floats in behind
-      await wait(2000);
-      el.barbie.src = "day1-scene2-floating.png";
-      el.barbie.style.transition = "left 7s ease-out";
-      el.barbie.style.left = "35%";
-
-      // Scene 3: She sits up
+      // Scene 2: Washed ashore - exhausted on beach
+      await changeScene("day1-scene2-washed-ashore.png");
       await wait(7000);
-      el.barbie.src = "day1-scene3-sitting-up.png";
-      el.barbie.style.transition = "opacity 1s ease";
 
-      // Scene 4: Shrug "okay"
-      await wait(3000);
-      el.barbie.src = "day1-scene4-shrug-okay.png";
+      // Scene 3: Looking around - sitting up, surveying the island
+      await changeScene("day1-scene3-looking-around.png");
+      await wait(5000);
 
-      // Idle bob
-      await wait(1500);
-      el.surfboard.classList.add("bob");
-      el.barbie.classList.add("bob");
+      // Scene 4: Acceptance - "Well... okay, let's do this"
+      await changeScene("day1-scene4-okay-lets-do-this.png");
+      // Hold on final scene until next day
     }
 
     // Map days to functions
