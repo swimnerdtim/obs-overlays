@@ -78,23 +78,23 @@
 
     /* Lane Results Container */
     .lanes-container {
-      padding: 20px 40px;
+      padding: 12px 40px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      height: calc(1080px - 280px);
+      gap: 6px;
+      height: calc(1080px - 260px);
       overflow: hidden;
     }
 
     /* Individual Lane Row */
     .lane {
       display: grid;
-      grid-template-columns: 60px 60px 500px 400px 180px 180px;
-      gap: 20px;
+      grid-template-columns: 40px 50px 60px 400px 300px 180px 180px;
+      gap: 16px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 16px 24px;
-      border-radius: 16px;
+      padding: 12px 20px;
+      border-radius: 12px;
       border-left: 6px solid var(--barbie-accent);
       transition: all 0.3s ease;
     }
@@ -105,14 +105,14 @@
     }
 
     .lane-number {
-      font-size: 42px;
+      font-size: 36px;
       font-weight: 900;
       color: var(--text-green);
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     .place {
-      font-size: 42px;
+      font-size: 36px;
       font-weight: 900;
       color: var(--text-red);
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
@@ -123,7 +123,7 @@
     }
 
     .swimmer-name {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 700;
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
       white-space: nowrap;
@@ -132,14 +132,14 @@
     }
 
     .team {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 600;
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
       opacity: 0.95;
     }
 
     .split-time {
-      font-size: 38px;
+      font-size: 34px;
       font-weight: 800;
       color: var(--text-yellow);
       text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
@@ -148,7 +148,7 @@
     }
 
     .final-time {
-      font-size: 48px;
+      font-size: 42px;
       font-weight: 900;
       color: var(--barbie-accent);
       text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
@@ -165,7 +165,7 @@
 
     .lane.first-place .final-time {
       color: #FFD700;
-      font-size: 54px;
+      font-size: 48px;
     }
 
     /* Footer Info */
@@ -195,9 +195,41 @@
     .footer-value {
       color: var(--text-primary);
     }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: var(--barbie-hot-pink);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .fullscreen-btn:hover {
+      background: var(--barbie-dark-pink);
+      transform: scale(1.05);
+    }
+
+    .fullscreen-btn.hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <!-- Fullscreen Button -->
+  <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+    Enter Fullscreen (F11)
+  </button>
+
   <!-- Header with Title and Clock -->
   <div class="header">
     <div class="title">Barbie Scoreboard</div>
@@ -287,30 +319,54 @@
         laneDiv.className = 'lane';
         if (lane.place === 1) laneDiv.classList.add('first-place');
         
+        // Build HTML with proper 7-column grid: L, lane#, Place (P#), Name, Team, Split, Final
+        const placeHTML = lane.place 
+          ? `<div class="place">P ${lane.place}</div>` 
+          : `<div class="place empty">-</div>`;
+        
         laneDiv.innerHTML = `
           <div class="lane-number">L</div>
           <div class="lane-number">${lane.lane}</div>
+          ${placeHTML}
           <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
           <div class="team">${lane.team || 'Team'}</div>
           <div class="split-time">${lane.split || ''}</div>
           <div class="final-time">${lane.time || ''}</div>
         `;
         
-        // Add place if available
-        if (lane.place) {
-          const placeDiv = document.createElement('div');
-          placeDiv.className = 'place';
-          placeDiv.textContent = `P ${lane.place}`;
-          laneDiv.insertBefore(placeDiv, laneDiv.children[1]);
-        } else {
-          const emptyPlace = document.createElement('div');
-          emptyPlace.className = 'place empty';
-          laneDiv.insertBefore(emptyPlace, laneDiv.children[1]);
-        }
-        
         container.appendChild(laneDiv);
       });
     }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        document.getElementById('fullscreenBtn').classList.add('hidden');
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          document.getElementById('fullscreenBtn').classList.remove('hidden');
+        }
+      }
+    }
+
+    // Hide fullscreen button when in fullscreen
+    document.addEventListener('fullscreenchange', () => {
+      const btn = document.getElementById('fullscreenBtn');
+      if (document.fullscreenElement) {
+        btn.classList.add('hidden');
+      } else {
+        btn.classList.remove('hidden');
+      }
+    });
+
+    // F11 key handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F11') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+    });
 
     function startRace() {
       raceStartTime = Date.now();
