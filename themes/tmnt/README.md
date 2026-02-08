@@ -57,7 +57,12 @@ Cowabunga! The Teenage Mutant Ninja Turtles come to your swim meet.
 
 ## Demo
 
+**Live Scoreboard:**  
 https://swimnerdtim.github.io/obs-overlays/themes/tmnt/tmnt-scoreboard.html
+
+**Interactive Simulator (Test Animations):**  
+https://swimnerdtim.github.io/obs-overlays/themes/tmnt/simulator.html  
+Click "🐢 RUN TURTLE CHASE!" to trigger the animation on demand!
 
 ## Easter Eggs
 
