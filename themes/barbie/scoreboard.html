@@ -177,6 +177,43 @@
 
     .lane.first-place .final-time {
       color: #FFD700;
+      font-size: 96px;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+    
+    .lane.first-place .final-time::after {
+      content: " ✨💖";
+      font-size: 48px;
+      animation: float 2s ease-in-out infinite;
+    }
+    
+    @keyframes sparkle {
+      0%, 100% {
+        text-shadow: 
+          0 0 20px #FFD700,
+          0 0 40px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+        transform: scale(1);
+      }
+      50% {
+        text-shadow: 
+          0 0 30px #FFD700,
+          0 0 60px #FF69B4,
+          0 0 80px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+        transform: scale(1.05);
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-10px);
+        opacity: 0.8;
+      }
     }
 
     /* Footer Info */
