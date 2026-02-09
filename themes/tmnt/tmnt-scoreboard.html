@@ -58,7 +58,7 @@
       flex-direction: column;
     }
 
-    /* Header Row - Event + Clock */
+    /* Header Row - Event + Clock with Pizza Pattern */
     .header {
       display: grid;
       grid-template-columns: 1fr 480px;
@@ -67,6 +67,33 @@
       background: linear-gradient(135deg, var(--pizza-orange) 0%, var(--pizza-red) 100%);
       border-bottom: 6px solid var(--pizza-yellow);
       flex-shrink: 0;
+      position: relative;
+    }
+    
+    /* Pizza pattern overlay - pepperoni dots and cheese texture */
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        /* Pepperoni circles */
+        radial-gradient(circle at 15% 30%, var(--pizza-red) 8px, transparent 9px),
+        radial-gradient(circle at 35% 60%, var(--pizza-red) 10px, transparent 11px),
+        radial-gradient(circle at 55% 25%, var(--pizza-red) 9px, transparent 10px),
+        radial-gradient(circle at 75% 55%, var(--pizza-red) 8px, transparent 9px),
+        radial-gradient(circle at 85% 35%, var(--pizza-red) 10px, transparent 11px),
+        radial-gradient(circle at 25% 80%, var(--pizza-red) 9px, transparent 10px),
+        radial-gradient(circle at 65% 75%, var(--pizza-red) 8px, transparent 9px),
+        /* Cheese texture - subtle light patches */
+        radial-gradient(circle at 45% 40%, rgba(255, 255, 255, 0.15) 40px, transparent 60px),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 35px, transparent 55px);
+      background-size: 100% 100%;
+      pointer-events: none;
+      opacity: 0.4;
+      z-index: 0;
     }
 
     .event-name {
@@ -77,6 +104,8 @@
         -2px -2px 0 #000;
       text-transform: uppercase;
       color: var(--pizza-yellow);
+      position: relative;
+      z-index: 1;
     }
 
     .race-clock {
@@ -88,6 +117,8 @@
         -3px -3px 0 #000;
       color: var(--text-primary);
       text-align: right;
+      position: relative;
+      z-index: 1;
     }
 
     /* Lane Results Container */
@@ -178,6 +209,8 @@
     .lane > * {
       display: flex;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
     
     .lane-times {
@@ -185,6 +218,8 @@
       gap: 30px;
       justify-content: flex-end;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
     .lane:hover {
