@@ -44,9 +44,10 @@
       flex-direction: column;
     }
 
-    /* Header - Event name only */
+    /* Single Header Row - Event + Clock */
     .header {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 420px;
       align-items: center;
       padding: 24px 50px;
       background: rgba(255, 255, 255, 0.15);
@@ -60,78 +61,45 @@
       text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
     }
 
-    /* Main content area */
-    .main-content {
-      display: flex;
-      flex: 1;
-      min-height: 0;
-      overflow: hidden;
+    .race-clock {
+      font-size: 120px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+      color: var(--barbie-accent);
     }
 
-    /* Left side - Lane info */
+    /* Lane Results Container */
     .lanes-container {
-      flex: 1;
-      padding: 30px 30px 30px 50px;
+      padding: 30px 50px 30px 50px;
       display: flex;
       flex-direction: column;
       gap: 25px;
+      flex: 1 1 auto;
+      min-height: 0;
       overflow: hidden;
       justify-content: space-evenly;
     }
 
-    /* Individual Lane Row - no times */
+    /* Individual Lane Row - times on far right */
     .lane {
       display: grid;
-      grid-template-columns: 80px 100px 1fr 340px;
+      grid-template-columns: 80px 100px 1fr 1fr 420px;
       gap: 24px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 40px 30px;
+      padding: 40px 50px;
       border-radius: 10px;
       border-left: 6px solid var(--barbie-accent);
       transition: all 0.3s ease;
       flex: 1;
       min-height: 0;
     }
-
-    /* Right side - Timer + Times */
-    .times-sidebar {
-      width: 450px;
-      padding: 30px 50px 30px 30px;
+    
+    .lane-times {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
-      background: rgba(0, 0, 0, 0.15);
-      border-left: 4px solid var(--barbie-accent);
-      overflow-y: auto;
-    }
-
-    .race-clock {
-      font-size: 100px;
-      font-weight: 900;
-      font-variant-numeric: tabular-nums;
-      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
-      color: var(--barbie-accent);
-      text-align: center;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      margin-bottom: 10px;
-      flex-shrink: 0;
-    }
-
-    .time-entry {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 16px 20px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-      flex-shrink: 0;
-    }
-
-    .time-entry.first-place {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 165, 0, 0.25));
+      gap: 30px;
+      justify-content: flex-end;
     }
 
     .lane:hover {
@@ -342,9 +310,10 @@
     Enter Fullscreen (F11)
   </button>
 
-  <!-- Header - Event Name only -->
+  <!-- Single Header - Event Name + Race Clock -->
   <div class="header">
     <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
+    <div class="race-clock" id="raceClock">0:00.00</div>
   </div>
 
   <!-- Animated Barbie Character (travels across header) -->
@@ -352,20 +321,9 @@
     <img id="barbieImage" src="barbie-waving.png" alt="Barbie" />
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Left: Lanes -->
-    <div class="lanes-container" id="lanesContainer">
-      <!-- Lanes populated by JavaScript -->
-    </div>
-
-    <!-- Right: Timer + Times -->
-    <div class="times-sidebar">
-      <div class="race-clock" id="raceClock">0:00.00</div>
-      <div id="timesContainer">
-        <!-- Times populated by JavaScript -->
-      </div>
-    </div>
+  <!-- Lane Results -->
+  <div class="lanes-container" id="lanesContainer">
+    <!-- Lanes populated by JavaScript -->
   </div>
 
   <!-- Footer Info -->
@@ -433,18 +391,16 @@
     }
 
     function updateLanes(lanes) {
-      const lanesContainer = document.getElementById('lanesContainer');
-      const timesContainer = document.getElementById('timesContainer');
-      
-      lanesContainer.innerHTML = '';
-      timesContainer.innerHTML = '';
+      const container = document.getElementById('lanesContainer');
+      container.innerHTML = '';
       
       lanes.forEach((lane, index) => {
-        // Left side: Lane info
         const laneDiv = document.createElement('div');
         laneDiv.className = 'lane';
         if (lane.place === 1) laneDiv.classList.add('first-place');
         
+        // Build HTML with 6-column grid: lane#, place, name, team, split, final
+        // Place only shows after finish (when lane.place exists)
         const placeHTML = lane.place 
           ? `<div class="place">${lane.place}</div>` 
           : `<div class="place empty">-</div>`;
@@ -454,19 +410,13 @@
           ${placeHTML}
           <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
           <div class="team">${lane.team || 'Team'}</div>
+          <div class="lane-times">
+            <div class="split-time">${lane.split || ''}</div>
+            <div class="final-time">${lane.time || ''}</div>
+          </div>
         `;
-        lanesContainer.appendChild(laneDiv);
         
-        // Right side: Times
-        const timeDiv = document.createElement('div');
-        timeDiv.className = 'time-entry';
-        if (lane.place === 1) timeDiv.classList.add('first-place');
-        
-        timeDiv.innerHTML = `
-          <div class="split-time">${lane.split || ''}</div>
-          <div class="final-time">${lane.time || ''}</div>
-        `;
-        timesContainer.appendChild(timeDiv);
+        container.appendChild(laneDiv);
       });
     }
 
