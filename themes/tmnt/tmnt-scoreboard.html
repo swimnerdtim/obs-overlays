@@ -70,7 +70,7 @@
       position: relative;
     }
     
-    /* Pizza pattern overlay - pepperoni dots and cheese texture */
+    /* Pizza pattern overlay - pepperoni and melted cheese */
     .header::before {
       content: '';
       position: absolute;
@@ -79,20 +79,38 @@
       right: 0;
       bottom: 0;
       background-image:
-        /* Pepperoni circles */
-        radial-gradient(circle at 15% 30%, var(--pizza-red) 8px, transparent 9px),
-        radial-gradient(circle at 35% 60%, var(--pizza-red) 10px, transparent 11px),
-        radial-gradient(circle at 55% 25%, var(--pizza-red) 9px, transparent 10px),
-        radial-gradient(circle at 75% 55%, var(--pizza-red) 8px, transparent 9px),
-        radial-gradient(circle at 85% 35%, var(--pizza-red) 10px, transparent 11px),
-        radial-gradient(circle at 25% 80%, var(--pizza-red) 9px, transparent 10px),
-        radial-gradient(circle at 65% 75%, var(--pizza-red) 8px, transparent 9px),
-        /* Cheese texture - subtle light patches */
-        radial-gradient(circle at 45% 40%, rgba(255, 255, 255, 0.15) 40px, transparent 60px),
-        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 35px, transparent 55px);
+        /* Pepperoni circles with darker edges */
+        radial-gradient(circle at 12% 35%, #8B0000 12px, transparent 13px),
+        radial-gradient(circle at 12% 35%, var(--pizza-red) 10px, transparent 11px),
+        
+        radial-gradient(circle at 28% 65%, #8B0000 14px, transparent 15px),
+        radial-gradient(circle at 28% 65%, var(--pizza-red) 12px, transparent 13px),
+        
+        radial-gradient(circle at 42% 25%, #8B0000 13px, transparent 14px),
+        radial-gradient(circle at 42% 25%, var(--pizza-red) 11px, transparent 12px),
+        
+        radial-gradient(circle at 58% 55%, #8B0000 12px, transparent 13px),
+        radial-gradient(circle at 58% 55%, var(--pizza-red) 10px, transparent 11px),
+        
+        radial-gradient(circle at 72% 30%, #8B0000 14px, transparent 15px),
+        radial-gradient(circle at 72% 30%, var(--pizza-red) 12px, transparent 13px),
+        
+        radial-gradient(circle at 85% 60%, #8B0000 13px, transparent 14px),
+        radial-gradient(circle at 85% 60%, var(--pizza-red) 11px, transparent 12px),
+        
+        radial-gradient(circle at 20% 75%, #8B0000 12px, transparent 13px),
+        radial-gradient(circle at 20% 75%, var(--pizza-red) 10px, transparent 11px),
+        
+        radial-gradient(circle at 65% 80%, #8B0000 13px, transparent 14px),
+        radial-gradient(circle at 65% 80%, var(--pizza-red) 11px, transparent 12px),
+        
+        /* Melted cheese bubbles - white/yellow patches */
+        radial-gradient(circle at 38% 45%, rgba(255, 255, 200, 0.3) 30px, transparent 50px),
+        radial-gradient(circle at 78% 75%, rgba(255, 255, 200, 0.25) 35px, transparent 55px),
+        radial-gradient(circle at 50% 70%, rgba(255, 255, 200, 0.2) 25px, transparent 45px);
       background-size: 100% 100%;
       pointer-events: none;
-      opacity: 0.4;
+      opacity: 0.5;
       z-index: 0;
     }
 
@@ -153,37 +171,6 @@
       position: relative;
     }
     
-    /* Turtle shell grid pattern overlay */
-    .lane::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background:
-        /* Vertical lines */
-        repeating-linear-gradient(90deg,
-          transparent,
-          transparent 140px,
-          rgba(0, 0, 0, 0.25) 140px,
-          rgba(0, 0, 0, 0.25) 145px
-        ),
-        /* Horizontal lines */
-        repeating-linear-gradient(0deg,
-          transparent,
-          transparent 80px,
-          rgba(0, 0, 0, 0.25) 80px,
-          rgba(0, 0, 0, 0.25) 85px
-        ),
-        /* Darker patches for depth */
-        radial-gradient(circle at 30% 40%, rgba(0, 0, 0, 0.12) 40px, transparent 70px),
-        radial-gradient(circle at 70% 60%, rgba(0, 0, 0, 0.12) 40px, transparent 70px);
-      border-radius: 10px;
-      pointer-events: none;
-      opacity: 0.5;
-    }
-
     /* Turtle color rotation for lane borders */
     .lane:nth-child(8n+1) { border-left-color: var(--leonardo-blue); }
     .lane:nth-child(8n+2) { border-left-color: var(--raphael-red); }
