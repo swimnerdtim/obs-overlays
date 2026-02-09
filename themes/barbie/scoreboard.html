@@ -63,11 +63,11 @@
 
     /* Lane Results Container */
     .lanes-container {
-      padding: 10px 50px 12px 50px;
+      padding: 20px 50px 20px 50px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      height: calc(1080px - 165px);
+      gap: 10px;
+      height: calc(1080px - 165px - 70px);
       overflow: hidden;
     }
 
@@ -78,10 +78,11 @@
       gap: 24px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 11px 30px;
+      padding: 24px 30px;
       border-radius: 10px;
       border-left: 6px solid var(--barbie-accent);
       transition: all 0.3s ease;
+      flex: 1;
     }
 
     .lane:hover {
