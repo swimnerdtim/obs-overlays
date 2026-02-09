@@ -394,7 +394,7 @@
   <!-- Header - Event Name + Race Clock -->
   <div class="header">
     <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
-    <div class="race-clock" id="raceClock">0:00.00</div>
+    <div class="race-clock" id="raceClock">0:00</div>
   </div>
 
   <!-- Lane Results -->
@@ -540,10 +540,9 @@
       const elapsed = Date.now() - raceStartTime;
       const minutes = Math.floor(elapsed / 60000);
       const seconds = Math.floor((elapsed % 60000) / 1000);
-      const centis = Math.floor((elapsed % 1000) / 10);
       
       const clockEl = document.getElementById('raceClock');
-      clockEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
+      clockEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
       
       requestAnimationFrame(updateRaceClock);
     }
