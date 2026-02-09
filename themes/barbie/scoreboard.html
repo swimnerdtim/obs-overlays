@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1920, height=1080">
-  <title>Barbie Scoreboard V2 - Swimnerd Live</title>
+  <title>Barbie Scoreboard - Swimnerd Live</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    /* Barbie Theme Variables */
     :root {
       --barbie-pink: #E0218A;
       --barbie-hot-pink: #FF69B4;
@@ -34,11 +35,9 @@
       overflow: hidden;
       width: 1920px;
       height: 1080px;
-      display: flex;
-      flex-direction: column;
     }
 
-    /* Header */
+    /* Single Header Row - Event + Clock */
     .header {
       display: flex;
       justify-content: space-between;
@@ -46,7 +45,6 @@
       padding: 24px 50px;
       background: rgba(255, 255, 255, 0.15);
       border-bottom: 4px solid var(--barbie-accent);
-      flex-shrink: 0;
     }
 
     .event-name {
@@ -55,42 +53,44 @@
       text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
     }
 
-    /* Main content area - lanes left, times right */
-    .main-content {
+    .race-clock {
+      font-size: 120px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+      color: var(--barbie-accent);
+    }
+
+    /* Lane Results Container */
+    .lanes-container {
+      padding: 16px 50px;
       display: flex;
-      flex: 1;
+      flex-direction: column;
+      gap: 8px;
+      height: calc(1080px - 200px);
       overflow: hidden;
     }
 
-    /* Left side - Lane info */
-    .lanes-left {
-      flex: 1;
-      padding: 30px 30px 30px 50px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      justify-content: space-evenly;
-    }
-
-    .lane-row {
+    /* Individual Lane Row */
+    .lane {
       display: grid;
-      grid-template-columns: 100px 120px 1fr 200px;
-      gap: 24px;
+      grid-template-columns: 90px 110px 520px 360px 240px 270px;
+      gap: 28px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 35px 30px;
-      border-radius: 10px;
+      padding: 16px 35px;
+      border-radius: 14px;
       border-left: 6px solid var(--barbie-accent);
+      transition: all 0.3s ease;
     }
 
-    .lane-row.first-place {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3));
-      border-left-color: #FFD700;
-      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    .lane:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
     }
 
     .lane-number {
-      font-size: 72px;
+      font-size: 64px;
       font-weight: 900;
       color: var(--text-green);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -98,7 +98,7 @@
     }
 
     .place {
-      font-size: 72px;
+      font-size: 64px;
       font-weight: 900;
       color: var(--text-red);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -110,7 +110,7 @@
     }
 
     .swimmer-name {
-      font-size: 56px;
+      font-size: 50px;
       font-weight: 700;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
@@ -119,79 +119,53 @@
     }
 
     .team {
-      font-size: 48px;
+      font-size: 44px;
       font-weight: 600;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       opacity: 0.95;
     }
 
-    /* Right side - Timer + Times */
-    .times-right {
-      width: 450px;
-      padding: 30px 50px 30px 30px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      background: rgba(0, 0, 0, 0.15);
-      border-left: 4px solid var(--barbie-accent);
-    }
-
-    .race-clock {
-      font-size: 100px;
-      font-weight: 900;
-      font-variant-numeric: tabular-nums;
-      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
-      color: var(--barbie-accent);
-      text-align: center;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-
-    .time-entry {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 12px 20px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 8px;
-    }
-
-    .time-entry.first-place {
-      background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 165, 0, 0.25));
-    }
-
     .split-time {
-      font-size: 42px;
-      font-weight: 700;
+      font-size: 52px;
+      font-weight: 800;
       color: var(--text-yellow);
-      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
       font-variant-numeric: tabular-nums;
-      text-align: center;
+      text-align: right;
     }
 
     .final-time {
-      font-size: 62px;
+      font-size: 64px;
       font-weight: 900;
       color: var(--barbie-accent);
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
       font-variant-numeric: tabular-nums;
-      text-align: center;
+      text-align: right;
     }
 
-    .time-entry.first-place .final-time {
+    /* First Place Highlight */
+    .lane.first-place {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3));
+      border-left-color: #FFD700;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    }
+
+    .lane.first-place .final-time {
       color: #FFD700;
+      font-size: 70px;
     }
 
-    /* Footer */
+    /* Footer Info */
     .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
       display: flex;
       justify-content: space-between;
       padding: 16px 40px;
       background: rgba(0, 0, 0, 0.4);
       border-top: 2px solid rgba(255, 255, 255, 0.3);
-      flex-shrink: 0;
     }
 
     .footer-item {
@@ -210,31 +184,106 @@
       color: var(--text-primary);
       font-weight: 600;
     }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: var(--barbie-hot-pink);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .fullscreen-btn:hover {
+      background: var(--barbie-dark-pink);
+      transform: scale(1.05);
+    }
+
+    .fullscreen-btn.hidden {
+      display: none;
+    }
+
+    /* Barbie Character Animation Area */
+    .barbie-character {
+      position: fixed;
+      bottom: 120px;
+      right: 80px;
+      width: 300px;
+      height: 300px;
+      pointer-events: none;
+      z-index: 500;
+    }
+
+    .barbie-character img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.6));
+    }
+
+    /* Character animations */
+    @keyframes wave {
+      0%, 100% { transform: rotate(-5deg); }
+      50% { transform: rotate(5deg); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes cheer {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      25% { transform: scale(1.1) rotate(-5deg); }
+      75% { transform: scale(1.1) rotate(5deg); }
+    }
+
+    .barbie-character.wave {
+      animation: wave 2s ease-in-out infinite;
+    }
+
+    .barbie-character.bounce {
+      animation: bounce 1.5s ease-in-out infinite;
+    }
+
+    .barbie-character.cheer {
+      animation: cheer 1s ease-in-out infinite;
+    }
   </style>
 </head>
 <body>
-  <!-- Header -->
+  <!-- Fullscreen Button -->
+  <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+    Enter Fullscreen (F11)
+  </button>
+
+  <!-- Single Header - Event Name + Race Clock -->
   <div class="header">
     <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
+    <div class="race-clock" id="raceClock">0:00.00</div>
   </div>
 
-  <!-- Main Content -->
-  <div class="main-content">
-    <!-- Left: Lanes -->
-    <div class="lanes-left" id="lanesLeft">
-      <!-- Populated by JS -->
-    </div>
-
-    <!-- Right: Timer + Times -->
-    <div class="times-right">
-      <div class="race-clock" id="raceClock">0:00.00</div>
-      <div id="timesContainer">
-        <!-- Populated by JS -->
-      </div>
-    </div>
+  <!-- Animated Barbie Character (Johnny Castaway style) -->
+  <div class="barbie-character wave" id="barbieCharacter">
+    <!-- Character animation will cycle through different activities -->
+    <div id="barbieAnimation" style="font-size: 120px; text-align: center;">💁‍♀️</div>
   </div>
 
-  <!-- Footer -->
+  <!-- Lane Results -->
+  <div class="lanes-container" id="lanesContainer">
+    <!-- Lanes populated by JavaScript -->
+  </div>
+
+  <!-- Footer Info -->
   <div class="footer">
     <div class="footer-item">
       <span class="footer-label">EV:</span>
@@ -255,31 +304,60 @@
   </div>
 
   <script>
-    // Demo data
-    const demoLanes = [
-      { lane: 1, name: 'Sarah Johnson', team: 'NOVA', split: '1:01.23', time: '2:08.45', place: null },
-      { lane: 2, name: 'Emma Williams', team: 'RAYS', split: '59.87', time: '2:05.67', place: 3 },
-      { lane: 3, name: 'Katie Martinez', team: 'TIDE', split: '58.34', time: '2:03.12', place: 1 },
-      { lane: 4, name: 'Olivia Davis', team: 'WAVE', split: '59.12', time: '2:04.89', place: 2 },
-      { lane: 5, name: 'Sophia Brown', team: 'HEAT', split: '1:00.45', time: '2:07.23', place: 4 },
-      { lane: 6, name: 'Ava Garcia', team: 'BOLT', split: '1:01.89', time: '2:09.01', place: null },
-      { lane: 7, name: 'Isabella Lopez', team: 'FAST', split: '1:02.34', time: '2:10.56', place: null },
-      { lane: 8, name: 'Mia Rodriguez', team: 'FIRE', split: '1:00.78', time: '2:07.89', place: 5 },
-    ];
+    // BroadcastChannel for Swimnerd Live integration
+    const channel = new BroadcastChannel('swimnerd-live');
 
-    function updateDisplay() {
-      const lanesLeft = document.getElementById('lanesLeft');
-      const timesContainer = document.getElementById('timesContainer');
+    // State
+    let raceStartTime = null;
+    let raceRunning = false;
+
+    // Listen for data from Swimnerd Live
+    channel.onmessage = (event) => {
+      const data = event.data;
       
-      lanesLeft.innerHTML = '';
-      timesContainer.innerHTML = '';
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      } else if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_update') {
+        updateLanes(data.lanes);
+      } else if (data.type === 'race_finish') {
+        stopRace();
+        updateLanes(data.lanes);
+      }
+    };
+
+    function updateEventInfo(data) {
+      if (data.eventNumber) {
+        document.getElementById('eventNumber').textContent = data.eventNumber;
+      }
+      if (data.eventName) {
+        document.getElementById('eventName').textContent = 
+          `Event ${data.eventNumber || ''} - ${data.eventName}`;
+      }
+      if (data.heatNumber && data.totalHeats) {
+        document.getElementById('heatNumber').textContent = 
+          `${data.heatNumber} of ${data.totalHeats}`;
+      }
+      if (data.lengths) {
+        document.getElementById('lengths').textContent = data.lengths;
+      }
+      if (data.record) {
+        document.getElementById('record').textContent = data.record;
+      }
+    }
+
+    function updateLanes(lanes) {
+      const container = document.getElementById('lanesContainer');
+      container.innerHTML = '';
       
-      demoLanes.forEach(lane => {
-        // Left side: Lane row
+      lanes.forEach((lane, index) => {
         const laneDiv = document.createElement('div');
-        laneDiv.className = 'lane-row';
+        laneDiv.className = 'lane';
         if (lane.place === 1) laneDiv.classList.add('first-place');
         
+        // Build HTML with 6-column grid: lane#, place, name, team, split, final
+        // Place only shows after finish (when lane.place exists)
         const placeHTML = lane.place 
           ? `<div class="place">${lane.place}</div>` 
           : `<div class="place empty">-</div>`;
@@ -287,32 +365,54 @@
         laneDiv.innerHTML = `
           <div class="lane-number">${lane.lane}</div>
           ${placeHTML}
-          <div class="swimmer-name">${lane.name}</div>
-          <div class="team">${lane.team}</div>
-        `;
-        lanesLeft.appendChild(laneDiv);
-        
-        // Right side: Times
-        const timeDiv = document.createElement('div');
-        timeDiv.className = 'time-entry';
-        if (lane.place === 1) timeDiv.classList.add('first-place');
-        
-        timeDiv.innerHTML = `
+          <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
+          <div class="team">${lane.team || 'Team'}</div>
           <div class="split-time">${lane.split || ''}</div>
           <div class="final-time">${lane.time || ''}</div>
         `;
-        timesContainer.appendChild(timeDiv);
+        
+        container.appendChild(laneDiv);
       });
     }
 
-    // Race clock simulation
-    let raceStartTime = null;
-    let raceRunning = false;
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        document.getElementById('fullscreenBtn').classList.add('hidden');
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          document.getElementById('fullscreenBtn').classList.remove('hidden');
+        }
+      }
+    }
+
+    // Hide fullscreen button when in fullscreen
+    document.addEventListener('fullscreenchange', () => {
+      const btn = document.getElementById('fullscreenBtn');
+      if (document.fullscreenElement) {
+        btn.classList.add('hidden');
+      } else {
+        btn.classList.remove('hidden');
+      }
+    });
+
+    // F11 key handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F11') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+    });
 
     function startRace() {
       raceStartTime = Date.now();
       raceRunning = true;
       updateRaceClock();
+    }
+
+    function stopRace() {
+      raceRunning = false;
     }
 
     function updateRaceClock() {
@@ -323,15 +423,111 @@
       const seconds = Math.floor((elapsed % 60000) / 1000);
       const centis = Math.floor((elapsed % 1000) / 10);
       
-      document.getElementById('raceClock').textContent = 
-        `${minutes}:${seconds.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
+      const clockEl = document.getElementById('raceClock');
+      clockEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
       
       requestAnimationFrame(updateRaceClock);
     }
 
-    // Initialize
-    updateDisplay();
-    setTimeout(startRace, 2000);
+    // Demo mode for testing
+    let demoMode = true;
+
+    function runDemo() {
+      if (!demoMode) return;
+      
+      // Demo event info
+      updateEventInfo({
+        eventNumber: 12,
+        eventName: 'Girls 200 IM',
+        heatNumber: 3,
+        totalHeats: 4,
+        lengths: 4,
+        record: '2:03.45'
+      });
+      
+      // Demo lanes (8 lanes)
+      const demoLanes = [
+        { lane: 1, name: 'Sarah Johnson', team: 'NOVA', split: '1:01.23', time: '2:08.45', place: null },
+        { lane: 2, name: 'Emma Williams', team: 'RAYS', split: '59.87', time: '2:05.67', place: 3 },
+        { lane: 3, name: 'Katie Martinez', team: 'TIDE', split: '58.34', time: '2:03.12', place: 1 },
+        { lane: 4, name: 'Olivia Davis', team: 'WAVE', split: '59.12', time: '2:04.89', place: 2 },
+        { lane: 5, name: 'Sophia Brown', team: 'HEAT', split: '1:00.45', time: '2:07.23', place: 4 },
+        { lane: 6, name: 'Ava Garcia', team: 'BOLT', split: '1:01.89', time: '2:09.01', place: null },
+        { lane: 7, name: 'Isabella Lopez', team: 'FAST', split: '1:02.34', time: '2:10.56', place: null },
+        { lane: 8, name: 'Mia Rodriguez', team: 'FIRE', split: '1:00.78', time: '2:07.89', place: 5 },
+      ];
+      
+      updateLanes(demoLanes);
+      
+      // Simulate race start after 2 seconds
+      setTimeout(() => {
+        if (demoMode) {
+          startRace();
+          
+          // Stop race after 10 seconds
+          setTimeout(() => {
+            if (demoMode) stopRace();
+          }, 10000);
+        }
+      }, 2000);
+    }
+
+    // Barbie Character Activities (Johnny Castaway style)
+    const barbieActivities = [
+      { emoji: '💁‍♀️', animation: 'wave', duration: 5000 },      // Waving
+      { emoji: '🤸‍♀️', animation: 'bounce', duration: 4000 },    // Gymnastics
+      { emoji: '📱', animation: 'wave', duration: 6000 },        // On phone
+      { emoji: '💅', animation: 'cheer', duration: 5000 },       // Doing nails
+      { emoji: '🕶️', animation: 'wave', duration: 5000 },        // Sunglasses
+      { emoji: '🎉', animation: 'cheer', duration: 4000 },       // Celebrating
+      { emoji: '🏊‍♀️', animation: 'bounce', duration: 5000 },     // Swimming
+      { emoji: '☕', animation: 'wave', duration: 6000 },        // Coffee break
+      { emoji: '💃', animation: 'cheer', duration: 4000 },       // Dancing
+      { emoji: '📸', animation: 'wave', duration: 5000 },        // Taking selfie
+      { emoji: '🎀', animation: 'bounce', duration: 5000 },      // Getting ready
+      { emoji: '🌺', animation: 'wave', duration: 5000 },        // Relaxing
+    ];
+
+    let currentActivityIndex = 0;
+
+    function updateBarbieActivity() {
+      const activity = barbieActivities[currentActivityIndex];
+      const barbieEl = document.getElementById('barbieCharacter');
+      const animationEl = document.getElementById('barbieAnimation');
+      
+      // Update emoji and animation class
+      animationEl.textContent = activity.emoji;
+      barbieEl.className = 'barbie-character ' + activity.animation;
+      
+      // Move to next activity
+      currentActivityIndex = (currentActivityIndex + 1) % barbieActivities.length;
+      
+      // Schedule next activity change
+      setTimeout(updateBarbieActivity, activity.duration);
+    }
+
+    // Start Barbie activities
+    setTimeout(updateBarbieActivity, 2000);
+
+    // Start demo mode
+    setTimeout(runDemo, 500);
+
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      } else if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_update') {
+        updateLanes(data.lanes);
+      } else if (data.type === 'race_finish') {
+        stopRace();
+        updateLanes(data.lanes);
+      }
+    };
   </script>
 </body>
 </html>
