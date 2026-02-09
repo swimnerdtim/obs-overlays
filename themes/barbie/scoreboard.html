@@ -66,12 +66,13 @@
 
     /* Lane Results Container */
     .lanes-container {
-      padding: 20px 50px 20px 50px;
+      padding: 30px 50px 30px 50px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 20px;
       flex: 1;
       overflow: hidden;
+      justify-content: space-evenly;
     }
 
     /* Individual Lane Row */
@@ -81,11 +82,12 @@
       gap: 24px;
       align-items: center;
       background: rgba(255, 255, 255, 0.12);
-      padding: 24px 30px;
+      padding: 35px 30px;
       border-radius: 10px;
       border-left: 6px solid var(--barbie-accent);
       transition: all 0.3s ease;
       flex: 1;
+      min-height: 0;
     }
 
     .lane:hover {
@@ -94,7 +96,7 @@
     }
 
     .lane-number {
-      font-size: 56px;
+      font-size: 72px;
       font-weight: 900;
       color: var(--text-green);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -102,7 +104,7 @@
     }
 
     .place {
-      font-size: 56px;
+      font-size: 72px;
       font-weight: 900;
       color: var(--text-red);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -114,7 +116,7 @@
     }
 
     .swimmer-name {
-      font-size: 44px;
+      font-size: 56px;
       font-weight: 700;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       white-space: nowrap;
@@ -123,14 +125,14 @@
     }
 
     .team {
-      font-size: 38px;
+      font-size: 48px;
       font-weight: 600;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
       opacity: 0.95;
     }
 
     .split-time {
-      font-size: 46px;
+      font-size: 60px;
       font-weight: 800;
       color: var(--text-yellow);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
@@ -139,7 +141,7 @@
     }
 
     .final-time {
-      font-size: 56px;
+      font-size: 72px;
       font-weight: 900;
       color: var(--barbie-accent);
       text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
