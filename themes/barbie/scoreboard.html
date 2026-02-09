@@ -35,6 +35,8 @@
       overflow: hidden;
       width: 1920px;
       height: 1080px;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Single Header Row - Event + Clock */
@@ -45,6 +47,7 @@
       padding: 24px 50px;
       background: rgba(255, 255, 255, 0.15);
       border-bottom: 4px solid var(--barbie-accent);
+      flex-shrink: 0;
     }
 
     .event-name {
@@ -66,8 +69,8 @@
       padding: 20px 50px 20px 50px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      height: calc(1080px - 165px - 70px);
+      gap: 15px;
+      flex: 1;
       overflow: hidden;
     }
 
@@ -159,15 +162,12 @@
 
     /* Footer Info */
     .footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
       display: flex;
       justify-content: space-between;
       padding: 16px 40px;
       background: rgba(0, 0, 0, 0.4);
       border-top: 2px solid rgba(255, 255, 255, 0.3);
+      flex-shrink: 0;
     }
 
     .footer-item {
