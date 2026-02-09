@@ -3,186 +3,173 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=1920, height=1080">
-  <title>TMNT Scoreboard - Turtle Power!</title>
+  <title>TMNT Scoreboard - Swimnerd Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    /* TMNT Theme Variables */
+    :root {
+      --tmnt-green: #4CAF50;
+      --tmnt-dark-green: #2d5016;
+      --tmnt-sewer: #0a3d0a;
+      --pizza-orange: #FF6B35;
+      --pizza-red: #E52521;
+      --pizza-yellow: #FFD93D;
+      
+      --leonardo-blue: #2196F3;
+      --raphael-red: #F44336;
+      --donatello-purple: #9C27B0;
+      --michelangelo-orange: #FF9800;
+
+      --gradient-bg: linear-gradient(180deg, #1a1a1a 0%, #0a3d0a 50%, #000000 100%);
+      --text-primary: #FFFFFF;
+      --text-green: #00FF00;
+      --text-yellow: #FFD700;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    body {
-      font-family: 'Impact', 'Arial Black', sans-serif;
-      background: linear-gradient(180deg, #1a1a1a 0%, #0a3d0a 50%, #000000 100%);
-      color: #FFFFFF;
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
-      width: 1920px;
-      height: 1080px;
-      position: relative;
     }
 
-    /* Sewer brick texture overlay */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        repeating-linear-gradient(
-          90deg,
-          transparent,
-          transparent 80px,
-          rgba(0, 0, 0, 0.1) 80px,
-          rgba(0, 0, 0, 0.1) 82px
-        ),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 40px,
-          rgba(0, 0, 0, 0.1) 40px,
-          rgba(0, 0, 0, 0.1) 42px
-        );
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    /* Header - Pizza box style */
-    .header {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+    body {
+      font-family: 'Montserrat', 'Impact', 'Arial Black', sans-serif;
+      background: var(--gradient-bg);
+      color: var(--text-primary);
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-      background: linear-gradient(135deg, #FF6B35 0%, #D94A1E 100%);
-      border-bottom: 8px solid #8B2500;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-      z-index: 100;
-      animation: pizzaBoxDrop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      flex-direction: column;
     }
 
-    @keyframes pizzaBoxDrop {
-      0% { transform: translateY(-100%); opacity: 0; }
-      60% { transform: translateY(10px); }
-      100% { transform: translateY(0); opacity: 1; }
+    /* Header Row - Event + Clock */
+    .header {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      align-items: center;
+      padding: 24px 50px 24px 50px;
+      background: linear-gradient(135deg, var(--pizza-orange) 0%, var(--pizza-red) 100%);
+      border-bottom: 6px solid var(--pizza-yellow);
+      flex-shrink: 0;
     }
 
     .event-name {
-      font-size: 52px;
-      font-weight: 900;
-      color: #FFEB3B;
-      text-shadow: 3px 3px 0px #000000, 
-                   -1px -1px 0px #000000,
-                   1px -1px 0px #000000,
-                   -1px 1px 0px #000000;
-      letter-spacing: 2px;
+      font-size: 62px;
+      font-weight: 800;
+      text-shadow: 
+        3px 3px 0 #000,
+        -2px -2px 0 #000;
       text-transform: uppercase;
+      color: var(--pizza-yellow);
     }
 
     .race-clock {
-      font-size: 100px;
+      font-size: 120px;
       font-weight: 900;
       font-variant-numeric: tabular-nums;
-      color: #4CAF50;
-      text-shadow: 4px 4px 0px #000000,
-                   -2px -2px 0px #000000,
-                   2px -2px 0px #000000,
-                   -2px 2px 0px #000000;
+      text-shadow: 
+        4px 4px 0 #000,
+        -3px -3px 0 #000;
+      color: var(--text-primary);
+      text-align: right;
     }
 
-    /* Lane Results */
+    /* Lane Results Container */
     .lanes-container {
-      position: absolute;
-      top: 110px;
-      left: 0;
-      right: 0;
-      bottom: 50px;
-      padding: 10px 50px 12px 50px;
+      padding: 30px 50px 30px 50px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 25px;
+      flex: 1 1 auto;
+      min-height: 0;
       overflow: hidden;
-      z-index: 10;
+      justify-content: space-evenly;
     }
 
+    /* Individual Lane Row */
     .lane {
       display: grid;
-      grid-template-columns: 80px 100px 490px 340px 220px 250px;
+      grid-template-columns: 80px 100px 1fr 1fr 480px;
       gap: 24px;
       align-items: center;
-      background: linear-gradient(135deg, rgba(76, 175, 80, 0.9) 0%, rgba(56, 142, 60, 0.9) 100%);
-      padding: 11px 30px;
+      align-content: center;
+      background: linear-gradient(135deg, var(--tmnt-green) 0%, var(--tmnt-dark-green) 100%);
+      padding: 40px 50px;
       border-radius: 10px;
-      border: 4px solid #2E7D32;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5),
-                  inset 0 2px 0px rgba(255, 255, 255, 0.2);
+      border-left: 8px solid var(--pizza-yellow);
+      box-shadow:
+        inset 0 -4px 0 rgba(0,0,0,0.3),
+        0 4px 12px rgba(0,0,0,0.8);
       transition: all 0.3s ease;
-      opacity: 1;
-      transform: translateX(0);
+      flex: 1;
+      min-height: 0;
     }
 
-    .lane.visible {
-      animation: sewerSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    /* Turtle color rotation for lane borders */
+    .lane:nth-child(8n+1) { border-left-color: var(--leonardo-blue); }
+    .lane:nth-child(8n+2) { border-left-color: var(--raphael-red); }
+    .lane:nth-child(8n+3) { border-left-color: var(--donatello-purple); }
+    .lane:nth-child(8n+4) { border-left-color: var(--michelangelo-orange); }
+    .lane:nth-child(8n+5) { border-left-color: var(--leonardo-blue); }
+    .lane:nth-child(8n+6) { border-left-color: var(--raphael-red); }
+    .lane:nth-child(8n+7) { border-left-color: var(--donatello-purple); }
+    .lane:nth-child(8n+8) { border-left-color: var(--michelangelo-orange); }
+    
+    .lane > * {
+      display: flex;
+      align-items: center;
+    }
+    
+    .lane-times {
+      display: flex;
+      gap: 30px;
+      justify-content: flex-end;
+      align-items: center;
     }
 
-    @keyframes sewerSlideIn {
-      0% { transform: translateX(-100%); opacity: 0; }
-      60% { transform: translateX(5%); }
-      100% { transform: translateX(0); opacity: 1; }
+    .lane:hover {
+      transform: translateX(4px);
+      filter: brightness(1.1);
     }
-
-    /* Turtle color rotation per lane */
-    .lane:nth-child(1) { border-color: #2196F3; } /* Leonardo blue */
-    .lane:nth-child(2) { border-color: #F44336; } /* Raphael red */
-    .lane:nth-child(3) { border-color: #9C27B0; } /* Donatello purple */
-    .lane:nth-child(4) { border-color: #FF9800; } /* Michelangelo orange */
-    .lane:nth-child(5) { border-color: #2196F3; }
-    .lane:nth-child(6) { border-color: #F44336; }
-    .lane:nth-child(7) { border-color: #9C27B0; }
-    .lane:nth-child(8) { border-color: #FF9800; }
 
     .lane-number {
-      font-size: 56px;
+      font-size: 80px;
       font-weight: 900;
-      color: #FFEB3B;
-      text-shadow: 3px 3px 0px #000000,
-                   -1px -1px 0px #000000,
-                   1px -1px 0px #000000,
-                   -1px 1px 0px #000000;
+      color: var(--text-green);
+      text-shadow: 
+        3px 3px 0 #000,
+        -2px -2px 0 #000;
       text-align: center;
     }
 
     .place {
-      font-size: 56px;
+      font-size: 80px;
       font-weight: 900;
-      color: #FF5722;
-      text-shadow: 3px 3px 0px #000000,
-                   -1px -1px 0px #000000,
-                   1px -1px 0px #000000,
-                   -1px 1px 0px #000000;
+      color: var(--pizza-red);
+      text-shadow: 
+        3px 3px 0 #000,
+        -2px -2px 0 #000;
       text-align: center;
-      animation: pizzaBounce 0.6s ease-out;
     }
 
     .place.empty {
       opacity: 0;
     }
 
-    @keyframes pizzaBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
     .swimmer-name {
-      font-size: 44px;
-      font-weight: 900;
-      color: #FFFFFF;
-      text-shadow: 2px 2px 0px #000000,
-                   -1px -1px 0px #000000;
+      font-size: 64px;
+      font-weight: 700;
+      text-shadow: 
+        3px 3px 0 #000,
+        -2px -2px 0 #000;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -190,117 +177,122 @@
     }
 
     .team {
-      font-size: 38px;
-      font-weight: 700;
-      color: #FFEB3B;
-      text-shadow: 2px 2px 0px #000000;
-      text-transform: uppercase;
+      font-size: 56px;
+      font-weight: 600;
+      text-shadow: 
+        3px 3px 0 #000,
+        -2px -2px 0 #000;
+      opacity: 0.95;
     }
 
     .split-time {
-      font-size: 46px;
-      font-weight: 900;
-      color: #00E676;
-      text-shadow: 2px 2px 0px #000000;
+      font-size: 68px;
+      font-weight: 800;
+      color: var(--pizza-yellow);
+      text-shadow: 
+        3px 3px 0 #000,
+        -2px -2px 0 #000;
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
 
     .final-time {
-      font-size: 56px;
+      font-size: 80px;
       font-weight: 900;
-      color: #FFFFFF;
-      text-shadow: 3px 3px 0px #000000,
-                   -1px -1px 0px #000000,
-                   1px -1px 0px #000000,
-                   -1px 1px 0px #000000;
+      color: var(--text-primary);
+      text-shadow: 
+        4px 4px 0 #000,
+        -3px -3px 0 #000;
       font-variant-numeric: tabular-nums;
       text-align: right;
     }
 
+    /* TURTLE POWER - First Place Highlight */
     .lane.first-place {
-      background: linear-gradient(135deg, rgba(255, 235, 59, 0.95) 0%, rgba(255, 193, 7, 0.95) 100%);
-      border-color: #FFC107;
-      border-width: 6px;
+      background: linear-gradient(135deg, var(--pizza-yellow) 0%, var(--pizza-orange) 50%, #ff8800 100%);
       animation: turtlePower 0.4s ease-in-out infinite alternate;
-      transform: scale(1.02);
+      border-left-color: #fff;
+      box-shadow:
+        inset 0 -4px 0 rgba(0,0,0,0.3),
+        0 4px 12px rgba(0,0,0,0.8),
+        0 0 30px rgba(255, 215, 0, 0.8);
     }
 
     @keyframes turtlePower {
       0% {
-        box-shadow: 0 6px 20px rgba(255, 193, 7, 0.6),
-                    inset 0 2px 0px rgba(255, 255, 255, 0.4),
-                    0 0 30px rgba(255, 235, 59, 0.8);
+        box-shadow:
+          inset 0 -4px 0 rgba(0,0,0,0.3),
+          0 4px 12px rgba(0,0,0,0.8),
+          0 0 30px rgba(255, 215, 0, 0.8);
         filter: brightness(1);
       }
       100% {
-        box-shadow: 0 6px 20px rgba(255, 193, 7, 0.8),
-                    inset 0 2px 0px rgba(255, 255, 255, 0.6),
-                    0 0 50px rgba(255, 255, 255, 1),
-                    0 0 80px rgba(255, 193, 7, 0.9);
+        box-shadow:
+          inset 0 -4px 0 rgba(0,0,0,0.3),
+          0 4px 12px rgba(0,0,0,0.8),
+          0 0 50px rgba(255, 255, 255, 1);
         filter: brightness(1.2);
       }
     }
 
-    .lane.first-place .final-time {
-      color: #FF5722;
-      font-size: 64px;
-      animation: pizzaBounce 0.6s ease-out infinite;
+    .lane.first-place .swimmer-name,
+    .lane.first-place .team {
+      color: #000;
+      text-shadow:
+        2px 2px 0 #fff,
+        -1px -1px 0 #fff;
     }
 
-    /* Footer - Sewer grate style */
+    .lane.first-place .final-time {
+      color: var(--pizza-red);
+      font-size: 96px;
+      animation: sparkle 2s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    
+    @keyframes sparkle {
+      0%, 100% {
+        text-shadow: 
+          0 0 20px var(--pizza-red),
+          0 0 40px var(--pizza-yellow),
+          4px 4px 0 #000;
+      }
+      50% {
+        text-shadow: 
+          0 0 30px var(--pizza-red),
+          0 0 60px var(--pizza-yellow),
+          0 0 80px #fff,
+          4px 4px 0 #000;
+      }
+    }
+
+    /* Footer Info */
     .footer {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
       display: flex;
       justify-content: space-between;
-      padding: 8px 50px;
-      background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
-      border-top: 4px solid #4CAF50;
-      box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
-      z-index: 100;
+      padding: 16px 40px;
+      background: rgba(0, 0, 0, 0.6);
+      border-top: 4px solid var(--tmnt-green);
+      flex-shrink: 0;
     }
 
     .footer-item {
-      font-size: 24px;
-      font-weight: 700;
-      color: #4CAF50;
-      text-shadow: 1px 1px 2px #000000;
-      text-transform: uppercase;
+      font-size: 36px;
+      font-weight: 600;
+      text-shadow: 2px 2px 0 #000;
     }
 
     .footer-label {
-      color: #FFEB3B;
-      margin-right: 10px;
-      font-weight: 900;
-    }
-
-    .footer-value {
-      color: #FFFFFF;
+      color: var(--text-green);
+      margin-right: 12px;
       font-weight: 700;
     }
 
-    /* Pizza slice decoration */
-    .pizza-slice {
-      position: absolute;
-      font-size: 60px;
-      opacity: 0.3;
-      animation: float 6s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    .pizza-slice:nth-child(1) { top: 150px; left: 10px; animation-delay: 0s; }
-    .pizza-slice:nth-child(2) { top: 400px; right: 20px; animation-delay: 2s; }
-    .pizza-slice:nth-child(3) { bottom: 150px; left: 30px; animation-delay: 4s; }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      25% { transform: translateY(-10px) rotate(5deg); }
-      50% { transform: translateY(-20px) rotate(10deg); }
-      75% { transform: translateY(-10px) rotate(15deg); }
+    .footer-value {
+      color: var(--text-primary);
+      font-weight: 600;
     }
 
     /* Fullscreen Button */
@@ -308,210 +300,36 @@
       position: fixed;
       top: 10px;
       right: 10px;
-      background: #4CAF50;
-      color: #FFFFFF;
-      border: 3px solid #2E7D32;
-      padding: 10px 20px;
-      font-size: 16px;
-      font-weight: 900;
-      font-family: 'Impact', sans-serif;
+      background: var(--pizza-orange);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: 700;
       border-radius: 8px;
       cursor: pointer;
-      z-index: 10000;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       transition: all 0.3s ease;
-      text-transform: uppercase;
     }
 
     .fullscreen-btn:hover {
-      background: #66BB6A;
+      background: var(--pizza-red);
       transform: scale(1.05);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
     }
 
     .fullscreen-btn.hidden {
       display: none;
-    }
-
-    /* TMNT logo text */
-    .tmnt-logo {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 200px;
-      font-weight: 900;
-      color: rgba(76, 175, 80, 0.1);
-      text-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
-      pointer-events: none;
-      z-index: 2;
-      letter-spacing: 10px;
-    }
-
-    /* Turtle chase sequence */
-    .chase-container {
-      position: absolute;
-      top: 35px;
-      left: -200px;
-      width: 100%;
-      height: 80px;
-      pointer-events: none;
-      z-index: 150;
-      opacity: 0;
-      background: none !important;
-    }
-
-    .chase-container.running {
-      animation: chaseRun 8s linear forwards;
-    }
-
-    @keyframes chaseRun {
-      0% {
-        left: -400px;
-        opacity: 1;
-      }
-      100% {
-        left: calc(100% + 200px);
-        opacity: 1;
-      }
-    }
-
-    .turtle {
-      position: absolute;
-      width: 65px;
-      height: 65px;
-      animation: turtleLegs 0.2s steps(2) infinite;
-      image-rendering: pixelated;
-      background: none !important;
-      border: none !important;
-    }
-
-    /* Leonardo - Blue */
-    .turtle:nth-child(1) { 
-      left: 150px;
-      background: url('leonardo-arcade.png') no-repeat center / contain !important;
-      filter: drop-shadow(0 0 8px #2196F3);
-    }
-    
-    /* Raphael - Red */
-    .turtle:nth-child(2) { 
-      left: 230px;
-      background: url('raphael-arcade.png') no-repeat center / contain !important;
-      filter: drop-shadow(0 0 8px #F44336);
-    }
-    
-    /* Donatello - Purple */
-    .turtle:nth-child(3) { 
-      left: 310px;
-      background: url('donatello-arcade.png') no-repeat center / contain !important;
-      filter: drop-shadow(0 0 8px #9C27B0);
-    }
-    
-    /* Michelangelo - Orange */
-    .turtle:nth-child(4) { 
-      left: 390px;
-      background: url('michelangelo-arcade.png') no-repeat center / contain !important;
-      filter: drop-shadow(0 0 8px #FF9800);
-    }
-
-    @keyframes turtleLegs {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-5px); }
-    }
-
-    .villain {
-      position: absolute;
-      width: 70px;
-      height: 70px;
-      animation: villainChase 0.3s ease-in-out infinite alternate;
-      image-rendering: pixelated;
-      background: none !important;
-      border: none !important;
-    }
-
-    .villain:nth-child(5) { 
-      left: 500px;
-      background: url('bebop-arcade.png') no-repeat center / contain !important;
-      filter: drop-shadow(0 0 10px #8B4513);
-    }
-    
-    .villain:nth-child(6) { 
-      left: 590px;
-      background: url('rocksteady-arcade.png') no-repeat center / contain !important;
-      filter: drop-shadow(0 0 10px #708090);
-    }
-
-    @keyframes villainChase {
-      0% { transform: translateY(0px) scale(1); }
-      100% { transform: translateY(-8px) scale(1.05); }
-    }
-
-    /* Manhole cover entrance */
-    .manhole {
-      position: absolute;
-      left: 150px;
-      top: 25px;
-      width: 70px;
-      height: 70px;
-      background: radial-gradient(circle, #404040 0%, #1a1a1a 70%, #000000 100%);
-      border-radius: 50%;
-      border: 4px solid #808080;
-      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8),
-                  0 4px 10px rgba(0, 0, 0, 0.6);
-      z-index: 140;
-      opacity: 0;
-    }
-
-    .manhole.visible {
-      animation: manholeAppear 0.5s ease-out forwards;
-    }
-
-    @keyframes manholeAppear {
-      0% { opacity: 0; transform: scale(0) rotate(-90deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0deg); }
-    }
-
-    .manhole::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80%;
-      height: 80%;
-      background: 
-        repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.1) 8px, rgba(255,255,255,0.1) 10px),
-        repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(255,255,255,0.1) 8px, rgba(255,255,255,0.1) 10px);
-      border-radius: 50%;
     }
   </style>
 </head>
 <body>
   <!-- Fullscreen Button -->
   <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
-    Turtle Power!
+    Enter Fullscreen (F11)
   </button>
 
-  <!-- Background decorations -->
-  <div class="pizza-slice">🍕</div>
-  <div class="pizza-slice">🍕</div>
-  <div class="pizza-slice">🍕</div>
-  <div class="tmnt-logo">TMNT</div>
-
-  <!-- Manhole entrance -->
-  <div class="manhole" id="manhole"></div>
-
-  <!-- Turtle chase sequence -->
-  <div class="chase-container" id="chaseContainer">
-    <div class="turtle"></div>
-    <div class="turtle"></div>
-    <div class="turtle"></div>
-    <div class="turtle"></div>
-    <div class="villain"></div>
-    <div class="villain"></div>
-  </div>
-
-  <!-- Scoreboard Header -->
+  <!-- Header - Event Name + Race Clock -->
   <div class="header">
     <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
     <div class="race-clock" id="raceClock">0:00.00</div>
@@ -522,7 +340,7 @@
     <!-- Lanes populated by JavaScript -->
   </div>
 
-  <!-- Footer -->
+  <!-- Footer Info -->
   <div class="footer">
     <div class="footer-item">
       <span class="footer-label">EV:</span>
@@ -543,6 +361,77 @@
   </div>
 
   <script>
+    // BroadcastChannel for Swimnerd Live integration
+    const channel = new BroadcastChannel('swimnerd-live');
+
+    // State
+    let raceStartTime = null;
+    let raceRunning = false;
+
+    // Listen for data from Swimnerd Live
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      } else if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_update') {
+        updateLanes(data.lanes);
+      } else if (data.type === 'race_finish') {
+        stopRace();
+        updateLanes(data.lanes);
+      }
+    };
+
+    function updateEventInfo(data) {
+      if (data.eventNumber) {
+        document.getElementById('eventNumber').textContent = data.eventNumber;
+      }
+      if (data.eventName) {
+        document.getElementById('eventName').textContent = 
+          `Event ${data.eventNumber || ''} - ${data.eventName}`;
+      }
+      if (data.heatNumber && data.totalHeats) {
+        document.getElementById('heatNumber').textContent = 
+          `${data.heatNumber} of ${data.totalHeats}`;
+      }
+      if (data.lengths) {
+        document.getElementById('lengths').textContent = data.lengths;
+      }
+      if (data.record) {
+        document.getElementById('record').textContent = data.record;
+      }
+    }
+
+    function updateLanes(lanes) {
+      const container = document.getElementById('lanesContainer');
+      container.innerHTML = '';
+      
+      lanes.forEach((lane, index) => {
+        const laneDiv = document.createElement('div');
+        laneDiv.className = 'lane';
+        if (lane.place === 1) laneDiv.classList.add('first-place');
+        
+        const placeHTML = lane.place 
+          ? `<div class="place">${lane.place}</div>` 
+          : `<div class="place empty">-</div>`;
+        
+        laneDiv.innerHTML = `
+          <div class="lane-number">${lane.lane}</div>
+          ${placeHTML}
+          <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
+          <div class="team">${lane.team || 'Team'}</div>
+          <div class="lane-times">
+            <div class="split-time">${lane.split || ''}</div>
+            <div class="final-time">${lane.time || ''}</div>
+          </div>
+        `;
+        
+        container.appendChild(laneDiv);
+      });
+    }
+
     function toggleFullscreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
@@ -573,85 +462,92 @@
       }
     });
 
-    // ===== SCOREBOARD FUNCTIONALITY =====
-    function updateLanes(lanes) {
-      const container = document.getElementById('lanesContainer');
-      container.innerHTML = '';
+    function startRace() {
+      raceStartTime = Date.now();
+      raceRunning = true;
+      updateRaceClock();
+    }
+
+    function stopRace() {
+      raceRunning = false;
+    }
+
+    function updateRaceClock() {
+      if (!raceRunning) return;
       
-      lanes.forEach((lane, index) => {
-        const laneDiv = document.createElement('div');
-        laneDiv.className = 'lane';
-        if (lane.place === 1) laneDiv.classList.add('first-place');
-        
-        const placeHTML = lane.place 
-          ? `<div class="place">${lane.place}</div>` 
-          : `<div class="place empty">-</div>`;
-        
-        laneDiv.innerHTML = `
-          <div class="lane-number">${lane.lane}</div>
-          ${placeHTML}
-          <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
-          <div class="team">${lane.team || 'Team'}</div>
-          <div class="split-time">${lane.split || ''}</div>
-          <div class="final-time">${lane.time || ''}</div>
-        `;
-        
-        // Stagger lane animations
-        laneDiv.style.animationDelay = `${index * 0.08}s`;
-        
-        container.appendChild(laneDiv);
-        
-        // Trigger animation
-        setTimeout(() => {
-          laneDiv.classList.add('visible');
-        }, 50 + (index * 80));
+      const elapsed = Date.now() - raceStartTime;
+      const minutes = Math.floor(elapsed / 60000);
+      const seconds = Math.floor((elapsed % 60000) / 1000);
+      const centis = Math.floor((elapsed % 1000) / 10);
+      
+      const clockEl = document.getElementById('raceClock');
+      clockEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
+      
+      requestAnimationFrame(updateRaceClock);
+    }
+
+    // Demo mode for testing
+    let demoMode = true;
+
+    function runDemo() {
+      if (!demoMode) return;
+      
+      // Demo event info
+      updateEventInfo({
+        eventNumber: 12,
+        eventName: 'Girls 200 IM',
+        heatNumber: 3,
+        totalHeats: 4,
+        lengths: 4,
+        record: '2:03.45'
       });
-    }
-
-    // Demo lanes
-    const demoLanes = [
-      { lane: 1, name: 'Sarah Johnson', team: 'NOVA', split: '1:01.23', time: '2:08.45', place: null },
-      { lane: 2, name: 'Emma Williams', team: 'RAYS', split: '59.87', time: '2:05.67', place: 3 },
-      { lane: 3, name: 'Katie Martinez', team: 'TIDE', split: '58.34', time: '2:03.12', place: 1 },
-      { lane: 4, name: 'Olivia Davis', team: 'WAVE', split: '59.12', time: '2:04.89', place: 2 },
-      { lane: 5, name: 'Sophia Brown', team: 'HEAT', split: '1:00.45', time: '2:07.23', place: 4 },
-      { lane: 6, name: 'Ava Garcia', team: 'BOLT', split: '1:01.89', time: '2:09.01', place: null },
-      { lane: 7, name: 'Isabella Lopez', team: 'FAST', split: '1:02.34', time: '2:10.56', place: null },
-      { lane: 8, name: 'Mia Rodriguez', team: 'FIRE', split: '1:00.78', time: '2:07.89', place: 5 },
-    ];
-
-    // Start
-    updateLanes(demoLanes);
-
-    // Function to run the chase
-    function runChaseSequence() {
-      const manhole = document.getElementById('manhole');
-      const chase = document.getElementById('chaseContainer');
       
-      // Reset chase
-      chase.classList.remove('running');
-      manhole.classList.remove('visible');
+      // Demo lanes (8 lanes)
+      const demoLanes = [
+        { lane: 1, name: 'Sarah Johnson', team: 'NOVA', split: '1:01.23', time: '2:08.45', place: null },
+        { lane: 2, name: 'Emma Williams', team: 'RAYS', split: '59.87', time: '2:05.67', place: 3 },
+        { lane: 3, name: 'Katie Martinez', team: 'TIDE', split: '58.34', time: '2:03.12', place: 1 },
+        { lane: 4, name: 'Olivia Davis', team: 'WAVE', split: '59.12', time: '2:04.89', place: 2 },
+        { lane: 5, name: 'Sophia Brown', team: 'HEAT', split: '1:00.45', time: '2:07.23', place: 4 },
+        { lane: 6, name: 'Ava Garcia', team: 'BOLT', split: '1:01.89', time: '2:09.01', place: null },
+        { lane: 7, name: 'Isabella Lopez', team: 'FAST', split: '1:02.34', time: '2:10.56', place: null },
+        { lane: 8, name: 'Mia Rodriguez', team: 'FIRE', split: '1:00.78', time: '2:07.89', place: 5 },
+      ];
       
-      // Show manhole
+      updateLanes(demoLanes);
+      
+      // Simulate race start after 2 seconds
       setTimeout(() => {
-        manhole.classList.add('visible');
-        
-        // Start chase 0.5s after manhole appears
-        setTimeout(() => {
-          chase.classList.add('running');
-        }, 500);
-      }, 100);
+        if (demoMode) {
+          startRace();
+          
+          // Stop race after 10 seconds
+          setTimeout(() => {
+            if (demoMode) stopRace();
+          }, 10000);
+        }
+      }, 2000);
     }
 
-    // Trigger turtle chase after lanes load
-    setTimeout(runChaseSequence, 1500);
+    // Start demo mode
+    setTimeout(runDemo, 500);
 
-    // Listen for simulator commands
-    window.addEventListener('message', (event) => {
-      if (event.data.action === 'runChase') {
-        runChaseSequence();
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      } else if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_update') {
+        updateLanes(data.lanes);
+      } else if (data.type === 'race_finish') {
+        stopRace();
+        updateLanes(data.lanes);
       }
-    });
+    };
   </script>
 </body>
 </html>
