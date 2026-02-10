@@ -1,32 +1,11 @@
 # Swimnerd Live - Digital Scoreboard Themes
 
-Beautiful, production-ready themes for Swimnerd Live - **no Cat6 cabling required!**
-
-## 💡 The Problem We Solved
-
-Installing swim meet scoreboards = running Cat6 cables everywhere:
-- Admin table → Scoreboard
-- Scoreboard → Satellite displays
-- Satellites → PTZ cameras
-- Hours of installation, hundreds of feet of cable
-
-## ✨ The Solution
-
-**Digital scoreboards you open in a web browser!**
-
-TVs around the pool just:
-1. Open a URL (or cast a YouTube stream)
-2. Connect to WiFi
-3. Done! 🎉
-
-No cables. No hardware. Just beautiful, themed scoreboards.
+Beautiful, production-ready themes for Swimnerd Live.
 
 ## 🎨 Available Themes
 
 - **Barbie** - Hot pink paradise with Castaway-style story animations ⭐ **LIVE NOW**
-- **Johnny Castaway** - Classic 90s screensaver meets scoreboard (VGA tropical vibes) ⭐ **LIVE NOW**
 - **TMNT** - Teenage Mutant Ninja Turtles sewer power! (80s arcade style) ⭐ **LIVE NOW**
-- More coming soon! (Olympics, Ocean, Neon, Christmas)
 
 ## 🏊 Built For Swimnerd Live
 
