@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Barbie Theme Full Demo - You Can Do Anything!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* Barbie Theme Variables */
+    :root {
+      --barbie-pink: #E0218A;
+      --barbie-hot-pink: #FF69B4;
+      --barbie-light-pink: #FFB6D9;
+      --barbie-dark-pink: #C71585;
+      --barbie-accent: #FFF0F5;
+      --text-primary: #FFFFFF;
+      --text-green: #00FF00;
+      --text-red: #FF1493;
+      --text-yellow: #FFD700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      background: linear-gradient(135deg, #E0218A 0%, #C71585 100%);
+      color: var(--text-primary);
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Header Section */
+    .header-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 20px;
+      padding: 20px 40px;
+      z-index: 10;
+    }
+
+    .header-box {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-box.fixed {
+      flex: 0 0 auto;
+    }
+
+    .header-box.stretch {
+      flex: 1;
+    }
+
+    .header-content {
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      border: 3px solid var(--barbie-accent);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .label {
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: 1px;
+      color: var(--text-green);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .value {
+      font-weight: 900;
+      font-size: 36px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .event-name {
+      font-weight: 900;
+      font-size: 42px;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Timer Section */
+    .timer-container {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      z-index: 20;
+    }
+
+    .timer-content {
+      padding: 24px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      border: 4px solid var(--barbie-accent);
+      animation: fadeIn 0.5s ease-out 0.1s backwards;
+    }
+
+    .timer-label {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: var(--text-green);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .running-time {
+      font-weight: 900;
+      font-size: 80px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -2px;
+      color: var(--barbie-accent);
+      text-shadow: 
+        0 0 20px var(--barbie-pink),
+        0 0 40px var(--barbie-pink),
+        0 4px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Lanes Section */
+    .lanes-container {
+      position: absolute;
+      right: 40px;
+      top: 180px;
+      width: 1100px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lane-content {
+      display: grid;
+      grid-template-columns: 80px 80px 340px 180px 240px;
+      gap: 12px;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      border-left: 6px solid var(--barbie-accent);
+      animation: slideIn 0.5s ease-out backwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .lane-content:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
+    }
+
+    .lane-indicator {
+      font-size: 48px;
+      font-weight: 900;
+      text-align: center;
+      padding: 8px;
+      color: var(--text-green);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .place-indicator {
+      font-size: 48px;
+      font-weight: 900;
+      text-align: center;
+      color: var(--text-red);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .place-indicator:empty {
+      opacity: 0;
+    }
+
+    .swimmer-name {
+      font-size: 32px;
+      font-weight: 700;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .split-time {
+      font-size: 36px;
+      font-weight: 700;
+      text-align: right;
+      color: var(--text-yellow);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .final-time {
+      font-size: 42px;
+      font-weight: 900;
+      text-align: right;
+      color: var(--barbie-accent);
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
+    }
+
+    /* First Place Highlight */
+    .lane-content.first-place {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3));
+      border-left-color: #FFD700;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    }
+
+    .lane-content.first-place .final-time {
+      color: #FFD700;
+      font-size: 52px;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        text-shadow: 
+          0 0 20px #FFD700,
+          0 0 40px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+      }
+      50% {
+        text-shadow: 
+          0 0 30px #FFD700,
+          0 0 60px #FF69B4,
+          0 0 80px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+      }
+    }
+
+    /* Info Banner */
+    .info-banner {
+      position: absolute;
+      top: 50%;
+      left: 50px;
+      transform: translateY(-50%);
+      background: rgba(224, 33, 138, 0.95);
+      border: 6px solid var(--barbie-accent);
+      border-radius: 12px;
+      padding: 40px;
+      max-width: 600px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .info-banner h1 {
+      font-size: 64px;
+      margin: 0 0 20px 0;
+      color: white;
+      text-shadow: 4px 4px 0 rgba(0, 0, 0, 0.3);
+      letter-spacing: 2px;
+    }
+
+    .info-banner p {
+      font-size: 28px;
+      margin: 12px 0;
+      color: white;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+      line-height: 1.6;
+    }
+
+    .info-banner .emoji {
+      font-size: 48px;
+      display: inline-block;
+      animation: bounce 1s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Info Banner -->
+  <div class="info-banner">
+    <h1><span class="emoji">💖</span> BARBIE THEME <span class="emoji">✨</span></h1>
+    <p><strong>You Can Do Anything!</strong> This is the Barbie theme for Swimnerd Live overlays.</p>
+    <p>✅ Hot pink gradient background</p>
+    <p>✅ Sparkle borders and accents</p>
+    <p>✅ Gold sparkle first place glow</p>
+    <p>✅ Clean Montserrat typography</p>
+    <p>✅ Elegant animations</p>
+  </div>
+
+  <!-- Header Overlays -->
+  <div class="header-container">
+    <div class="header-box fixed">
+      <div class="header-content">
+        <span class="label">EVENT:</span>
+        <span class="value">12</span>
+      </div>
+    </div>
+
+    <div class="header-box fixed">
+      <div class="header-content">
+        <span class="label">HEAT:</span>
+        <span class="value">3</span>
+      </div>
+    </div>
+
+    <div class="header-box stretch">
+      <div class="header-content">
+        <span class="event-name">Girls 200 IM</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Timer Overlay -->
+  <div class="timer-container">
+    <div class="timer-content">
+      <div class="timer-label">TIME</div>
+      <div class="running-time" id="clock">0:52</div>
+    </div>
+  </div>
+
+  <!-- Lane Overlays -->
+  <div class="lanes-container">
+    <div class="lane-content" style="animation-delay: 0s;">
+      <div class="lane-indicator">1</div>
+      <div class="place-indicator"></div>
+      <div class="swimmer-name">KATIE LEDECKY</div>
+      <div class="split-time">28.45</div>
+      <div class="final-time">1:52.34</div>
+    </div>
+
+    <div class="lane-content" style="animation-delay: 0.08s;">
+      <div class="lane-indicator">2</div>
+      <div class="place-indicator">3</div>
+      <div class="swimmer-name">SIMONE MANUEL</div>
+      <div class="split-time">28.92</div>
+      <div class="final-time">1:53.12</div>
+    </div>
+
+    <div class="lane-content first-place" style="animation-delay: 0.16s;">
+      <div class="lane-indicator">3</div>
+      <div class="place-indicator">1</div>
+      <div class="swimmer-name">MISSY FRANKLIN</div>
+      <div class="split-time">28.15</div>
+      <div class="final-time">1:51.78</div>
+    </div>
+
+    <div class="lane-content" style="animation-delay: 0.24s;">
+      <div class="lane-indicator">4</div>
+      <div class="place-indicator">2</div>
+      <div class="swimmer-name">KATIE GRIMES</div>
+      <div class="split-time">28.67</div>
+      <div class="final-time">1:52.89</div>
+    </div>
+
+    <div class="lane-content" style="animation-delay: 0.32s;">
+      <div class="lane-indicator">5</div>
+      <div class="place-indicator">4</div>
+      <div class="swimmer-name">EMMA WEYANT</div>
+      <div class="split-time">29.01</div>
+      <div class="final-time">1:54.23</div>
+    </div>
+
+    <div class="lane-content" style="animation-delay: 0.40s;">
+      <div class="lane-indicator">6</div>
+      <div class="place-indicator"></div>
+      <div class="swimmer-name">ALEX WALSH</div>
+      <div class="split-time">29.34</div>
+      <div class="final-time">1:55.12</div>
+    </div>
+
+    <div class="lane-content" style="animation-delay: 0.48s;">
+      <div class="lane-indicator">7</div>
+      <div class="place-indicator"></div>
+      <div class="swimmer-name">KATE DOUGLASS</div>
+      <div class="split-time">29.56</div>
+      <div class="final-time">1:55.89</div>
+    </div>
+
+    <div class="lane-content" style="animation-delay: 0.56s;">
+      <div class="lane-indicator">8</div>
+      <div class="place-indicator">5</div>
+      <div class="swimmer-name">BELLA SIMS</div>
+      <div class="split-time">29.12</div>
+      <div class="final-time">1:54.67</div>
+    </div>
+  </div>
+
+  <script>
+    // Demo clock counting - MM:SS format only (no decimals)
+    let totalSeconds = 52;
+    setInterval(() => {
+      totalSeconds += 1;
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
+      document.getElementById('clock').textContent = 
+        `${mins}:${secs.toString().padStart(2, '0')}`;
+    }, 1000);
+  </script>
+</body>
+</html>
