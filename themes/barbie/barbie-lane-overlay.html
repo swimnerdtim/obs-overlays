@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=900">
+  <title>Barbie Lane Overlay - Swimnerd Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* Barbie Theme Variables */
+    :root {
+      --barbie-pink: #E0218A;
+      --barbie-hot-pink: #FF69B4;
+      --barbie-light-pink: #FFB6D9;
+      --barbie-dark-pink: #C71585;
+      --barbie-accent: #FFF0F5;
+      --text-primary: #FFFFFF;
+      --text-green: #00FF00;
+      --text-red: #FF1493;
+      --text-yellow: #FFD700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      background: transparent;
+      color: var(--text-primary);
+      width: 1920px;
+      height: 900px;
+      overflow: hidden;
+      padding: 30px 50px;
+    }
+
+    /* Lane Results Container */
+    .lanes-container {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      height: 100%;
+      justify-content: space-evenly;
+    }
+
+    /* Individual Lane Row */
+    .lane {
+      display: grid;
+      grid-template-columns: 80px 100px 1fr 1fr 480px;
+      gap: 24px;
+      align-items: center;
+      background: rgba(224, 33, 138, 0.85);
+      padding: 40px 50px;
+      border-radius: 10px;
+      border-left: 6px solid var(--barbie-accent);
+      transition: all 0.3s ease;
+      flex: 1;
+      min-height: 0;
+    }
+    
+    .lane > * {
+      display: flex;
+      align-items: center;
+    }
+    
+    .lane-times {
+      display: flex;
+      gap: 30px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .lane:hover {
+      background: rgba(224, 33, 138, 0.95);
+      transform: translateX(4px);
+    }
+
+    .lane-number {
+      font-size: 80px;
+      font-weight: 900;
+      color: var(--text-green);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      text-align: center;
+    }
+
+    .place {
+      font-size: 80px;
+      font-weight: 900;
+      color: var(--text-red);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      text-align: center;
+    }
+
+    .place.empty {
+      opacity: 0;
+    }
+
+    .swimmer-name {
+      font-size: 64px;
+      font-weight: 700;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .team {
+      font-size: 56px;
+      font-weight: 600;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      opacity: 0.95;
+    }
+
+    .split-time {
+      font-size: 68px;
+      font-weight: 800;
+      color: var(--text-yellow);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .final-time {
+      font-size: 80px;
+      font-weight: 900;
+      color: var(--barbie-accent);
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    /* First Place Highlight */
+    .lane.first-place {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 165, 0, 0.4));
+      border-left-color: #FFD700;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5);
+    }
+
+    .lane.first-place .final-time {
+      color: #FFD700;
+      font-size: 96px;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+    
+    @keyframes sparkle {
+      0%, 100% {
+        text-shadow: 
+          0 0 20px #FFD700,
+          0 0 40px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+      }
+      50% {
+        text-shadow: 
+          0 0 30px #FFD700,
+          0 0 60px #FF69B4,
+          0 0 80px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Lane Results -->
+  <div class="lanes-container" id="lanesContainer">
+    <!-- Lanes populated by JavaScript -->
+  </div>
+
+  <script>
+    // BroadcastChannel for Swimnerd Live integration
+    const channel = new BroadcastChannel('swimnerd-live');
+
+    // Listen for data from Swimnerd Live
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.type === 'race_update' || data.type === 'race_finish') {
+        updateLanes(data.lanes);
+      }
+    };
+
+    function updateLanes(lanes) {
+      const container = document.getElementById('lanesContainer');
+      container.innerHTML = '';
+      
+      lanes.forEach((lane, index) => {
+        const laneDiv = document.createElement('div');
+        laneDiv.className = 'lane';
+        if (lane.place === 1) laneDiv.classList.add('first-place');
+        
+        // Place only shows after finish
+        const placeHTML = lane.place 
+          ? `<div class="place">${lane.place}</div>` 
+          : `<div class="place empty">-</div>`;
+        
+        laneDiv.innerHTML = `
+          <div class="lane-number">${lane.lane}</div>
+          ${placeHTML}
+          <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
+          <div class="team">${lane.team || 'Team'}</div>
+          <div class="lane-times">
+            <div class="split-time">${lane.split || ''}</div>
+            <div class="final-time">${lane.time || ''}</div>
+          </div>
+        `;
+        
+        container.appendChild(laneDiv);
+      });
+    }
+
+    // Demo mode for testing
+    let demoMode = true;
+
+    function runDemo() {
+      if (!demoMode) return;
+      
+      // Demo lanes (8 lanes)
+      const demoLanes = [
+        { lane: 1, name: 'Sarah Johnson', team: 'NOVA', split: '1:01.23', time: '2:08.45', place: null },
+        { lane: 2, name: 'Emma Williams', team: 'RAYS', split: '59.87', time: '2:05.67', place: 3 },
+        { lane: 3, name: 'Katie Martinez', team: 'TIDE', split: '58.34', time: '2:03.12', place: 1 },
+        { lane: 4, name: 'Olivia Davis', team: 'WAVE', split: '59.12', time: '2:04.89', place: 2 },
+        { lane: 5, name: 'Sophia Brown', team: 'HEAT', split: '1:00.45', time: '2:07.23', place: 4 },
+        { lane: 6, name: 'Ava Garcia', team: 'BOLT', split: '1:01.89', time: '2:09.01', place: null },
+        { lane: 7, name: 'Isabella Lopez', team: 'FAST', split: '1:02.34', time: '2:10.56', place: null },
+        { lane: 8, name: 'Mia Rodriguez', team: 'FIRE', split: '1:00.78', time: '2:07.89', place: 5 },
+      ];
+      
+      updateLanes(demoLanes);
+    }
+
+    // Start demo mode
+    setTimeout(runDemo, 500);
+
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      
+      if (data.type === 'race_update' || data.type === 'race_finish') {
+        updateLanes(data.lanes);
+      }
+    };
+  </script>
+</body>
+</html>

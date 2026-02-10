@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=150">
+  <title>Barbie Header Overlay - Swimnerd Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Barbie Theme Variables */
+    :root {
+      --barbie-pink: #E0218A;
+      --barbie-accent: #FFF0F5;
+      --text-primary: #FFFFFF;
+      --text-green: #00FF00;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      background: transparent;
+      color: var(--text-primary);
+      width: 1920px;
+      height: 150px;
+      overflow: hidden;
+    }
+
+    /* Header Container */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 50px;
+      background: rgba(224, 33, 138, 0.9);
+      border-bottom: 4px solid var(--barbie-accent);
+      height: 100%;
+    }
+
+    .event-name {
+      font-size: 62px;
+      font-weight: 800;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+      flex: 1;
+    }
+
+    .heat-info {
+      display: flex;
+      gap: 40px;
+      font-size: 48px;
+      font-weight: 700;
+    }
+
+    .heat-label {
+      color: var(--text-green);
+    }
+
+    .heat-value {
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
+    <div class="heat-info">
+      <span class="heat-label">HEAT:</span>
+      <span class="heat-value" id="heatNumber">3</span>
+    </div>
+  </div>
+
+  <script>
+    // BroadcastChannel for Swimnerd Live integration
+    const channel = new BroadcastChannel('swimnerd-live');
+
+    // Listen for data from Swimnerd Live
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      }
+    };
+
+    function updateEventInfo(data) {
+      if (data.eventNumber && data.eventName) {
+        document.getElementById('eventName').textContent = 
+          `Event ${data.eventNumber} - ${data.eventName}`;
+      }
+      if (data.heatNumber) {
+        document.getElementById('heatNumber').textContent = data.heatNumber;
+      }
+    }
+
+    // Demo mode for testing
+    let demoMode = true;
+
+    function runDemo() {
+      if (!demoMode) return;
+      
+      // Demo event info
+      updateEventInfo({
+        eventNumber: 12,
+        eventName: 'Girls 200 IM',
+        heatNumber: 3
+      });
+    }
+
+    // Start demo mode
+    setTimeout(runDemo, 500);
+
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      }
+    };
+  </script>
+</body>
+</html>

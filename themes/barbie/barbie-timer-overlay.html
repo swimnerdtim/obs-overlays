@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=500, height=200">
+  <title>Barbie Timer Overlay - Swimnerd Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap" rel="stylesheet">
+  <style>
+    /* Barbie Theme Variables */
+    :root {
+      --barbie-pink: #E0218A;
+      --barbie-accent: #FFF0F5;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      background: transparent;
+      color: var(--barbie-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 500px;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .race-clock {
+      font-size: 120px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 
+        0 0 20px var(--barbie-pink),
+        0 0 40px var(--barbie-pink),
+        0 4px 16px rgba(0, 0, 0, 0.7);
+      color: var(--barbie-accent);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="race-clock" id="raceClock">0:00</div>
+
+  <script>
+    // BroadcastChannel for Swimnerd Live integration
+    const channel = new BroadcastChannel('swimnerd-live');
+
+    // State
+    let raceStartTime = null;
+    let raceRunning = false;
+
+    // Listen for data from Swimnerd Live
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_finish') {
+        stopRace();
+      }
+    };
+
+    function startRace() {
+      raceStartTime = Date.now();
+      raceRunning = true;
+      updateRaceClock();
+    }
+
+    function stopRace() {
+      raceRunning = false;
+    }
+
+    function updateRaceClock() {
+      if (!raceRunning) return;
+      
+      const elapsed = Date.now() - raceStartTime;
+      const minutes = Math.floor(elapsed / 60000);
+      const seconds = Math.floor((elapsed % 60000) / 1000);
+      
+      const clockEl = document.getElementById('raceClock');
+      clockEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      
+      requestAnimationFrame(updateRaceClock);
+    }
+
+    // Demo mode for testing
+    let demoMode = true;
+
+    function runDemo() {
+      if (!demoMode) return;
+      
+      // Simulate race start after 1 second
+      setTimeout(() => {
+        if (demoMode) {
+          startRace();
+          
+          // Stop race after 15 seconds
+          setTimeout(() => {
+            if (demoMode) stopRace();
+          }, 15000);
+        }
+      }, 1000);
+    }
+
+    // Start demo mode
+    setTimeout(runDemo, 500);
+
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      
+      if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_finish') {
+        stopRace();
+      }
+    };
+  </script>
+</body>
+</html>
