@@ -58,95 +58,18 @@
       flex-direction: column;
     }
 
-    /* Header Row - Event + Clock with Pizza Pattern */
+    /* Header Row - Event + Clock with Custom Pizza Background */
     .header {
       display: grid;
       grid-template-columns: 1fr 480px;
       align-items: center;
       padding: 24px 50px 24px 50px;
-      background: linear-gradient(135deg, var(--pizza-orange) 0%, var(--pizza-red) 100%);
+      background-image: url('tmnt-pizza-bg.png');
+      background-size: cover;
+      background-position: center;
       border-bottom: 6px solid var(--pizza-yellow);
       flex-shrink: 0;
       position: relative;
-    }
-    
-    /* Pizza pattern overlay - realistic pepperonis */
-    .header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image:
-        /* Pepperoni 1 - layered for realistic look */
-        radial-gradient(circle at 12% 35%, #5C0000 16px, transparent 17px),
-        radial-gradient(circle at 12% 35%, #8B0000 15px, transparent 16px),
-        radial-gradient(circle at 12% 35%, #B22222 14px, transparent 15px),
-        radial-gradient(circle at 10% 33%, rgba(255, 100, 100, 0.4) 6px, transparent 7px),
-        
-        /* Pepperoni 2 */
-        radial-gradient(circle at 25% 20%, #5C0000 18px, transparent 19px),
-        radial-gradient(circle at 25% 20%, #8B0000 17px, transparent 18px),
-        radial-gradient(circle at 25% 20%, #B22222 16px, transparent 17px),
-        radial-gradient(circle at 23% 18%, rgba(255, 100, 100, 0.4) 7px, transparent 8px),
-        
-        /* Pepperoni 3 */
-        radial-gradient(circle at 40% 60%, #5C0000 17px, transparent 18px),
-        radial-gradient(circle at 40% 60%, #8B0000 16px, transparent 17px),
-        radial-gradient(circle at 40% 60%, #B22222 15px, transparent 16px),
-        radial-gradient(circle at 38% 58%, rgba(255, 100, 100, 0.4) 6px, transparent 7px),
-        
-        /* Pepperoni 4 */
-        radial-gradient(circle at 55% 30%, #5C0000 16px, transparent 17px),
-        radial-gradient(circle at 55% 30%, #8B0000 15px, transparent 16px),
-        radial-gradient(circle at 55% 30%, #B22222 14px, transparent 15px),
-        radial-gradient(circle at 53% 28%, rgba(255, 100, 100, 0.4) 6px, transparent 7px),
-        
-        /* Pepperoni 5 */
-        radial-gradient(circle at 70% 65%, #5C0000 18px, transparent 19px),
-        radial-gradient(circle at 70% 65%, #8B0000 17px, transparent 18px),
-        radial-gradient(circle at 70% 65%, #B22222 16px, transparent 17px),
-        radial-gradient(circle at 68% 63%, rgba(255, 100, 100, 0.4) 7px, transparent 8px),
-        
-        /* Pepperoni 6 */
-        radial-gradient(circle at 85% 40%, #5C0000 17px, transparent 18px),
-        radial-gradient(circle at 85% 40%, #8B0000 16px, transparent 17px),
-        radial-gradient(circle at 85% 40%, #B22222 15px, transparent 16px),
-        radial-gradient(circle at 83% 38%, rgba(255, 100, 100, 0.4) 6px, transparent 7px),
-        
-        /* Pepperoni 7 */
-        radial-gradient(circle at 15% 75%, #5C0000 16px, transparent 17px),
-        radial-gradient(circle at 15% 75%, #8B0000 15px, transparent 16px),
-        radial-gradient(circle at 15% 75%, #B22222 14px, transparent 15px),
-        radial-gradient(circle at 13% 73%, rgba(255, 100, 100, 0.4) 6px, transparent 7px),
-        
-        /* Pepperoni 8 */
-        radial-gradient(circle at 45% 85%, #5C0000 18px, transparent 19px),
-        radial-gradient(circle at 45% 85%, #8B0000 17px, transparent 18px),
-        radial-gradient(circle at 45% 85%, #B22222 16px, transparent 17px),
-        radial-gradient(circle at 43% 83%, rgba(255, 100, 100, 0.4) 7px, transparent 8px),
-        
-        /* Pepperoni 9 */
-        radial-gradient(circle at 75% 15%, #5C0000 17px, transparent 18px),
-        radial-gradient(circle at 75% 15%, #8B0000 16px, transparent 17px),
-        radial-gradient(circle at 75% 15%, #B22222 15px, transparent 16px),
-        radial-gradient(circle at 73% 13%, rgba(255, 100, 100, 0.4) 6px, transparent 7px),
-        
-        /* Pepperoni 10 */
-        radial-gradient(circle at 60% 75%, #5C0000 16px, transparent 17px),
-        radial-gradient(circle at 60% 75%, #8B0000 15px, transparent 16px),
-        radial-gradient(circle at 60% 75%, #B22222 14px, transparent 15px),
-        radial-gradient(circle at 58% 73%, rgba(255, 100, 100, 0.4) 6px, transparent 7px),
-        
-        /* Melted cheese texture */
-        radial-gradient(circle at 35% 45%, rgba(255, 255, 200, 0.25) 35px, transparent 55px),
-        radial-gradient(circle at 80% 70%, rgba(255, 255, 200, 0.2) 30px, transparent 50px),
-        radial-gradient(circle at 50% 55%, rgba(255, 255, 200, 0.15) 25px, transparent 45px);
-      background-size: 100% 100%;
-      pointer-events: none;
-      opacity: 0.7;
-      z-index: 0;
     }
 
     .event-name {
