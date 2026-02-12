@@ -106,20 +106,20 @@
       text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
     }
 
-    /* Timer Section */
+    /* Timer Section - RESIZED */
     .timer-container {
       position: absolute;
-      top: 20px;
+      top: 15px;
       right: 40px;
       z-index: 20;
     }
 
     .timer-content {
-      padding: 24px 48px;
+      padding: 12px 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 4px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 12px;
       border: 4px solid var(--liac-red);
@@ -128,7 +128,7 @@
 
     .timer-label {
       font-weight: 700;
-      font-size: 28px;
+      font-size: 20px;
       letter-spacing: 2px;
       color: var(--text-green);
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -136,7 +136,7 @@
 
     .running-time {
       font-weight: 900;
-      font-size: 80px;
+      font-size: 52px;
       font-variant-numeric: tabular-nums;
       letter-spacing: -2px;
       color: var(--liac-accent);
@@ -146,23 +146,25 @@
         0 4px 16px rgba(0, 0, 0, 0.7);
     }
 
-    /* Lanes Section */
+    /* Lanes Section - REPOSITIONED AND RESIZED */
     .lanes-container {
       position: absolute;
       right: 40px;
-      top: 180px;
+      top: 140px;
       width: 1100px;
+      height: 910px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
+      justify-content: space-between;
     }
 
     .lane-content {
       display: grid;
-      grid-template-columns: 80px 80px 340px 180px 240px;
-      gap: 12px;
+      grid-template-columns: 70px 70px 340px 160px 220px;
+      gap: 10px;
       align-items: center;
-      padding: 16px 24px;
+      padding: 12px 20px;
       background: rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       border-left: 6px solid var(--liac-red);
@@ -186,16 +188,16 @@
     }
 
     .lane-indicator {
-      font-size: 48px;
+      font-size: 40px;
       font-weight: 900;
       text-align: center;
-      padding: 8px;
+      padding: 6px;
       color: var(--text-green);
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
     }
 
     .place-indicator {
-      font-size: 48px;
+      font-size: 40px;
       font-weight: 900;
       text-align: center;
       color: var(--text-red);
@@ -207,13 +209,13 @@
     }
 
     .swimmer-name {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
       text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
     }
 
     .split-time {
-      font-size: 36px;
+      font-size: 32px;
       font-weight: 700;
       text-align: right;
       color: var(--text-yellow);
@@ -221,7 +223,7 @@
     }
 
     .final-time {
-      font-size: 42px;
+      font-size: 38px;
       font-weight: 900;
       text-align: right;
       color: var(--liac-accent);
@@ -237,7 +239,7 @@
 
     .lane-content.first-place .final-time {
       color: #FFD700;
-      font-size: 52px;
+      font-size: 44px;
       animation: sparkle 2s ease-in-out infinite;
     }
 
