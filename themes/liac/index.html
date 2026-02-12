@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LIAC Scoreboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #0069B3;
+            --primary-red: #CE1126;
+            --lane-bg: rgba(30, 30, 30, 0.8);
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto Condensed', sans-serif;
+            background: transparent;
+            overflow: hidden;
+        }
+        .scoreboard {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 5vh;
+        }
+        .lanes {
+            display: flex;
+            flex-direction: column;
+            gap: 1vh;
+            width: 100%;
+            padding: 0 5vw;
+        }
+        .lane {
+            display: grid;
+            grid-template-columns: 100px 1fr 200px;
+            background: var(--lane-bg);
+            border-left: 15px solid var(--primary-red);
+            align-items: center;
+            padding: 10px;
+            color: white;
+            text-transform: uppercase;
+        }
+        .lane-number {
+            font-size: 3vh;
+            font-weight: bold;
+            color: var(--primary-red);
+            text-align: center;
+        }
+        .lane-progress {
+            background: linear-gradient(to right, var(--primary-blue), #4A90E2);
+            height: 4vh;
+            margin: 0 20px;
+        }
+        .lane-time {
+            font-size: 3vh;
+            text-align: right;
+            color: var(--primary-blue);
+        }
+        .header {
+            position: absolute;
+            top: 5vh;
+            left: 5vw;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .logo {
+            height: 10vh;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+        }
+        .title {
+            color: white;
+            font-size: 4vh;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(0,0,0,0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="scoreboard">
+        <div class="header">
+            <img src="liac-logo.png" alt="LIAC Logo" class="logo">
+            <div class="title">Long Island Aquatic Club</div>
+        </div>
+        <div class="lanes" id="lanes"></div>
+    </div>
+
+    <script>
+        const lanes = document.getElementById('lanes');
+        for (let i = 1; i <= 10; i++) {
+            const lane = document.createElement('div');
+            lane.classList.add('lane');
+            lane.innerHTML = `
+                <div class="lane-number">Lane ${i}</div>
+                <div class="lane-progress"></div>
+                <div class="lane-time">00:00.00</div>
+            `;
+            lanes.appendChild(lane);
+        }
+
+        // Optional: Live update function
+        function updateLane(laneNumber, time, progress) {
+            const lane = lanes.children[laneNumber - 1];
+            lane.querySelector('.lane-time').textContent = time;
+            lane.querySelector('.lane-progress').style.width = `${progress}%`;
+        }
+    </script>
+</body>
+</html>
