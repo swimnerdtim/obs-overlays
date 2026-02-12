@@ -46,8 +46,7 @@
       right: 0;
       display: flex;
       gap: 20px;
-      padding: 20px 40px 20px 40px;
-      padding-right: 280px; /* Space for timer */
+      padding: 20px 40px;
       z-index: 10;
     }
 
@@ -107,53 +106,42 @@
       text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
     }
 
-    /* Timer Section - MOVED BELOW HEADER */
-    .timer-container {
-      position: absolute;
-      top: 115px;
-      right: 40px;
-      z-index: 20;
-    }
-
+    /* Timer in Header Row */
     .timer-content {
-      padding: 12px 32px;
+      padding: 16px 32px;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 4px;
+      gap: 12px;
       background: rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
-      border: 4px solid var(--liac-red);
-      animation: fadeIn 0.5s ease-out 0.1s backwards;
+      border-radius: 8px;
+      border: 3px solid var(--liac-red);
+      animation: fadeIn 0.5s ease-out;
     }
 
     .timer-label {
       font-weight: 700;
-      font-size: 20px;
-      letter-spacing: 2px;
+      font-size: 32px;
+      letter-spacing: 1px;
       color: var(--text-green);
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .running-time {
       font-weight: 900;
-      font-size: 52px;
+      font-size: 42px;
       font-variant-numeric: tabular-nums;
-      letter-spacing: -2px;
+      letter-spacing: -1px;
       color: var(--liac-accent);
-      text-shadow: 
-        0 0 20px var(--liac-light-blue),
-        0 0 40px var(--liac-light-blue),
-        0 4px 16px rgba(0, 0, 0, 0.7);
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
     }
 
     /* Lanes Section */
     .lanes-container {
       position: absolute;
       right: 40px;
-      top: 220px;
+      top: 140px;
       width: 1100px;
-      height: 830px;
+      height: 910px;
       display: flex;
       flex-direction: column;
       gap: 6px;
@@ -288,7 +276,7 @@
   </style>
 </head>
 <body>
-  <!-- Header with Event Info -->
+  <!-- Header with Event Info and Timer -->
   <div class="header-container">
     <div class="header-box fixed">
       <div class="header-content">
@@ -307,13 +295,11 @@
         <span class="event-name" id="eventName">200 FREESTYLE</span>
       </div>
     </div>
-  </div>
-
-  <!-- Timer Display -->
-  <div class="timer-container">
-    <div class="timer-content">
-      <div class="timer-label">TIME</div>
-      <div class="running-time" id="runningTime">2:34.5</div>
+    <div class="header-box fixed">
+      <div class="timer-content">
+        <span class="timer-label">TIME</span>
+        <span class="running-time" id="runningTime">2:34.5</span>
+      </div>
     </div>
   </div>
 
@@ -370,7 +356,7 @@
     function updateTimer() {
       const elapsed = (Date.now() - startTime) / 1000;
       const minutes = Math.floor(elapsed / 60);
-      const seconds = (elapsed % 60).toFixed(1); // Changed to .1 for tenths
+      const seconds = (elapsed % 60).toFixed(1);
       document.getElementById('runningTime').textContent = 
         `${minutes}:${seconds.padStart(4, '0')}`;
       requestAnimationFrame(updateTimer);
