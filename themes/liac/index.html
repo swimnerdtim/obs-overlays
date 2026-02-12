@@ -1,195 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>LIAC Scoreboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #0069B3;
-            --primary-red: #CE1126;
-            --lane-bg: rgba(30, 30, 30, 0.9);
-        }
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto Condensed', sans-serif;
-            background: #000;
-            overflow: hidden;
-        }
-        .scoreboard {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding-bottom: 3vh;
-        }
-        .header {
-            position: absolute;
-            top: 3vh;
-            left: 5vw;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            z-index: 10;
-        }
-        .title {
-            color: white;
-            font-size: 4vh;
-            text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(0,0,0,0.7);
-            font-weight: 700;
-        }
-        .event-info {
-            position: absolute;
-            top: 3vh;
-            right: 5vw;
-            text-align: right;
-            color: white;
-            font-size: 2.5vh;
-        }
-        .event-name {
-            font-weight: 700;
-            margin-bottom: 0.5vh;
-        }
-        .heat-info {
-            font-weight: 400;
-            opacity: 0.9;
-        }
-        .lanes {
-            display: flex;
-            flex-direction: column;
-            gap: 1vh;
-            width: 100%;
-            padding: 0 5vw;
-        }
-        .lane {
-            display: grid;
-            grid-template-columns: 80px 200px 1fr 150px;
-            background: var(--lane-bg);
-            border-left: 15px solid var(--primary-red);
-            align-items: center;
-            padding: 12px 20px;
-            color: white;
-            gap: 15px;
-        }
-        .lane.first-place {
-            border-left-color: #FFD700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-        .lane-number {
-            font-size: 3vh;
-            font-weight: bold;
-            color: var(--primary-red);
-            text-align: center;
-        }
-        .lane.first-place .lane-number {
-            color: #FFD700;
-        }
-        .swimmer-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .swimmer-name {
-            font-size: 2.5vh;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .team {
-            font-size: 1.8vh;
-            opacity: 0.8;
-        }
-        .lane-progress {
-            background: var(--primary-blue);
-            height: 4vh;
-            transition: width 0.3s ease;
-            position: relative;
-        }
-        .lane-progress::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 30%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2));
-        }
-        .lane-time {
-            font-size: 3vh;
-            text-align: right;
-            color: white;
-            font-weight: 700;
-            font-variant-numeric: tabular-nums;
-        }
-        .split-time {
-            font-size: 1.8vh;
-            opacity: 0.7;
-            margin-top: 0.3vh;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>LIAC Scoreboard - Long Island Aquatic Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* LIAC Theme Variables */
+    :root {
+      --liac-blue: #0069B3;
+      --liac-dark-blue: #004070;
+      --liac-light-blue: #4A90E2;
+      --liac-red: #CE1126;
+      --liac-accent: #FFFFFF;
+      --text-primary: #FFFFFF;
+      --text-green: #00FF00;
+      --text-red: #FF1493;
+      --text-yellow: #FFD700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto Condensed', 'Arial', sans-serif;
+      background: linear-gradient(135deg, #0069B3 0%, #004070 100%);
+      color: var(--text-primary);
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    /* Header Section */
+    .header-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 20px;
+      padding: 20px 40px;
+      z-index: 10;
+    }
+
+    .header-box {
+      display: flex;
+      align-items: center;
+    }
+
+    .header-box.fixed {
+      flex: 0 0 auto;
+    }
+
+    .header-box.stretch {
+      flex: 1;
+    }
+
+    .header-content {
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      border: 3px solid var(--liac-red);
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .label {
+      font-weight: 700;
+      font-size: 32px;
+      letter-spacing: 1px;
+      color: var(--text-green);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .value {
+      font-weight: 900;
+      font-size: 36px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .event-name {
+      font-weight: 900;
+      font-size: 42px;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Timer Section */
+    .timer-container {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      z-index: 20;
+    }
+
+    .timer-content {
+      padding: 24px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      border: 4px solid var(--liac-red);
+      animation: fadeIn 0.5s ease-out 0.1s backwards;
+    }
+
+    .timer-label {
+      font-weight: 700;
+      font-size: 28px;
+      letter-spacing: 2px;
+      color: var(--text-green);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .running-time {
+      font-weight: 900;
+      font-size: 80px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -2px;
+      color: var(--liac-accent);
+      text-shadow: 
+        0 0 20px var(--liac-light-blue),
+        0 0 40px var(--liac-light-blue),
+        0 4px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Lanes Section */
+    .lanes-container {
+      position: absolute;
+      right: 40px;
+      top: 180px;
+      width: 1100px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .lane-content {
+      display: grid;
+      grid-template-columns: 80px 80px 340px 180px 240px;
+      gap: 12px;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      border-left: 6px solid var(--liac-red);
+      animation: slideIn 0.5s ease-out backwards;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .lane-content:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(4px);
+    }
+
+    .lane-indicator {
+      font-size: 48px;
+      font-weight: 900;
+      text-align: center;
+      padding: 8px;
+      color: var(--text-green);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .place-indicator {
+      font-size: 48px;
+      font-weight: 900;
+      text-align: center;
+      color: var(--text-red);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .place-indicator:empty {
+      opacity: 0;
+    }
+
+    .swimmer-name {
+      font-size: 32px;
+      font-weight: 700;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    }
+
+    .split-time {
+      font-size: 36px;
+      font-weight: 700;
+      text-align: right;
+      color: var(--text-yellow);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .final-time {
+      font-size: 42px;
+      font-weight: 900;
+      text-align: right;
+      color: var(--liac-accent);
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
+    }
+
+    /* First Place Highlight */
+    .lane-content.first-place {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 165, 0, 0.3));
+      border-left-color: #FFD700;
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    }
+
+    .lane-content.first-place .final-time {
+      color: #FFD700;
+      font-size: 52px;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% {
+        text-shadow: 
+          0 0 20px #FFD700,
+          0 0 40px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+      }
+      50% {
+        text-shadow: 
+          0 0 30px #FFD700,
+          0 0 60px #FFD700,
+          0 0 80px #FFA500,
+          0 5px 20px rgba(0, 0, 0, 0.9);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="scoreboard">
-        <div class="header">
-            <div class="title">Long Island Aquatic Club</div>
-        </div>
-        <div class="event-info">
-            <div class="event-name">Event 12 - 200 Freestyle</div>
-            <div class="heat-info">Heat 3 of 5</div>
-        </div>
-        <div class="lanes" id="lanes"></div>
+  <!-- Header with Event Info -->
+  <div class="header-container">
+    <div class="header-box fixed">
+      <div class="header-content">
+        <span class="label">EVENT</span>
+        <span class="value" id="eventNumber">12</span>
+      </div>
     </div>
+    <div class="header-box fixed">
+      <div class="header-content">
+        <span class="label">HEAT</span>
+        <span class="value" id="heatNumber">3 of 5</span>
+      </div>
+    </div>
+    <div class="header-box stretch">
+      <div class="header-content" style="width: 100%;">
+        <span class="event-name" id="eventName">200 FREESTYLE</span>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        // Sample race data
-        const sampleData = [
-            { lane: 1, name: 'SMITH, JOHN', team: 'LIAC', time: '1:52.34', split: '55.12', progress: 100 },
-            { lane: 2, name: 'JONES, SARAH', team: 'LIAC', time: '1:49.87', split: '54.23', progress: 100, place: 1 },
-            { lane: 3, name: 'WILLIAMS, MIKE', team: 'LIAC', time: '1:51.02', split: '54.78', progress: 100 },
-            { lane: 4, name: 'BROWN, EMMA', team: 'LIAC', time: '1:50.45', split: '54.56', progress: 100, place: 2 },
-            { lane: 5, name: 'DAVIS, ALEX', team: 'LIAC', time: '1:53.21', split: '55.89', progress: 100 },
-            { lane: 6, name: 'MILLER, CHRIS', team: 'LIAC', time: '1:50.98', split: '54.67', progress: 100, place: 3 },
-            { lane: 7, name: 'WILSON, KATIE', team: 'LIAC', time: '1:54.12', split: '56.23', progress: 100 },
-            { lane: 8, name: 'MOORE, RYAN', team: 'LIAC', time: '1:52.67', split: '55.34', progress: 100 },
-            { lane: 9, name: 'TAYLOR, LISA', team: 'LIAC', time: '1:55.43', split: '56.78', progress: 100 },
-            { lane: 10, name: 'ANDERSON, TOM', team: 'LIAC', time: '1:53.89', split: '55.67', progress: 100 }
-        ];
+  <!-- Timer Display -->
+  <div class="timer-container">
+    <div class="timer-content">
+      <div class="timer-label">TIME</div>
+      <div class="running-time" id="runningTime">2:34.56</div>
+    </div>
+  </div>
 
-        function renderLanes(data) {
-            const container = document.getElementById('lanes');
-            container.innerHTML = '';
-            
-            data.forEach(lane => {
-                const laneDiv = document.createElement('div');
-                laneDiv.className = 'lane';
-                if (lane.place === 1) laneDiv.classList.add('first-place');
-                
-                laneDiv.innerHTML = `
-                    <div class="lane-number">Lane ${lane.lane}</div>
-                    <div class="swimmer-info">
-                        <div class="swimmer-name">${lane.name}</div>
-                        <div class="team">${lane.team}</div>
-                    </div>
-                    <div class="lane-progress" style="width: ${lane.progress}%">
-                        <div class="split-time" style="margin-left: 10px; color: rgba(255,255,255,0.8);">${lane.split || ''}</div>
-                    </div>
-                    <div class="lane-time">${lane.time}</div>
-                `;
-                
-                container.appendChild(laneDiv);
-            });
-        }
+  <!-- Lane Results -->
+  <div class="lanes-container" id="lanesContainer"></div>
 
-        // Render sample data on load
-        renderLanes(sampleData);
+  <script>
+    // Sample race data
+    const sampleLanes = [
+      { lane: 1, place: 4, name: 'SMITH, JOHN', split: '55.12', time: '1:52.34' },
+      { lane: 2, place: 1, name: 'JONES, SARAH', split: '54.23', time: '1:49.87' },
+      { lane: 3, place: 5, name: 'WILLIAMS, MIKE', split: '54.78', time: '1:51.02' },
+      { lane: 4, place: 2, name: 'BROWN, EMMA', split: '54.56', time: '1:50.45' },
+      { lane: 5, place: 7, name: 'DAVIS, ALEX', split: '55.89', time: '1:53.21' },
+      { lane: 6, place: 3, name: 'MILLER, CHRIS', split: '54.67', time: '1:50.98' },
+      { lane: 7, place: 8, name: 'WILSON, KATIE', split: '56.23', time: '1:54.12' },
+      { lane: 8, place: 6, name: 'MOORE, RYAN', split: '55.34', time: '1:52.67' },
+      { lane: 9, place: 9, name: 'TAYLOR, LISA', split: '56.78', time: '1:55.43' },
+      { lane: 10, place: 10, name: 'ANDERSON, TOM', split: '55.67', time: '1:53.89' }
+    ];
 
-        // Function to update with live data (for future integration)
-        function updateLanes(newData) {
-            renderLanes(newData);
-        }
-    </script>
+    function renderLanes(lanes) {
+      const container = document.getElementById('lanesContainer');
+      container.innerHTML = '';
+      
+      lanes.forEach((lane, index) => {
+        const laneDiv = document.createElement('div');
+        laneDiv.className = 'lane-content';
+        if (lane.place === 1) laneDiv.classList.add('first-place');
+        laneDiv.style.animationDelay = `${index * 0.05}s`;
+        
+        laneDiv.innerHTML = `
+          <div class="lane-indicator">${lane.lane}</div>
+          <div class="place-indicator">${lane.place || ''}</div>
+          <div class="swimmer-name">${lane.name}</div>
+          <div class="split-time">${lane.split}</div>
+          <div class="final-time">${lane.time}</div>
+        `;
+        
+        container.appendChild(laneDiv);
+      });
+    }
+
+    // Render sample data
+    renderLanes(sampleLanes);
+
+    // Timer animation (optional)
+    let startTime = Date.now();
+    function updateTimer() {
+      const elapsed = (Date.now() - startTime) / 1000;
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = (elapsed % 60).toFixed(2);
+      document.getElementById('runningTime').textContent = 
+        `${minutes}:${seconds.padStart(5, '0')}`;
+      requestAnimationFrame(updateTimer);
+    }
+    // updateTimer(); // Uncomment to enable live timer
+  </script>
 </body>
 </html>
