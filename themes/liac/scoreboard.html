@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>LIAC Scoreboard - Swimnerd Live</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    /* LIAC Theme Variables */
+    :root {
+      --liac-red: #CE1126;
+      --liac-blue: #0069B3;
+      --liac-dark: #1a1a1a;
+      --text-primary: #FFFFFF;
+      --text-green: #00FF00;
+      --text-red: #FF1493;
+      --text-yellow: #FFD700;
+      --text-gold: #FFD700;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Roboto', 'Arial', sans-serif;
+      background: linear-gradient(135deg, var(--liac-dark) 0%, #2a2a2a 100%);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header Row - Logo + Event + Clock */
+    .header {
+      display: grid;
+      grid-template-columns: 200px 1fr 420px;
+      align-items: center;
+      gap: 30px;
+      padding: 20px 50px;
+      background: linear-gradient(90deg, var(--liac-red) 0%, var(--liac-blue) 100%);
+      border-bottom: 5px solid var(--text-primary);
+      flex-shrink: 0;
+    }
+
+    .logo {
+      height: 80px;
+      object-fit: contain;
+    }
+
+    .event-name {
+      font-size: 56px;
+      font-weight: 900;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.7);
+      text-align: center;
+    }
+
+    .race-clock {
+      font-size: 110px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.9);
+      color: var(--text-gold);
+      text-align: right;
+    }
+
+    /* Lane Results Container */
+    .lanes-container {
+      padding: 20px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: hidden;
+      justify-content: space-evenly;
+    }
+
+    /* Individual Lane Row */
+    .lane {
+      display: grid;
+      grid-template-columns: 70px 90px 1fr 1fr 420px;
+      gap: 20px;
+      align-items: center;
+      background: rgba(0, 105, 179, 0.15);
+      padding: 30px 40px;
+      border-radius: 8px;
+      border-left: 6px solid var(--liac-red);
+      transition: all 0.3s ease;
+      flex: 1;
+      min-height: 0;
+    }
+    
+    .lane > * {
+      display: flex;
+      align-items: center;
+    }
+    
+    .lane-times {
+      display: flex;
+      gap: 25px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .lane:hover {
+      background: rgba(0, 105, 179, 0.25);
+      transform: translateX(4px);
+    }
+
+    .lane-number {
+      font-size: 72px;
+      font-weight: 900;
+      color: var(--text-green);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      text-align: center;
+    }
+
+    .place {
+      font-size: 72px;
+      font-weight: 900;
+      color: var(--text-red);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      text-align: center;
+    }
+
+    .place.empty {
+      opacity: 0;
+    }
+
+    .swimmer-name {
+      font-size: 58px;
+      font-weight: 700;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .team {
+      font-size: 50px;
+      font-weight: 600;
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+      opacity: 0.95;
+    }
+
+    .split-time {
+      font-size: 62px;
+      font-weight: 800;
+      color: var(--text-yellow);
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .final-time {
+      font-size: 72px;
+      font-weight: 900;
+      color: var(--text-primary);
+      text-shadow: 0 5px 15px rgba(0, 0, 0, 0.9);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    /* First Place Highlight */
+    .lane.first-place {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(206, 17, 38, 0.3));
+      border-left-color: var(--text-gold);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.4);
+    }
+
+    .lane.first-place .final-time {
+      color: var(--text-gold);
+      font-size: 84px;
+      animation: sparkle 2s ease-in-out infinite;
+    }
+    
+    @keyframes sparkle {
+      0%, 100% {
+        text-shadow: 
+          0 0 20px #FFD700,
+          0 0 40px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+      }
+      50% {
+        text-shadow: 
+          0 0 30px #FFD700,
+          0 0 60px var(--liac-blue),
+          0 0 80px #FFD700,
+          0 5px 15px rgba(0, 0, 0, 0.9);
+      }
+    }
+
+    /* Footer Info */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 14px 40px;
+      background: rgba(0, 0, 0, 0.5);
+      border-top: 3px solid var(--liac-red);
+      flex-shrink: 0;
+    }
+
+    .footer-item {
+      font-size: 32px;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .footer-label {
+      color: var(--liac-blue);
+      margin-right: 10px;
+      font-weight: 700;
+    }
+
+    .footer-value {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: var(--liac-red);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .fullscreen-btn:hover {
+      background: var(--liac-blue);
+      transform: scale(1.05);
+    }
+
+    .fullscreen-btn.hidden {
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Fullscreen Button -->
+  <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
+    Enter Fullscreen (F11)
+  </button>
+
+  <!-- Header - Logo + Event Name + Race Clock -->
+  <div class="header">
+    <img src="liac-logo.png" alt="LIAC" class="logo">
+    <div class="event-name" id="eventName">Event 12 - Girls 200 IM</div>
+    <div class="race-clock" id="raceClock">0:00.00</div>
+  </div>
+
+  <!-- Lane Results -->
+  <div class="lanes-container" id="lanesContainer">
+    <!-- Lanes populated by JavaScript -->
+  </div>
+
+  <!-- Footer Info -->
+  <div class="footer">
+    <div class="footer-item">
+      <span class="footer-label">EV:</span>
+      <span class="footer-value" id="eventNumber">12</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">HT:</span>
+      <span class="footer-value" id="heatNumber">3 of 4</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">Lengths:</span>
+      <span class="footer-value" id="lengths">4</span>
+    </div>
+    <div class="footer-item">
+      <span class="footer-label">Record:</span>
+      <span class="footer-value" id="record">2:03.45</span>
+    </div>
+  </div>
+
+  <script>
+    // BroadcastChannel for Swimnerd Live integration
+    const channel = new BroadcastChannel('swimnerd-live');
+
+    // State
+    let raceStartTime = null;
+    let raceRunning = false;
+
+    // Listen for data from Swimnerd Live
+    channel.onmessage = (event) => {
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      } else if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_update') {
+        updateLanes(data.lanes);
+      } else if (data.type === 'race_finish') {
+        stopRace();
+        updateLanes(data.lanes);
+      }
+    };
+
+    function updateEventInfo(data) {
+      if (data.eventNumber) {
+        document.getElementById('eventNumber').textContent = data.eventNumber;
+      }
+      if (data.eventName) {
+        document.getElementById('eventName').textContent = 
+          `Event ${data.eventNumber || ''} - ${data.eventName}`;
+      }
+      if (data.heatNumber && data.totalHeats) {
+        document.getElementById('heatNumber').textContent = 
+          `${data.heatNumber} of ${data.totalHeats}`;
+      }
+      if (data.lengths) {
+        document.getElementById('lengths').textContent = data.lengths;
+      }
+      if (data.record) {
+        document.getElementById('record').textContent = data.record;
+      }
+    }
+
+    function updateLanes(lanes) {
+      const container = document.getElementById('lanesContainer');
+      container.innerHTML = '';
+      
+      lanes.forEach((lane, index) => {
+        const laneDiv = document.createElement('div');
+        laneDiv.className = 'lane';
+        if (lane.place === 1) laneDiv.classList.add('first-place');
+        
+        // Place only shows after finish
+        const placeHTML = lane.place 
+          ? `<div class="place">${lane.place}</div>` 
+          : `<div class="place empty">-</div>`;
+        
+        laneDiv.innerHTML = `
+          <div class="lane-number">${lane.lane}</div>
+          ${placeHTML}
+          <div class="swimmer-name">${lane.name || 'Athlete Name'}</div>
+          <div class="team">${lane.team || 'Team'}</div>
+          <div class="lane-times">
+            <div class="split-time">${lane.split || ''}</div>
+            <div class="final-time">${lane.time || ''}</div>
+          </div>
+        `;
+        
+        container.appendChild(laneDiv);
+      });
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+        document.getElementById('fullscreenBtn').classList.add('hidden');
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+          document.getElementById('fullscreenBtn').classList.remove('hidden');
+        }
+      }
+    }
+
+    // Hide fullscreen button when in fullscreen
+    document.addEventListener('fullscreenchange', () => {
+      const btn = document.getElementById('fullscreenBtn');
+      if (document.fullscreenElement) {
+        btn.classList.add('hidden');
+      } else {
+        btn.classList.remove('hidden');
+      }
+    });
+
+    // F11 key handler
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'F11') {
+        e.preventDefault();
+        toggleFullscreen();
+      }
+    });
+
+    function startRace() {
+      raceStartTime = Date.now();
+      raceRunning = true;
+      updateRaceClock();
+    }
+
+    function stopRace() {
+      raceRunning = false;
+    }
+
+    function updateRaceClock() {
+      if (!raceRunning) return;
+      
+      const elapsed = Date.now() - raceStartTime;
+      const minutes = Math.floor(elapsed / 60000);
+      const seconds = Math.floor((elapsed % 60000) / 1000);
+      const centis = Math.floor((elapsed % 1000) / 10);
+      
+      const clockEl = document.getElementById('raceClock');
+      clockEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
+      
+      requestAnimationFrame(updateRaceClock);
+    }
+
+    // Demo mode for testing
+    let demoMode = true;
+
+    function runDemo() {
+      if (!demoMode) return;
+      
+      // Demo event info
+      updateEventInfo({
+        eventNumber: 12,
+        eventName: 'Girls 200 IM',
+        heatNumber: 3,
+        totalHeats: 4,
+        lengths: 4,
+        record: '2:03.45'
+      });
+      
+      // Demo lanes (10 lanes for LIAC)
+      const demoLanes = [
+        { lane: 1, name: 'Sarah Johnson', team: 'LIAC', split: '1:01.23', time: '2:08.45', place: 4 },
+        { lane: 2, name: 'Emma Williams', team: 'RAYS', split: '59.87', time: '2:05.67', place: 3 },
+        { lane: 3, name: 'Katie Martinez', team: 'TIDE', split: '58.34', time: '2:03.12', place: 1 },
+        { lane: 4, name: 'Olivia Davis', team: 'WAVE', split: '59.12', time: '2:04.89', place: 2 },
+        { lane: 5, name: 'Sophia Brown', team: 'LIAC', split: '1:00.45', time: '2:07.23', place: null },
+        { lane: 6, name: 'Ava Garcia', team: 'BOLT', split: '1:01.89', time: '2:09.01', place: 5 },
+        { lane: 7, name: 'Isabella Lopez', team: 'FAST', split: '1:02.34', time: '2:10.56', place: null },
+        { lane: 8, name: 'Mia Rodriguez', team: 'LIAC', split: '1:00.78', time: '2:07.89', place: null },
+        { lane: 9, name: 'Charlotte Wilson', team: 'AQUA', split: '1:01.45', time: '2:08.90', place: null },
+        { lane: 10, name: 'Amelia Taylor', team: 'LIAC', split: '1:02.01', time: '2:09.67', place: null },
+      ];
+      
+      updateLanes(demoLanes);
+      
+      // Simulate race start after 2 seconds
+      setTimeout(() => {
+        if (demoMode) {
+          startRace();
+          
+          // Stop race after 10 seconds
+          setTimeout(() => {
+            if (demoMode) stopRace();
+          }, 10000);
+        }
+      }, 2000);
+    }
+
+    // Start demo mode
+    setTimeout(runDemo, 500);
+
+    // Disable demo if we receive real data
+    channel.onmessage = (event) => {
+      demoMode = false;
+      const data = event.data;
+      
+      if (data.type === 'event_update') {
+        updateEventInfo(data);
+      } else if (data.type === 'race_start') {
+        startRace();
+      } else if (data.type === 'race_update') {
+        updateLanes(data.lanes);
+      } else if (data.type === 'race_finish') {
+        stopRace();
+        updateLanes(data.lanes);
+      }
+    };
+  </script>
+</body>
+</html>
