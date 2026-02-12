@@ -9,13 +9,13 @@
         :root {
             --primary-blue: #0069B3;
             --primary-red: #CE1126;
-            --lane-bg: rgba(30, 30, 30, 0.8);
+            --lane-bg: rgba(30, 30, 30, 0.9);
         }
         body, html {
             margin: 0;
             padding: 0;
             font-family: 'Roboto Condensed', sans-serif;
-            background: transparent;
+            background: #000;
             overflow: hidden;
         }
         .scoreboard {
@@ -25,7 +25,39 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding-bottom: 5vh;
+            padding-bottom: 3vh;
+        }
+        .header {
+            position: absolute;
+            top: 3vh;
+            left: 5vw;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+        }
+        .title {
+            color: white;
+            font-size: 4vh;
+            text-transform: uppercase;
+            text-shadow: 0 0 15px rgba(0,0,0,0.7);
+            font-weight: 700;
+        }
+        .event-info {
+            position: absolute;
+            top: 3vh;
+            right: 5vw;
+            text-align: right;
+            color: white;
+            font-size: 2.5vh;
+        }
+        .event-name {
+            font-weight: 700;
+            margin-bottom: 0.5vh;
+        }
+        .heat-info {
+            font-weight: 400;
+            opacity: 0.9;
         }
         .lanes {
             display: flex;
@@ -36,13 +68,17 @@
         }
         .lane {
             display: grid;
-            grid-template-columns: 100px 1fr 200px;
+            grid-template-columns: 80px 200px 1fr 150px;
             background: var(--lane-bg);
             border-left: 15px solid var(--primary-red);
             align-items: center;
-            padding: 10px;
+            padding: 12px 20px;
             color: white;
-            text-transform: uppercase;
+            gap: 15px;
+        }
+        .lane.first-place {
+            border-left-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
         .lane-number {
             font-size: 3vh;
@@ -50,63 +86,109 @@
             color: var(--primary-red);
             text-align: center;
         }
+        .lane.first-place .lane-number {
+            color: #FFD700;
+        }
+        .swimmer-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .swimmer-name {
+            font-size: 2.5vh;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .team {
+            font-size: 1.8vh;
+            opacity: 0.8;
+        }
         .lane-progress {
-            background: linear-gradient(to right, var(--primary-blue), #4A90E2);
+            background: var(--primary-blue);
             height: 4vh;
-            margin: 0 20px;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+        .lane-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 30%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2));
         }
         .lane-time {
             font-size: 3vh;
             text-align: right;
-            color: var(--primary-blue);
-        }
-        .header {
-            position: absolute;
-            top: 5vh;
-            left: 5vw;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-        .logo {
-            height: 10vh;
-            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
-        }
-        .title {
             color: white;
-            font-size: 4vh;
-            text-transform: uppercase;
-            text-shadow: 0 0 15px rgba(0,0,0,0.7);
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .split-time {
+            font-size: 1.8vh;
+            opacity: 0.7;
+            margin-top: 0.3vh;
         }
     </style>
 </head>
 <body>
     <div class="scoreboard">
         <div class="header">
-            <img src="liac-logo.png" alt="LIAC Logo" class="logo">
             <div class="title">Long Island Aquatic Club</div>
+        </div>
+        <div class="event-info">
+            <div class="event-name">Event 12 - 200 Freestyle</div>
+            <div class="heat-info">Heat 3 of 5</div>
         </div>
         <div class="lanes" id="lanes"></div>
     </div>
 
     <script>
-        const lanes = document.getElementById('lanes');
-        for (let i = 1; i <= 10; i++) {
-            const lane = document.createElement('div');
-            lane.classList.add('lane');
-            lane.innerHTML = `
-                <div class="lane-number">Lane ${i}</div>
-                <div class="lane-progress"></div>
-                <div class="lane-time">00:00.00</div>
-            `;
-            lanes.appendChild(lane);
+        // Sample race data
+        const sampleData = [
+            { lane: 1, name: 'SMITH, JOHN', team: 'LIAC', time: '1:52.34', split: '55.12', progress: 100 },
+            { lane: 2, name: 'JONES, SARAH', team: 'LIAC', time: '1:49.87', split: '54.23', progress: 100, place: 1 },
+            { lane: 3, name: 'WILLIAMS, MIKE', team: 'LIAC', time: '1:51.02', split: '54.78', progress: 100 },
+            { lane: 4, name: 'BROWN, EMMA', team: 'LIAC', time: '1:50.45', split: '54.56', progress: 100, place: 2 },
+            { lane: 5, name: 'DAVIS, ALEX', team: 'LIAC', time: '1:53.21', split: '55.89', progress: 100 },
+            { lane: 6, name: 'MILLER, CHRIS', team: 'LIAC', time: '1:50.98', split: '54.67', progress: 100, place: 3 },
+            { lane: 7, name: 'WILSON, KATIE', team: 'LIAC', time: '1:54.12', split: '56.23', progress: 100 },
+            { lane: 8, name: 'MOORE, RYAN', team: 'LIAC', time: '1:52.67', split: '55.34', progress: 100 },
+            { lane: 9, name: 'TAYLOR, LISA', team: 'LIAC', time: '1:55.43', split: '56.78', progress: 100 },
+            { lane: 10, name: 'ANDERSON, TOM', team: 'LIAC', time: '1:53.89', split: '55.67', progress: 100 }
+        ];
+
+        function renderLanes(data) {
+            const container = document.getElementById('lanes');
+            container.innerHTML = '';
+            
+            data.forEach(lane => {
+                const laneDiv = document.createElement('div');
+                laneDiv.className = 'lane';
+                if (lane.place === 1) laneDiv.classList.add('first-place');
+                
+                laneDiv.innerHTML = `
+                    <div class="lane-number">Lane ${lane.lane}</div>
+                    <div class="swimmer-info">
+                        <div class="swimmer-name">${lane.name}</div>
+                        <div class="team">${lane.team}</div>
+                    </div>
+                    <div class="lane-progress" style="width: ${lane.progress}%">
+                        <div class="split-time" style="margin-left: 10px; color: rgba(255,255,255,0.8);">${lane.split || ''}</div>
+                    </div>
+                    <div class="lane-time">${lane.time}</div>
+                `;
+                
+                container.appendChild(laneDiv);
+            });
         }
 
-        // Optional: Live update function
-        function updateLane(laneNumber, time, progress) {
-            const lane = lanes.children[laneNumber - 1];
-            lane.querySelector('.lane-time').textContent = time;
-            lane.querySelector('.lane-progress').style.width = `${progress}%`;
+        // Render sample data on load
+        renderLanes(sampleData);
+
+        // Function to update with live data (for future integration)
+        function updateLanes(newData) {
+            renderLanes(newData);
         }
     </script>
 </body>
