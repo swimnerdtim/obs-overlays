@@ -199,7 +199,7 @@
     <h1>💖 Barbie Scoreboard - 2025 World Championships 💖</h1>
 
     <div class="info-box">
-      <p><strong>✨ Real championship data from 2025 World Championships Singapore!</strong> Select an event and click Start Race to see interval splits and cumulative times at every 50m touch.</p>
+      <p><strong>✨ Real championship data from 2025 World Championships Singapore!</strong> Select an event and click Start Race. Interval splits flash for 10 seconds at each 50m touch.</p>
     </div>
 
     <div class="controls">
@@ -281,6 +281,7 @@
     let worldsData = [];
     let raceInterval = null;
     let raceStartTime = null;
+    let splitTimestamps = {}; // Track when each swimmer's split was shown
 
     // Load worlds data from external file
     fetch('worlds_2025_simulator_data.json')
@@ -340,6 +341,9 @@
       // Stop any existing race
       stopRace();
       
+      // Reset split timestamps
+      splitTimestamps = {};
+      
       // Generate lanes from championship data (start empty)
       const lanes = [];
       for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
@@ -353,6 +357,9 @@
           time: '',
           place: null
         });
+        
+        // Initialize split timestamp tracking for this swimmer
+        splitTimestamps[i] = { lastSplitIndex: -1, splitShownAt: null };
       }
       
       // Send initial lane setup
@@ -380,7 +387,7 @@
         const finalTime = finalist.time;
         
         // Find which split we just passed (every 50m)
-        let lastSplitIndex = -1;
+        let currentSplitIndex = -1;
         let lastSplitCumulative = 0;
         let nextSplitCumulative = null;
         let intervalSplit = '';
@@ -392,18 +399,18 @@
           const splitCumulative = splits[j].cumulative_time;
           
           if (elapsedSeconds >= splitCumulative) {
-            lastSplitIndex = j;
+            currentSplitIndex = j;
             lastSplitCumulative = splitCumulative;
-            
-            // Calculate interval split (this lap minus previous lap)
-            const previousCumulative = j > 0 ? splits[j - 1].cumulative_time : 0;
-            const intervalTime = splitCumulative - previousCumulative;
-            intervalSplit = formatTime(intervalTime);
             
             // If this is the last split (finish), show final time
             if (j === splits.length - 1) {
               cumulativeTime = formatTime(finalTime);
               place = i + 1;
+              
+              // Show final split permanently
+              const previousCumulative = j > 0 ? splits[j - 1].cumulative_time : 0;
+              const intervalTime = splitCumulative - previousCumulative;
+              intervalSplit = formatTime(intervalTime);
             } else {
               cumulativeTime = formatTime(splitCumulative);
             }
@@ -414,15 +421,39 @@
         }
         
         // Show running cumulative time between splits
-        if (lastSplitIndex >= 0 && nextSplitCumulative !== null && elapsedSeconds < finalTime) {
+        if (currentSplitIndex >= 0 && nextSplitCumulative !== null && elapsedSeconds < finalTime) {
           // Estimate current position between splits
           const progress = (elapsedSeconds - lastSplitCumulative) / (nextSplitCumulative - lastSplitCumulative);
           const estimatedTime = lastSplitCumulative + (nextSplitCumulative - lastSplitCumulative) * progress;
           cumulativeTime = formatTime(estimatedTime);
-        } else if (lastSplitIndex >= 0 && elapsedSeconds >= finalTime) {
+        } else if (currentSplitIndex >= 0 && elapsedSeconds >= finalTime) {
           // Race finished
           cumulativeTime = formatTime(finalTime);
           place = i + 1;
+        }
+        
+        // Handle interval split display (show for 10 seconds, then hide)
+        const swimmerTracking = splitTimestamps[i];
+        
+        if (currentSplitIndex > swimmerTracking.lastSplitIndex && currentSplitIndex < splits.length - 1) {
+          // New split detected (not the finish)
+          swimmerTracking.lastSplitIndex = currentSplitIndex;
+          swimmerTracking.splitShownAt = elapsedSeconds;
+          
+          // Calculate and show interval split
+          const previousCumulative = currentSplitIndex > 0 ? splits[currentSplitIndex - 1].cumulative_time : 0;
+          const intervalTime = splits[currentSplitIndex].cumulative_time - previousCumulative;
+          intervalSplit = formatTime(intervalTime);
+        } else if (swimmerTracking.splitShownAt !== null && 
+                   (elapsedSeconds - swimmerTracking.splitShownAt) < 10 &&
+                   currentSplitIndex < splits.length - 1) {
+          // Still within 10 seconds of showing the split (and not at finish)
+          const previousCumulative = currentSplitIndex > 0 ? splits[currentSplitIndex - 1].cumulative_time : 0;
+          const intervalTime = splits[currentSplitIndex].cumulative_time - previousCumulative;
+          intervalSplit = formatTime(intervalTime);
+        } else if (currentSplitIndex < splits.length - 1) {
+          // More than 10 seconds have passed or no split to show - hide it
+          intervalSplit = '';
         }
         
         lanes.push({
