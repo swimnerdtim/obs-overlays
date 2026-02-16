@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbie Scoreboard - 2025 World Championships Full Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Righteous&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Righteous', sans-serif;
+      background: linear-gradient(135deg, #E0218A 0%, #FDB0C0 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .barbie-car {
+      position: fixed; bottom: 20px; width: 150px; height: auto; z-index: 1000;
+      animation: drive 8s linear infinite;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+    @keyframes drive { 0% { left: -200px; } 100% { left: 100vw; } }
+
+    .controls {
+      background: white; padding: 24px; border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2); margin-bottom: 24px;
+      max-width: 1400px; margin-left: auto; margin-right: auto;
+    }
+
+    .event-selector {
+      display: flex; gap: 12px; align-items: center; margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .event-selector select {
+      flex: 1; padding: 12px; font-size: 16px; border-radius: 8px;
+      border: 2px solid #E0218A; font-family: 'Righteous', sans-serif;
+    }
+
+    .btn-group {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+
+    button {
+      background: linear-gradient(135deg, #E0218A 0%, #FDB0C0 100%);
+      color: white; border: none; padding: 12px 32px;
+      font-size: 18px; font-family: 'Righteous', sans-serif;
+      border-radius: 50px; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(224, 33, 138, 0.4);
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(224, 33, 138, 0.6);
+    }
+
+    button:disabled {
+      opacity: 0.5; cursor: not-allowed;
+    }
+
+    .scoreboard {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px; padding: 32px;
+      max-width: 1400px; margin: 0 auto;
+      box-shadow: 0 12px 48px rgba(224, 33, 138, 0.4);
+    }
+
+    .event-header {
+      text-align: center; margin-bottom: 24px;
+      padding-bottom: 16px; border-bottom: 3px solid #E0218A;
+    }
+
+    .event-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 42px; color: #E0218A;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .event-subtitle {
+      font-size: 18px; color: #666; margin-top: 8px;
+    }
+
+    .timer {
+      text-align: center; font-size: 72px; color: #E0218A;
+      font-weight: bold; margin: 24px 0;
+      text-shadow: 0 4px 8px rgba(224, 33, 138, 0.3);
+    }
+
+    .lanes {
+      display: grid; grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .lane {
+      background: linear-gradient(135deg, #FFF5F7 0%, #FFE5ED 100%);
+      border-radius: 16px; padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 60px 2fr 120px 80px 80px;
+      align-items: center; gap: 20px;
+      box-shadow: 0 4px 12px rgba(224, 33, 138, 0.15);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lane-number {
+      font-size: 36px; font-weight: bold;
+      color: #E0218A; text-align: center;
+    }
+
+    .swimmer-name {
+      font-size: 24px; font-weight: 600; color: #333;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+
+    .nation {
+      font-size: 18px; color: #666; font-weight: 400;
+    }
+
+    .split-time {
+      font-size: 28px; font-weight: 600;
+      color: #666; text-align: right;
+    }
+
+    .time {
+      font-size: 32px; font-weight: bold;
+      color: #E0218A; text-align: right;
+    }
+
+    .place {
+      font-size: 28px; font-weight: bold;
+      color: #666; text-align: center;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      display: flex; align-items: center;
+      justify-content: center;
+    }
+
+    .lane.first-place {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5);
+      transform: scale(1.02);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .lane.first-place .place {
+      background: #FFD700; color: white;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.6);
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5); }
+      50% { box-shadow: 0 8px 32px rgba(255, 215, 0, 0.8); }
+    }
+
+    .sparkle {
+      position: absolute; width: 20px; height: 20px;
+      background: radial-gradient(circle, #fff 0%, transparent 70%);
+      border-radius: 50%;
+      animation: sparkle-anim 1.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle-anim {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <img src="https://i.imgur.com/8h4K3Yq.png" alt="Barbie Car" class="barbie-car" onerror="this.style.display='none'">
+
+  <div class="controls">
+    <div class="event-selector">
+      <select id="event-select" onchange="selectEvent()">
+        <option value="0">Loading events...</option>
+      </select>
+    </div>
+    <div class="btn-group">
+      <button id="start-btn" onclick="startRace()">▶ Start Race</button>
+      <button id="reset-btn" onclick="resetRace()">🔄 Reset</button>
+      <button id="prev-btn" onclick="previousEvent()">◀ Previous Event</button>
+      <button id="next-btn" onclick="nextEvent()">Next Event ▶</button>
+    </div>
+  </div>
+
+  <div class="scoreboard">
+    <div class="event-header">
+      <div class="event-title" id="event-title">Barbie Scoreboard</div>
+      <div class="event-subtitle" id="event-subtitle">2025 World Championships Singapore 🏆</div>
+    </div>
+
+    <div class="timer" id="timer">0.00</div>
+
+    <div class="lanes" id="lanes"></div>
+  </div>
+
+  <script>
+    let eventsData = [];
+    let currentEventIndex = 0;
+    let raceInProgress = false;
+    let raceInterval;
+
+    // Fetch the 2025 Worlds data
+    fetch('https://raw.githubusercontent.com/swimnerdtim/obs-overlays/main/worlds_2025_simulator_data.json')
+      .then(response => response.json())
+      .then(data => {
+        eventsData = data;
+        populateEventSelector();
+        loadEvent(0);
+      })
+      .catch(error => {
+        console.error('Error loading data:', error);
+        document.getElementById('event-select').innerHTML = '<option>Error loading events</option>';
+      });
+
+    function populateEventSelector() {
+      const select = document.getElementById('event-select');
+      select.innerHTML = '';
+      eventsData.forEach((event, index) => {
+        const option = document.createElement('option');
+        option.value = index;
+        option.textContent = `${index + 1}. ${event.event} ${event.gender}`;
+        select.appendChild(option);
+      });
+    }
+
+    function selectEvent() {
+      const index = parseInt(document.getElementById('event-select').value);
+      loadEvent(index);
+    }
+
+    function loadEvent(index) {
+      if (index < 0 || index >= eventsData.length) return;
+      
+      currentEventIndex = index;
+      const event = eventsData[index];
+      
+      document.getElementById('event-select').value = index;
+      document.getElementById('event-title').textContent = `${event.event} ${event.gender}`;
+      document.getElementById('event-subtitle').textContent = '2025 World Championships Singapore 🏆';
+      
+      resetRace();
+    }
+
+    function initializeLanes() {
+      const event = eventsData[currentEventIndex];
+      const lanesContainer = document.getElementById('lanes');
+      lanesContainer.innerHTML = '';
+
+      // Sort by time to get places
+      const sorted = [...event.finalists].sort((a, b) => a.time - b.time);
+
+      sorted.forEach((swimmer, index) => {
+        const place = index + 1;
+        const lane = document.createElement('div');
+        lane.className = 'lane';
+        lane.id = `swimmer-${index}`;
+        
+        if (place === 1) {
+          lane.classList.add('first-place');
+          for (let i = 0; i < 5; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = `${Math.random() * 100}%`;
+            sparkle.style.top = `${Math.random() * 100}%`;
+            sparkle.style.animationDelay = `${Math.random() * 1.5}s`;
+            lane.appendChild(sparkle);
+          }
+        }
+
+        lane.innerHTML += `
+          <div class="lane-number">${place}</div>
+          <div class="swimmer-name">
+            ${swimmer.athlete}
+            <span class="nation">${swimmer.nation}</span>
+          </div>
+          <div class="split-time" id="split-${index}">--</div>
+          <div class="time" id="time-${index}">--</div>
+          <div class="place" id="place-${index}">--</div>
+        `;
+
+        lanesContainer.appendChild(lane);
+      });
+    }
+
+    function startRace() {
+      if (raceInProgress) return;
+      raceInProgress = true;
+      document.getElementById('start-btn').disabled = true;
+
+      const event = eventsData[currentEventIndex];
+      const sorted = [...event.finalists].sort((a, b) => a.time - b.time);
+      const timerEl = document.getElementById('timer');
+      
+      let currentTime = 0;
+      const fastestTime = sorted[0].time;
+      const splitDistance = sorted[0].splits[Math.floor(sorted[0].splits.length / 2)].distance;
+
+      raceInterval = setInterval(() => {
+        currentTime += 0.01;
+        timerEl.textContent = currentTime.toFixed(2);
+
+        // Show splits at halfway point
+        sorted.forEach((swimmer, idx) => {
+          const splitTime = swimmer.splits.find(s => s.distance === splitDistance)?.cumulative_time || 0;
+          if (currentTime >= splitTime && splitTime > 0) {
+            document.getElementById(`split-${idx}`).textContent = splitTime.toFixed(2);
+          }
+
+          // Show final times as swimmers finish
+          if (currentTime >= swimmer.time) {
+            document.getElementById(`time-${idx}`).textContent = swimmer.time.toFixed(2);
+            document.getElementById(`place-${idx}`).textContent = idx + 1;
+          }
+        });
+
+        if (currentTime >= fastestTime + 0.5) {
+          clearInterval(raceInterval);
+          raceInProgress = false;
+          document.getElementById('start-btn').disabled = false;
+        }
+      }, 10);
+    }
+
+    function resetRace() {
+      if (raceInterval) clearInterval(raceInterval);
+      raceInProgress = false;
+      document.getElementById('start-btn').disabled = false;
+      document.getElementById('timer').textContent = '0.00';
+      initializeLanes();
+    }
+
+    function previousEvent() {
+      if (currentEventIndex > 0) {
+        loadEvent(currentEventIndex - 1);
+      }
+    }
+
+    function nextEvent() {
+      if (currentEventIndex < eventsData.length - 1) {
+        loadEvent(currentEventIndex + 1);
+      }
+    }
+  </script>
+</body>
+</html>
