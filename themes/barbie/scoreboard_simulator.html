@@ -2,163 +2,187 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barbie Scoreboard - 2025 World Championships Full Simulator</title>
+  <meta name="viewport" content="width=1920, height=1080">
+  <title>Barbie Scoreboard - 2025 World Championships Simulator</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Righteous&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
-    body {
-      font-family: 'Righteous', sans-serif;
-      background: linear-gradient(135deg, #E0218A 0%, #FDB0C0 100%);
-      min-height: 100vh;
-      padding: 20px;
+    /* Barbie Theme Variables */
+    :root {
+      --barbie-pink: #E0218A;
+      --barbie-hot-pink: #FF69B4;
+      --barbie-light-pink: #FFB6D9;
+      --barbie-dark-pink: #C71585;
+      --barbie-accent: #FFF0F5;
+      --gradient-bg: linear-gradient(135deg, #E0218A 0%, #C71585 100%);
+      --text-primary: #FFFFFF;
+      --text-green: #00FF00;
+      --text-red: #FF1493;
+      --text-yellow: #FFD700;
     }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Arial', sans-serif;
+      background: var(--gradient-bg);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Barbie Car */
     .barbie-car {
-      position: fixed; bottom: 20px; width: 150px; height: auto; z-index: 1000;
+      position: fixed;
+      bottom: 20px;
+      width: 150px;
+      height: auto;
+      z-index: 1000;
       animation: drive 8s linear infinite;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
     }
-    @keyframes drive { 0% { left: -200px; } 100% { left: 100vw; } }
 
-    .controls {
-      background: white; padding: 24px; border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.2); margin-bottom: 24px;
-      max-width: 1400px; margin-left: auto; margin-right: auto;
+    @keyframes drive {
+      0% { left: -200px; }
+      100% { left: 100vw; }
     }
 
-    .event-selector {
-      display: flex; gap: 12px; align-items: center; margin-bottom: 16px;
-      flex-wrap: wrap;
-    }
-
-    .event-selector select {
-      flex: 1; padding: 12px; font-size: 16px; border-radius: 8px;
-      border: 2px solid #E0218A; font-family: 'Righteous', sans-serif;
-    }
-
-    .btn-group {
-      display: flex; gap: 12px; flex-wrap: wrap;
-    }
-
-    button {
-      background: linear-gradient(135deg, #E0218A 0%, #FDB0C0 100%);
-      color: white; border: none; padding: 12px 32px;
-      font-size: 18px; font-family: 'Righteous', sans-serif;
-      border-radius: 50px; cursor: pointer;
-      box-shadow: 0 4px 12px rgba(224, 33, 138, 0.4);
-      transition: all 0.3s;
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(224, 33, 138, 0.6);
-    }
-
-    button:disabled {
-      opacity: 0.5; cursor: not-allowed;
-    }
-
-    .scoreboard {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 24px; padding: 32px;
-      max-width: 1400px; margin: 0 auto;
-      box-shadow: 0 12px 48px rgba(224, 33, 138, 0.4);
-    }
-
-    .event-header {
-      text-align: center; margin-bottom: 24px;
-      padding-bottom: 16px; border-bottom: 3px solid #E0218A;
-    }
-
-    .event-title {
-      font-family: 'Pacifico', cursive;
-      font-size: 42px; color: #E0218A;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .event-subtitle {
-      font-size: 18px; color: #666; margin-top: 8px;
-    }
-
-    .timer {
-      text-align: center; font-size: 72px; color: #E0218A;
-      font-weight: bold; margin: 24px 0;
-      text-shadow: 0 4px 8px rgba(224, 33, 138, 0.3);
-    }
-
-    .lanes {
-      display: grid; grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .lane {
-      background: linear-gradient(135deg, #FFF5F7 0%, #FFE5ED 100%);
-      border-radius: 16px; padding: 20px 24px;
+    /* Header Row - Event + Clock */
+    .header {
       display: grid;
-      grid-template-columns: 60px 2fr 120px 80px 80px;
-      align-items: center; gap: 20px;
-      box-shadow: 0 4px 12px rgba(224, 33, 138, 0.15);
-      transition: all 0.3s;
+      grid-template-columns: 1fr 480px;
+      align-items: center;
+      padding: 24px 50px;
+      background: rgba(255, 255, 255, 0.15);
+      border-bottom: 4px solid var(--barbie-accent);
+      flex-shrink: 0;
+    }
+
+    .event-name {
+      font-size: 62px;
+      font-weight: 800;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .race-clock {
+      font-size: 120px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+      color: var(--barbie-accent);
+      text-align: right;
+    }
+
+    /* Lane Results Container */
+    .lanes-container {
+      padding: 30px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+    }
+
+    /* Individual Lane */
+    .lane {
+      display: grid;
+      grid-template-columns: 100px 1fr 180px 180px 120px;
+      align-items: center;
+      gap: 30px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 25px;
+      padding: 24px 40px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .lane-number {
-      font-size: 36px; font-weight: bold;
-      color: #E0218A; text-align: center;
-    }
-
-    .swimmer-name {
-      font-size: 24px; font-weight: 600; color: #333;
-      display: flex; flex-direction: column; gap: 4px;
-    }
-
-    .nation {
-      font-size: 18px; color: #666; font-weight: 400;
-    }
-
-    .split-time {
-      font-size: 28px; font-weight: 600;
-      color: #666; text-align: right;
-    }
-
-    .time {
-      font-size: 32px; font-weight: bold;
-      color: #E0218A; text-align: right;
-    }
-
-    .place {
-      font-size: 28px; font-weight: bold;
-      color: #666; text-align: center;
-      width: 50px; height: 50px;
-      border-radius: 50%;
-      display: flex; align-items: center;
-      justify-content: center;
-    }
-
     .lane.first-place {
-      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5);
+      background: linear-gradient(135deg, #FFD700 20%, #FFA500 80%);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.6);
       transform: scale(1.02);
       animation: glow 2s ease-in-out infinite;
     }
 
-    .lane.first-place .place {
-      background: #FFD700; color: white;
-      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.6);
-    }
-
     @keyframes glow {
-      0%, 100% { box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5); }
-      50% { box-shadow: 0 8px 32px rgba(255, 215, 0, 0.8); }
+      0%, 100% { box-shadow: 0 8px 24px rgba(255, 215, 0, 0.6); }
+      50% { box-shadow: 0 8px 32px rgba(255, 215, 0, 0.9); }
     }
 
+    .lane-indicator {
+      font-size: 64px;
+      font-weight: 900;
+      text-align: center;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .swimmer-name-block {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .swimmer-name {
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1.1;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    }
+
+    .swimmer-nation {
+      font-size: 28px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    .split-time {
+      font-size: 48px;
+      font-weight: 700;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+      opacity: 0.8;
+    }
+
+    .final-time {
+      font-size: 56px;
+      font-weight: 900;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .place-indicator {
+      font-size: 54px;
+      font-weight: 900;
+      text-align: center;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    }
+
+    .lane.first-place .place-indicator {
+      color: #FFFFFF;
+    }
+
+    /* Sparkles for first place */
     .sparkle {
-      position: absolute; width: 20px; height: 20px;
+      position: absolute;
+      width: 20px;
+      height: 20px;
       background: radial-gradient(circle, #fff 0%, transparent 70%);
       border-radius: 50%;
       animation: sparkle-anim 1.5s ease-in-out infinite;
@@ -169,34 +193,104 @@
       0%, 100% { opacity: 0; transform: scale(0); }
       50% { opacity: 1; transform: scale(1); }
     }
+
+    /* Controls at bottom */
+    .controls {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 20px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      border-top: 3px solid var(--barbie-pink);
+      z-index: 100;
+    }
+
+    .controls select {
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 2px solid var(--barbie-pink);
+      background: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      min-width: 300px;
+    }
+
+    .controls button {
+      padding: 12px 28px;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-family: 'Montserrat', sans-serif;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-start {
+      background: linear-gradient(135deg, #00FF00 0%, #00CC00 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 255, 0, 0.4);
+    }
+
+    .btn-start:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 255, 0, 0.6);
+    }
+
+    .btn-reset {
+      background: linear-gradient(135deg, #FF6B6B 0%, #FF4444 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 68, 68, 0.4);
+    }
+
+    .btn-nav {
+      background: linear-gradient(135deg, var(--barbie-pink) 0%, var(--barbie-dark-pink) 100%);
+      color: white;
+      box-shadow: 0 4px 12px rgba(224, 33, 138, 0.4);
+    }
+
+    .btn-nav:hover, .btn-reset:hover {
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
   <img src="https://i.imgur.com/8h4K3Yq.png" alt="Barbie Car" class="barbie-car" onerror="this.style.display='none'">
 
-  <div class="controls">
-    <div class="event-selector">
-      <select id="event-select" onchange="selectEvent()">
-        <option value="0">Loading events...</option>
-      </select>
-    </div>
-    <div class="btn-group">
-      <button id="start-btn" onclick="startRace()">▶ Start Race</button>
-      <button id="reset-btn" onclick="resetRace()">🔄 Reset</button>
-      <button id="prev-btn" onclick="previousEvent()">◀ Previous Event</button>
-      <button id="next-btn" onclick="nextEvent()">Next Event ▶</button>
+  <!-- Header -->
+  <div class="header">
+    <div class="event-name" id="event-name">Loading...</div>
+    <div class="race-clock" id="race-clock">0.00</div>
+  </div>
+
+  <!-- Lanes Container -->
+  <div class="lanes-container" id="lanes-container">
+    <div style="text-align: center; padding: 40px; font-size: 24px;">
+      Loading 2025 World Championships data...
     </div>
   </div>
 
-  <div class="scoreboard">
-    <div class="event-header">
-      <div class="event-title" id="event-title">Barbie Scoreboard</div>
-      <div class="event-subtitle" id="event-subtitle">2025 World Championships Singapore 🏆</div>
-    </div>
-
-    <div class="timer" id="timer">0.00</div>
-
-    <div class="lanes" id="lanes"></div>
+  <!-- Controls -->
+  <div class="controls">
+    <button class="btn-nav" onclick="previousEvent()">◀ Previous</button>
+    <select id="event-selector" onchange="selectEvent()">
+      <option>Loading events...</option>
+    </select>
+    <button class="btn-nav" onclick="nextEvent()">Next ▶</button>
+    <button class="btn-start" id="start-btn" onclick="startRace()">▶ Start Race</button>
+    <button class="btn-reset" onclick="resetRace()">🔄 Reset</button>
   </div>
 
   <script>
@@ -205,7 +299,7 @@
     let raceInProgress = false;
     let raceInterval;
 
-    // Fetch the 2025 Worlds data
+    // Fetch 2025 Worlds data
     fetch('https://raw.githubusercontent.com/swimnerdtim/obs-overlays/main/worlds_2025_simulator_data.json')
       .then(response => response.json())
       .then(data => {
@@ -215,11 +309,11 @@
       })
       .catch(error => {
         console.error('Error loading data:', error);
-        document.getElementById('event-select').innerHTML = '<option>Error loading events</option>';
+        document.getElementById('event-name').textContent = 'Error loading data';
       });
 
     function populateEventSelector() {
-      const select = document.getElementById('event-select');
+      const select = document.getElementById('event-selector');
       select.innerHTML = '';
       eventsData.forEach((event, index) => {
         const option = document.createElement('option');
@@ -230,7 +324,7 @@
     }
 
     function selectEvent() {
-      const index = parseInt(document.getElementById('event-select').value);
+      const index = parseInt(document.getElementById('event-selector').value);
       loadEvent(index);
     }
 
@@ -240,17 +334,16 @@
       currentEventIndex = index;
       const event = eventsData[index];
       
-      document.getElementById('event-select').value = index;
-      document.getElementById('event-title').textContent = `${event.event} ${event.gender}`;
-      document.getElementById('event-subtitle').textContent = '2025 World Championships Singapore 🏆';
+      document.getElementById('event-selector').value = index;
+      document.getElementById('event-name').textContent = `${event.event} ${event.gender}`;
       
       resetRace();
     }
 
     function initializeLanes() {
       const event = eventsData[currentEventIndex];
-      const lanesContainer = document.getElementById('lanes');
-      lanesContainer.innerHTML = '';
+      const container = document.getElementById('lanes-container');
+      container.innerHTML = '';
 
       // Sort by time to get places
       const sorted = [...event.finalists].sort((a, b) => a.time - b.time);
@@ -263,6 +356,7 @@
         
         if (place === 1) {
           lane.classList.add('first-place');
+          // Add sparkles
           for (let i = 0; i < 5; i++) {
             const sparkle = document.createElement('div');
             sparkle.className = 'sparkle';
@@ -274,17 +368,17 @@
         }
 
         lane.innerHTML += `
-          <div class="lane-number">${place}</div>
-          <div class="swimmer-name">
-            ${swimmer.athlete}
-            <span class="nation">${swimmer.nation}</span>
+          <div class="lane-indicator">${place}</div>
+          <div class="swimmer-name-block">
+            <div class="swimmer-name">${swimmer.athlete}</div>
+            <div class="swimmer-nation">${swimmer.nation}</div>
           </div>
           <div class="split-time" id="split-${index}">--</div>
-          <div class="time" id="time-${index}">--</div>
-          <div class="place" id="place-${index}">--</div>
+          <div class="final-time" id="time-${index}">--</div>
+          <div class="place-indicator" id="place-${index}">--</div>
         `;
 
-        lanesContainer.appendChild(lane);
+        container.appendChild(lane);
       });
     }
 
@@ -295,27 +389,32 @@
 
       const event = eventsData[currentEventIndex];
       const sorted = [...event.finalists].sort((a, b) => a.time - b.time);
-      const timerEl = document.getElementById('timer');
+      const clockEl = document.getElementById('race-clock');
       
       let currentTime = 0;
       const fastestTime = sorted[0].time;
-      const splitDistance = sorted[0].splits[Math.floor(sorted[0].splits.length / 2)].distance;
+      
+      // Find halfway split distance
+      const splitDistance = sorted[0].splits[Math.floor(sorted[0].splits.length / 2)]?.distance || 50;
 
       raceInterval = setInterval(() => {
         currentTime += 0.01;
-        timerEl.textContent = currentTime.toFixed(2);
+        clockEl.textContent = currentTime.toFixed(2);
 
         // Show splits at halfway point
         sorted.forEach((swimmer, idx) => {
           const splitTime = swimmer.splits.find(s => s.distance === splitDistance)?.cumulative_time || 0;
           if (currentTime >= splitTime && splitTime > 0) {
-            document.getElementById(`split-${idx}`).textContent = splitTime.toFixed(2);
+            const splitEl = document.getElementById(`split-${idx}`);
+            if (splitEl) splitEl.textContent = splitTime.toFixed(2);
           }
 
           // Show final times as swimmers finish
           if (currentTime >= swimmer.time) {
-            document.getElementById(`time-${idx}`).textContent = swimmer.time.toFixed(2);
-            document.getElementById(`place-${idx}`).textContent = idx + 1;
+            const timeEl = document.getElementById(`time-${idx}`);
+            const placeEl = document.getElementById(`place-${idx}`);
+            if (timeEl) timeEl.textContent = swimmer.time.toFixed(2);
+            if (placeEl) placeEl.textContent = idx + 1;
           }
         });
 
@@ -331,7 +430,7 @@
       if (raceInterval) clearInterval(raceInterval);
       raceInProgress = false;
       document.getElementById('start-btn').disabled = false;
-      document.getElementById('timer').textContent = '0.00';
+      document.getElementById('race-clock').textContent = '0.00';
       initializeLanes();
     }
 
