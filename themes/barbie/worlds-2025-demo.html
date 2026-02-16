@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbie Scoreboard - 2025 World Championships Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Righteous&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Righteous', sans-serif;
+      background: linear-gradient(135deg, #E0218A 0%, #FDB0C0 100%);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Barbie Car */
+    .barbie-car {
+      position: fixed;
+      bottom: 20px;
+      width: 150px;
+      height: auto;
+      z-index: 1000;
+      animation: drive 8s linear infinite;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    @keyframes drive {
+      0% { left: -200px; }
+      100% { left: 100vw; }
+    }
+
+    /* Sparkle effect */
+    .sparkle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: radial-gradient(circle, #fff 0%, transparent 70%);
+      border-radius: 50%;
+      animation: sparkle-anim 1.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle-anim {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .scoreboard {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 24px;
+      padding: 32px;
+      margin: 40px auto;
+      max-width: 1400px;
+      box-shadow: 0 12px 48px rgba(224, 33, 138, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .event-header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 3px solid #E0218A;
+    }
+
+    .event-title {
+      font-family: 'Pacifico', cursive;
+      font-size: 42px;
+      color: #E0218A;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 8px;
+    }
+
+    .event-subtitle {
+      font-size: 18px;
+      color: #666;
+      font-weight: 400;
+    }
+
+    .timer {
+      text-align: center;
+      font-size: 72px;
+      color: #E0218A;
+      font-weight: bold;
+      margin: 24px 0;
+      text-shadow: 0 4px 8px rgba(224, 33, 138, 0.3);
+      letter-spacing: 4px;
+    }
+
+    .lanes {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 12px;
+    }
+
+    .lane {
+      background: linear-gradient(135deg, #FFF5F7 0%, #FFE5ED 100%);
+      border-radius: 16px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 60px 1fr 120px 80px;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 12px rgba(224, 33, 138, 0.15);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lane-number {
+      font-size: 36px;
+      font-weight: bold;
+      color: #E0218A;
+      text-align: center;
+    }
+
+    .swimmer-name {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nation {
+      font-size: 18px;
+      color: #666;
+      font-weight: 400;
+    }
+
+    .time {
+      font-size: 32px;
+      font-weight: bold;
+      color: #E0218A;
+      text-align: right;
+    }
+
+    .place {
+      font-size: 28px;
+      font-weight: bold;
+      color: #666;
+      text-align: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lane.first-place {
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5);
+      transform: scale(1.02);
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .lane.first-place .place {
+      background: #FFD700;
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 215, 0, 0.6);
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 8px 24px rgba(255, 215, 0, 0.5); }
+      50% { box-shadow: 0 8px 32px rgba(255, 215, 0, 0.8); }
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 3px solid #E0218A;
+    }
+
+    button {
+      background: linear-gradient(135deg, #E0218A 0%, #FDB0C0 100%);
+      color: white;
+      border: none;
+      padding: 16px 48px;
+      font-size: 20px;
+      font-family: 'Righteous', sans-serif;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(224, 33, 138, 0.4);
+      transition: all 0.3s;
+      margin: 0 12px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(224, 33, 138, 0.6);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .info-banner {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 18px;
+      color: #E0218A;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(224, 33, 138, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <img src="https://i.imgur.com/8h4K3Yq.png" alt="Barbie Car" class="barbie-car" onerror="this.style.display='none'">
+
+  <div class="scoreboard">
+    <div class="info-banner">
+      🏆 2025 World Championships Singapore - Men's 100m Freestyle Final 🏆
+    </div>
+
+    <div class="event-header">
+      <div class="event-title">Barbie Scoreboard</div>
+      <div class="event-subtitle">World Championship Edition ✨</div>
+    </div>
+
+    <div class="timer" id="timer">46.51</div>
+
+    <div class="lanes" id="lanes"></div>
+
+    <div class="controls">
+      <button onclick="startRace()">▶ Start Race</button>
+      <button onclick="resetRace()">🔄 Reset</button>
+    </div>
+  </div>
+
+  <script>
+    // 2025 World Championships Singapore - Men's 100m Free Finals
+    const championshipData = [
+      { lane: 4, name: 'David POPOVICI', nation: 'ROU', time: 46.51, split50: 22.42 },
+      { lane: 5, name: 'Jack ALEXY', nation: 'USA', time: 46.92, split50: 22.67 },
+      { lane: 3, name: 'Kyle CHALMERS', nation: 'AUS', time: 47.17, split50: 22.79 },
+      { lane: 6, name: 'Guilherme CARIBÉ', nation: 'BRA', time: 47.35, split50: 22.94 },
+      { lane: 2, name: 'Egor KORNEV', nation: 'NAB', time: 47.51, split50: 23.01 },
+      { lane: 7, name: 'Patrick SAMMON', nation: 'USA', time: 47.58, split50: 23.12 },
+      { lane: 1, name: 'Maxime GROUSSET', nation: 'FRA', time: 47.59, split50: 23.08 },
+      { lane: 8, name: 'Matthew RICHARDS', nation: 'GBR', time: 47.74, split50: 23.24 }
+    ];
+
+    let raceInProgress = false;
+    let raceInterval;
+
+    function initializeLanes() {
+      const lanesContainer = document.getElementById('lanes');
+      lanesContainer.innerHTML = '';
+
+      // Sort by place (time)
+      const sorted = [...championshipData].sort((a, b) => a.time - b.time);
+
+      sorted.forEach((swimmer, index) => {
+        const place = index + 1;
+        const lane = document.createElement('div');
+        lane.className = 'lane';
+        lane.id = `lane-${swimmer.lane}`;
+        if (place === 1) {
+          lane.classList.add('first-place');
+          // Add sparkles
+          for (let i = 0; i < 5; i++) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = `${Math.random() * 100}%`;
+            sparkle.style.top = `${Math.random() * 100}%`;
+            sparkle.style.animationDelay = `${Math.random() * 1.5}s`;
+            lane.appendChild(sparkle);
+          }
+        }
+
+        lane.innerHTML += `
+          <div class="lane-number">${swimmer.lane}</div>
+          <div class="swimmer-name">
+            ${swimmer.name}
+            <span class="nation">${swimmer.nation}</span>
+          </div>
+          <div class="time">${swimmer.time.toFixed(2)}</div>
+          <div class="place">${place}</div>
+        `;
+
+        lanesContainer.appendChild(lane);
+      });
+    }
+
+    function startRace() {
+      if (raceInProgress) return;
+      raceInProgress = true;
+
+      const timerEl = document.getElementById('timer');
+      let currentTime = 0;
+      const endTime = 46.51; // Winning time
+
+      // Hide times initially
+      document.querySelectorAll('.time').forEach(el => el.textContent = '--');
+      document.querySelectorAll('.place').forEach(el => el.textContent = '--');
+
+      raceInterval = setInterval(() => {
+        currentTime += 0.01;
+        timerEl.textContent = currentTime.toFixed(2);
+
+        // Show times as swimmers finish
+        championshipData.forEach(swimmer => {
+          if (currentTime >= swimmer.time) {
+            const laneEl = document.getElementById(`lane-${swimmer.lane}`);
+            const timeEl = laneEl.querySelector('.time');
+            timeEl.textContent = swimmer.time.toFixed(2);
+          }
+        });
+
+        if (currentTime >= endTime) {
+          clearInterval(raceInterval);
+          raceInProgress = false;
+          // Show all places
+          showFinalResults();
+        }
+      }, 10);
+    }
+
+    function showFinalResults() {
+      const sorted = [...championshipData].sort((a, b) => a.time - b.time);
+      sorted.forEach((swimmer, index) => {
+        const place = index + 1;
+        const laneEl = document.getElementById(`lane-${swimmer.lane}`);
+        const placeEl = laneEl.querySelector('.place');
+        placeEl.textContent = place;
+
+        if (place === 1) {
+          laneEl.classList.add('first-place');
+        }
+      });
+    }
+
+    function resetRace() {
+      if (raceInterval) {
+        clearInterval(raceInterval);
+      }
+      raceInProgress = false;
+      document.getElementById('timer').textContent = '46.51';
+      initializeLanes();
+    }
+
+    // Initialize on load
+    initializeLanes();
+  </script>
+</body>
+</html>
