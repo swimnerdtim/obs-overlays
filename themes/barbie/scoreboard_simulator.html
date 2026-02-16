@@ -344,22 +344,29 @@
       // Reset split timestamps
       splitTimestamps = {};
       
-      // Generate lanes from championship data (start empty)
+      // Generate lanes from championship data with realistic seeding
+      // Standard seeding pattern: [7th, 5th, 3rd, 1st, 2nd, 4th, 6th, 8th]
+      const seedingPattern = [6, 4, 2, 0, 1, 3, 5, 7]; // Maps lane 1-8 to finish position
+      
       const lanes = [];
-      for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
-        const finalist = currentEvent.finalists[i];
+      for (let laneNum = 1; laneNum <= Math.min(8, currentEvent.finalists.length); laneNum++) {
+        const finishPosition = seedingPattern[laneNum - 1];
+        const finalist = currentEvent.finalists[finishPosition];
         
-        lanes.push({
-          lane: i + 1,
-          name: finalist.athlete,
-          team: finalist.nation,
-          split: '',
-          time: '',
-          place: null
-        });
-        
-        // Initialize split timestamp tracking for this swimmer
-        splitTimestamps[i] = { lastSplitIndex: -1, splitShownAt: null };
+        if (finalist) {
+          lanes.push({
+            lane: laneNum,
+            name: finalist.athlete,
+            team: finalist.nation,
+            split: '',
+            time: '',
+            place: null,
+            finishPosition: finishPosition // Track original position for split data
+          });
+          
+          // Initialize split timestamp tracking using finish position as key
+          splitTimestamps[finishPosition] = { lastSplitIndex: -1, splitShownAt: null };
+        }
       }
       
       // Send initial lane setup
@@ -379,10 +386,17 @@
     function updateRaceSplits(elapsedSeconds) {
       if (!currentEvent) return;
       
+      // Standard seeding pattern: [7th, 5th, 3rd, 1st, 2nd, 4th, 6th, 8th]
+      const seedingPattern = [6, 4, 2, 0, 1, 3, 5, 7];
+      
       const lanes = [];
       
-      for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
-        const finalist = currentEvent.finalists[i];
+      for (let laneNum = 1; laneNum <= Math.min(8, currentEvent.finalists.length); laneNum++) {
+        const finishPosition = seedingPattern[laneNum - 1];
+        const finalist = currentEvent.finalists[finishPosition];
+        
+        if (!finalist) continue;
+        
         const splits = finalist.splits;
         const finalTime = finalist.time;
         
@@ -404,7 +418,7 @@
             
             // If this is the last split (finish), show final time permanently
             if (j === splits.length - 1) {
-              place = i + 1;
+              place = finishPosition + 1;
             }
           } else {
             nextSplitCumulative = splitCumulative;
@@ -413,7 +427,7 @@
         }
         
         // Handle split timing and display
-        const swimmerTracking = splitTimestamps[i];
+        const swimmerTracking = splitTimestamps[finishPosition];
         
         // Check if we hit a new split
         if (currentSplitIndex > swimmerTracking.lastSplitIndex) {
@@ -456,12 +470,12 @@
         }
         
         lanes.push({
-          lane: i + 1,
+          lane: laneNum,
           name: finalist.athlete,
           team: finalist.nation,
           split: intervalSplit,
           time: cumulativeTime,
-          place: place
+          place: place ? (finishPosition + 1) : null // Show actual finish place
         });
       }
       
@@ -490,10 +504,17 @@
       
       stopRace();
       
+      // Standard seeding pattern: [7th, 5th, 3rd, 1st, 2nd, 4th, 6th, 8th]
+      const seedingPattern = [6, 4, 2, 0, 1, 3, 5, 7];
+      
       const lanes = [];
       
-      for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
-        const finalist = currentEvent.finalists[i];
+      for (let laneNum = 1; laneNum <= Math.min(8, currentEvent.finalists.length); laneNum++) {
+        const finishPosition = seedingPattern[laneNum - 1];
+        const finalist = currentEvent.finalists[finishPosition];
+        
+        if (!finalist) continue;
+        
         const splits = finalist.splits;
         
         // Show last interval split (final 50m)
@@ -502,12 +523,12 @@
         const finalIntervalSplit = lastSplit.cumulative_time - (secondToLastSplit ? secondToLastSplit.cumulative_time : 0);
         
         lanes.push({
-          lane: i + 1,
+          lane: laneNum,
           name: finalist.athlete,
           team: finalist.nation,
           split: formatTime(finalIntervalSplit),
           time: formatTime(finalist.time),
-          place: i + 1
+          place: finishPosition + 1
         });
       }
       
