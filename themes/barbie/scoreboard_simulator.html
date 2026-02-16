@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barbie Scoreboard Simulator - Swimnerd Live</title>
+  <title>Barbie Scoreboard Simulator - 2025 Worlds</title>
   <style>
     * {
       margin: 0;
@@ -203,45 +203,58 @@
 </head>
 <body>
   <div class="container">
-    <h1>💖 Barbie Full-Screen Scoreboard 💖</h1>
+    <h1>💖 Barbie Scoreboard - 2025 World Championships 💖</h1>
 
     <div class="info-box">
-      <p><strong>✨ Full-screen digital scoreboard for TVs!</strong> No Cat6 cabling needed - just open this URL on any TV browser or cast it. Perfect for satellite displays around the pool.</p>
+      <p><strong>✨ Full-screen digital scoreboard with REAL championship data!</strong> All 34 events from 2025 World Championships Singapore with actual splits and times.</p>
     </div>
 
     <div class="controls">
-      <!-- Event Controls -->
+      <!-- Event Selection -->
       <div class="control-section">
-        <h2>📋 Event Information</h2>
-        <div class="control-grid">
-          <div class="control-group">
-            <label>Event Number</label>
-            <input type="number" id="eventNumber" value="12" min="1">
-          </div>
-          <div class="control-group">
-            <label>Event Name</label>
-            <input type="text" id="eventName" value="Girls 200 IM">
-          </div>
-          <div class="control-group">
-            <label>Heat Number</label>
-            <input type="number" id="heatNumber" value="3" min="1">
-          </div>
-          <div class="control-group">
-            <label>Total Heats</label>
-            <input type="number" id="totalHeats" value="4" min="1">
-          </div>
-          <div class="control-group">
-            <label>Lengths</label>
-            <input type="number" id="lengths" value="4" min="1">
-          </div>
-          <div class="control-group">
-            <label>Pool Record</label>
-            <input type="text" id="record" value="2:03.45">
-          </div>
-        </div>
-        <div class="button-group" style="margin-top: 16px;">
-          <button class="btn-primary" onclick="updateEvent()">Update Event Info</button>
-          <button class="btn-secondary" onclick="loadRandomEvent()">Random Event</button>
+        <h2>🏆 Select Championship Event</h2>
+        <div class="control-group">
+          <label>Event</label>
+          <select id="eventSelect" onchange="selectEvent()">
+            <optgroup label="Men's Events">
+              <option value="400m Free-Men">Men's 400m Free</option>
+              <option value="100m Breast-Men">Men's 100m Breast</option>
+              <option value="50m Fly-Men">Men's 50m Fly</option>
+              <option value="200m Free-Men">Men's 200m Free</option>
+              <option value="800m Free-Men">Men's 800m Free</option>
+              <option value="100m Fly-Men">Men's 100m Fly</option>
+              <option value="50m Back-Men">Men's 50m Back</option>
+              <option value="200m IM-Men">Men's 200m IM</option>
+              <option value="200m Breast-Men">Men's 200m Breast</option>
+              <option value="1500m Free-Men">Men's 1500m Free</option>
+              <option value="200m Fly-Men">Men's 200m Fly</option>
+              <option value="100m Free-Men">Men's 100m Free</option>
+              <option value="200m Back-Men">Men's 200m Back</option>
+              <option value="100m Back-Men">Men's 100m Back</option>
+              <option value="50m Free-Men">Men's 50m Free</option>
+              <option value="50m Breast-Men">Men's 50m Breast</option>
+              <option value="400m IM-Men">Men's 400m IM</option>
+            </optgroup>
+            <optgroup label="Women's Events">
+              <option value="400m Free-Women">Women's 400m Free</option>
+              <option value="100m Fly-Women">Women's 100m Fly</option>
+              <option value="200m IM-Women">Women's 200m IM</option>
+              <option value="1500m Free-Women">Women's 1500m Free</option>
+              <option value="200m Breast-Women">Women's 200m Breast</option>
+              <option value="200m Free-Women">Women's 200m Free</option>
+              <option value="100m Free-Women">Women's 100m Free</option>
+              <option value="50m Fly-Women">Women's 50m Fly</option>
+              <option value="800m Free-Women">Women's 800m Free</option>
+              <option value="100m Back-Women">Women's 100m Back</option>
+              <option value="400m IM-Women">Women's 400m IM</option>
+              <option value="50m Back-Women">Women's 50m Back</option>
+              <option value="200m Back-Women">Women's 200m Back</option>
+              <option value="100m Breast-Women">Women's 100m Breast</option>
+              <option value="200m Fly-Women">Women's 200m Fly</option>
+              <option value="50m Free-Women">Women's 50m Free</option>
+              <option value="50m Breast-Women">Women's 50m Breast</option>
+            </optgroup>
+          </select>
         </div>
       </div>
 
@@ -253,18 +266,6 @@
           <button class="btn-danger" onclick="stopRace()">⏹ Stop Race</button>
           <button class="btn-primary" onclick="simulateFinish()">🏁 Simulate Finish</button>
           <button class="btn-secondary" onclick="clearLanes()">Clear Lanes</button>
-        </div>
-      </div>
-
-      <!-- Quick Presets -->
-      <div class="control-section">
-        <h2>⚡ Quick Presets</h2>
-        <div class="button-group">
-          <button class="btn-primary" onclick="loadWomen400Free2025()">🏆 Women 400 Free - 2025 Worlds</button>
-          <button class="btn-secondary" onclick="load50Free()">50 Free</button>
-          <button class="btn-secondary" onclick="load100Back()">100 Back</button>
-          <button class="btn-secondary" onclick="load200IM()">200 IM</button>
-          <button class="btn-secondary" onclick="load500Free()">500 Free</button>
         </div>
       </div>
     </div>
@@ -283,28 +284,55 @@
 
   <script>
     const channel = new BroadcastChannel('swimnerd-live');
+    let currentEvent = null;
+    
+    // Embed Worlds 2025 data inline (only essential fields to save space)
+    const worldsData = __WORLDS_DATA__;
 
-    function updateEvent() {
-      const data = {
-        type: 'event_update',
-        eventNumber: document.getElementById('eventNumber').value,
-        eventName: document.getElementById('eventName').value,
-        heatNumber: document.getElementById('heatNumber').value,
-        totalHeats: document.getElementById('totalHeats').value,
-        lengths: document.getElementById('lengths').value,
-        record: document.getElementById('record').value
-      };
-      channel.postMessage(data);
+    function selectEvent() {
+      const selected = document.getElementById('eventSelect').value;
+      const [eventName, gender] = selected.split('-');
+      
+      currentEvent = worldsData.find(e => e.event === eventName && e.gender === gender);
+      
+      if (currentEvent) {
+        // Update event info
+        const eventNumber = worldsData.indexOf(currentEvent) + 1;
+        const lengths = Math.ceil(parseInt(currentEvent.event.match(/\d+/)[0]) / 50);
+        
+        const data = {
+          type: 'event_update',
+          eventNumber: eventNumber,
+          eventName: `${gender === 'Men' ? "Men's" : "Women's"} ${eventName} - 2025 Worlds`,
+          heatNumber: 'Finals',
+          totalHeats: 1,
+          lengths: lengths,
+          record: formatTime(Math.min(...currentEvent.finalists.map(f => f.time)))
+        };
+        channel.postMessage(data);
+      }
     }
 
     function startRace() {
-      // Generate demo lanes
+      if (!currentEvent) {
+        selectEvent();
+      }
+      
+      if (!currentEvent) {
+        alert('Please select an event first!');
+        return;
+      }
+      
+      // Generate lanes from championship data
       const lanes = [];
-      for (let i = 1; i <= 8; i++) {
+      for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
+        const finalist = currentEvent.finalists[i];
+        const midpoint = finalist.splits[Math.floor(finalist.splits.length / 2)];
+        
         lanes.push({
-          lane: i,
-          name: `Swimmer ${i}`,
-          team: ['NOVA', 'RAYS', 'TIDE', 'WAVE', 'HEAT', 'BOLT', 'FAST', 'FIRE'][i-1],
+          lane: i + 1,
+          name: finalist.athlete,
+          team: finalist.nation,
           split: '',
           time: '',
           place: null
@@ -320,32 +348,25 @@
     }
 
     function simulateFinish() {
-      const names = [
-        'Katie Ledecky', 'Emma McKeon', 'Sarah Sjöström', 
-        'Simone Manuel', 'Penny Oleksiak', 'Cate Campbell',
-        'Taylor Ruck', 'Abbey Weitzeil'
-      ];
-      
-      const lanes = [];
-      for (let i = 1; i <= 8; i++) {
-        const baseTime = 120 + Math.random() * 10; // 2:00 - 2:10
-        const split = baseTime / 2;
-        
-        lanes.push({
-          lane: i,
-          name: names[i-1],
-          team: ['NOVA', 'RAYS', 'TIDE', 'WAVE', 'HEAT', 'BOLT', 'FAST', 'FIRE'][i-1],
-          split: formatTime(split),
-          time: formatTime(baseTime),
-          place: null
-        });
+      if (!currentEvent) {
+        alert('Please select an event first!');
+        return;
       }
       
-      // Sort by time and assign places
-      lanes.sort((a, b) => parseTime(a.time) - parseTime(b.time));
-      lanes.forEach((lane, idx) => {
-        lane.place = idx + 1;
-      });
+      const lanes = [];
+      for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
+        const finalist = currentEvent.finalists[i];
+        const midpoint = finalist.splits[Math.floor(finalist.splits.length / 2)];
+        
+        lanes.push({
+          lane: i + 1,
+          name: finalist.athlete,
+          team: finalist.nation,
+          split: formatTime(midpoint.cumulative_time),
+          time: formatTime(finalist.time),
+          place: i + 1
+        });
+      }
       
       channel.postMessage({ type: 'race_finish', lanes });
     }
@@ -360,108 +381,25 @@
       return mins > 0 ? `${mins}:${secs.padStart(5, '0')}` : secs;
     }
 
-    function parseTime(timeStr) {
-      const parts = timeStr.split(':');
-      if (parts.length > 1) {
-        return parseFloat(parts[0]) * 60 + parseFloat(parts[1]);
-      }
-      return parseFloat(timeStr);
-    }
-
-    function loadRandomEvent() {
-      const events = [
-        { num: 1, name: 'Boys 200 Free', heats: 5, lengths: 4, record: '1:38.45' },
-        { num: 5, name: 'Girls 50 Fly', heats: 3, lengths: 1, record: '24.87' },
-        { num: 12, name: 'Girls 200 IM', heats: 4, lengths: 4, record: '2:03.45' },
-        { num: 18, name: 'Boys 100 Back', heats: 6, lengths: 2, record: '49.23' },
-      ];
-      
-      const event = events[Math.floor(Math.random() * events.length)];
-      document.getElementById('eventNumber').value = event.num;
-      document.getElementById('eventName').value = event.name;
-      document.getElementById('heatNumber').value = Math.floor(Math.random() * event.heats) + 1;
-      document.getElementById('totalHeats').value = event.heats;
-      document.getElementById('lengths').value = event.lengths;
-      document.getElementById('record').value = event.record;
-      
-      updateEvent();
-    }
-
-    function load50Free() {
-      document.getElementById('eventNumber').value = 1;
-      document.getElementById('eventName').value = 'Girls 50 Free';
-      document.getElementById('heatNumber').value = 1;
-      document.getElementById('totalHeats').value = 3;
-      document.getElementById('lengths').value = 1;
-      document.getElementById('record').value = '22.89';
-      updateEvent();
-    }
-
-    function load100Back() {
-      document.getElementById('eventNumber').value = 5;
-      document.getElementById('eventName').value = 'Boys 100 Back';
-      document.getElementById('heatNumber').value = 2;
-      document.getElementById('totalHeats').value = 4;
-      document.getElementById('lengths').value = 2;
-      document.getElementById('record').value = '49.12';
-      updateEvent();
-    }
-
-    function load200IM() {
-      document.getElementById('eventNumber').value = 12;
-      document.getElementById('eventName').value = 'Girls 200 IM';
-      document.getElementById('heatNumber').value = 3;
-      document.getElementById('totalHeats').value = 4;
-      document.getElementById('lengths').value = 4;
-      document.getElementById('record').value = '2:03.45';
-      updateEvent();
-    }
-
-    function load500Free() {
-      document.getElementById('eventNumber').value = 24;
-      document.getElementById('eventName').value = 'Boys 500 Free';
-      document.getElementById('heatNumber').value = 1;
-      document.getElementById('totalHeats').value = 2;
-      document.getElementById('lengths').value = 10;
-      document.getElementById('record').value = '4:28.67';
-      updateEvent();
-    }
-
-    function loadWomen400Free2025() {
-      // Set event info
-      document.getElementById('eventNumber').value = 1;
-      document.getElementById('eventName').value = 'Women 400 Free - 2025 Worlds';
-      document.getElementById('heatNumber').value = 'Finals';
-      document.getElementById('totalHeats').value = 1;
-      document.getElementById('lengths').value = 8;
-      document.getElementById('record').value = '3:56.40';
-      updateEvent();
-      
-      // Women's 400m Free Finals - 2025 World Championships Singapore
-      const lanes = [
-        { lane: 1, name: 'Summer MCINTOSH', team: 'CAN', split: '1:57.31', time: '3:56.26', place: 1 },
-        { lane: 2, name: 'Katie LEDECKY', team: 'USA', split: '1:57.90', time: '3:58.49', place: 3 },
-        { lane: 3, name: 'Lani PALLISTER', team: 'AUS', split: '1:57.70', time: '3:58.87', place: 4 },
-        { lane: 4, name: 'Bingjie LI', team: 'CHN', split: '1:59.09', time: '3:58.21', place: 2 },
-        { lane: 5, name: 'Isabel GOSE', team: 'GER', split: '1:59.86', time: '4:02.90', place: 5 },
-        { lane: 6, name: 'Jamie PERKINS', team: 'AUS', split: '1:59.68', time: '4:03.20', place: 6 },
-        { lane: 7, name: 'Peiqi YANG', team: 'CHN', split: '2:00.56', time: '4:06.47', place: 7 },
-        { lane: 8, name: 'Maya WERNER', team: 'GER', split: '2:01.94', time: '4:09.38', place: 8 }
-      ];
-      
-      // Send to scoreboard
-      channel.postMessage({ type: 'race_finish', lanes });
-    }
-
     function openFullscreen() {
       window.open('scoreboard.html', '_blank');
     }
 
-    // Auto-load demo on start
+    // Auto-load first event
     setTimeout(() => {
-      updateEvent();
-      setTimeout(simulateFinish, 1000);
+      selectEvent();
     }, 500);
+  </script>
+  
+  <script>
+    // Load worlds data from external file
+    fetch('worlds_2025_simulator_data.json')
+      .then(r => r.json())
+      .then(data => {
+        // Replace placeholder
+        const script = document.scripts[document.scripts.length - 2];
+        script.textContent = script.textContent.replace('__WORLDS_DATA__', JSON.stringify(data));
+      });
   </script>
 </body>
 </html>
