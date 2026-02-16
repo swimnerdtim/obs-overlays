@@ -199,7 +199,7 @@
     <h1>💖 Barbie Scoreboard - 2025 World Championships 💖</h1>
 
     <div class="info-box">
-      <p><strong>✨ Real championship data from 2025 World Championships Singapore!</strong> Select an event and click Start Race to see the race unfold with actual splits and times.</p>
+      <p><strong>✨ Real championship data from 2025 World Championships Singapore!</strong> Select an event and click Start Race to see splits appear at every 50m touch.</p>
     </div>
 
     <div class="controls">
@@ -362,52 +362,74 @@
       channel.postMessage({ type: 'race_start' });
       raceStartTime = Date.now();
       
-      // Start progressive split updates
+      // Start progressive split updates (every 50ms for smooth cumulative times)
       raceInterval = setInterval(() => {
         const elapsed = (Date.now() - raceStartTime) / 1000; // seconds
         updateRaceSplits(elapsed);
-      }, 100); // Update every 100ms
+      }, 50);
     }
 
     function updateRaceSplits(elapsedSeconds) {
       if (!currentEvent) return;
       
       const lanes = [];
-      const midpointIndex = Math.floor(currentEvent.finalists[0].splits.length / 2);
       
       for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
         const finalist = currentEvent.finalists[i];
-        const midpointSplit = finalist.splits[midpointIndex];
+        const splits = finalist.splits;
         const finalTime = finalist.time;
         
-        let currentSplit = '';
-        let currentTime = '';
+        // Find which split we just passed (every 50m)
+        let lastSplitTime = null;
+        let nextSplitTime = null;
+        let currentSplitDisplay = '';
+        let currentTimeDisplay = '';
         let place = null;
         
-        // Show split at midpoint
-        if (elapsedSeconds >= midpointSplit.cumulative_time * 0.95) {
-          currentSplit = formatTime(midpointSplit.cumulative_time);
+        // Find the most recent split that was passed
+        for (let j = 0; j < splits.length; j++) {
+          const splitTime = splits[j].cumulative_time;
+          
+          if (elapsedSeconds >= splitTime) {
+            lastSplitTime = splitTime;
+            currentSplitDisplay = formatTime(splitTime);
+            
+            // If this is the last split (finish), show final time
+            if (j === splits.length - 1) {
+              currentTimeDisplay = formatTime(finalTime);
+              place = i + 1;
+            }
+          } else {
+            nextSplitTime = splitTime;
+            break;
+          }
         }
         
-        // Show final time
-        if (elapsedSeconds >= finalTime * 0.95) {
-          currentTime = formatTime(finalTime);
-          place = i + 1; // Order by finish position
+        // Show running cumulative time between splits
+        if (lastSplitTime !== null && nextSplitTime !== null && elapsedSeconds < finalTime) {
+          // Estimate current position between splits
+          const progress = (elapsedSeconds - lastSplitTime) / (nextSplitTime - lastSplitTime);
+          const estimatedTime = lastSplitTime + (nextSplitTime - lastSplitTime) * progress;
+          currentTimeDisplay = formatTime(estimatedTime);
+        } else if (lastSplitTime !== null && elapsedSeconds >= finalTime) {
+          // Race finished
+          currentTimeDisplay = formatTime(finalTime);
+          place = i + 1;
         }
         
         lanes.push({
           lane: i + 1,
           name: finalist.athlete,
           team: finalist.nation,
-          split: currentSplit,
-          time: currentTime,
+          split: currentSplitDisplay,
+          time: currentTimeDisplay,
           place: place
         });
       }
       
       channel.postMessage({ type: 'race_update', lanes });
       
-      // Stop race when slowest swimmer finishes
+      // Stop race when slowest swimmer finishes + 1 second
       const slowestTime = Math.max(...currentEvent.finalists.slice(0, 8).map(f => f.time));
       if (elapsedSeconds >= slowestTime + 1) {
         stopRace();
@@ -431,17 +453,16 @@
       stopRace();
       
       const lanes = [];
-      const midpointIndex = Math.floor(currentEvent.finalists[0].splits.length / 2);
       
       for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
         const finalist = currentEvent.finalists[i];
-        const midpoint = finalist.splits[midpointIndex];
+        const lastSplit = finalist.splits[finalist.splits.length - 2]; // Second-to-last split
         
         lanes.push({
           lane: i + 1,
           name: finalist.athlete,
           team: finalist.nation,
-          split: formatTime(midpoint.cumulative_time),
+          split: lastSplit ? formatTime(lastSplit.cumulative_time) : '',
           time: formatTime(finalist.time),
           place: i + 1
         });
