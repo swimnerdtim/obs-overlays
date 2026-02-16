@@ -279,6 +279,8 @@
     const channel = new BroadcastChannel('swimnerd-live');
     let currentEvent = null;
     let worldsData = [];
+    let raceInterval = null;
+    let raceStartTime = null;
 
     // Load worlds data from external file
     fetch('worlds_2025_simulator_data.json')
@@ -324,6 +326,7 @@
         channel.postMessage(data);
         
         // Clear lanes when switching events
+        stopRace();
         clearLanes();
       }
     }
@@ -334,7 +337,10 @@
         return;
       }
       
-      // Generate lanes from championship data
+      // Stop any existing race
+      stopRace();
+      
+      // Generate lanes from championship data (start empty)
       const lanes = [];
       for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
         const finalist = currentEvent.finalists[i];
@@ -349,12 +355,71 @@
         });
       }
       
+      // Send initial lane setup
       channel.postMessage({ type: 'race_update', lanes });
+      
+      // Start the race timer
       channel.postMessage({ type: 'race_start' });
+      raceStartTime = Date.now();
+      
+      // Start progressive split updates
+      raceInterval = setInterval(() => {
+        const elapsed = (Date.now() - raceStartTime) / 1000; // seconds
+        updateRaceSplits(elapsed);
+      }, 100); // Update every 100ms
+    }
+
+    function updateRaceSplits(elapsedSeconds) {
+      if (!currentEvent) return;
+      
+      const lanes = [];
+      const midpointIndex = Math.floor(currentEvent.finalists[0].splits.length / 2);
+      
+      for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
+        const finalist = currentEvent.finalists[i];
+        const midpointSplit = finalist.splits[midpointIndex];
+        const finalTime = finalist.time;
+        
+        let currentSplit = '';
+        let currentTime = '';
+        let place = null;
+        
+        // Show split at midpoint
+        if (elapsedSeconds >= midpointSplit.cumulative_time * 0.95) {
+          currentSplit = formatTime(midpointSplit.cumulative_time);
+        }
+        
+        // Show final time
+        if (elapsedSeconds >= finalTime * 0.95) {
+          currentTime = formatTime(finalTime);
+          place = i + 1; // Order by finish position
+        }
+        
+        lanes.push({
+          lane: i + 1,
+          name: finalist.athlete,
+          team: finalist.nation,
+          split: currentSplit,
+          time: currentTime,
+          place: place
+        });
+      }
+      
+      channel.postMessage({ type: 'race_update', lanes });
+      
+      // Stop race when slowest swimmer finishes
+      const slowestTime = Math.max(...currentEvent.finalists.slice(0, 8).map(f => f.time));
+      if (elapsedSeconds >= slowestTime + 1) {
+        stopRace();
+      }
     }
 
     function stopRace() {
-      channel.postMessage({ type: 'race_finish', lanes: [] });
+      if (raceInterval) {
+        clearInterval(raceInterval);
+        raceInterval = null;
+      }
+      raceStartTime = null;
     }
 
     function simulateFinish() {
@@ -363,10 +428,14 @@
         return;
       }
       
+      stopRace();
+      
       const lanes = [];
+      const midpointIndex = Math.floor(currentEvent.finalists[0].splits.length / 2);
+      
       for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
         const finalist = currentEvent.finalists[i];
-        const midpoint = finalist.splits[Math.floor(finalist.splits.length / 2)];
+        const midpoint = finalist.splits[midpointIndex];
         
         lanes.push({
           lane: i + 1,
@@ -382,6 +451,7 @@
     }
 
     function clearLanes() {
+      stopRace();
       channel.postMessage({ type: 'race_update', lanes: [] });
     }
 
