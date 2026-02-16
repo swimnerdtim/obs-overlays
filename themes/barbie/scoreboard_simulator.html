@@ -199,7 +199,7 @@
     <h1>💖 Barbie Scoreboard - 2025 World Championships 💖</h1>
 
     <div class="info-box">
-      <p><strong>✨ Real championship data from 2025 World Championships Singapore!</strong> Select an event and click Start Race. Interval splits flash for 10 seconds at each 50m touch.</p>
+      <p><strong>✨ Real championship data from 2025 World Championships Singapore!</strong> Select an event and click Start Race. Split times lock in for 10 seconds at each 50m touch, then run until next touch.</p>
     </div>
 
     <div class="controls">
@@ -402,17 +402,9 @@
             currentSplitIndex = j;
             lastSplitCumulative = splitCumulative;
             
-            // If this is the last split (finish), show final time
+            // If this is the last split (finish), show final time permanently
             if (j === splits.length - 1) {
-              cumulativeTime = formatTime(finalTime);
               place = i + 1;
-              
-              // Show final split permanently
-              const previousCumulative = j > 0 ? splits[j - 1].cumulative_time : 0;
-              const intervalTime = splitCumulative - previousCumulative;
-              intervalSplit = formatTime(intervalTime);
-            } else {
-              cumulativeTime = formatTime(splitCumulative);
             }
           } else {
             nextSplitCumulative = splitCumulative;
@@ -420,40 +412,47 @@
           }
         }
         
-        // Show running cumulative time between splits
-        if (currentSplitIndex >= 0 && nextSplitCumulative !== null && elapsedSeconds < finalTime) {
-          // Estimate current position between splits
-          const progress = (elapsedSeconds - lastSplitCumulative) / (nextSplitCumulative - lastSplitCumulative);
-          const estimatedTime = lastSplitCumulative + (nextSplitCumulative - lastSplitCumulative) * progress;
-          cumulativeTime = formatTime(estimatedTime);
-        } else if (currentSplitIndex >= 0 && elapsedSeconds >= finalTime) {
-          // Race finished
-          cumulativeTime = formatTime(finalTime);
-          place = i + 1;
-        }
-        
-        // Handle interval split display (show for 10 seconds, then hide)
+        // Handle split timing and display
         const swimmerTracking = splitTimestamps[i];
         
-        if (currentSplitIndex > swimmerTracking.lastSplitIndex && currentSplitIndex < splits.length - 1) {
-          // New split detected (not the finish)
+        // Check if we hit a new split
+        if (currentSplitIndex > swimmerTracking.lastSplitIndex) {
+          // New split detected
           swimmerTracking.lastSplitIndex = currentSplitIndex;
           swimmerTracking.splitShownAt = elapsedSeconds;
+        }
+        
+        // Determine if we're in "locked" mode (within 10 seconds of a split)
+        const timeSinceSplit = swimmerTracking.splitShownAt !== null ? 
+          (elapsedSeconds - swimmerTracking.splitShownAt) : null;
+        const isLocked = timeSinceSplit !== null && timeSinceSplit < 10;
+        
+        if (currentSplitIndex >= 0) {
+          // Calculate interval split for current checkpoint
+          const previousCumulative = currentSplitIndex > 0 ? splits[currentSplitIndex - 1].cumulative_time : 0;
+          const intervalTime = splits[currentSplitIndex].cumulative_time - previousCumulative;
           
-          // Calculate and show interval split
-          const previousCumulative = currentSplitIndex > 0 ? splits[currentSplitIndex - 1].cumulative_time : 0;
-          const intervalTime = splits[currentSplitIndex].cumulative_time - previousCumulative;
-          intervalSplit = formatTime(intervalTime);
-        } else if (swimmerTracking.splitShownAt !== null && 
-                   (elapsedSeconds - swimmerTracking.splitShownAt) < 10 &&
-                   currentSplitIndex < splits.length - 1) {
-          // Still within 10 seconds of showing the split (and not at finish)
-          const previousCumulative = currentSplitIndex > 0 ? splits[currentSplitIndex - 1].cumulative_time : 0;
-          const intervalTime = splits[currentSplitIndex].cumulative_time - previousCumulative;
-          intervalSplit = formatTime(intervalTime);
-        } else if (currentSplitIndex < splits.length - 1) {
-          // More than 10 seconds have passed or no split to show - hide it
-          intervalSplit = '';
+          if (isLocked || currentSplitIndex === splits.length - 1) {
+            // Show locked split and cumulative for 10 seconds (or permanently at finish)
+            intervalSplit = formatTime(intervalTime);
+            cumulativeTime = currentSplitIndex === splits.length - 1 ? 
+              formatTime(finalTime) : formatTime(lastSplitCumulative);
+          } else {
+            // More than 10 seconds - hide split, show running cumulative
+            intervalSplit = '';
+            
+            if (nextSplitCumulative !== null && elapsedSeconds < finalTime) {
+              // Running time between splits
+              const progress = (elapsedSeconds - lastSplitCumulative) / (nextSplitCumulative - lastSplitCumulative);
+              const estimatedTime = lastSplitCumulative + (nextSplitCumulative - lastSplitCumulative) * progress;
+              cumulativeTime = formatTime(estimatedTime);
+            } else if (elapsedSeconds >= finalTime) {
+              // Finished
+              cumulativeTime = formatTime(finalTime);
+            } else {
+              cumulativeTime = formatTime(lastSplitCumulative);
+            }
+          }
         }
         
         lanes.push({
