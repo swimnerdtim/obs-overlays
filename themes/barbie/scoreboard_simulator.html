@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barbie Scoreboard Simulator - 2025 Worlds</title>
+  <title>Barbie Scoreboard - 2025 Worlds</title>
   <style>
     * {
       margin: 0;
@@ -61,18 +61,13 @@
 
     .control-section:last-child {
       border-bottom: none;
+      padding-bottom: 0;
     }
 
     .control-section h2 {
       color: #E0218A;
       margin-bottom: 16px;
       font-size: 20px;
-    }
-
-    .control-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
     }
 
     .control-group {
@@ -87,7 +82,6 @@
       font-size: 14px;
     }
 
-    .control-group input,
     .control-group select {
       width: 100%;
       padding: 10px;
@@ -97,7 +91,6 @@
       transition: border-color 0.3s;
     }
 
-    .control-group input:focus,
     .control-group select:focus {
       outline: none;
       border-color: #E0218A;
@@ -206,7 +199,7 @@
     <h1>💖 Barbie Scoreboard - 2025 World Championships 💖</h1>
 
     <div class="info-box">
-      <p><strong>✨ Full-screen digital scoreboard with REAL championship data!</strong> All 34 events from 2025 World Championships Singapore with actual splits and times.</p>
+      <p><strong>✨ Real championship data from 2025 World Championships Singapore!</strong> Select an event and click Start Race to see the race unfold with actual splits and times.</p>
     </div>
 
     <div class="controls">
@@ -216,6 +209,25 @@
         <div class="control-group">
           <label>Event</label>
           <select id="eventSelect" onchange="selectEvent()">
+            <optgroup label="Women's Events">
+              <option value="400m Free-Women" selected>Women's 400m Free</option>
+              <option value="100m Fly-Women">Women's 100m Fly</option>
+              <option value="200m IM-Women">Women's 200m IM</option>
+              <option value="1500m Free-Women">Women's 1500m Free</option>
+              <option value="200m Breast-Women">Women's 200m Breast</option>
+              <option value="200m Free-Women">Women's 200m Free</option>
+              <option value="100m Free-Women">Women's 100m Free</option>
+              <option value="50m Fly-Women">Women's 50m Fly</option>
+              <option value="800m Free-Women">Women's 800m Free</option>
+              <option value="100m Back-Women">Women's 100m Back</option>
+              <option value="400m IM-Women">Women's 400m IM</option>
+              <option value="50m Back-Women">Women's 50m Back</option>
+              <option value="200m Back-Women">Women's 200m Back</option>
+              <option value="100m Breast-Women">Women's 100m Breast</option>
+              <option value="200m Fly-Women">Women's 200m Fly</option>
+              <option value="50m Free-Women">Women's 50m Free</option>
+              <option value="50m Breast-Women">Women's 50m Breast</option>
+            </optgroup>
             <optgroup label="Men's Events">
               <option value="400m Free-Men">Men's 400m Free</option>
               <option value="100m Breast-Men">Men's 100m Breast</option>
@@ -235,25 +247,6 @@
               <option value="50m Breast-Men">Men's 50m Breast</option>
               <option value="400m IM-Men">Men's 400m IM</option>
             </optgroup>
-            <optgroup label="Women's Events">
-              <option value="400m Free-Women">Women's 400m Free</option>
-              <option value="100m Fly-Women">Women's 100m Fly</option>
-              <option value="200m IM-Women">Women's 200m IM</option>
-              <option value="1500m Free-Women">Women's 1500m Free</option>
-              <option value="200m Breast-Women">Women's 200m Breast</option>
-              <option value="200m Free-Women">Women's 200m Free</option>
-              <option value="100m Free-Women">Women's 100m Free</option>
-              <option value="50m Fly-Women">Women's 50m Fly</option>
-              <option value="800m Free-Women">Women's 800m Free</option>
-              <option value="100m Back-Women">Women's 100m Back</option>
-              <option value="400m IM-Women">Women's 400m IM</option>
-              <option value="50m Back-Women">Women's 50m Back</option>
-              <option value="200m Back-Women">Women's 200m Back</option>
-              <option value="100m Breast-Women">Women's 100m Breast</option>
-              <option value="200m Fly-Women">Women's 200m Fly</option>
-              <option value="50m Free-Women">Women's 50m Free</option>
-              <option value="50m Breast-Women">Women's 50m Breast</option>
-            </optgroup>
           </select>
         </div>
       </div>
@@ -264,7 +257,7 @@
         <div class="button-group">
           <button class="btn-success" onclick="startRace()">▶ Start Race</button>
           <button class="btn-danger" onclick="stopRace()">⏹ Stop Race</button>
-          <button class="btn-primary" onclick="simulateFinish()">🏁 Simulate Finish</button>
+          <button class="btn-primary" onclick="simulateFinish()">🏁 Show Final Results</button>
           <button class="btn-secondary" onclick="clearLanes()">Clear Lanes</button>
         </div>
       </div>
@@ -285,11 +278,30 @@
   <script>
     const channel = new BroadcastChannel('swimnerd-live');
     let currentEvent = null;
-    
-    // Embed Worlds 2025 data inline (only essential fields to save space)
-    const worldsData = __WORLDS_DATA__;
+    let worldsData = [];
+
+    // Load worlds data from external file
+    fetch('worlds_2025_simulator_data.json')
+      .then(r => r.json())
+      .then(data => {
+        worldsData = data;
+        console.log('Loaded', worldsData.length, 'championship events');
+        // Clear any old data on load
+        clearLanes();
+        // Auto-select Women's 400 Free and load event info
+        selectEvent();
+      })
+      .catch(err => {
+        console.error('Failed to load worlds data:', err);
+        alert('Failed to load championship data. Please refresh the page.');
+      });
 
     function selectEvent() {
+      if (worldsData.length === 0) {
+        console.log('Data not loaded yet...');
+        return;
+      }
+
       const selected = document.getElementById('eventSelect').value;
       const [eventName, gender] = selected.split('-');
       
@@ -310,16 +322,15 @@
           record: formatTime(Math.min(...currentEvent.finalists.map(f => f.time)))
         };
         channel.postMessage(data);
+        
+        // Clear lanes when switching events
+        clearLanes();
       }
     }
 
     function startRace() {
       if (!currentEvent) {
-        selectEvent();
-      }
-      
-      if (!currentEvent) {
-        alert('Please select an event first!');
+        alert('Data is still loading... please wait a moment and try again.');
         return;
       }
       
@@ -327,7 +338,6 @@
       const lanes = [];
       for (let i = 0; i < Math.min(8, currentEvent.finalists.length); i++) {
         const finalist = currentEvent.finalists[i];
-        const midpoint = finalist.splits[Math.floor(finalist.splits.length / 2)];
         
         lanes.push({
           lane: i + 1,
@@ -349,7 +359,7 @@
 
     function simulateFinish() {
       if (!currentEvent) {
-        alert('Please select an event first!');
+        alert('Data is still loading... please wait a moment and try again.');
         return;
       }
       
@@ -384,22 +394,6 @@
     function openFullscreen() {
       window.open('scoreboard.html', '_blank');
     }
-
-    // Auto-load first event
-    setTimeout(() => {
-      selectEvent();
-    }, 500);
-  </script>
-  
-  <script>
-    // Load worlds data from external file
-    fetch('worlds_2025_simulator_data.json')
-      .then(r => r.json())
-      .then(data => {
-        // Replace placeholder
-        const script = document.scripts[document.scripts.length - 2];
-        script.textContent = script.textContent.replace('__WORLDS_DATA__', JSON.stringify(data));
-      });
   </script>
 </body>
 </html>
