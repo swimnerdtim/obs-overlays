@@ -254,9 +254,85 @@
       display: none;
     }
 
+    /* Winner Confetti Animation */
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      overflow: hidden;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      animation: confetti-fall 3s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      animation: sparkle-burst 1.5s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes sparkle-burst {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: scale(3) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    .firework {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      animation: firework-burst 1.2s ease-out forwards;
+    }
+
+    @keyframes firework-burst {
+      0% {
+        transform: translate(0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--tx), var(--ty));
+        opacity: 0;
+      }
+    }
+
   </style>
 </head>
 <body>
+  <!-- Confetti Container -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
   <!-- Fullscreen Button -->
   <button class="fullscreen-btn" id="fullscreenBtn" onclick="toggleFullscreen()">
     Enter Fullscreen (F11)
@@ -337,14 +413,21 @@
       }
     }
 
+    let winnerAnimationTriggered = false;
+
     function updateLanes(lanes) {
       const container = document.getElementById('lanesContainer');
       container.innerHTML = '';
       
+      let hasWinner = false;
+      
       lanes.forEach((lane, index) => {
         const laneDiv = document.createElement('div');
         laneDiv.className = 'lane';
-        if (lane.place === 1) laneDiv.classList.add('first-place');
+        if (lane.place === 1) {
+          laneDiv.classList.add('first-place');
+          hasWinner = true;
+        }
         
         // Build HTML with 6-column grid: lane#, place, name, team, split, final
         // Place only shows after finish (when lane.place exists)
@@ -365,6 +448,95 @@
         
         container.appendChild(laneDiv);
       });
+      
+      // Trigger winner animation when first place appears
+      if (hasWinner && !winnerAnimationTriggered) {
+        triggerWinnerAnimation();
+        winnerAnimationTriggered = true;
+      }
+    }
+
+    function triggerWinnerAnimation() {
+      const confettiContainer = document.getElementById('confettiContainer');
+      
+      // Barbie colors: pink, gold, hot pink, white
+      const colors = ['#E0218A', '#FFD700', '#FF69B4', '#FFFFFF', '#FFC0CB'];
+      
+      // Create confetti particles (falling from top)
+      for (let i = 0; i < 150; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + '%';
+          confetti.style.top = '-100px';
+          confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.animationDelay = (Math.random() * 0.5) + 's';
+          confetti.style.animationDuration = (2 + Math.random() * 1.5) + 's';
+          confettiContainer.appendChild(confetti);
+          
+          // Remove after animation
+          setTimeout(() => confetti.remove(), 4000);
+        }, i * 10);
+      }
+      
+      // Create sparkle bursts (from center)
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          sparkle.style.left = '50%';
+          sparkle.style.top = '50%';
+          sparkle.textContent = '✨';
+          sparkle.style.fontSize = (20 + Math.random() * 40) + 'px';
+          sparkle.style.animationDelay = (Math.random() * 0.3) + 's';
+          confettiContainer.appendChild(sparkle);
+          
+          // Remove after animation
+          setTimeout(() => sparkle.remove(), 2000);
+        }, i * 50);
+      }
+      
+      // Create firework bursts (explosions from multiple points)
+      const fireworkPoints = [
+        { x: 25, y: 25 },
+        { x: 75, y: 25 },
+        { x: 50, y: 50 },
+        { x: 25, y: 75 },
+        { x: 75, y: 75 }
+      ];
+      
+      fireworkPoints.forEach((point, idx) => {
+        setTimeout(() => {
+          for (let i = 0; i < 30; i++) {
+            const firework = document.createElement('div');
+            firework.className = 'firework';
+            firework.style.left = point.x + '%';
+            firework.style.top = point.y + '%';
+            firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random direction for burst
+            const angle = (Math.PI * 2 * i) / 30;
+            const distance = 100 + Math.random() * 150;
+            const tx = Math.cos(angle) * distance;
+            const ty = Math.sin(angle) * distance;
+            
+            firework.style.setProperty('--tx', tx + 'px');
+            firework.style.setProperty('--ty', ty + 'px');
+            firework.style.animationDelay = (Math.random() * 0.2) + 's';
+            
+            confettiContainer.appendChild(firework);
+            
+            // Remove after animation
+            setTimeout(() => firework.remove(), 1500);
+          }
+        }, idx * 200);
+      });
+    }
+
+    function clearWinnerAnimation() {
+      const confettiContainer = document.getElementById('confettiContainer');
+      confettiContainer.innerHTML = '';
+      winnerAnimationTriggered = false;
     }
 
     function toggleFullscreen() {
@@ -400,6 +572,7 @@
     function startRace() {
       raceStartTime = Date.now();
       raceRunning = true;
+      clearWinnerAnimation();
       updateRaceClock();
     }
 
