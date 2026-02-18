@@ -282,6 +282,7 @@
     let raceInterval = null;
     let raceStartTime = null;
     let splitTimestamps = {}; // Track when each swimmer's split was shown
+    let autoAdvanceTimeout = null; // Track auto-advance to next race
 
     // Load worlds data from external file
     fetch('worlds_2025_simulator_data.json')
@@ -329,6 +330,12 @@
         // Clear lanes when switching events
         stopRace();
         clearLanes();
+        
+        // Cancel any pending auto-advance when manually switching events
+        if (autoAdvanceTimeout) {
+          clearTimeout(autoAdvanceTimeout);
+          autoAdvanceTimeout = null;
+        }
       }
     }
 
@@ -485,6 +492,8 @@
       const slowestTime = Math.max(...currentEvent.finalists.slice(0, 8).map(f => f.time));
       if (elapsedSeconds >= slowestTime + 1) {
         stopRace();
+        // Schedule auto-advance to next race after 10 seconds
+        scheduleAutoAdvance();
       }
     }
 
@@ -494,6 +503,49 @@
         raceInterval = null;
       }
       raceStartTime = null;
+      
+      // Clear any pending auto-advance when manually stopping
+      if (autoAdvanceTimeout) {
+        clearTimeout(autoAdvanceTimeout);
+        autoAdvanceTimeout = null;
+      }
+    }
+
+    function scheduleAutoAdvance() {
+      // Clear any existing timeout
+      if (autoAdvanceTimeout) {
+        clearTimeout(autoAdvanceTimeout);
+      }
+      
+      // Schedule next race to start in 10 seconds
+      autoAdvanceTimeout = setTimeout(() => {
+        advanceToNextRace();
+        autoAdvanceTimeout = null;
+      }, 10000);
+    }
+
+    function advanceToNextRace() {
+      if (worldsData.length === 0) return;
+      
+      // Get current event index
+      const currentIndex = worldsData.indexOf(currentEvent);
+      
+      // Calculate next index (wrap around to start)
+      const nextIndex = (currentIndex + 1) % worldsData.length;
+      const nextEvent = worldsData[nextIndex];
+      
+      // Update dropdown to next event
+      const eventSelect = document.getElementById('eventSelect');
+      const nextValue = `${nextEvent.event}-${nextEvent.gender}`;
+      eventSelect.value = nextValue;
+      
+      // Select and load the event
+      selectEvent();
+      
+      // Auto-start the race after a brief delay to let event info update
+      setTimeout(() => {
+        startRace();
+      }, 500);
     }
 
     function simulateFinish() {
