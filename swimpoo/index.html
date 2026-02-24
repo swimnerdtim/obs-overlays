@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Swimpoo - The Swimming Shampoo for Kids</title>
+    <title>Swimpoo - Bye Bye Chlorine. Hello Swimpoo.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,103 +16,303 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(180deg, #00B4DB 0%, #0083B0 100%);
             color: #1a1a1a;
             line-height: 1.6;
+            overflow-x: hidden;
         }
         
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0;
+        h1, h2, h3 {
+            font-family: 'Fredoka', sans-serif;
         }
         
-        header {
+        /* 1. HERO SECTION */
+        .hero {
+            background: linear-gradient(180deg, #00B4DB 0%, #0083B0 100%);
+            padding: 80px 20px 100px;
             text-align: center;
-            padding: 80px 20px 60px;
-            background: linear-gradient(135deg, #FFD93D 0%, #FFB800 100%);
             position: relative;
             overflow: hidden;
         }
         
-        .logo {
-            max-width: 500px;
-            height: auto;
-            margin: 0 auto;
-            display: block;
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: bubble1 8s infinite ease-in-out;
+            top: 10%;
+            left: 10%;
         }
         
-        .tagline {
-            font-size: 1.8em;
-            color: #0083B0;
-            font-weight: 600;
-            margin-top: 20px;
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            animation: bubble2 10s infinite ease-in-out;
+            bottom: 20%;
+            right: 15%;
         }
         
-        .hero {
-            background: white;
-            padding: 100px 60px;
-            position: relative;
+        @keyframes bubble1 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
         }
         
-        .hero h2 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 3em;
-            color: #0083B0;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .hero-subtitle {
-            font-size: 1.3em;
-            color: #666;
-            margin-bottom: 60px;
+        @keyframes bubble2 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-40px); }
         }
         
         .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 4em;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 18px 45px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background: #FFD93D;
+            color: #0083B0;
+            box-shadow: 0 8px 20px rgba(255, 217, 61, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background: #FFB800;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 217, 61, 0.5);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #0083B0;
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f5f5;
+            transform: translateY(-3px);
+        }
+        
+        .hero-image {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+        }
+        
+        /* 2. PROBLEM/SOLUTION STRIP */
+        .problem-solution {
+            background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .problem-solution h2 {
+            font-size: 2.5em;
+            color: #0083B0;
+            margin-bottom: 50px;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto 50px;
+        }
+        
+        .problem-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .problem-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .problem-card p {
+            font-size: 1.1em;
+            color: #333;
+        }
+        
+        .solution-text {
+            font-size: 1.8em;
+            color: #0083B0;
+            font-weight: 600;
+            max-width: 700px;
+            margin: 40px auto 0;
+        }
+        
+        /* 3. THE FUN HOOK */
+        .fun-hook {
+            background: linear-gradient(135deg, #FFF9E6 0%, #FFE4B5 100%);
+            padding: 100px 20px;
+        }
+        
+        .fun-hook-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            gap: 60px;
             align-items: center;
+        }
+        
+        .fun-hook-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 20px;
+        }
+        
+        .fun-hook h2 {
+            font-size: 3em;
+            color: #0083B0;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        
+        .fun-hook p {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+        
+        /* 4. PRODUCT GRID */
+        .product-section {
+            background: white;
+            padding: 100px 20px;
+        }
+        
+        .product-section h2 {
+            font-size: 3em;
+            color: #0083B0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
             max-width: 1200px;
             margin: 0 auto;
         }
         
-        .product-visual {
-            text-align: center;
-        }
-        
-        .product-image {
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            margin: 0 auto;
-            display: block;
-            filter: drop-shadow(0 20px 60px rgba(0, 131, 176, 0.3));
-        }
-        
-        .benefits {
-            text-align: left;
-        }
-        
-        .benefit {
+        .product-card {
             background: white;
-            border-left: 5px solid #FFD93D;
-            padding: 20px 25px;
-            margin: 20px 0;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-card img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 25px;
+        }
+        
+        .product-card h3 {
+            font-size: 1.8em;
+            color: #0083B0;
+            margin-bottom: 10px;
+        }
+        
+        .product-card .product-type {
             font-size: 1.1em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .product-card .price {
+            font-size: 1.5em;
+            font-weight: 600;
             color: #333;
-            font-weight: 500;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 20px;
         }
         
-        .benefit:hover {
-            transform: translateX(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        /* 5. WHY PARENTS LOVE IT */
+        .why-parents {
+            background: white;
+            padding: 100px 20px;
+            border-top: 1px solid #eee;
         }
         
-        .benefit::before {
+        .why-parents h2 {
+            font-size: 3em;
+            color: #0083B0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .benefits-list {
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .benefit-item {
+            font-size: 1.3em;
+            color: #333;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .benefit-item:before {
             content: "✓";
             color: #FFD93D;
             font-weight: bold;
@@ -120,318 +320,284 @@
             margin-right: 15px;
         }
         
-        .collectibles {
-            background: linear-gradient(135deg, #FFD93D 0%, #FFB800 100%);
-            padding: 100px 60px;
+        .trust-icons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .trust-icon {
+            font-size: 1.2em;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* 6. SOCIAL PROOF */
+        .social-proof {
+            background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
+            padding: 100px 20px;
             text-align: center;
         }
         
-        .collectibles h2 {
-            font-family: 'Fredoka', sans-serif;
+        .social-proof h2 {
             font-size: 3em;
             color: #0083B0;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        
-        .collectibles-intro {
-            font-size: 1.3em;
-            color: #333;
             margin-bottom: 60px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
         }
         
-        .characters {
+        .testimonials {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
         }
         
-        .character {
+        .testimonial {
             background: white;
+            padding: 40px;
             border-radius: 20px;
-            padding: 40px 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
         }
         
-        .character:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-        }
-        
-        .character-emoji {
-            font-size: 5em;
+        .stars {
+            color: #FFD93D;
+            font-size: 1.3em;
             margin-bottom: 15px;
         }
         
-        .character h3 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 1.6em;
-            color: #0083B0;
-            margin-bottom: 8px;
+        .testimonial p {
+            font-size: 1.2em;
+            color: #333;
+            font-style: italic;
         }
         
-        .character p {
-            color: #666;
-            font-size: 1em;
-        }
-        
-        .olympian {
-            background: white;
-            padding: 100px 60px;
+        /* 7. BUNDLE PUSH */
+        .bundle {
+            background: linear-gradient(135deg, #FFE4E1 0%, #FFC0CB 100%);
+            padding: 100px 20px;
             text-align: center;
         }
         
-        .olympian h2 {
-            font-family: 'Fredoka', sans-serif;
+        .bundle-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .bundle h2 {
             font-size: 3em;
             color: #0083B0;
             margin-bottom: 30px;
-            font-weight: 700;
         }
         
-        .olympian-content {
-            max-width: 900px;
-            margin: 0 auto;
-            font-size: 1.3em;
+        .bundle-image {
+            margin: 40px 0;
+        }
+        
+        .bundle-image img {
+            max-width: 500px;
+            width: 100%;
+            height: auto;
+        }
+        
+        .bundle-offer {
+            font-size: 1.5em;
             color: #333;
-            line-height: 1.9;
+            margin-bottom: 30px;
+            font-weight: 600;
         }
         
-        .olympian .medal {
-            font-size: 4em;
-            margin-bottom: 20px;
-        }
-        
-        .cta {
-            background: linear-gradient(135deg, #0083B0 0%, #00B4DB 100%);
-            padding: 100px 60px;
+        /* 8. FINAL CTA */
+        .final-cta {
+            background: linear-gradient(180deg, #00B4DB 0%, #0083B0 100%);
+            padding: 100px 20px;
             text-align: center;
         }
         
-        .cta h2 {
-            font-family: 'Fredoka', sans-serif;
+        .final-cta h2 {
             font-size: 3em;
             color: white;
-            margin-bottom: 20px;
-            font-weight: 700;
+            margin-bottom: 30px;
         }
         
-        .cta-subtitle {
-            font-size: 1.3em;
+        .final-cta p {
+            font-size: 1.2em;
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 50px;
+            margin-top: 20px;
         }
         
-        .cta-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            background: #FFD93D;
-            color: #0083B0;
-            padding: 22px 50px;
-            font-size: 1.3em;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4);
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .cta-button:hover {
-            background: #FFB800;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(255, 217, 61, 0.5);
-        }
-        
-        .cta-button.secondary {
-            background: white;
-            color: #0083B0;
-        }
-        
-        .cta-button.secondary:hover {
-            background: #f0f0f0;
-        }
-        
-        footer {
-            background: #0083B0;
-            text-align: center;
-            padding: 60px 20px;
-            color: white;
-        }
-        
-        footer p {
-            font-size: 1.1em;
-            line-height: 1.8;
-            opacity: 0.95;
-        }
-        
+        /* RESPONSIVE */
         @media (max-width: 968px) {
-            h1 {
-                font-size: 3.5em;
-            }
-            
-            .hero-content {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            
-            .hero, .collectibles, .olympian, .cta {
-                padding: 60px 30px;
-            }
-            
-            .characters {
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 20px;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .cta-button {
-                width: 100%;
-                max-width: 400px;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            h1 {
+            .hero h1 {
                 font-size: 2.5em;
             }
             
-            .tagline {
-                font-size: 1.3em;
+            .fun-hook-content {
+                grid-template-columns: 1fr;
             }
             
-            .hero h2, .collectibles h2, .olympian h2, .cta h2 {
-                font-size: 2em;
+            .product-grid,
+            .testimonials {
+                grid-template-columns: 1fr;
             }
             
-            .hero, .collectibles, .olympian, .cta {
-                padding: 40px 20px;
+            h2 {
+                font-size: 2em !important;
             }
             
-            .product-image {
-                max-width: 300px;
+            .btn {
+                font-size: 1em;
+                padding: 15px 35px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <img src="logo.jpg" alt="Swimpoo Logo" class="logo">
-            <p class="tagline">The Swimming Shampoo for Kids!</p>
-        </header>
-        
-        <section class="hero">
-            <h2>Hair Care That Kids Actually WANT</h2>
-            <p class="hero-subtitle">The only shampoo with a collectible toy in every bottle</p>
-            <div class="hero-content">
-                <div class="product-visual">
-                    <img src="bottle.jpg" alt="Swimpoo Bottle - Smelvis Freshley" class="product-image">
-                </div>
-                <div class="benefits">
-                    <div class="benefit">Removes Chlorine & Salt Water</div>
-                    <div class="benefit">Tear-Free & Gentle Formula</div>
-                    <div class="benefit">Plant-Based Ingredients</div>
-                    <div class="benefit">Smells Amazing</div>
-                    <div class="benefit">Collectible Pufferfish Toy Included</div>
-                </div>
-            </div>
-        </section>
-        
-        <section class="collectibles">
-            <h2>Collect Them All</h2>
-            <p class="collectibles-intro">
-                Every bottle comes with a unique Swimpoo character. Each pufferfish has its own personality, style, and name. Trade with friends, collect the whole set, and make bath time an adventure.
-            </p>
+    <!-- 1. HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>🐡 Bye Bye Chlorine. Hello Swimpoo.</h1>
+            <p class="hero-subtitle">The swimming shampoo, conditioner & lotion kids actually LOVE to use.</p>
             
-            <div class="characters">
-                <div class="character">
-                    <div class="character-emoji">🎸</div>
-                    <h3>Smelvis Freshley</h3>
-                    <p>The Rock Star</p>
-                </div>
-                <div class="character">
-                    <div class="character-emoji">⚓</div>
-                    <h3>Captain Bubbles</h3>
-                    <p>The Sailor</p>
-                </div>
-                <div class="character">
-                    <div class="character-emoji">🏄‍♀️</div>
-                    <h3>Splashley</h3>
-                    <p>The Surfer</p>
-                </div>
-                <div class="character">
-                    <div class="character-emoji">🤓</div>
-                    <h3>Professor Puff</h3>
-                    <p>The Genius</p>
-                </div>
-                <div class="character">
-                    <div class="character-emoji">🎧</div>
-                    <h3>DJ Fins</h3>
-                    <p>The Music Mixer</p>
-                </div>
-                <div class="character">
-                    <div class="character-emoji">👑</div>
-                    <h3>Princess Pearl</h3>
-                    <p>The Royal</p>
-                </div>
+            <div class="hero-cta">
+                <a href="#products" class="btn btn-primary">SHOP THE COLLECTION</a>
+                <a href="#characters" class="btn btn-secondary">MEET THE PUFFERFISH</a>
             </div>
-        </section>
-        
-        <section class="olympian">
-            <div class="medal">🏊‍♀️</div>
-            <h2>Designed for Young Swimmers</h2>
-            <div class="olympian-content">
-                <p>
-                    <strong>Every young swimmer deals with the same problem:</strong>
-                </p>
-                <p style="margin-top: 25px;">
-                    Chlorine damage, tangled hair, harsh chemicals, and boring bottles that make bath time a chore. We built Swimpoo to fix all of that — gentle protection that actually works, plus a collectible toy that makes kids excited to wash their hair.
-                </p>
-                <p style="margin-top: 25px;">
-                    Hair care designed by swimmers, for swimmers. And their parents.
-                </p>
+            
+            <div class="hero-image">
+                <img src="bottle.jpg" alt="Swimpoo Bottle Collection">
             </div>
-        </section>
+        </div>
+    </section>
+    
+    <!-- 2. PROBLEM/SOLUTION -->
+    <section class="problem-solution">
+        <h2>Chlorine Wrecks Hair & Skin.</h2>
         
-        <section class="cta">
-            <h2>Ready to Make a Splash?</h2>
-            <p class="cta-subtitle">
-                Coming soon to Walmart, Target, and swim shops nationwide
-            </p>
-            <div class="cta-buttons">
-                <a href="#notify" class="cta-button">Get Notified at Launch</a>
-                <a href="#retailers" class="cta-button secondary">I'm a Retailer</a>
+        <div class="problem-grid">
+            <div class="problem-card">
+                <div class="problem-icon">😖</div>
+                <p>Dry, tangled hair</p>
             </div>
-        </section>
+            <div class="problem-card">
+                <div class="problem-icon">😣</div>
+                <p>Itchy, irritated skin</p>
+            </div>
+            <div class="problem-card">
+                <div class="problem-icon">🤢</div>
+                <p>That "pool smell" that won't go away</p>
+            </div>
+        </div>
         
-        <footer>
-            <p>
-                <strong>Swimpoo</strong><br>
-                The Swimming Shampoo for Kids
-            </p>
-            <p style="margin-top: 25px; font-size: 0.95em;">
-                Clean Hair • Happy Kids • Collectible Fun
-            </p>
-        </footer>
-    </div>
+        <p class="solution-text">Swimpoo removes chlorine & restores softness.</p>
+    </section>
+    
+    <!-- 3. FUN HOOK -->
+    <section class="fun-hook" id="characters">
+        <div class="fun-hook-content">
+            <div class="fun-hook-image">
+                <img src="bottle.jpg" alt="Swimpoo Collectible Topper">
+            </div>
+            <div>
+                <h2>Shampoo… But Make It Collectible.</h2>
+                <p>Every bottle includes a rubber pufferfish topper. Pop it off. Play with it. Pop it back on.</p>
+                <a href="#products" class="btn btn-primary">START YOUR COLLECTION</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 4. PRODUCT GRID -->
+    <section class="product-section" id="products">
+        <h2>Shop the Lineup</h2>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="bottle.jpg" alt="Swimpoo Shampoo - Smelvis">
+                <h3>Smelvis</h3>
+                <p class="product-type">Shampoo</p>
+                <p class="price">$14.99</p>
+                <a href="#" class="btn btn-primary">ADD TO CART</a>
+            </div>
+            
+            <div class="product-card">
+                <img src="bottle.jpg" alt="Swimpoo Conditioner - Marilyn">
+                <h3>Marilyn</h3>
+                <p class="product-type">Conditioner</p>
+                <p class="price">$14.99</p>
+                <a href="#" class="btn btn-primary">ADD TO CART</a>
+            </div>
+            
+            <div class="product-card">
+                <img src="bottle.jpg" alt="Swimpoo Lotion - Bob Marlin">
+                <h3>Bob Marlin</h3>
+                <p class="product-type">Lotion</p>
+                <p class="price">$16.99</p>
+                <a href="#" class="btn btn-primary">ADD TO CART</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 5. WHY PARENTS LOVE IT -->
+    <section class="why-parents">
+        <h2>Fun for Kids. Safe for Parents.</h2>
+        
+        <div class="benefits-list">
+            <div class="benefit-item">Plant-based & gentle</div>
+            <div class="benefit-item">No harsh sulfates</div>
+            <div class="benefit-item">Made for daily swimmers</div>
+            <div class="benefit-item">Sensitive skin friendly</div>
+        </div>
+        
+        <div class="trust-icons">
+            <span class="trust-icon">🌿 Natural</span>
+            <span class="trust-icon">🧪 Dermatologist Tested</span>
+            <span class="trust-icon">🇺🇸 Made in USA</span>
+        </div>
+    </section>
+    
+    <!-- 6. SOCIAL PROOF -->
+    <section class="social-proof">
+        <h2>Parents Are Obsessed.</h2>
+        
+        <div class="testimonials">
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"My kids ask to shower now."</p>
+            </div>
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"No more green hair."</p>
+            </div>
+            <div class="testimonial">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p>"The little fish cap is genius."</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 7. BUNDLE PUSH -->
+    <section class="bundle">
+        <div class="bundle-content">
+            <h2>The Swim Team Starter Pack</h2>
+            
+            <div class="bundle-image">
+                <img src="bottle.jpg" alt="Swimpoo Bundle Pack">
+            </div>
+            
+            <p class="bundle-offer">Save 15% + Collect 3 Characters</p>
+            
+            <a href="#" class="btn btn-primary">GET THE BUNDLE</a>
+        </div>
+    </section>
+    
+    <!-- 8. FINAL CTA -->
+    <section class="final-cta">
+        <h2>Ready to Wash Away the Pool?</h2>
+        
+        <a href="#products" class="btn btn-primary">SHOP SWIMPOO</a>
+        
+        <p>Free shipping over $35</p>
+    </section>
 </body>
 </html>
