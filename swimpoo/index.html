@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swimpoo - The Swimming Shampoo for Kids</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
+            background: linear-gradient(135deg, #00C9FF 0%, #92FE9D 100%);
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #FFD700;
+            text-shadow: 3px 3px 0 #00A8E8, -1px -1px 0 #00A8E8, 1px -1px 0 #00A8E8, -1px 1px 0 #00A8E8;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.5em;
+            color: #00A8E8;
+            font-weight: bold;
+        }
+        
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5em;
+            color: #00A8E8;
+            margin-bottom: 30px;
+        }
+        
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .product-image {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .benefits {
+            text-align: left;
+        }
+        
+        .benefit {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 1.2em;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .benefit:before {
+            content: "✓ ";
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .collectibles {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .collectibles h2 {
+            font-size: 2.5em;
+            color: #FFD700;
+            text-shadow: 2px 2px 0 #00A8E8;
+            margin-bottom: 20px;
+        }
+        
+        .collectibles p {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        
+        .characters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .character {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .character:hover {
+            transform: scale(1.05);
+        }
+        
+        .character h3 {
+            font-size: 1.5em;
+            color: white;
+            margin-top: 15px;
+        }
+        
+        .character-emoji {
+            font-size: 4em;
+        }
+        
+        .olympian {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            border-radius: 20px;
+            padding: 60px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: white;
+        }
+        
+        .olympian h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .olympian p {
+            font-size: 1.3em;
+            line-height: 1.8;
+        }
+        
+        .cta {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta h2 {
+            font-size: 2.5em;
+            color: #00A8E8;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            padding: 20px 60px;
+            font-size: 1.5em;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 20px rgba(255, 165, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 165, 0, 0.6);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: white;
+            font-size: 1.1em;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero, .collectibles, .olympian, .cta {
+                padding: 30px 20px;
+            }
+            
+            .characters {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐡 SWIMPOO 🐡</h1>
+            <p class="tagline">The Swimming Shampoo for Kids!</p>
+        </header>
+        
+        <section class="hero">
+            <h2>Hair Care That Kids Actually WANT! 🎉</h2>
+            <div class="hero-content">
+                <div>
+                    <img src="placeholder-bottle.png" alt="Swimpoo Bottle" class="product-image" style="max-height: 500px;">
+                    <p style="font-style: italic; color: #666; margin-top: 10px;">*Product image placeholder</p>
+                </div>
+                <div class="benefits">
+                    <div class="benefit">Removes Chlorine & Salt Water</div>
+                    <div class="benefit">Tear-Free & Gentle Formula</div>
+                    <div class="benefit">Plant-Based Ingredients</div>
+                    <div class="benefit">Smells Amazing! 🍍🥥</div>
+                    <div class="benefit">Collectible Toy with Every Bottle!</div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="collectibles">
+            <h2>🎁 COLLECT THEM ALL! 🎁</h2>
+            <p>
+                <strong>Every bottle comes with a unique Swimpoo character!</strong><br>
+                Each pufferfish has its own personality, style, and name.<br>
+                Trade with friends, collect the whole set, and make bath time fun!
+            </p>
+            
+            <div class="characters">
+                <div class="character">
+                    <div class="character-emoji">🎸</div>
+                    <h3>Smelvis Freshley</h3>
+                    <p>The Rock Star</p>
+                </div>
+                <div class="character">
+                    <div class="character-emoji">⚓</div>
+                    <h3>Captain Bubbles</h3>
+                    <p>The Sailor</p>
+                </div>
+                <div class="character">
+                    <div class="character-emoji">🏄‍♀️</div>
+                    <h3>Splashley</h3>
+                    <p>The Surfer</p>
+                </div>
+                <div class="character">
+                    <div class="character-emoji">🤓</div>
+                    <h3>Professor Puff</h3>
+                    <p>The Genius</p>
+                </div>
+                <div class="character">
+                    <div class="character-emoji">🎧</div>
+                    <h3>DJ Fins</h3>
+                    <p>The Music Mixer</p>
+                </div>
+                <div class="character">
+                    <div class="character-emoji">👑</div>
+                    <h3>Princess Pearl</h3>
+                    <p>The Royal</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="olympian">
+            <h2>🥇 Created by an Olympic Gold Medalist 🥇</h2>
+            <p>
+                <strong>Elvis Burrows knows swimming.</strong><br><br>
+                As an Olympic champion, he understands what swimmers need:<br>
+                Protection from chlorine damage, gentle ingredients for young athletes,<br>
+                and products that actually work in the real world.<br><br>
+                That's why he created Swimpoo - hair care designed by a swimmer, for swimmers.
+            </p>
+        </section>
+        
+        <section class="cta">
+            <h2>Ready to Make a Splash? 🌊</h2>
+            <p style="font-size: 1.3em; margin-bottom: 30px; color: #666;">
+                Coming soon to Walmart, Target, and swim shops nationwide!
+            </p>
+            <a href="#notify" class="cta-button">Get Notified at Launch</a>
+            <a href="#retailers" class="cta-button">I'm a Retailer</a>
+        </section>
+        
+        <footer>
+            <p>
+                <strong>Swimpoo™</strong> - The Swimming Shampoo for Kids<br>
+                Created by Olympic Gold Medalist Elvis Burrows<br><br>
+                🐡 Clean Hair • Happy Kids • Collectible Fun 🐡
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
