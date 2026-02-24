@@ -35,33 +35,18 @@
             overflow: hidden;
         }
         
-        header::before {
-            content: '🐡';
-            position: absolute;
-            font-size: 20em;
-            opacity: 0.1;
-            top: -50px;
-            right: -100px;
-            transform: rotate(15deg);
-        }
-        
-        h1 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 5em;
-            font-weight: 800;
-            color: #0083B0;
-            margin-bottom: 15px;
-            letter-spacing: -2px;
-            position: relative;
-            z-index: 1;
+        .logo {
+            max-width: 500px;
+            height: auto;
+            margin: 0 auto;
+            display: block;
         }
         
         .tagline {
             font-size: 1.8em;
             color: #0083B0;
             font-weight: 600;
-            position: relative;
-            z-index: 1;
+            margin-top: 20px;
         }
         
         .hero {
@@ -97,18 +82,13 @@
             text-align: center;
         }
         
-        .product-placeholder {
+        .product-image {
             width: 100%;
-            max-width: 400px;
-            height: 600px;
-            background: linear-gradient(135deg, #00B4DB 0%, #0083B0 100%);
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8em;
-            box-shadow: 0 20px 60px rgba(0, 131, 176, 0.3);
+            max-width: 450px;
+            height: auto;
             margin: 0 auto;
+            display: block;
+            filter: drop-shadow(0 20px 60px rgba(0, 131, 176, 0.3));
         }
         
         .benefits {
@@ -346,10 +326,8 @@
                 padding: 40px 20px;
             }
             
-            .product-placeholder {
-                height: 450px;
-                max-width: 280px;
-                font-size: 5em;
+            .product-image {
+                max-width: 300px;
             }
         }
     </style>
@@ -357,7 +335,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>🐡 SWIMPOO 🐡</h1>
+            <img src="logo.jpg" alt="Swimpoo Logo" class="logo">
             <p class="tagline">The Swimming Shampoo for Kids!</p>
         </header>
         
@@ -366,7 +344,7 @@
             <p class="hero-subtitle">The only shampoo with a collectible toy in every bottle</p>
             <div class="hero-content">
                 <div class="product-visual">
-                    <div class="product-placeholder">🐡</div>
+                    <img src="bottle.jpg" alt="Swimpoo Bottle - Smelvis Freshley" class="product-image">
                 </div>
                 <div class="benefits">
                     <div class="benefit">Removes Chlorine & Salt Water</div>
