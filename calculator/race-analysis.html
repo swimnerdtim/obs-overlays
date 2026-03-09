@@ -216,14 +216,20 @@
                 Ready to start timing
             </div>
             
-            <!-- ONE BIG BUTTON -->
-            <button class="main-timing-btn" id="main-btn" onclick="handleMainButton()">
-                <div id="btn-text">START RACE</div>
-                <div class="hint" id="btn-hint">Starting signal or dive</div>
-                <div class="cycle-count" id="cycle-info" style="display:none;"></div>
-            </button>
+            <!-- TWO MAIN BUTTONS -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                <button class="main-timing-btn" id="main-btn" onclick="handleMainButton()">
+                    <div id="btn-text">START RACE</div>
+                    <div class="hint" id="btn-hint">Starting signal or dive</div>
+                </button>
+                
+                <button class="main-timing-btn cycle" id="cycle-btn" onclick="handleCycle()" disabled style="font-size: 1.5rem;">
+                    <div>CYCLE</div>
+                    <div class="cycle-count" id="cycle-info">0 cycles</div>
+                </button>
+            </div>
             
-            <div class="spacebar-hint">💡 Press SPACEBAR to time (won't pause video)</div>
+            <div class="spacebar-hint">💡 SPACEBAR = main button | C = cycle</div>
             
             <!-- Optional timing buttons (smaller) -->
             <div class="optional-buttons">
@@ -275,7 +281,7 @@
     <script>
         // Race state machine
         let raceState = {
-            phase: 'setup', // setup, start, break, cycle, split
+            phase: 'setup', // setup, start, break, swimming
             status: 'setup',
             startTime: null,
             currentLap: 1,
@@ -312,7 +318,7 @@
             '400-im': { distance: 400, laps: { scy: 16, scm: 16, lcm: 8 } }
         };
         
-        // Spacebar support - prevent video pause
+        // Keyboard support - prevent video pause
         document.addEventListener('keydown', function(e) {
             if (e.code === 'Space') {
                 // Always prevent default to stop video pause
@@ -323,6 +329,13 @@
                 // Trigger timing if active
                 if (raceState.status === 'timing') {
                     handleMainButton();
+                }
+            } else if (e.code === 'KeyC') {
+                // C key for cycles
+                if (raceState.status === 'timing' && raceState.phase === 'swimming') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleCycle();
                 }
             }
         }, true); // Use capture phase to intercept before video gets it
@@ -389,7 +402,7 @@
             updateButton();
         }
         
-        // Main button handler - ONE BUTTON FOR EVERYTHING
+        // Main button handler - START → BREAK → SPLIT progression
         function handleMainButton() {
             const now = performance.now();
             
@@ -415,26 +428,17 @@
                 const elapsed = (now - raceState.lastButtonTime) / 1000;
                 raceState.currentLapData.breakTime = elapsed;
                 raceState.lastButtonTime = now;
-                raceState.phase = 'cycle';
+                raceState.phase = 'swimming';
                 raceState.cycleCount = 0;
                 raceState.cycleTimes = [];
+                
+                // Enable cycle button
+                document.getElementById('cycle-btn').disabled = false;
                 
                 // Enable turn in optional
                 document.getElementById('opt-turn').disabled = false;
                 
-            } else if (raceState.phase === 'cycle') {
-                // Stroke cycle
-                const cycleTime = (now - raceState.lastButtonTime) / 1000;
-                raceState.cycleTimes.push(cycleTime);
-                raceState.lastButtonTime = now;
-                raceState.cycleCount++;
-                
-                // After minimum cycles, next click goes to split
-                if (raceState.cycleCount >= raceState.minCycles) {
-                    raceState.phase = 'split';
-                }
-                
-            } else if (raceState.phase === 'split') {
+            } else if (raceState.phase === 'swimming') {
                 // Wall touch - lap complete
                 const lapTime = (now - raceState.currentLapData.startTime) / 1000;
                 raceState.currentLapData.lapTime = lapTime;
@@ -474,7 +478,8 @@
                 
                 document.getElementById('current-lap').textContent = `Lap ${raceState.currentLap}`;
                 
-                // Disable optional buttons
+                // Disable cycle and optional buttons
+                document.getElementById('cycle-btn').disabled = true;
                 document.getElementById('opt-15m').disabled = true;
                 document.getElementById('opt-turn').disabled = true;
                 
@@ -485,6 +490,29 @@
             }
             
             updateButton();
+        }
+        
+        // Separate cycle button handler
+        function handleCycle() {
+            if (raceState.phase !== 'swimming') return;
+            
+            const now = performance.now();
+            const cycleTime = (now - raceState.lastButtonTime) / 1000;
+            raceState.cycleTimes.push(cycleTime);
+            raceState.lastButtonTime = now;
+            raceState.cycleCount++;
+            
+            // Update cycle counter
+            document.getElementById('cycle-info').textContent = `${raceState.cycleCount} cycles`;
+            
+            // Update instruction
+            if (raceState.cycleCount < raceState.minCycles) {
+                document.getElementById('instruction').innerHTML = 
+                    `<strong>Keep tapping CYCLE:</strong> ${raceState.minCycles - raceState.cycleCount} more needed (then click SPLIT)`;
+            } else {
+                document.getElementById('instruction').innerHTML = 
+                    '<strong>Ready!</strong> Click main button when hands touch wall';
+            }
         }
         
         // Update button text based on phase
@@ -508,25 +536,15 @@
                 btnHint.textContent = 'After underwater kick';
                 instruction.innerHTML = '<strong>Click when:</strong> Swimmer\'s head comes above water';
                 
-            } else if (raceState.phase === 'cycle') {
-                btnText.textContent = 'STROKE CYCLE';
-                btnHint.textContent = 'Tap for each stroke (same arm)';
-                cycleInfo.style.display = 'block';
-                cycleInfo.textContent = `${raceState.cycleCount} cycles (need ${raceState.minCycles} minimum)`;
-                mainBtn.classList.add('cycle');
-                
-                if (raceState.cycleCount < raceState.minCycles) {
-                    instruction.innerHTML = `<strong>Keep tapping:</strong> ${raceState.minCycles - raceState.cycleCount} more cycles needed`;
-                } else {
-                    btnText.textContent = 'WALL TOUCH';
-                    btnHint.textContent = 'Hands touch wall';
-                    instruction.innerHTML = '<strong>Click when:</strong> Hands/feet touch the wall';
-                }
-                
-            } else if (raceState.phase === 'split') {
+            } else if (raceState.phase === 'swimming') {
                 btnText.textContent = 'WALL TOUCH';
                 btnHint.textContent = 'Hands/feet touch wall';
-                instruction.innerHTML = '<strong>Click when:</strong> Hands/feet touch the wall';
+                
+                if (raceState.cycleCount < raceState.minCycles) {
+                    instruction.innerHTML = `<strong>Tap CYCLE button:</strong> ${raceState.minCycles - raceState.cycleCount} more needed (then click this)`;
+                } else {
+                    instruction.innerHTML = '<strong>Ready!</strong> Click when hands/feet touch wall';
+                }
             }
         }
         
