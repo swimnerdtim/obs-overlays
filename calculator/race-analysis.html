@@ -223,7 +223,7 @@
                 <div class="cycle-count" id="cycle-info" style="display:none;"></div>
             </button>
             
-            <div class="spacebar-hint">💡 You can also press SPACEBAR</div>
+            <div class="spacebar-hint">💡 Press SPACEBAR to time (won't pause video)</div>
             
             <!-- Optional timing buttons (smaller) -->
             <div class="optional-buttons">
@@ -312,11 +312,26 @@
             '400-im': { distance: 400, laps: { scy: 16, scm: 16, lcm: 8 } }
         };
         
-        // Spacebar support
+        // Spacebar support - prevent video pause
         document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                // Always prevent default to stop video pause
+                if (raceState.status === 'timing' || document.getElementById('timing-interface').classList.contains('active')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                // Trigger timing if active
+                if (raceState.status === 'timing') {
+                    handleMainButton();
+                }
+            }
+        }, true); // Use capture phase to intercept before video gets it
+        
+        // Also prevent spacebar on video element directly
+        document.getElementById('race-video').addEventListener('keydown', function(e) {
             if (e.code === 'Space' && raceState.status === 'timing') {
                 e.preventDefault();
-                handleMainButton();
+                e.stopPropagation();
             }
         });
         
@@ -367,6 +382,9 @@
             
             document.getElementById('timing-interface').classList.add('active');
             document.getElementById('start-race-btn').style.display = 'none';
+            
+            // Blur video so spacebar doesn't pause it
+            document.getElementById('race-video').blur();
             
             updateButton();
         }
