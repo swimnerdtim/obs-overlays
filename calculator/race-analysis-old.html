@@ -28,67 +28,19 @@
         .form-group { display: flex; flex-direction: column; }
         label { font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem; }
         
-        /* Timing interface - SIMPLIFIED */
+        /* Timing interface */
         .timing-interface { display: none; }
         .timing-interface.active { display: block; }
         
-        .main-timing-btn { 
-            width: 100%; 
-            padding: 4rem 2rem; 
-            font-size: 2rem; 
-            font-weight: bold; 
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            border-radius: 16px; 
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.3);
-            transition: all 0.2s;
-            position: relative;
-        }
-        .main-timing-btn:hover:not(:disabled) { 
-            transform: scale(1.02); 
-            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.4);
-        }
-        .main-timing-btn:active:not(:disabled) { 
-            transform: scale(0.98); 
-        }
-        .main-timing-btn.cycle { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
-        }
-        .main-timing-btn .hint { 
-            font-size: 0.9rem; 
-            opacity: 0.9; 
-            margin-top: 0.5rem; 
-            font-weight: normal;
-        }
-        .main-timing-btn .cycle-count {
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
-            opacity: 0.9;
-        }
-        
-        /* Optional buttons */
-        .optional-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .optional-btn {
-            flex: 1;
-            min-width: 150px;
-            padding: 1rem;
-            background: #6c757d;
-            font-size: 0.9rem;
-        }
-        .optional-btn:disabled {
-            opacity: 0.3;
-        }
+        .timing-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .timing-btn { padding: 2rem 1rem; font-size: 1.2rem; font-weight: bold; background: #28a745; border-radius: 12px; transition: all 0.2s; position: relative; }
+        .timing-btn:hover:not(:disabled) { transform: scale(1.05); }
+        .timing-btn:active:not(:disabled) { transform: scale(0.95); }
+        .timing-btn.secondary { background: #6c757d; }
+        .timing-btn.finish { background: #dc3545; }
+        .timing-btn:disabled { opacity: 0.3; }
         
         .timer-display { font-size: 3rem; font-weight: bold; text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; margin-bottom: 2rem; font-family: 'Courier New', monospace; }
-        
-        .instruction-box { background: #e7f3ff; border-left: 4px solid #667eea; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 1.1rem; }
-        .instruction-box strong { color: #667eea; }
         
         /* Live data capture */
         .live-data { background: #f8f9fa; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
@@ -115,14 +67,14 @@
         tr:hover { background: #f8f9fa; }
         
         .status-indicator { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+        .status-ready { background: #d4edda; color: #155724; }
         .status-timing { background: #fff3cd; color: #856404; }
+        .status-complete { background: #cce5ff; color: #004085; }
         
-        .spacebar-hint {
-            text-align: center;
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-        }
+        .instruction-box { background: #e7f3ff; border-left: 4px solid #667eea; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; }
+        .instruction-box strong { color: #667eea; }
+        
+        .cycle-counter { font-size: 0.9rem; color: #666; margin-top: 0.5rem; }
     </style>
 </head>
 <body>
@@ -134,7 +86,6 @@
             </a>
         </div>
     </div>
-    
     <div class="container">
         <div class="card">
             <div class="card-title">🏊 Race Analysis Tool</div>
@@ -154,7 +105,7 @@
             
             <!-- Race Setup -->
             <div class="instruction-box">
-                <strong>Simple timing:</strong> Just click the big button (or press SPACEBAR) at each key moment. The app knows what you're timing!
+                <strong>How to use:</strong> Enter race details, load your video, then click START when the race begins. Follow the button prompts as you watch the video. The app will guide you through each timing point.
             </div>
             
             <div class="race-setup">
@@ -203,7 +154,7 @@
             </button>
         </div>
         
-        <!-- Timing Interface - SIMPLIFIED -->
+        <!-- Timing Interface -->
         <div class="card timing-interface" id="timing-interface">
             <div class="card-title">
                 Timing: <span id="current-lap">Lap 1</span> 
@@ -213,32 +164,24 @@
             <div class="timer-display" id="timer">0:00.00</div>
             
             <div class="instruction-box" id="instruction">
-                Ready to start timing
+                Click START when the race begins (starting signal)
             </div>
             
-            <!-- ONE BIG BUTTON -->
-            <button class="main-timing-btn" id="main-btn" onclick="handleMainButton()">
-                <div id="btn-text">START RACE</div>
-                <div class="hint" id="btn-hint">Starting signal or dive</div>
-                <div class="cycle-count" id="cycle-info" style="display:none;"></div>
-            </button>
-            
-            <div class="spacebar-hint">💡 You can also press SPACEBAR</div>
-            
-            <!-- Optional timing buttons (smaller) -->
-            <div class="optional-buttons">
-                <button class="optional-btn" id="opt-15m" onclick="handleOptional('15m')" disabled>
-                    📏 15M Mark<br><small>(underwater distance)</small>
+            <div class="timing-buttons" id="timing-buttons">
+                <button class="timing-btn" id="btn-start" onclick="handleTiming('start')">START</button>
+                <button class="timing-btn" id="btn-break" onclick="handleTiming('break')" disabled>BREAK</button>
+                <button class="timing-btn secondary" id="btn-15m" onclick="handleTiming('15m')" disabled>15M START</button>
+                <button class="timing-btn" id="btn-cycle" onclick="handleTiming('cycle')" disabled>
+                    CYCLE
+                    <div class="cycle-counter" id="cycle-counter"></div>
                 </button>
-                <button class="optional-btn" id="opt-turn" onclick="handleOptional('turn')" disabled>
-                    🔄 Turn In<br><small>(5m before wall)</small>
-                </button>
-                <button class="optional-btn" id="opt-10m" onclick="handleOptional('10m')" disabled>
-                    🏁 10M Finish<br><small>(last lap only)</small>
-                </button>
+                <button class="timing-btn" id="btn-turn" onclick="handleTiming('turn')" disabled>TURN IN</button>
+                <button class="timing-btn" id="btn-split" onclick="handleTiming('split')" disabled>SPLIT</button>
+                <button class="timing-btn secondary" id="btn-10m" onclick="handleTiming('10m')" disabled>10M FINISH</button>
+                <button class="timing-btn finish" id="btn-finish" onclick="handleTiming('finish')" disabled>FINISH</button>
             </div>
             
-            <button onclick="resetRace()" style="background: #dc3545; width: 100%;">🔄 Reset Race</button>
+            <button onclick="resetRace()" style="background: #dc3545; width: 100%;">Reset Race</button>
             
             <!-- Live Data Display -->
             <div class="live-data" id="live-data"></div>
@@ -273,22 +216,22 @@
     </div>
     
     <script>
-        // Race state machine
+        // Race state
         let raceState = {
-            phase: 'setup', // setup, start, break, cycle, split
-            status: 'setup',
+            status: 'setup', // setup, timing, complete
             startTime: null,
             currentLap: 1,
             totalLaps: 0,
             lapDistance: 0,
             event: null,
             pool: null,
-            data: { laps: [] },
+            data: {
+                laps: []
+            },
             currentLapData: {},
             lastButtonTime: null,
             cycleCount: 0,
-            cycleTimes: [],
-            minCycles: 3
+            cycleTimes: []
         };
         
         // Event configurations
@@ -312,14 +255,6 @@
             '400-im': { distance: 400, laps: { scy: 16, scm: 16, lcm: 8 } }
         };
         
-        // Spacebar support
-        document.addEventListener('keydown', function(e) {
-            if (e.code === 'Space' && raceState.status === 'timing') {
-                e.preventDefault();
-                handleMainButton();
-            }
-        });
-        
         // Load video
         function loadVideo() {
             const url = document.getElementById('video-url').value.trim();
@@ -327,8 +262,9 @@
             const video = document.getElementById('race-video');
             
             if (url) {
+                // Handle YouTube URLs
                 if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                    alert('YouTube direct embedding requires API. Please download the video first or use a direct video URL.');
+                    alert('YouTube direct embedding requires API. Please download the video or use a direct video URL.');
                     return;
                 }
                 video.src = url;
@@ -344,7 +280,7 @@
             loadVideo();
         });
         
-        // Start race
+        // Start race timing
         function startRace() {
             const event = document.getElementById('event').value;
             const pool = document.getElementById('pool').value;
@@ -354,80 +290,101 @@
                 return;
             }
             
+            // Initialize race state
             raceState.event = event;
             raceState.pool = pool;
             raceState.totalLaps = eventConfig[event].laps[pool];
             raceState.lapDistance = pool === 'lcm' ? 50 : 25;
-            if (pool === 'scy') raceState.lapDistance = 22.86;
+            if (pool === 'scy') raceState.lapDistance = 22.86; // yards to meters
             
-            raceState.status = 'timing';
-            raceState.phase = 'start';
+            raceState.status = 'ready';
             raceState.currentLap = 1;
             raceState.data.laps = [];
             
+            // Show timing interface
             document.getElementById('timing-interface').classList.add('active');
             document.getElementById('start-race-btn').style.display = 'none';
             
-            updateButton();
+            // Enable start button
+            enableButton('start');
+            updateInstruction('Click START when you see/hear the starting signal');
         }
         
-        // Main button handler - ONE BUTTON FOR EVERYTHING
-        function handleMainButton() {
+        // Handle timing button clicks
+        function handleTiming(action) {
             const now = performance.now();
             
-            if (raceState.phase === 'start') {
+            if (action === 'start') {
                 // Race start
                 raceState.startTime = now;
                 raceState.lastButtonTime = now;
+                raceState.status = 'timing';
                 raceState.currentLapData = {
                     lap: raceState.currentLap,
                     startTime: now,
                     cycles: []
                 };
+                
                 startTimer();
-                raceState.phase = 'break';
+                disableButton('start');
+                enableButton('break');
+                updateInstruction('Click BREAK when the swimmer\'s head breaks the surface');
                 
-                // Enable 15m optional on first lap
-                if (raceState.currentLap === 1) {
-                    document.getElementById('opt-15m').disabled = false;
-                }
-                
-            } else if (raceState.phase === 'break') {
+            } else if (action === 'break') {
                 // Head breaks surface
                 const elapsed = (now - raceState.lastButtonTime) / 1000;
                 raceState.currentLapData.breakTime = elapsed;
                 raceState.lastButtonTime = now;
-                raceState.phase = 'cycle';
+                
+                disableButton('break');
+                if (raceState.currentLap === 1) {
+                    enableButton('15m');
+                }
+                enableButton('cycle');
                 raceState.cycleCount = 0;
                 raceState.cycleTimes = [];
+                updateInstruction('Click CYCLE for each stroke cycle (same hand for free/back, full cycle for breast/fly). Take at least 3 cycles.');
                 
-                // Enable turn in optional
-                document.getElementById('opt-turn').disabled = false;
+            } else if (action === '15m') {
+                // 15m mark (first lap only)
+                const elapsed = (now - raceState.currentLapData.startTime) / 1000;
+                raceState.currentLapData.mark15m = elapsed;
+                disableButton('15m');
                 
-            } else if (raceState.phase === 'cycle') {
+            } else if (action === 'cycle') {
                 // Stroke cycle
                 const cycleTime = (now - raceState.lastButtonTime) / 1000;
                 raceState.cycleTimes.push(cycleTime);
                 raceState.lastButtonTime = now;
                 raceState.cycleCount++;
                 
-                // After minimum cycles, next click goes to split
-                if (raceState.cycleCount >= raceState.minCycles) {
-                    raceState.phase = 'split';
+                document.getElementById('cycle-counter').textContent = `${raceState.cycleCount} cycles`;
+                
+                if (raceState.cycleCount >= 3) {
+                    enableButton('turn');
+                    enableButton('split');
+                    updateInstruction('Click TURN IN (5m before wall) then SPLIT (wall touch). Or just SPLIT to record lap time.');
                 }
                 
-            } else if (raceState.phase === 'split') {
-                // Wall touch - lap complete
+            } else if (action === 'turn') {
+                // Turn in (5m before wall)
+                raceState.currentLapData.turnInTime = (now - raceState.currentLapData.startTime) / 1000;
+                raceState.lastButtonTime = now;
+                disableButton('turn');
+                updateInstruction('Click SPLIT when hands/feet touch the wall');
+                
+            } else if (action === 'split') {
+                // Lap complete
                 const lapTime = (now - raceState.currentLapData.startTime) / 1000;
                 raceState.currentLapData.lapTime = lapTime;
                 raceState.currentLapData.cumulativeTime = (now - raceState.startTime) / 1000;
                 
-                // Calculate turn time if recorded
+                // Calculate turn time if turn-in was recorded
                 if (raceState.currentLapData.turnInTime) {
                     raceState.currentLapData.turnTime = lapTime - raceState.currentLapData.turnInTime;
                 }
                 
-                // Calculate cycle metrics
+                // Calculate average cycle rate
                 if (raceState.cycleTimes.length > 0) {
                     const avgCycleTime = raceState.cycleTimes.reduce((a, b) => a + b, 0) / raceState.cycleTimes.length;
                     raceState.currentLapData.avgCycleTime = avgCycleTime;
@@ -435,104 +392,56 @@
                     raceState.currentLapData.cycleCount = raceState.cycleCount;
                 }
                 
-                // Save lap
+                // Save lap data
                 raceState.data.laps.push({...raceState.currentLapData});
                 updateLiveData();
                 
-                // Check if race complete
+                // Check if race is complete
                 if (raceState.currentLap >= raceState.totalLaps) {
                     finishRace();
                     return;
                 }
                 
-                // Next lap
+                // Move to next lap
                 raceState.currentLap++;
                 raceState.currentLapData = {
                     lap: raceState.currentLap,
                     startTime: now
                 };
                 raceState.lastButtonTime = now;
-                raceState.phase = 'break';
+                raceState.cycleCount = 0;
+                raceState.cycleTimes = [];
                 
                 document.getElementById('current-lap').textContent = `Lap ${raceState.currentLap}`;
+                document.getElementById('cycle-counter').textContent = '';
                 
-                // Disable optional buttons
-                document.getElementById('opt-15m').disabled = true;
-                document.getElementById('opt-turn').disabled = true;
+                // Reset buttons for next lap
+                disableButton('split');
+                disableButton('turn');
+                disableButton('cycle');
+                disableButton('15m');
+                enableButton('break');
                 
-                // Enable 10m on last lap
+                // Enable 10m finish button on last lap
                 if (raceState.currentLap === raceState.totalLaps) {
-                    document.getElementById('opt-10m').disabled = false;
-                }
-            }
-            
-            updateButton();
-        }
-        
-        // Update button text based on phase
-        function updateButton() {
-            const btnText = document.getElementById('btn-text');
-            const btnHint = document.getElementById('btn-hint');
-            const cycleInfo = document.getElementById('cycle-info');
-            const mainBtn = document.getElementById('main-btn');
-            const instruction = document.getElementById('instruction');
-            
-            mainBtn.classList.remove('cycle');
-            cycleInfo.style.display = 'none';
-            
-            if (raceState.phase === 'start') {
-                btnText.textContent = 'START RACE';
-                btnHint.textContent = 'Starting signal or dive';
-                instruction.innerHTML = '<strong>Click when:</strong> Race starts (beep/dive)';
-                
-            } else if (raceState.phase === 'break') {
-                btnText.textContent = 'HEAD BREAKS SURFACE';
-                btnHint.textContent = 'After underwater kick';
-                instruction.innerHTML = '<strong>Click when:</strong> Swimmer\'s head comes above water';
-                
-            } else if (raceState.phase === 'cycle') {
-                btnText.textContent = 'STROKE CYCLE';
-                btnHint.textContent = 'Tap for each stroke (same arm)';
-                cycleInfo.style.display = 'block';
-                cycleInfo.textContent = `${raceState.cycleCount} cycles (need ${raceState.minCycles} minimum)`;
-                mainBtn.classList.add('cycle');
-                
-                if (raceState.cycleCount < raceState.minCycles) {
-                    instruction.innerHTML = `<strong>Keep tapping:</strong> ${raceState.minCycles - raceState.cycleCount} more cycles needed`;
+                    updateInstruction('LAST LAP! Click BREAK when head breaks surface, then cycle, then optionally 10M FINISH');
                 } else {
-                    btnText.textContent = 'WALL TOUCH';
-                    btnHint.textContent = 'Hands touch wall';
-                    instruction.innerHTML = '<strong>Click when:</strong> Hands/feet touch the wall';
+                    updateInstruction('Click BREAK when the swimmer\'s head breaks the surface');
                 }
                 
-            } else if (raceState.phase === 'split') {
-                btnText.textContent = 'WALL TOUCH';
-                btnHint.textContent = 'Hands/feet touch wall';
-                instruction.innerHTML = '<strong>Click when:</strong> Hands/feet touch the wall';
-            }
-        }
-        
-        // Optional timing buttons
-        function handleOptional(type) {
-            const now = performance.now();
-            
-            if (type === '15m') {
-                const elapsed = (now - raceState.currentLapData.startTime) / 1000;
-                raceState.currentLapData.mark15m = elapsed;
-                document.getElementById('opt-15m').disabled = true;
-                
-            } else if (type === 'turn') {
-                raceState.currentLapData.turnInTime = (now - raceState.currentLapData.startTime) / 1000;
-                document.getElementById('opt-turn').disabled = true;
-                
-            } else if (type === '10m') {
+            } else if (action === '10m') {
+                // 10m from finish (last lap only)
                 const elapsed = (now - raceState.currentLapData.startTime) / 1000;
                 raceState.currentLapData.mark10mFinish = elapsed;
-                document.getElementById('opt-10m').disabled = true;
+                disableButton('10m');
+                
+            } else if (action === 'finish') {
+                // Race finish
+                finishRace();
             }
         }
         
-        // Timer
+        // Timer display
         let timerInterval;
         function startTimer() {
             timerInterval = setInterval(() => {
@@ -544,9 +453,12 @@
         }
         
         function stopTimer() {
-            if (timerInterval) clearInterval(timerInterval);
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
         }
         
+        // Format time as M:SS.CS
         function formatTime(seconds) {
             const mins = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
@@ -554,7 +466,20 @@
             return `${mins}:${secs.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
         }
         
-        // Live data display
+        // Button controls
+        function enableButton(id) {
+            document.getElementById(`btn-${id}`).disabled = false;
+        }
+        
+        function disableButton(id) {
+            document.getElementById(`btn-${id}`).disabled = true;
+        }
+        
+        function updateInstruction(text) {
+            document.getElementById('instruction').innerHTML = `<strong>Next:</strong> ${text}`;
+        }
+        
+        // Update live data display
         function updateLiveData() {
             const container = document.getElementById('live-data');
             container.innerHTML = '<h3 style="margin-bottom: 1rem;">Captured Data</h3>';
@@ -609,31 +534,41 @@
             });
         }
         
-        // Finish race
+        // Finish race and calculate results
         function finishRace() {
             stopTimer();
             raceState.status = 'complete';
+            
+            // Calculate derived metrics
             calculateResults();
+            
+            // Hide timing interface
             document.getElementById('timing-interface').classList.remove('active');
+            
+            // Show results
             document.getElementById('results-section').classList.add('active');
             displayResults();
         }
         
-        // Calculate results
+        // Calculate all race metrics
         function calculateResults() {
             raceState.data.laps.forEach((lap, index) => {
+                // Break distance estimation (based on break time and typical underwater speed)
                 if (lap.breakTime) {
-                    const underwaterSpeed = 2.2;
+                    const underwaterSpeed = 2.2; // m/s (typical)
                     lap.breakDistance = (lap.breakTime * underwaterSpeed).toFixed(2);
                 }
                 
+                // Distance per cycle (DPC)
                 if (lap.cycleCount && lap.lapTime) {
-                    const swimDistance = raceState.lapDistance - (parseFloat(lap.breakDistance) || 0);
+                    const swimDistance = raceState.lapDistance - (lap.breakDistance || 0);
                     lap.dpc = (swimDistance / lap.cycleCount).toFixed(2);
                 }
                 
+                // Velocity
                 lap.velocity = (raceState.lapDistance / lap.lapTime).toFixed(2);
                 
+                // Drop-off (compared to previous lap)
                 if (index > 0) {
                     const prevLap = raceState.data.laps[index - 1];
                     lap.dropOff = (lap.lapTime - prevLap.lapTime).toFixed(2);
@@ -645,6 +580,7 @@
         
         // Display results
         function displayResults() {
+            // Summary metrics
             const totalTime = raceState.data.laps[raceState.data.laps.length - 1].cumulativeTime;
             const avgVelocity = (raceState.data.laps.reduce((sum, lap) => sum + parseFloat(lap.velocity), 0) / raceState.data.laps.length).toFixed(2);
             const totalCycles = raceState.data.laps.reduce((sum, lap) => sum + (lap.cycleCount || 0), 0);
@@ -671,6 +607,7 @@
                 </div>
             `;
             
+            // Detailed table
             const tbody = document.getElementById('results-body');
             tbody.innerHTML = '';
             
@@ -691,7 +628,7 @@
             });
         }
         
-        // Export CSV
+        // Export results
         function exportResults() {
             const event = document.getElementById('event').value;
             const swimmer = document.getElementById('swimmer-name').value || 'Swimmer';
@@ -719,14 +656,39 @@
             a.click();
         }
         
-        // Reset
+        // Reset race
         function resetRace() {
             if (!confirm('Are you sure? All timing data will be lost.')) return;
             
             stopTimer();
-            location.reload();
+            raceState = {
+                status: 'setup',
+                startTime: null,
+                currentLap: 1,
+                totalLaps: 0,
+                lapDistance: 0,
+                event: null,
+                pool: null,
+                data: { laps: [] },
+                currentLapData: {},
+                lastButtonTime: null,
+                cycleCount: 0,
+                cycleTimes: []
+            };
+            
+            document.getElementById('timing-interface').classList.remove('active');
+            document.getElementById('results-section').classList.remove('active');
+            document.getElementById('start-race-btn').style.display = 'block';
+            document.getElementById('timer').textContent = '0:00.00';
+            document.getElementById('live-data').innerHTML = '';
+            
+            // Reset all buttons
+            ['start', 'break', '15m', 'cycle', 'turn', 'split', '10m', 'finish'].forEach(id => {
+                document.getElementById(`btn-${id}`).disabled = true;
+            });
         }
         
+        // Start new race from results
         function startNewRace() {
             resetRace();
         }
