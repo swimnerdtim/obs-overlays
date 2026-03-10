@@ -216,8 +216,8 @@
                 Ready to start timing
             </div>
             
-            <!-- TWO MAIN BUTTONS -->
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+            <!-- THREE MAIN BUTTONS -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
                 <button class="main-timing-btn" id="main-btn" onclick="handleMainButton()">
                     <div id="btn-text">START RACE</div>
                     <div class="hint" id="btn-hint">Starting signal or dive</div>
@@ -227,9 +227,14 @@
                     <div>CYCLE</div>
                     <div class="cycle-count" id="cycle-info">0 cycles</div>
                 </button>
+                
+                <button class="main-timing-btn" id="turn-btn" onclick="handleTurn()" disabled style="font-size: 1.5rem; background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);">
+                    <div id="turn-text">TURN</div>
+                    <div class="hint" id="turn-hint" style="font-size: 0.75rem;">Flags in/out</div>
+                </button>
             </div>
             
-            <div class="spacebar-hint">💡 SPACEBAR = main button | C = cycle</div>
+            <div class="spacebar-hint">💡 SPACEBAR = main | C = cycle | T = turn flags</div>
             
             <!-- Optional timing buttons (smaller) -->
             <div class="optional-buttons">
@@ -263,7 +268,8 @@
                         <th>Split</th>
                         <th>Break (s)</th>
                         <th>Break Dist (m)</th>
-                        <th>Turn (s)</th>
+                        <th>Turn Approach (s)</th>
+                        <th>Turn Push-off (s)</th>
                         <th>Tempo (c/min)</th>
                         <th>DPC (m)</th>
                         <th>Velocity (m/s)</th>
@@ -294,7 +300,8 @@
             lastButtonTime: null,
             cycleCount: 0,
             cycleTimes: [],
-            minCycles: 3
+            minCycles: 3,
+            turnClickCount: 0
         };
         
         // Event configurations
@@ -336,6 +343,13 @@
                     e.preventDefault();
                     e.stopPropagation();
                     handleCycle();
+                }
+            } else if (e.code === 'KeyT') {
+                // T key for turn flags
+                if (raceState.status === 'timing' && raceState.phase === 'swimming') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleTurn();
                 }
             }
         }, true); // Use capture phase to intercept before video gets it
@@ -431,9 +445,13 @@
                 raceState.phase = 'swimming';
                 raceState.cycleCount = 0;
                 raceState.cycleTimes = [];
+                raceState.turnClickCount = 0;
                 
-                // Enable cycle button
+                // Enable cycle and turn buttons
                 document.getElementById('cycle-btn').disabled = false;
+                document.getElementById('turn-btn').disabled = false;
+                document.getElementById('turn-text').textContent = 'FLAGS IN';
+                document.getElementById('turn-hint').textContent = '5m before wall';
                 
                 // Enable turn in optional
                 document.getElementById('opt-turn').disabled = false;
@@ -478,8 +496,9 @@
                 
                 document.getElementById('current-lap').textContent = `Lap ${raceState.currentLap}`;
                 
-                // Disable cycle and optional buttons
+                // Disable cycle, turn, and optional buttons
                 document.getElementById('cycle-btn').disabled = true;
+                document.getElementById('turn-btn').disabled = true;
                 document.getElementById('opt-15m').disabled = true;
                 document.getElementById('opt-turn').disabled = true;
                 
@@ -512,6 +531,29 @@
             } else {
                 document.getElementById('instruction').innerHTML = 
                     '<strong>Ready!</strong> Click main button when hands touch wall';
+            }
+        }
+        
+        // Turn timing handler (flags in → flags out)
+        function handleTurn() {
+            if (raceState.phase !== 'swimming') return;
+            
+            const now = performance.now();
+            const elapsed = (now - raceState.currentLapData.startTime) / 1000;
+            
+            if (raceState.turnClickCount === 0) {
+                // First click = flags in (5m before wall)
+                raceState.currentLapData.turnFlagsIn = elapsed;
+                raceState.turnClickCount = 1;
+                document.getElementById('turn-text').textContent = 'FLAGS OUT';
+                document.getElementById('turn-hint').textContent = 'After wall push-off';
+            } else if (raceState.turnClickCount === 1) {
+                // Second click = flags out (5m after wall)
+                raceState.currentLapData.turnFlagsOut = elapsed;
+                raceState.turnClickCount = 2;
+                document.getElementById('turn-btn').disabled = true;
+                document.getElementById('turn-text').textContent = 'TURN';
+                document.getElementById('turn-hint').textContent = 'Complete!';
             }
         }
         
@@ -627,9 +669,33 @@
                             <div class="data-value">${lap.cycleCount}</div>
                         </div>
                         ` : ''}
+                        ${lap.turnFlagsIn ? `
+                        <div class="data-item">
+                            <div class="data-label">Flags In (5m)</div>
+                            <div class="data-value">${lap.turnFlagsIn.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.turnFlagsOut ? `
+                        <div class="data-item">
+                            <div class="data-label">Flags Out (5m)</div>
+                            <div class="data-value">${lap.turnFlagsOut.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.turnApproach ? `
+                        <div class="data-item">
+                            <div class="data-label">Approach (to wall)</div>
+                            <div class="data-value">${lap.turnApproach.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.turnPushOff ? `
+                        <div class="data-item">
+                            <div class="data-label">Push-off (from wall)</div>
+                            <div class="data-value">${lap.turnPushOff.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
                         ${lap.turnTime ? `
                         <div class="data-item">
-                            <div class="data-label">Turn Time</div>
+                            <div class="data-label">Turn Time (old)</div>
                             <div class="data-value">${lap.turnTime.toFixed(2)}s</div>
                         </div>
                         ` : ''}
@@ -669,6 +735,14 @@
                 }
                 
                 lap.velocity = (raceState.lapDistance / lap.lapTime).toFixed(2);
+                
+                // Calculate turn metrics if flags timing was captured
+                if (lap.turnFlagsIn && lap.lapTime) {
+                    lap.turnApproach = (lap.lapTime - lap.turnFlagsIn).toFixed(2);
+                }
+                if (lap.turnFlagsOut && lap.lapTime) {
+                    lap.turnPushOff = (lap.turnFlagsOut - lap.lapTime).toFixed(2);
+                }
                 
                 if (index > 0) {
                     const prevLap = raceState.data.laps[index - 1];
@@ -717,7 +791,8 @@
                     <td>${formatTime(lap.lapTime)}</td>
                     <td>${lap.breakTime ? lap.breakTime.toFixed(2) : '-'}</td>
                     <td>${lap.breakDistance || '-'}</td>
-                    <td>${lap.turnTime ? lap.turnTime.toFixed(2) : '-'}</td>
+                    <td>${lap.turnApproach || '-'}</td>
+                    <td>${lap.turnPushOff || '-'}</td>
                     <td>${lap.cyclesPerMinute ? lap.cyclesPerMinute.toFixed(1) : '-'}</td>
                     <td>${lap.dpc || '-'}</td>
                     <td>${lap.velocity}</td>
@@ -733,13 +808,14 @@
             const swimmer = document.getElementById('swimmer-name').value || 'Swimmer';
             const date = new Date().toISOString().split('T')[0];
             
-            let csv = 'Lap,Split Time,Cumulative,Break Time,Break Dist,Turn Time,Tempo,Cycle Count,DPC,Velocity,Drop-off\n';
+            let csv = 'Lap,Split Time,Cumulative,Break Time,Break Dist,Turn Approach,Turn Push-off,Tempo,Cycle Count,DPC,Velocity,Drop-off\n';
             
             raceState.data.laps.forEach(lap => {
                 csv += `${lap.lap},${formatTime(lap.lapTime)},${formatTime(lap.cumulativeTime)},`;
                 csv += `${lap.breakTime ? lap.breakTime.toFixed(2) : ''},`;
                 csv += `${lap.breakDistance || ''},`;
-                csv += `${lap.turnTime ? lap.turnTime.toFixed(2) : ''},`;
+                csv += `${lap.turnApproach || ''},`;
+                csv += `${lap.turnPushOff || ''},`;
                 csv += `${lap.cyclesPerMinute ? lap.cyclesPerMinute.toFixed(1) : ''},`;
                 csv += `${lap.cycleCount || ''},`;
                 csv += `${lap.dpc || ''},`;
