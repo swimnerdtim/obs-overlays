@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swimnerd Workout Manager</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card .number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .label {
+            color: #6c757d;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .controls {
+            padding: 20px 30px;
+            background: white;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+        
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .workout-list {
+            padding: 30px;
+            display: grid;
+            gap: 20px;
+        }
+        
+        .workout-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .workout-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .workout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .workout-date {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .workout-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .workout-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .workout-distance {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        .workout-sets {
+            margin-top: 15px;
+        }
+        
+        .workout-set {
+            padding: 8px 0;
+            color: #495057;
+            line-height: 1.6;
+            border-left: 3px solid #e9ecef;
+            padding-left: 12px;
+            margin: 5px 0;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .badge-location {
+            background: #e7f3ff;
+            color: #0066cc;
+        }
+        
+        .badge-course {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+        
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏊‍♂️ Swimnerd Workout Manager</h1>
+            <p>Masters Swimming Workouts 2023-2024</p>
+        </div>
+        
+        <div class="stats" id="stats">
+            <!-- Stats will be populated by JavaScript -->
+        </div>
+        
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Search workouts...">
+            </div>
+            
+            <div class="filter-group">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="bayside">Bayside</button>
+                <button class="filter-btn" data-filter="greatneck">Great Neck</button>
+                <button class="filter-btn" data-filter="2000+">2000+ meters</button>
+                <button class="filter-btn" data-filter="2500+">2500+ meters</button>
+            </div>
+        </div>
+        
+        <div class="workout-list" id="workoutList">
+            <!-- Workouts will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // Workout data (embedded - will be loaded from JSON file in production)
+        const WORKOUTS_DATA = null; // Will load from file
+        
+        let workouts = [];
+        let filteredWorkouts = [];
+        
+        // Load workouts from JSON file
+        async function loadWorkouts() {
+            try {
+                const response = await fetch('masters_workouts_parsed/all_workouts.json');
+                workouts = await response.json();
+                filteredWorkouts = workouts;
+                renderStats();
+                renderWorkouts();
+            } catch (error) {
+                console.error('Error loading workouts:', error);
+                document.getElementById('workoutList').innerHTML = `
+                    <div class="empty-state">
+                        <p>Error loading workouts. Make sure all_workouts.json exists.</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Render stats
+        function renderStats() {
+            const stats = {
+                total: workouts.length,
+                avgDistance: Math.round(workouts.reduce((sum, w) => sum + w.total_distance, 0) / workouts.length),
+                locations: new Set(workouts.map(w => w.location)).size,
+                maxDistance: Math.max(...workouts.map(w => w.total_distance))
+            };
+            
+            document.getElementById('stats').innerHTML = `
+                <div class="stat-card">
+                    <div class="number">${stats.total}</div>
+                    <div class="label">Total Workouts</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">${stats.avgDistance}m</div>
+                    <div class="label">Average Distance</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">${stats.maxDistance}m</div>
+                    <div class="label">Max Distance</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">${stats.locations}</div>
+                    <div class="label">Pool Locations</div>
+                </div>
+            `;
+        }
+        
+        // Render workouts
+        function renderWorkouts() {
+            const container = document.getElementById('workoutList');
+            
+            if (filteredWorkouts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <p>No workouts found matching your filters.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = filteredWorkouts.map(workout => `
+                <div class="workout-card">
+                    <div class="workout-header">
+                        <div>
+                            <div class="workout-date">${workout.date}</div>
+                            <div class="workout-meta">
+                                <span class="badge badge-location">${workout.location}</span>
+                                <span class="badge badge-course">${workout.course}</span>
+                            </div>
+                        </div>
+                        <div class="workout-distance">${workout.total_distance}m</div>
+                    </div>
+                    
+                    <div class="workout-sets">
+                        ${workout.sets.map(set => `
+                            <div class="workout-set">${set}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            filteredWorkouts = workouts.filter(w => 
+                w.date.toLowerCase().includes(query) ||
+                w.location.toLowerCase().includes(query) ||
+                w.sets.some(s => s.toLowerCase().includes(query))
+            );
+            renderWorkouts();
+        });
+        
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Update active state
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                
+                const filter = e.target.dataset.filter;
+                
+                if (filter === 'all') {
+                    filteredWorkouts = workouts;
+                } else if (filter === 'bayside') {
+                    filteredWorkouts = workouts.filter(w => w.location.toLowerCase() === 'bayside');
+                } else if (filter === 'greatneck') {
+                    filteredWorkouts = workouts.filter(w => w.location.toLowerCase().includes('neck'));
+                } else if (filter === '2000+') {
+                    filteredWorkouts = workouts.filter(w => w.total_distance >= 2000);
+                } else if (filter === '2500+') {
+                    filteredWorkouts = workouts.filter(w => w.total_distance >= 2500);
+                }
+                
+                renderWorkouts();
+            });
+        });
+        
+        // Load workouts on page load
+        loadWorkouts();
+    </script>
+</body>
+</html>

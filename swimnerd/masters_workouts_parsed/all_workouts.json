@@ -1,0 +1,223 @@
+[
+  {
+    "workout_id": 1,
+    "date": "09/30/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2000,
+    "sets": [
+      "300 choice / 8x25 No Breath @ :40",
+      "12x50 Fly/BK, BK/Brst, Brst/Free @ 1:00 (600/1100)",
+      "5x100 Free Best Average @ 3:00 (500/1600)",
+      "8x25 Flutter Kick w/a board FAST @ 1:00 (200/1800)",
+      "4x50 easy @ 1:00"
+    ],
+    "source_image": "1.jpg"
+  },
+  {
+    "workout_id": 2,
+    "date": "10/02/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2200,
+    "sets": [
+      "300 choice / 200 Pull / 100 ROIM @ 9 (600)",
+      "4x {125 (100 IM + 25 Fly) @ 2:30, 75 Back or Breast (odd rds/even rds) @ 1:30} (800/1100)",
+      "16x25 Sprint w/ fins, O - UW Kick, E - Choice @ 1:00 (400/2100)",
+      "100 EZ"
+    ],
+    "source_image": "2.jpg"
+  },
+  {
+    "workout_id": 3,
+    "date": "10/04/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2300,
+    "sets": [
+      "300 choice / 6x50 IM @ 1:00 (600)",
+      "100 last 25 FAST @ 1:45 (2:00)",
+      "200 last 50 FAST @ 3:30 (4:00)",
+      "300 last 75 FAST @ 5:15 (6:00)",
+      "400 last 100 FAST @ 7:00 (8:00) (1600/2200)",
+      "300 last 75 FAST @ 5:15 (6:00)",
+      "200 last 50 FAST @ 3:30 (4:00)",
+      "100 last 25 FAST @ 1:45 (2:00)",
+      "100 EZ"
+    ],
+    "source_image": "3.jpg"
+  },
+  {
+    "workout_id": 4,
+    "date": "10/07/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2200,
+    "sets": [
+      "Note: Image too small/blurry to extract details"
+    ],
+    "source_image": "4.jpg"
+  },
+  {
+    "workout_id": 5,
+    "date": "10/14/23",
+    "location": "Great Neck",
+    "course": "SCM",
+    "total_distance": 2200,
+    "sets": [
+      "300 choice",
+      "100 Kick Fast @ 2:00",
+      "8x50 Free @ :45 (:50) (:55)",
+      "200 Kick Fast @ 4:00",
+      "8x50 Free @ :45 (:50) (:55)",
+      "300 Kick Fast @ 6:00",
+      "8x50 Free @ :45 (:50) (:55) (1800/2100)",
+      "100 EZ"
+    ],
+    "source_image": "5.jpg"
+  },
+  {
+    "workout_id": 6,
+    "date": "10/18/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2100,
+    "sets": [
+      "3x100 choice",
+      "12x25 Fly @ :35",
+      "6x50 Back @ 1:00",
+      "3x100 Breast @ 2:00",
+      "5x {4x25 Max @ :30, 1x50 EZ @ 2:00}",
+      "100 EZ"
+    ],
+    "source_image": "6.jpg"
+  },
+  {
+    "workout_id": 7,
+    "date": "10/21/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2150,
+    "sets": [
+      "300 choice",
+      "4x {4x100 Freestyle aerobic threshold @ :40/:45/:50/:55/1:00 for 50s, 1:20/1:30/1:40/1:50/2:00 for 100s}",
+      "1x25 Free, 1x25 Kick Underwater, 2x25 Free, 2x25 Kick Underwater @ :35 w/ Fins",
+      "100 EZ"
+    ],
+    "source_image": "7.jpg"
+  },
+  {
+    "workout_id": 8,
+    "date": "10/23/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2500,
+    "sets": [
+      "300 choice",
+      "8x75 @ 1:30 (25 D.P. / 25 Fingertip / 25 Build)",
+      "2x {50 @ 1:00, 100 @ 2:00, 150 @ 3:00, 200 @ 4:00, 250 @ 5:00} All Fast, All Choice",
+      "100 EZ"
+    ],
+    "source_image": "8.jpg"
+  },
+  {
+    "workout_id": 9,
+    "date": "10/25/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2500,
+    "sets": [
+      "400 choice",
+      "40x50 @ 1:00 (16: every 4th is FAST, 12: every 3rd is FAST, 8: every other is FAST, 4: all of them are FAST)",
+      "100 EZ"
+    ],
+    "source_image": "9.jpg"
+  },
+  {
+    "workout_id": 10,
+    "date": "10/28/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2000,
+    "sets": [
+      "300 choice",
+      "8x25 @ :45 Setup + Drive Drill (2 Rt/Lt Kick on side, 2 Rt/Lt w/ Hard Out, 2 Dog Paddle/6 Kick Switch, 2 Build to All Out)",
+      "2x {200 IM @ 4:00, 4x75 (O-Backstroke, E-Breaststroke) @ 1:30, 8x25 Max Speed Fly or Free @ :45/1:00}",
+      "100 EZ"
+    ],
+    "source_image": "10.jpg"
+  },
+  {
+    "workout_id": 11,
+    "date": "10/30/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2450,
+    "sets": [
+      "400 RO IM - D/K/S - whatever",
+      "8x25 (25 skull / 25- / 25-)",
+      "3x {25 Scull @ :30, 50 D.P./Tarzan @ 1:00, 75 Freestyle @ 1:30}",
+      "4x {3x100 Hold the Fastest Interval Possible @ 1:15/1:20/1:25/1:30/1:35/1:40/1:45/1:50}",
+      "100 EZ"
+    ],
+    "source_image": "11.jpg"
+  },
+  {
+    "workout_id": 12,
+    "date": "11/01/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 1800,
+    "sets": [
+      "300 choice",
+      "16x50 No Fins! (2 Kick @ 1:10, 2 Freestyle @ :55)",
+      "8x50 Off the Blocks - FES (25 all out / 25 easy) @ 2:00",
+      "8x25 (O-BES, E-EZ) @ :45",
+      "100 EZ"
+    ],
+    "source_image": "12.jpg"
+  },
+  {
+    "workout_id": 13,
+    "date": "11/06/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2100,
+    "sets": [
+      "300 choice",
+      "8x75 @ 1:30 (25 1-Arm Butterfly 1Rt/1Lt, 25 Free w/ Fly Kick, 25 Free)",
+      "8x {4x25 @ :30 (25 Kick w/ Board FAST, 25 1st 15m FAST/10 EZ, 25 1st 15m EZ/10 FAST, 25 Easy)} Extra :60 between rounds",
+      "1x25 Easy Free, 1x25 Fast Underwater Kick w/1 breath at 15m, 2x25, 2x25, 3x25, 3x25 All @ :30",
+      "100 EZ"
+    ],
+    "source_image": "13.jpg"
+  },
+  {
+    "workout_id": 14,
+    "date": "11/08/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2200,
+    "sets": [
+      "200 Swim / 200 FKOB / 200 IM Drill",
+      "4x150 @ 3:00 (25 Build to FAST, 50 Flutter Kick on Back, 75 Free)",
+      "3x {3x50 (1 FAST/1 EZ/1 FAST) @ 1:30, 6x25 (1 EZ/1 FAST) @ :35/:30/:25}",
+      "100 EZ"
+    ],
+    "source_image": "14.jpg"
+  },
+  {
+    "workout_id": 15,
+    "date": "11/11/23",
+    "location": "Bayside",
+    "course": "SCM",
+    "total_distance": 2500,
+    "sets": [
+      "300 choice",
+      "2x {2x75 Dog Paddle/Fingertip/Tarzan, 2x75 Fly/Back/Breast, 2x75 Kick on Back} all @ 1:30",
+      "6x {50 Kick w/ Board FAST @ 1:30, 3x50 Free Aerobic @ :40/:45/:50}",
+      "100 EZ"
+    ],
+    "source_image": "15.jpg"
+  }
+]
