@@ -84,9 +84,6 @@
     <div class="header">
         <div class="header-content">
             <div class="logo">🏊 Swimnerd Calculator</div>
-            <a href="race-analysis.html" style="background: #667eea; color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s;">
-                📹 Race Analysis Tool
-            </a>
             <div class="swimmer-info">
                 <div class="swimmer-name">Michael Andrew</div>
                 <div class="swimmer-id">SwimCloud ID: 123456</div>
@@ -137,7 +134,8 @@
             <div class="tab" onclick="showTab('meet-goals', this)">Meet Goals</div>
             <div class="tab" onclick="showTab('practice-goals', this)">Practice Goals</div>
             <div class="tab" onclick="showTab('progression', this)">Progression</div>
-            <div class="tab" onclick="showTab(\'chunks-15m\', this)">15m Chunks</div>
+            <div class="tab" onclick="showTab('chunks-15m', this)">15m Chunks</div>
+            <div class="tab" onclick="showTab('race-analysis', this)">🔍 Race Analysis</div>
         </div>
         
         <div id="personal-bests" class="content active">
@@ -425,6 +423,78 @@
                 </div>
                 
                 <div id="chunks-display"></div>
+            </div>
+        </div>
+        
+        <div id="race-analysis" class="content">
+            <div class="card">
+                <div class="card-title">🔍 Race Analysis</div>
+                <p style="color: #666; margin-bottom: 1.5rem;">
+                    Input actual race splits to compare against pacing models. Identify strengths and weaknesses.
+                </p>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Race Details</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Event:</label>
+                            <select id="analysis-event" onchange="updateAnalysisInputs()" style="width: 100%; padding: 0.5rem; border: 2px solid #e0e0e0; border-radius: 6px;">
+                                <optgroup label="FREESTYLE">
+                                    <option value="50-free">50 Free</option>
+                                    <option value="100-free" selected>100 Free</option>
+                                    <option value="200-free">200 Free</option>
+                                </optgroup>
+                                <optgroup label="BACKSTROKE">
+                                    <option value="50-back">50 Back</option>
+                                    <option value="100-back">100 Back</option>
+                                    <option value="200-back">200 Back</option>
+                                </optgroup>
+                                <optgroup label="BREASTSTROKE">
+                                    <option value="50-breast">50 Breast</option>
+                                    <option value="100-breast">100 Breast</option>
+                                    <option value="200-breast">200 Breast</option>
+                                </optgroup>
+                                <optgroup label="BUTTERFLY">
+                                    <option value="50-fly">50 Fly</option>
+                                    <option value="100-fly">100 Fly</option>
+                                    <option value="200-fly">200 Fly</option>
+                                </optgroup>
+                                <optgroup label="INDIVIDUAL MEDLEY">
+                                    <option value="100-im">100 IM</option>
+                                    <option value="200-im">200 IM</option>
+                                    <option value="400-im">400 IM</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Course:</label>
+                            <select id="analysis-course" onchange="updateAnalysisInputs()" style="width: 100%; padding: 0.5rem; border: 2px solid #e0e0e0; border-radius: 6px;">
+                                <option value="scy">SCY (Yards)</option>
+                                <option value="scm">SCM (25m)</option>
+                                <option value="lcm" selected>LCM (50m)</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Final Time:</label>
+                            <input type="text" id="analysis-final-time" placeholder="e.g., 49.46" style="width: 100%; padding: 0.5rem; border: 2px solid #e0e0e0; border-radius: 6px;" onchange="calculateAnalysis()">
+                        </div>
+                    </div>
+                    
+                    <div id="analysis-splits-input" style="margin-top: 1rem;">
+                        <!-- Dynamically populated split inputs -->
+                    </div>
+                    
+                    <button onclick="calculateAnalysis()" style="margin-top: 1rem; padding: 0.75rem 2rem; background: #667eea; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 1rem;">
+                        📊 Analyze Race
+                    </button>
+                </div>
+                
+                <div id="analysis-results" style="display: none;">
+                    <!-- Analysis results displayed here -->
+                </div>
             </div>
         </div>
     </div>
@@ -6713,7 +6783,339 @@
             if (document.getElementById('chunks-event-select')) {
                 updateChunksDisplay();
             }
+            // Initialize race analysis inputs
+            if (document.getElementById('analysis-event')) {
+                updateAnalysisInputs();
+            }
         });
+        
+        // Race Analysis Functions
+        function updateAnalysisInputs() {
+            const event = document.getElementById('analysis-event').value;
+            const course = document.getElementById('analysis-course').value;
+            const inputContainer = document.getElementById('analysis-splits-input');
+            
+            // Determine split structure based on event and course
+            const splits = getSplitsStructure(event, course);
+            
+            let html = '<h4 style="margin-bottom: 0.75rem; font-size: 1rem;">Enter Splits:</h4>';
+            html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem;">';
+            
+            splits.forEach(split => {
+                html += `
+                    <div>
+                        <label style="font-size: 0.85rem; color: #666; display: block; margin-bottom: 0.25rem;">${split.label}</label>
+                        <input type="text" id="split-${split.distance}" placeholder="${split.label}" 
+                               style="width: 100%; padding: 0.5rem; border: 2px solid #e0e0e0; border-radius: 6px;">
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            inputContainer.innerHTML = html;
+        }
+        
+        function getSplitsStructure(event, course) {
+            const distance = event.split('-')[0];
+            const stroke = event.split('-')[1];
+            
+            // Define split structure based on event
+            if (distance === '50') {
+                if (course === 'lcm') {
+                    return []; // No intermediate splits for 50 LCM typically
+                } else {
+                    return [
+                        { distance: '25', label: '25' }
+                    ];
+                }
+            } else if (distance === '100') {
+                return [
+                    { distance: '50', label: '50' }
+                ];
+            } else if (distance === '200') {
+                return [
+                    { distance: '50', label: '50' },
+                    { distance: '100', label: '100' },
+                    { distance: '150', label: '150' }
+                ];
+            } else if (distance === '400') {
+                return [
+                    { distance: '50', label: '50' },
+                    { distance: '100', label: '100' },
+                    { distance: '150', label: '150' },
+                    { distance: '200', label: '200' },
+                    { distance: '250', label: '250' },
+                    { distance: '300', label: '300' },
+                    { distance: '350', label: '350' }
+                ];
+            }
+            
+            return [];
+        }
+        
+        function calculateAnalysis() {
+            const event = document.getElementById('analysis-event').value;
+            const course = document.getElementById('analysis-course').value;
+            const finalTimeStr = document.getElementById('analysis-final-time').value.trim();
+            
+            if (!finalTimeStr) {
+                alert('Please enter a final time');
+                return;
+            }
+            
+            // Parse final time
+            const finalTime = parseTimeToSeconds(finalTimeStr);
+            
+            // Get actual splits from inputs
+            const splits = getSplitsStructure(event, course);
+            const actualSplits = {};
+            
+            splits.forEach(split => {
+                const input = document.getElementById(`split-${split.distance}`);
+                if (input && input.value.trim()) {
+                    actualSplits[split.distance] = parseTimeToSeconds(input.value.trim());
+                }
+            });
+            
+            // Get comparison data
+            const pbData = getPBData(event, course);
+            const modelData = getModelData(event, course);
+            
+            // Generate analysis
+            displayAnalysis(event, course, finalTime, actualSplits, pbData, modelData);
+        }
+        
+        function parseTimeToSeconds(timeStr) {
+            // Handle MM:SS.SS or SS.SS format
+            if (timeStr.includes(':')) {
+                const parts = timeStr.split(':');
+                const minutes = parseInt(parts[0]);
+                const seconds = parseFloat(parts[1]);
+                return minutes * 60 + seconds;
+            } else {
+                return parseFloat(timeStr);
+            }
+        }
+        
+        function formatTime(seconds) {
+            if (seconds >= 60) {
+                const mins = Math.floor(seconds / 60);
+                const secs = (seconds % 60).toFixed(2).padStart(5, '0');
+                return `${mins}:${secs}`;
+            } else {
+                return `${seconds.toFixed(2)}`;
+            }
+        }
+        
+        function getPBData(event, course) {
+            const eventKey = `${event}-${course}`;
+            const pbSplits = meetGoalsData[eventKey]?.personalized?.checkpoints || {};
+            const pbTime = eventData[event]?.pbs[course];
+            
+            return {
+                time: pbTime,
+                splits: pbSplits
+            };
+        }
+        
+        function getModelData(event, course) {
+            const eventKey = `${event}-${course}`;
+            const models = [];
+            
+            // Check for British model
+            if (meetGoalsData[eventKey]?.british) {
+                models.push({
+                    name: 'British',
+                    data: meetGoalsData[eventKey].british
+                });
+            }
+            
+            // Check for Australian model
+            if (meetGoalsData[eventKey]?.australian) {
+                models.push({
+                    name: 'Australian',
+                    data: meetGoalsData[eventKey].australian
+                });
+            }
+            
+            return models;
+        }
+        
+        function displayAnalysis(event, course, finalTime, actualSplits, pbData, modelData) {
+            const resultsDiv = document.getElementById('analysis-results');
+            resultsDiv.style.display = 'block';
+            
+            let html = '<h3 style="margin-bottom: 1rem; font-size: 1.3rem; color: #667eea;">📊 Race Analysis Results</h3>';
+            
+            // Overall comparison with PB
+            if (pbData.time) {
+                const delta = finalTime - pbData.time;
+                const percentDiff = ((delta / pbData.time) * 100).toFixed(2);
+                const isPB = delta <= 0;
+                
+                html += `
+                    <div style="background: ${isPB ? 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' : '#f8f9fa'}; 
+                                padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; color: ${isPB ? 'white' : '#333'};">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <div style="font-size: 0.9rem; ${isPB ? 'opacity: 0.9' : 'color: #666'};">Final Time</div>
+                                <div style="font-size: 2rem; font-weight: bold;">${formatTime(finalTime)}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 0.9rem; ${isPB ? 'opacity: 0.9' : 'color: #666'};">vs PB (${formatTime(pbData.time)})</div>
+                                <div style="font-size: 1.5rem; font-weight: bold;">
+                                    ${delta > 0 ? '+' : ''}${formatTime(Math.abs(delta))} 
+                                    <span style="font-size: 1rem;">(${delta > 0 ? '+' : ''}${percentDiff}%)</span>
+                                </div>
+                            </div>
+                            <div style="font-size: 2rem;">
+                                ${isPB ? '🎉' : delta < 1 ? '💪' : '📈'}
+                            </div>
+                        </div>
+                        ${isPB ? '<div style="margin-top: 1rem; font-weight: 600; font-size: 1.1rem;">🏆 NEW PERSONAL BEST!</div>' : ''}
+                    </div>
+                `;
+            }
+            
+            // Split-by-split analysis
+            if (Object.keys(actualSplits).length > 0) {
+                html += '<div style="background: white; border: 2px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">';
+                html += '<h4 style="margin-bottom: 1rem; font-size: 1.1rem;">Split Analysis</h4>';
+                html += '<table style="width: 100%;">';
+                html += '<thead><tr style="background: #f8f9fa;"><th style="padding: 0.75rem; text-align: left;">Distance</th><th style="padding: 0.75rem; text-align: right;">Actual</th><th style="padding: 0.75rem; text-align: right;">PB Split</th><th style="padding: 0.75rem; text-align: right;">Difference</th></tr></thead>';
+                html += '<tbody>';
+                
+                let prevActual = 0;
+                let prevPB = 0;
+                
+                Object.keys(actualSplits).sort((a, b) => parseInt(a) - parseInt(b)).forEach(distance => {
+                    const actualCum = actualSplits[distance];
+                    const actualSplit = actualCum - prevActual;
+                    
+                    // Find PB split
+                    const pbKey = distance + (course === 'scy' ? 'y' : 'm');
+                    const pbCum = pbData.splits[pbKey] ? parseTimeToSeconds(pbData.splits[pbKey]) : null;
+                    
+                    if (pbCum !== null) {
+                        const pbSplit = pbCum - prevPB;
+                        const splitDiff = actualSplit - pbSplit;
+                        const diffPercent = ((splitDiff / pbSplit) * 100).toFixed(1);
+                        
+                        const isFaster = splitDiff < 0;
+                        const bgColor = isFaster ? '#e7f9f0' : (splitDiff > 0.3 ? '#ffe7e7' : '#f8f9fa');
+                        
+                        html += `
+                            <tr style="background: ${bgColor};">
+                                <td style="padding: 0.75rem; font-weight: 600;">${distance}</td>
+                                <td style="padding: 0.75rem; text-align: right;">${formatTime(actualSplit)}</td>
+                                <td style="padding: 0.75rem; text-align: right;">${formatTime(pbSplit)}</td>
+                                <td style="padding: 0.75rem; text-align: right; font-weight: 600; color: ${isFaster ? '#10b981' : '#ef4444'};">
+                                    ${splitDiff > 0 ? '+' : ''}${formatTime(Math.abs(splitDiff))} 
+                                    <span style="font-size: 0.85rem;">(${splitDiff > 0 ? '+' : ''}${diffPercent}%)</span>
+                                    ${isFaster ? '⚡' : '🐢'}
+                                </td>
+                            </tr>
+                        `;
+                        
+                        prevPB = pbCum;
+                    }
+                    
+                    prevActual = actualCum;
+                });
+                
+                html += '</tbody></table>';
+                html += '</div>';
+            }
+            
+            // Strengths & Weaknesses Summary
+            html += generateInsights(actualSplits, pbData, finalTime, course);
+            
+            resultsDiv.innerHTML = html;
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        
+        function generateInsights(actualSplits, pbData, finalTime, course) {
+            const strengths = [];
+            const weaknesses = [];
+            
+            let prevActual = 0;
+            let prevPB = 0;
+            let fastestSegment = null;
+            let slowestSegment = null;
+            let maxDiff = -Infinity;
+            let minDiff = Infinity;
+            
+            Object.keys(actualSplits).sort((a, b) => parseInt(a) - parseInt(b)).forEach(distance => {
+                const actualCum = actualSplits[distance];
+                const actualSplit = actualCum - prevActual;
+                
+                const pbKey = distance + (course === 'scy' ? 'y' : 'm');
+                const pbCum = pbData.splits[pbKey] ? parseTimeToSeconds(pbData.splits[pbKey]) : null;
+                
+                if (pbCum !== null) {
+                    const pbSplit = pbCum - prevPB;
+                    const splitDiff = actualSplit - pbSplit;
+                    
+                    if (splitDiff < minDiff) {
+                        minDiff = splitDiff;
+                        fastestSegment = { distance, diff: splitDiff };
+                    }
+                    
+                    if (splitDiff > maxDiff) {
+                        maxDiff = splitDiff;
+                        slowestSegment = { distance, diff: splitDiff };
+                    }
+                    
+                    prevPB = pbCum;
+                }
+                
+                prevActual = actualCum;
+            });
+            
+            let html = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">';
+            
+            // Strengths
+            html += '<div style="background: #e7f9f0; border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 8px;">';
+            html += '<h4 style="color: #10b981; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1.5rem;">💪</span> Strengths</h4>';
+            
+            if (fastestSegment && fastestSegment.diff < -0.1) {
+                html += `<div style="margin-bottom: 0.75rem;">✅ <strong>Best split:</strong> ${fastestSegment.distance}m (${formatTime(Math.abs(fastestSegment.diff))} faster)</div>`;
+            }
+            
+            if (Object.keys(actualSplits).length >= 3) {
+                html += `<div style="margin-bottom: 0.75rem;">✅ <strong>Consistent pacing:</strong> ${Object.keys(actualSplits).length} splits recorded</div>`;
+            }
+            
+            if (pbData.time && finalTime - pbData.time < 0.5) {
+                html += `<div>✅ <strong>Near-PB performance</strong></div>`;
+            }
+            
+            html += '</div>';
+            
+            // Weaknesses
+            html += '<div style="background: #ffe7e7; border-left: 4px solid #ef4444; padding: 1.5rem; border-radius: 8px;">';
+            html += '<h4 style="color: #ef4444; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1.5rem;">🎯</span> Focus Areas</h4>';
+            
+            if (slowestSegment && slowestSegment.diff > 0.3) {
+                html += `<div style="margin-bottom: 0.75rem;">⚠️ <strong>Weakest split:</strong> ${slowestSegment.distance}m (${formatTime(slowestSegment.diff)} slower)</div>`;
+            }
+            
+            // Check for negative splitting
+            const splitKeys = Object.keys(actualSplits).sort((a, b) => parseInt(a) - parseInt(b));
+            if (splitKeys.length >= 2) {
+                const firstHalf = actualSplits[splitKeys[0]];
+                const secondHalf = actualSplits[splitKeys[splitKeys.length - 1]] - actualSplits[splitKeys[Math.floor(splitKeys.length / 2) - 1]];
+                
+                if (secondHalf > firstHalf * 1.1) {
+                    html += `<div style="margin-bottom: 0.75rem;">⚠️ <strong>Died in back half</strong> - work on closing speed</div>`;
+                }
+            }
+            
+            html += '</div>';
+            html += '</div>';
+            
+            return html;
+        }
         
     </script>
 </body>
