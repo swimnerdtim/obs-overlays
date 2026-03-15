@@ -5678,14 +5678,14 @@
             
             // Show/hide event selector
             const selector = document.getElementById('event-selector');
-            if (tabName === 'personal-bests') {
+            if (tabName === 'personal-bests' || tabName === 'race-analysis') {
                 selector.classList.remove('show');
             } else {
                 selector.classList.add('show');
             }
             
             // Update content when switching tabs
-            if (tabName !== 'personal-bests') {
+            if (tabName !== 'personal-bests' && tabName !== 'race-analysis') {
                 updateData();
             }
         }
