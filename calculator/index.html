@@ -130,12 +130,12 @@
         </div>
         
         <div class="tabs">
-            <div class="tab active" onclick="showTab('personal-bests', this)">Personal Bests</div>
-            <div class="tab" onclick="showTab('meet-goals', this)">Meet Goals</div>
-            <div class="tab" onclick="showTab('practice-goals', this)">Practice Goals</div>
-            <div class="tab" onclick="showTab('progression', this)">Progression</div>
-            <div class="tab" onclick="showTab('chunks15m', this)">15m Chunks</div>
-            <div class="tab" onclick="showTab('workouts', this)">Workouts</div>
+            <div class="tab active" data-tab="personal-bests">Personal Bests</div>
+            <div class="tab" data-tab="meet-goals">Meet Goals</div>
+            <div class="tab" data-tab="practice-goals">Practice Goals</div>
+            <div class="tab" data-tab="progression">Progression</div>
+            <div class="tab" data-tab="chunks15m">15m Chunks</div>
+            <div class="tab" data-tab="workouts">Workouts</div>
         </div>
         
         <div id="personal-bests" class="content active">
@@ -5853,6 +5853,16 @@
             renderWorkouts();
         }
         
+    
+        // Event delegation for tabs (avoid inline onclick)
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.tab[data-tab]').forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    showTab(this.getAttribute('data-tab'), this);
+                });
+            });
+        });
+
     </script>
 </body>
 </html>
