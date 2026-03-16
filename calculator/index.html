@@ -250,7 +250,6 @@
             <div class="tab" data-tab="meet-goals">Meet Goals</div>
             <div class="tab" data-tab="practice-goals">Practice Goals</div>
             <div class="tab" data-tab="progression">Progression</div>
-            <div class="tab" data-tab="chunks15m">15m Chunks</div>
             <div class="tab" data-tab="workouts">Workouts</div>
             <div class="tab" data-tab="race-analysis">🎬 Race Analysis</div>
         </div>
@@ -518,34 +517,6 @@
         </div>
         <div id="progression" class="content"><div class="card"><div class="card-title">Progression</div><div id="progression-content"></div></div></div>
     </div>
-        <div id="chunks15m" class="content">
-            <div class="card">
-                <div class="card-title">15m Chunks Speed Chart - 100 LCM</div>
-                <p style="color: #666; margin-bottom: 1.5rem;">
-                    Ultra-detailed pacing for 100m events showing 15m splits. Gender neutral model.
-                </p>
-                
-                <div style="margin-bottom: 1.5rem;">
-                    <select id="chunks-stroke" onchange="showChunks()" style="padding: 0.75rem; font-size: 1rem; border-radius: 6px;">
-                        <option value="free">100 Free LCM</option>
-                        <option value="back">100 Back LCM</option>
-                        <option value="breast">100 Breast LCM</option>
-                        <option value="fly">100 Fly LCM</option>
-                    </select>
-                    
-                    <select id="chunks-time" onchange="showChunks()" style="padding: 0.75rem; font-size: 1rem; border-radius: 6px; margin-left: 1rem;">
-                        <option value="50">50.0s</option>
-                        <option value="52">52.0s</option>
-                        <option value="54">54.0s</option>
-                        <option value="56">56.0s</option>
-                        <option value="58">58.0s</option>
-                    </select>
-                </div>
-                
-                <div id="chunks-result"></div>
-            </div>
-        </div>
-
         <div id="workouts" class="content">
             <div class="card">
                 <div class="card-title">Masters Workouts Library</div>
@@ -5979,66 +5950,9 @@
         
         updateData();
 
-        function showChunks() {
-            const stroke = document.getElementById('chunks-stroke').value;
-            const time = parseFloat(document.getElementById('chunks-time').value);
-            
-            // Simple hardcoded data for 50.0s (base)
-            const base = {
-                free: {start: 6.11, turn: 7.30, finish: 8.00},
-                back: {start: 5.86, turn: 6.82, finish: 8.15},
-                breast: {start: 5.22, turn: 7.19, finish: 8.29},
-                fly: {start: 5.57, turn: 7.51, finish: 8.11}
-            };
-            
-            // Scale to selected time
-            const scale = time / 50.0;
-            const data = base[stroke];
-            const scaled = {
-                start: (data.start * scale).toFixed(2),
-                turn: (data.turn * scale).toFixed(2),
-                finish: (data.finish * scale).toFixed(2)
-            };
-            
-            const html = `
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
-                    <div style="font-size: 2.5rem; font-weight: bold;">${time.toFixed(1)}s</div>
-                    <div style="opacity: 0.9; margin-top: 0.5rem;">100 ${stroke.charAt(0).toUpperCase() + stroke.slice(1)} LCM</div>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-                    <div style="background: #e7f3ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #667eea;">
-                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">15m FROM START</div>
-                        <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${scaled.start}s</div>
-                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">Underwater + breakout</div>
-                    </div>
-                    
-                    <div style="background: #fff4e6; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f59e0b;">
-                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">15m TURN OUT</div>
-                        <div style="font-size: 2rem; font-weight: bold; color: #f59e0b;">${scaled.turn}s</div>
-                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">7.5m in + 7.5m out</div>
-                    </div>
-                    
-                    <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #10b981;">
-                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">15m TO FINISH</div>
-                        <div style="font-size: 2rem; font-weight: bold; color: #10b981;">${scaled.finish}s</div>
-                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">Final sprint to touch</div>
-                    </div>
-                </div>
-                
-                <div style="background: #e7f3ff; padding: 1rem; border-radius: 6px; margin-top: 1.5rem; font-size: 0.9rem;">
-                    <strong>💡 How to use:</strong> Compare your actual 15m splits to these targets to identify weak spots in underwater efficiency, turn execution, and finish sprint.
-                </div>
-            `;
-            
-            document.getElementById('chunks-result').innerHTML = html;
-        }
         
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            if (document.getElementById('chunks-stroke')) {
-                showChunks();
-            }
             
             // Setup workout search
             const searchInput = document.getElementById('workout-search');
