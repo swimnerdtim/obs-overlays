@@ -5867,22 +5867,34 @@
         };
         
         function showTab(tabName, clickedTab) {
-            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            clickedTab.classList.add('active');
-            
-            // Show/hide event selector
-            const selector = document.getElementById('event-selector');
-            if (tabName === 'personal-bests') {
-                selector.classList.remove('show');
-            } else {
-                selector.classList.add('show');
-            }
-            
-            // Update content when switching tabs
-            if (tabName !== 'personal-bests') {
-                updateData();
+            console.log('[DEBUG] showTab called:', tabName, clickedTab);
+            try {
+                document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                const targetContent = document.getElementById(tabName);
+                console.log('[DEBUG] Target content element:', targetContent);
+                if (!targetContent) {
+                    console.error('[ERROR] Could not find content element:', tabName);
+                    return;
+                }
+                targetContent.classList.add('active');
+                clickedTab.classList.add('active');
+                
+                // Show/hide event selector
+                const selector = document.getElementById('event-selector');
+                if (tabName === 'personal-bests') {
+                    selector.classList.remove('show');
+                } else {
+                    selector.classList.add('show');
+                }
+                
+                // Update content when switching tabs
+                if (tabName !== 'personal-bests') {
+                    updateData();
+                }
+                console.log('[DEBUG] showTab completed successfully');
+            } catch (error) {
+                console.error('[ERROR] showTab failed:', error);
             }
         }
         
