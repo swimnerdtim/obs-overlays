@@ -78,6 +78,103 @@
             .card { box-shadow: none; padding: 0; }
             #training-zones-content { display: block !important; }
         }
+    
+/* Video Timing Tool Styles */
+        .card-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #333; }
+        .video-container { margin-bottom: 2rem; }
+        .video-controls { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .video-input { flex: 1; min-width: 300px; }
+        input[type="text"], input[type="file"], select { padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; width: 100%; }
+        input:focus, select:focus { outline: none; border-color: #667eea; }
+        button { padding: 0.75rem 1.5rem; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        button:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
+        button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+        video { width: 100%; max-height: 500px; background: #000; border-radius: 8px; }
+        .race-setup { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .form-group { display: flex; flex-direction: column; }
+        label { font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem; }
+        .timing-interface { display: none; }
+        .timing-interface.active { display: block; }
+        .main-timing-btn { 
+            width: 100%; 
+            padding: 4rem 2rem; 
+            font-size: 2rem; 
+            font-weight: bold; 
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border-radius: 16px; 
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.3);
+            transition: all 0.2s;
+            position: relative;
+        }
+        .main-timing-btn:hover:not(:disabled) { 
+            transform: scale(1.02); 
+            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.4);
+        }
+        .main-timing-btn:active:not(:disabled) { 
+            transform: scale(0.98); 
+        }
+        .main-timing-btn.cycle { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+        }
+        .main-timing-btn .hint { 
+            font-size: 0.9rem; 
+            opacity: 0.9; 
+            margin-top: 0.5rem; 
+            font-weight: normal;
+        }
+        .main-timing-btn .cycle-count {
+            font-size: 1.2rem;
+            margin-top: 0.5rem;
+            opacity: 0.9;
+        }
+        .optional-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .optional-btn {
+            flex: 1;
+            min-width: 150px;
+            padding: 1rem;
+            background: #6c757d;
+            font-size: 0.9rem;
+        }
+        .optional-btn:disabled {
+            opacity: 0.3;
+        }
+        .timer-display { font-size: 3rem; font-weight: bold; text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; margin-bottom: 2rem; font-family: 'Courier New', monospace; }
+        .instruction-box { background: #e7f3ff; border-left: 4px solid #667eea; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 1.1rem; }
+        .instruction-box strong { color: #667eea; }
+        .live-data { background: #f8f9fa; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+        .lap-section { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid #dee2e6; }
+        .lap-section:last-child { border-bottom: none; margin-bottom: 0; }
+        .lap-header { font-size: 1.2rem; font-weight: 600; color: #667eea; margin-bottom: 1rem; }
+        .lap-data { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
+        .data-item { background: white; padding: 0.75rem; border-radius: 6px; }
+        .data-label { font-size: 0.75rem; color: #666; margin-bottom: 0.25rem; }
+        .data-value { font-size: 1.1rem; font-weight: 600; color: #333; }
+        .results-section { display: none; }
+        .results-section.active { display: block; }
+        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+        .metric-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 8px; text-align: center; }
+        .metric-label { font-size: 0.9rem; opacity: 0.9; margin-bottom: 0.5rem; }
+        .metric-value { font-size: 2rem; font-weight: bold; }
+        .metric-unit { font-size: 0.8rem; opacity: 0.9; margin-top: 0.25rem; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th { background: #f8f9fa; padding: 0.75rem; text-align: left; font-weight: 600; border-bottom: 2px solid #dee2e6; font-size: 0.9rem; }
+        td { padding: 0.75rem; border-bottom: 1px solid #f0f0f0; }
+        tr:hover { background: #f8f9fa; }
+        .status-indicator { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+        .status-timing { background: #fff3cd; color: #856404; }
+        .spacebar-hint {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -427,61 +524,153 @@
         </div>
         
         <div id="race-analysis" class="content">
-            <div class="card">
-                <div class="card-title">🔍 Race Analysis</div>
-                <p style="color: #666; margin-bottom: 1.5rem;">
-                    Input actual race splits to compare against pacing models. Identify strengths and weaknesses.
-                </p>
-                
-                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                    <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">Race Details</h3>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
-                        <div>
-                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Event:</label>
-                            <select id="analysis-event" onchange="updateAnalysisInputs()" style="width: 100%; padding: 0.5rem; border: 2px solid #e0e0e0; border-radius: 6px;">
-                                <optgroup label="FREESTYLE">
-                                    <option value="50-free">50 Free</option>
-                                    <option value="100-free" selected>100 Free</option>
-                                    <option value="200-free">200 Free</option>
-                                </optgroup>
-                                <optgroup label="BACKSTROKE">
-                                    <option value="50-back">50 Back</option>
-                                    <option value="100-back">100 Back</option>
-                                    <option value="200-back">200 Back</option>
-                                </optgroup>
-                                <optgroup label="BREASTSTROKE">
-                                    <option value="50-breast">50 Breast</option>
-                                    <option value="100-breast">100 Breast</option>
-                                    <option value="200-breast">200 Breast</option>
-                                </optgroup>
-                                <optgroup label="BUTTERFLY">
-                                    <option value="50-fly">50 Fly</option>
-                                    <option value="100-fly">100 Fly</option>
-                                    <option value="200-fly">200 Fly</option>
-                                </optgroup>
-                                <optgroup label="INDIVIDUAL MEDLEY">
-                                    <option value="100-im">100 IM</option>
-                                    <option value="200-im">200 IM</option>
-                                    <option value="400-im">400 IM</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Course:</label>
-                            <select id="analysis-course" onchange="updateAnalysisInputs()" style="width: 100%; padding: 0.5rem; border: 2px solid #e0e0e0; border-radius: 6px;">
-                                <option value="scy">SCY (Yards)</option>
-                                <option value="scm">SCM (25m)</option>
-                                <option value="lcm" selected>LCM (50m)</option>
-                            </select>
-                        </div>
-                        
-                        <div>
-                            <label style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Final Time:</label>
-                            <input type="text" id="analysis-final-time" placeholder="e.g., 49.46" style="width: 100%; padding: 0.5rem; border: 2px solid #e0e0e0; border-radius: 6px;" onchange="calculateAnalysis()">
-                        </div>
+<div class="card"><div class="card-title">🎬 Video Race Analysis</div>
+            
+            <!-- Video Upload/URL -->
+            <div class="video-container">
+                <div class="video-controls">
+                    <div class="video-input">
+                        <input type="text" id="video-url" placeholder="Paste YouTube URL or video file URL...">
                     </div>
+                    <input type="file" id="video-file" accept="video/*" style="display:none;">
+                    <button onclick="document.getElementById('video-file').click()">Upload Video</button>
+                    <button onclick="loadVideo()">Load Video</button>
+                </div>
+                <video id="race-video" controls></video>
+            </div>
+            
+            <!-- Race Setup -->
+            <div class="instruction-box">
+                <strong>Simple timing:</strong> Just click the big button (or press SPACEBAR) at each key moment. The app knows what you're timing!
+            </div>
+            
+            <div class="race-setup">
+                <div class="form-group">
+                    <label>Event</label>
+                    <select id="event">
+                        <option value="50-free">50 Free</option>
+                        <option value="100-free">100 Free</option>
+                        <option value="200-free">200 Free</option>
+                        <option value="400-free">400 Free</option>
+                        <option value="800-free">800 Free</option>
+                        <option value="1500-free">1500 Free</option>
+                        <option value="50-back">50 Back</option>
+                        <option value="100-back">100 Back</option>
+                        <option value="200-back">200 Back</option>
+                        <option value="50-breast">50 Breast</option>
+                        <option value="100-breast">100 Breast</option>
+                        <option value="200-breast">200 Breast</option>
+                        <option value="50-fly">50 Fly</option>
+                        <option value="100-fly">100 Fly</option>
+                        <option value="200-fly">200 Fly</option>
+                        <option value="200-im">200 IM</option>
+                        <option value="400-im">400 IM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Pool</label>
+                    <select id="pool">
+                        <option value="scy">SCY (25 yards)</option>
+                        <option value="scm">SCM (25 meters)</option>
+                        <option value="lcm">LCM (50 meters)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Swimmer Name</label>
+                    <input type="text" id="swimmer-name" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label>Meet/Date</label>
+                    <input type="text" id="meet-name" placeholder="Meet name (optional)">
+                </div>
+            </div>
+            
+            <button onclick="startRace()" id="start-race-btn" style="width: 100%; padding: 1.5rem; font-size: 1.3rem;">
+                🏁 Ready to Time Race
+            </button>
+        </div>
+        
+        <!-- Timing Interface - SIMPLIFIED -->
+        <div class="card timing-interface" id="timing-interface">
+            <div class="card-title">
+                Timing: <span id="current-lap">Lap 1</span> 
+                <span class="status-indicator status-timing" id="status">TIMING</span>
+            </div>
+            
+            <div class="timer-display" id="timer">0:00.00</div>
+            
+            <div class="instruction-box" id="instruction">
+                Ready to start timing
+            </div>
+            
+            <!-- THREE MAIN BUTTONS -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                <button class="main-timing-btn" id="main-btn" onclick="handleMainButton()">
+                    <div id="btn-text">START RACE</div>
+                    <div class="hint" id="btn-hint">Starting signal or dive</div>
+                </button>
+                
+                <button class="main-timing-btn cycle" id="cycle-btn" onclick="handleCycle()" disabled style="font-size: 1.5rem;">
+                    <div>CYCLE</div>
+                    <div class="cycle-count" id="cycle-info">0 cycles</div>
+                </button>
+                
+                <button class="main-timing-btn" id="turn-btn" onclick="handleTurn()" disabled style="font-size: 1.5rem; background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);">
+                    <div id="turn-text">TURN</div>
+                    <div class="hint" id="turn-hint" style="font-size: 0.75rem;">Flags in/out</div>
+                </button>
+            </div>
+            
+            <div class="spacebar-hint">💡 SPACEBAR = main | C = cycle | T = turn flags</div>
+            
+            <!-- Optional timing buttons (smaller) -->
+            <div class="optional-buttons">
+                <button class="optional-btn" id="opt-15m" onclick="handleOptional('15m')" disabled>
+                    📏 15M Mark<br><small>(underwater distance)</small>
+                </button>
+                <button class="optional-btn" id="opt-turn" onclick="handleOptional('turn')" disabled>
+                    🔄 Turn In<br><small>(5m before wall)</small>
+                </button>
+                <button class="optional-btn" id="opt-10m" onclick="handleOptional('10m')" disabled>
+                    🏁 10M Finish<br><small>(last lap only)</small>
+                </button>
+            </div>
+            
+            <button onclick="resetRace()" style="background: #dc3545; width: 100%;">🔄 Reset Race</button>
+            
+            <!-- Live Data Display -->
+            <div class="live-data" id="live-data"></div>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="card results-section" id="results-section">
+            <div class="card-title">📊 Race Analysis Results</div>
+            
+            <div class="metric-grid" id="summary-metrics"></div>
+            
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>Lap</th>
+                        <th>Split</th>
+                        <th>Break (s)</th>
+                        <th>Break Dist (m)</th>
+                        <th>Turn Approach (s)</th>
+                        <th>Turn Push-off (s)</th>
+                        <th>Tempo (c/min)</th>
+                        <th>DPC (m)</th>
+                        <th>Velocity (m/s)</th>
+                        <th>Drop-off</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body"></tbody>
+            </table>
+            
+            <button onclick="exportResults()" style="margin-top: 2rem;">💾 Export Results (CSV)</button>
+            <button onclick="startNewRace()" style="margin-top: 2rem; background: #28a745;">🔄 Analyze Another Race</button>
+        </div>
+    </div>
+        </div>
                     
                     <div id="analysis-splits-input" style="margin-top: 1rem;">
                         <!-- Dynamically populated split inputs -->
@@ -539,7 +728,7 @@
         };
         
         // Detailed checkpoint data from British/Australian models
-        const meetGoalsData = {"50-free-scy":{"personalized":{"pb":"18.88","checkpoints":{"50y":"18.88"}}},"100-free-scy":{"personalized":{"pb":"42.56","checkpoints":{"50y":"20.24","100y":"42.56"}}},"200-free-scy":{"personalized":{"pb":"1:37.01","checkpoints":{"50y":"21.80","100y":"46.10","150y":"71.27","200y":"97.01"}}},"50-back-scy":{"personalized":{"pb":"21.52","checkpoints":{"50y":"21.52"}}},"100-back-scy":{"personalized":{"pb":"46.5","checkpoints":{"50y":"22.60","100y":"46.50"}}},"200-back-scy":{"personalized":{"pb":"1:43.15","checkpoints":{"50y":"23.81","100y":"49.53","150y":"76.35","200y":"103.15"}}},"50-breast-scy":{"personalized":{"pb":"23.56","checkpoints":{"50y":"23.56"}}},"100-breast-scy":{"personalized":{"pb":"51.18","checkpoints":{"50y":"23.32","100y":"51.18"}}},"200-breast-scy":{"personalized":{"pb":"1:54.06","checkpoints":{"50y":"25.22","100y":"53.76","150y":"83.41","200y":"114.06"}}},"50-fly-scy":{"personalized":{"pb":"20.6","checkpoints":{"50y":"20.60"}}},"100-fly-scy":{"personalized":{"pb":"45.47","checkpoints":{"50y":"20.89","100y":"45.47"}}},"200-fly-scy":{"personalized":{"pb":"1:45.39","checkpoints":{"50y":"22.97","100y":"49.44","150y":"76.84","200y":"105.39"}}},"100-im-scy":{"personalized":{"pb":"47.34","checkpoints":{"50y":"21.38","100y":"47.34"}}},"200-im-scy":{"personalized":{"pb":"1:42.77","checkpoints":{"50y":"21.65","100y":"47.26","150y":"77.04","200y":"102.77"}}},"400-im-scy":{"personalized":{"pb":"3:49.57","checkpoints":{"50y":"23.57","100y":"50.99","150y":"80.69","200y":"108.78","250y":"140.43","300y":"172.81","350y":"201.40","400y":"229.57"}}},"100-free-scm":{"british":{"pb":"48.89","checkpoints":{"15m":"7.26","20m":"9.61","25m":"11.94","35m":"16.39","40m":"18.74","45m":"21.08","50m":"23.42","60m":"28.54","65m":"31.08","70m":"33.63","75m":"36.15","85m":"41.21","90m":"43.74","95m":"46.28","100m":"48.89"}},"personalized":{"pb":"48.89","checkpoints":{"50m":"23.14","100m":"48.89"}}},"100-back-scm":{"british":{"pb":"50.36","checkpoints":{"15m":"7.75","20m":"10.17","25m":"12.6","35m":"16.96","40m":"19.38","45m":"21.8","50m":"24.22","60m":"29.45","65m":"31.87","70m":"34.29","75m":"37.29","85m":"42.51","90m":"45.16","95m":"47.76","100m":"50.36"}},"personalized":{"pb":"50.36","checkpoints":{"50m":"24.23","100m":"50.36"}}},"100-breast-scm":{"british":{"pb":"57.24","checkpoints":{"15m":"6.59","20m":"9.57","25m":"12.32","35m":"17.9","40m":"20.86","45m":"23.82","50m":"26.65","60m":"32.41","65m":"36.32","70m":"38.78","75m":"41.72","85m":"47.69","90m":"50.88","95m":"54.08","100m":"57.24"}},"personalized":{"pb":"57.24","checkpoints":{"50m":"26.44","100m":"57.24"}}},"100-fly-scm":{"british":{"pb":"50.61","checkpoints":{"15m":"7.08","20m":"9.43","25m":"11.79","35m":"16.51","40m":"18.86","45m":"21.22","50m":"23.58","60m":"28.99","65m":"31.7","70m":"34.4","75m":"37.1","85m":"42.51","90m":"45.21","95m":"47.91","100m":"50.61"}},"personalized":{"pb":"50.61","checkpoints":{"50m":"22.97","100m":"50.61"}}},"50-free-lcm":{"australian":{"pb":"21.41","checkpoints":{"15m":"5.47","20m":"7.66","25m":"9.84","35m":"14.4","40m":"16.78","45m":"19.16","50m":"21.41"}}},"100-free-lcm":{"british":{"pb":"49.46","checkpoints":{"15m":"5.97","20m":"8.4","25m":"10.83","35m":"15.86","40m":"18.37","45m":"20.89","50m":"23.65","60m":"28.04","65m":"30.63","70m":"33.21","75m":"35.8","85m":"41.16","90m":"43.84","95m":"46.52","100m":"49.46"}},"australian":{"pb":"49.46","checkpoints":{"15m":"6.73","20m":"9.47","25m":"12.2","35m":"17.67","40m":"20.41","45m":"22.04","50m":"23.65","60m":"29.3","65m":"32.04","70m":"34.77","75m":"37.51","85m":"42.98","90m":"45.11","95m":"47.29","100m":"49.46"}},"personalized":{"pb":"49.46","checkpoints":{"50m":"23.62","100m":"49.46"}}},"200-free-lcm":{"australian":{"pb":"1:56.35","checkpoints":{"15m":"12.32","20m":"27.15","25m":"41.23","35m":"1:11.14","40m":"1:26.98","45m":"1:41.55","50m":"1:56.35"}},"personalized":{"pb":"116.35","checkpoints":{"50m":"25.62","100m":"28.94","150m":"30.81","200m":"30.98"}}},"100-back-lcm":{
+        const meetGoalsData = {"50-free-scy":{"personalized":{"pb":"18.88","checkpoints":{"50y":"18.88"}}},"100-free-scy":{"personalized":{"pb":"42.56","checkpoints":{"50y":"20.24","100y":"42.56"}}},"200-free-scy":{"personalized":{"pb":"1:37.01","checkpoints":{"50y":"21.80","100y":"46.10","150y":"71.27","200y":"97.01"}}},"50-back-scy":{"personalized":{"pb":"21.52","checkpoints":{"50y":"21.52"}}},"100-back-scy":{"personalized":{"pb":"46.5","checkpoints":{"50y":"22.60","100y":"46.50"}}},"200-back-scy":{"personalized":{"pb":"1:43.15","checkpoints":{"50y":"23.81","100y":"49.53","150y":"76.35","200y":"103.15"}}},"50-breast-scy":{"personalized":{"pb":"23.56","checkpoints":{"50y":"23.56"}}},"100-breast-scy":{"personalized":{"pb":"51.18","checkpoints":{"50y":"23.32","100y":"51.18"}}},"200-breast-scy":{"personalized":{"pb":"1:54.06","checkpoints":{"50y":"25.22","100y":"53.76","150y":"83.41","200y":"114.06"}}},"50-fly-scy":{"personalized":{"pb":"20.6","checkpoints":{"50y":"20.60"}}},"100-fly-scy":{"personalized":{"pb":"45.47","checkpoints":{"50y":"20.89","100y":"45.47"}}},"200-fly-scy":{"personalized":{"pb":"1:45.39","checkpoints":{"50y":"22.97","100y":"49.44","150y":"76.84","200y":"105.39"}}},"100-im-scy":{"personalized":{"pb":"47.34","checkpoints":{"50y":"21.38","100y":"47.34"}}},"200-im-scy":{"personalized":{"pb":"1:42.77","checkpoints":{"50y":"21.65","100y":"47.26","150y":"77.04","200y":"102.77"}}},"400-im-scy":{"personalized":{"pb":"3:49.57","checkpoints":{"50y":"23.57","100y":"50.99","150y":"80.69","200y":"108.78","250y":"140.43","300y":"172.81","350y":"201.40","400y":"229.57"}}},"100-free-scm":{"british":{"pb":"48.89","checkpoints":{"15m":"7.26","20m":"9.61","25m":"11.94","35m":"16.39","40m":"18.74","45m":"21.08","50m":"23.42","60m":"28.54","65m":"31.08","70m":"33.63","75m":"36.15","85m":"41.21","90m":"43.74","95m":"46.28","100m":"48.89"}},"personalized":{"pb":"48.89","checkpoints":{"50m":"23.14","100m":"48.89"}}},"100-back-scm":{"british":{"pb":"50.36","checkpoints":{"15m":"7.75","20m":"10.17","25m":"12.6","35m":"16.96","40m":"19.38","45m":"21.8","50m":"24.22","60m":"29.45","65m":"31.87","70m":"34.29","75m":"37.29","85m":"42.51","90m":"45.16","95m":"47.76","100m":"50.36"}},"personalized":{"pb":"50.36","checkpoints":{"50m":"24.23","100m":"50.36"}}},"100-breast-scm":{"british":{"pb":"57.24","checkpoints":{"15m":"6.59","20m":"9.57","25m":"12.32","35m":"17.9","40m":"20.86","45m":"23.82","50m":"26.65","60m":"32.41","65m":"36.32","70m":"38.78","75m":"41.72","85m":"47.69","90m":"50.88","95m":"54.08","100m":"57.24"}},"personalized":{"pb":"57.24","checkpoints":{"50m":"26.44","100m":"57.24"}}},"100-fly-scm":{"british":{"pb":"50.61","checkpoints":{"15m":"7.08","20m":"9.43","25m":"11.79","35m":"16.51","40m":"18.86","45m":"21.22","50m":"23.58","60m":"28.99","65m":"31.7","70m":"34.4","75m":"37.1","85m":"42.51","90m":"45.21","95m":"47.91","100m":"50.61"}},"personalized":{"pb":"50.61","checkpoints":{"50m":"22.97","100m":"50.61"}}},"50-free-lcm":{"australian":{"pb":"21.41","checkpoints":{"15m":"5.47","20m":"7.66","25m":"9.84","35m":"14.4","40m":"16.78","45m":"19.16","50m":"21.41"}}},"100-free-lcm":{"british":{"pb":"49.46","checkpoints":{"15m":"5.97","20m":"8.4","25m":"10.83","35m":"15.86","40m":"18.37","45m":"20.89","50m":"23.65","60m":"28.04","65m":"30.63","70m":"33.21","75m":"35.8","85m":"41.16","90m":"43.84","95m":"46.52","100m":"49.46"}},"australian":{"pb":"49.46","checkpoints":{"15m":"6.73","20m":"9.47","25m":"12.2","35m":"17.67","40m":"20.41","45m":"22.04","50m":"23.65","60m":"29.3","65m":"32.04","70m":"34.77","75m":"37.51","85m":"42.98","90m":"45.11","95m":"47.29","100m":"49.46"}},"personalized":{"pb":"49.46","checkpoints":{"50m":"23.62","100m":"49.46"}}},"200-free-lcm":{"australian":{"pb":"1:56.35","checkpoints":{"15m":"12.32","20m":"27.15","25m":"41.23","35m":"1:11.14","40m":"1:26.98","45m":"1:41.55","50m":"1:56.35"}},"personalized":{"pb":"116.35","checkpoints":{"50m":"25.62","100m":"28.94","150m":"30.81","200m":"30.98","100-free-lcm":{
     "chunks15m": {
         "name": "15m Chunks Model",
         "data": [
@@ -5678,14 +5867,14 @@
             
             // Show/hide event selector
             const selector = document.getElementById('event-selector');
-            if (tabName === 'personal-bests' || tabName === 'race-analysis') {
+            if (tabName === 'personal-bests') {
                 selector.classList.remove('show');
             } else {
                 selector.classList.add('show');
             }
             
             // Update content when switching tabs
-            if (tabName !== 'personal-bests' && tabName !== 'race-analysis') {
+            if (tabName !== 'personal-bests') {
                 updateData();
             }
         }
@@ -6784,9 +6973,7 @@
                 updateChunksDisplay();
             }
             // Initialize race analysis inputs
-            if (document.getElementById('analysis-event')) {
-                updateAnalysisInputs();
-            }
+            updateAnalysisInputs();
         });
         
         // Race Analysis Functions
@@ -7028,13 +7215,13 @@
             }
             
             // Strengths & Weaknesses Summary
-            html += generateInsights(actualSplits, pbData, finalTime, course);
+            html += generateInsights(actualSplits, pbData, finalTime);
             
             resultsDiv.innerHTML = html;
             resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
         
-        function generateInsights(actualSplits, pbData, finalTime, course) {
+        function generateInsights(actualSplits, pbData, finalTime) {
             const strengths = [];
             const weaknesses = [];
             
@@ -7049,7 +7236,7 @@
                 const actualCum = actualSplits[distance];
                 const actualSplit = actualCum - prevActual;
                 
-                const pbKey = distance + (course === 'scy' ? 'y' : 'm');
+                const pbKey = distance + 'y'; // Simplified for now
                 const pbCum = pbData.splits[pbKey] ? parseTimeToSeconds(pbData.splits[pbKey]) : null;
                 
                 if (pbCum !== null) {
@@ -7117,6 +7304,568 @@
             return html;
         }
         
+    
+
+/* Video Timing Tool JavaScript */
+
+        // Race state machine
+        let raceState = {
+            phase: 'setup', // setup, start, break, swimming
+            status: 'setup',
+            startTime: null,
+            currentLap: 1,
+            totalLaps: 0,
+            lapDistance: 0,
+            event: null,
+            pool: null,
+            data: { laps: [] },
+            currentLapData: {},
+            lastButtonTime: null,
+            cycleCount: 0,
+            cycleTimes: [],
+            minCycles: 3,
+            turnClickCount: 0
+        };
+        
+        // Event configurations
+        const eventConfig = {
+            '50-free': { distance: 50, laps: { scy: 2, scm: 2, lcm: 1 } },
+            '100-free': { distance: 100, laps: { scy: 4, scm: 4, lcm: 2 } },
+            '200-free': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
+            '400-free': { distance: 400, laps: { scy: 16, scm: 16, lcm: 8 } },
+            '800-free': { distance: 800, laps: { scy: 32, scm: 32, lcm: 16 } },
+            '1500-free': { distance: 1500, laps: { scy: 60, scm: 60, lcm: 30 } },
+            '50-back': { distance: 50, laps: { scy: 2, scm: 2, lcm: 1 } },
+            '100-back': { distance: 100, laps: { scy: 4, scm: 4, lcm: 2 } },
+            '200-back': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
+            '50-breast': { distance: 50, laps: { scy: 2, scm: 2, lcm: 1 } },
+            '100-breast': { distance: 100, laps: { scy: 4, scm: 4, lcm: 2 } },
+            '200-breast': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
+            '50-fly': { distance: 50, laps: { scy: 2, scm: 2, lcm: 1 } },
+            '100-fly': { distance: 100, laps: { scy: 4, scm: 4, lcm: 2 } },
+            '200-fly': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
+            '200-im': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
+            '400-im': { distance: 400, laps: { scy: 16, scm: 16, lcm: 8 } }
+        };
+        
+        // Keyboard support - prevent video pause
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                // Always prevent default to stop video pause
+                if (raceState.status === 'timing' || document.getElementById('timing-interface').classList.contains('active')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+                // Trigger timing if active
+                if (raceState.status === 'timing') {
+                    handleMainButton();
+                }
+            } else if (e.code === 'KeyC') {
+                // C key for cycles
+                if (raceState.status === 'timing' && raceState.phase === 'swimming') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleCycle();
+                }
+            } else if (e.code === 'KeyT') {
+                // T key for turn flags
+                if (raceState.status === 'timing' && raceState.phase === 'swimming') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleTurn();
+                }
+            }
+        }, true); // Use capture phase to intercept before video gets it
+        
+        // Also prevent spacebar on video element directly
+        document.getElementById('race-video').addEventListener('keydown', function(e) {
+            if (e.code === 'Space' && raceState.status === 'timing') {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+        
+        // Load video
+        function loadVideo() {
+            const url = document.getElementById('video-url').value.trim();
+            const fileInput = document.getElementById('video-file');
+            const video = document.getElementById('race-video');
+            
+            if (url) {
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    alert('YouTube direct embedding requires API. Please download the video first or use a direct video URL.');
+                    return;
+                }
+                video.src = url;
+            } else if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                video.src = URL.createObjectURL(file);
+            } else {
+                alert('Please provide a video URL or upload a file.');
+            }
+        }
+        
+        document.getElementById('video-file').addEventListener('change', function() {
+            loadVideo();
+        });
+        
+        // Start race
+        function startRace() {
+            const event = document.getElementById('event').value;
+            const pool = document.getElementById('pool').value;
+            
+            if (!event || !pool) {
+                alert('Please select event and pool type.');
+                return;
+            }
+            
+            raceState.event = event;
+            raceState.pool = pool;
+            raceState.totalLaps = eventConfig[event].laps[pool];
+            raceState.lapDistance = pool === 'lcm' ? 50 : 25;
+            if (pool === 'scy') raceState.lapDistance = 22.86;
+            
+            raceState.status = 'timing';
+            raceState.phase = 'start';
+            raceState.currentLap = 1;
+            raceState.data.laps = [];
+            
+            document.getElementById('timing-interface').classList.add('active');
+            document.getElementById('start-race-btn').style.display = 'none';
+            
+            // Blur video so spacebar doesn't pause it
+            document.getElementById('race-video').blur();
+            
+            updateButton();
+        }
+        
+        // Main button handler - START → BREAK → SPLIT progression
+        function handleMainButton() {
+            const now = performance.now();
+            
+            if (raceState.phase === 'start') {
+                // Race start
+                raceState.startTime = now;
+                raceState.lastButtonTime = now;
+                raceState.currentLapData = {
+                    lap: raceState.currentLap,
+                    startTime: now,
+                    cycles: []
+                };
+                startTimer();
+                raceState.phase = 'break';
+                
+                // Enable 15m optional on first lap
+                if (raceState.currentLap === 1) {
+                    document.getElementById('opt-15m').disabled = false;
+                }
+                
+            } else if (raceState.phase === 'break') {
+                // Head breaks surface
+                const elapsed = (now - raceState.lastButtonTime) / 1000;
+                raceState.currentLapData.breakTime = elapsed;
+                raceState.lastButtonTime = now;
+                raceState.phase = 'swimming';
+                raceState.cycleCount = 0;
+                raceState.cycleTimes = [];
+                raceState.turnClickCount = 0;
+                
+                // Enable cycle and turn buttons
+                document.getElementById('cycle-btn').disabled = false;
+                document.getElementById('turn-btn').disabled = false;
+                document.getElementById('turn-text').textContent = 'FLAGS IN';
+                document.getElementById('turn-hint').textContent = '5m before wall';
+                
+                // Enable turn in optional
+                document.getElementById('opt-turn').disabled = false;
+                
+            } else if (raceState.phase === 'swimming') {
+                // Wall touch - lap complete
+                const lapTime = (now - raceState.currentLapData.startTime) / 1000;
+                raceState.currentLapData.lapTime = lapTime;
+                raceState.currentLapData.cumulativeTime = (now - raceState.startTime) / 1000;
+                
+                // Calculate turn time if recorded
+                if (raceState.currentLapData.turnInTime) {
+                    raceState.currentLapData.turnTime = lapTime - raceState.currentLapData.turnInTime;
+                }
+                
+                // Calculate cycle metrics
+                if (raceState.cycleTimes.length > 0) {
+                    const avgCycleTime = raceState.cycleTimes.reduce((a, b) => a + b, 0) / raceState.cycleTimes.length;
+                    raceState.currentLapData.avgCycleTime = avgCycleTime;
+                    raceState.currentLapData.cyclesPerMinute = 60 / avgCycleTime;
+                    raceState.currentLapData.cycleCount = raceState.cycleCount;
+                }
+                
+                // Save lap
+                raceState.data.laps.push({...raceState.currentLapData});
+                updateLiveData();
+                
+                // Check if race complete
+                if (raceState.currentLap >= raceState.totalLaps) {
+                    finishRace();
+                    return;
+                }
+                
+                // Next lap
+                raceState.currentLap++;
+                raceState.currentLapData = {
+                    lap: raceState.currentLap,
+                    startTime: now
+                };
+                raceState.lastButtonTime = now;
+                raceState.phase = 'break';
+                
+                document.getElementById('current-lap').textContent = `Lap ${raceState.currentLap}`;
+                
+                // Disable cycle, turn, and optional buttons
+                document.getElementById('cycle-btn').disabled = true;
+                document.getElementById('turn-btn').disabled = true;
+                document.getElementById('opt-15m').disabled = true;
+                document.getElementById('opt-turn').disabled = true;
+                
+                // Enable 10m on last lap
+                if (raceState.currentLap === raceState.totalLaps) {
+                    document.getElementById('opt-10m').disabled = false;
+                }
+            }
+            
+            updateButton();
+        }
+        
+        // Separate cycle button handler
+        function handleCycle() {
+            if (raceState.phase !== 'swimming') return;
+            
+            const now = performance.now();
+            const cycleTime = (now - raceState.lastButtonTime) / 1000;
+            raceState.cycleTimes.push(cycleTime);
+            raceState.lastButtonTime = now;
+            raceState.cycleCount++;
+            
+            // Update cycle counter
+            document.getElementById('cycle-info').textContent = `${raceState.cycleCount} cycles`;
+            
+            // Update instruction
+            if (raceState.cycleCount < raceState.minCycles) {
+                document.getElementById('instruction').innerHTML = 
+                    `<strong>Keep tapping CYCLE:</strong> ${raceState.minCycles - raceState.cycleCount} more needed (then click SPLIT)`;
+            } else {
+                document.getElementById('instruction').innerHTML = 
+                    '<strong>Ready!</strong> Click main button when hands touch wall';
+            }
+        }
+        
+        // Turn timing handler (flags in → flags out)
+        function handleTurn() {
+            if (raceState.phase !== 'swimming') return;
+            
+            const now = performance.now();
+            const elapsed = (now - raceState.currentLapData.startTime) / 1000;
+            
+            if (raceState.turnClickCount === 0) {
+                // First click = flags in (5m before wall)
+                raceState.currentLapData.turnFlagsIn = elapsed;
+                raceState.turnClickCount = 1;
+                document.getElementById('turn-text').textContent = 'FLAGS OUT';
+                document.getElementById('turn-hint').textContent = 'After wall push-off';
+            } else if (raceState.turnClickCount === 1) {
+                // Second click = flags out (5m after wall)
+                raceState.currentLapData.turnFlagsOut = elapsed;
+                raceState.turnClickCount = 2;
+                document.getElementById('turn-btn').disabled = true;
+                document.getElementById('turn-text').textContent = 'TURN';
+                document.getElementById('turn-hint').textContent = 'Complete!';
+            }
+        }
+        
+        // Update button text based on phase
+        function updateButton() {
+            const btnText = document.getElementById('btn-text');
+            const btnHint = document.getElementById('btn-hint');
+            const cycleInfo = document.getElementById('cycle-info');
+            const mainBtn = document.getElementById('main-btn');
+            const instruction = document.getElementById('instruction');
+            
+            mainBtn.classList.remove('cycle');
+            cycleInfo.style.display = 'none';
+            
+            if (raceState.phase === 'start') {
+                btnText.textContent = 'START RACE';
+                btnHint.textContent = 'Starting signal or dive';
+                instruction.innerHTML = '<strong>Click when:</strong> Race starts (beep/dive)';
+                
+            } else if (raceState.phase === 'break') {
+                btnText.textContent = 'HEAD BREAKS SURFACE';
+                btnHint.textContent = 'After underwater kick';
+                instruction.innerHTML = '<strong>Click when:</strong> Swimmer\'s head comes above water';
+                
+            } else if (raceState.phase === 'swimming') {
+                btnText.textContent = 'WALL TOUCH';
+                btnHint.textContent = 'Hands/feet touch wall';
+                
+                if (raceState.cycleCount < raceState.minCycles) {
+                    instruction.innerHTML = `<strong>Tap CYCLE button:</strong> ${raceState.minCycles - raceState.cycleCount} more needed (then click this)`;
+                } else {
+                    instruction.innerHTML = '<strong>Ready!</strong> Click when hands/feet touch wall';
+                }
+            }
+        }
+        
+        // Optional timing buttons
+        function handleOptional(type) {
+            const now = performance.now();
+            
+            if (type === '15m') {
+                const elapsed = (now - raceState.currentLapData.startTime) / 1000;
+                raceState.currentLapData.mark15m = elapsed;
+                document.getElementById('opt-15m').disabled = true;
+                
+            } else if (type === 'turn') {
+                raceState.currentLapData.turnInTime = (now - raceState.currentLapData.startTime) / 1000;
+                document.getElementById('opt-turn').disabled = true;
+                
+            } else if (type === '10m') {
+                const elapsed = (now - raceState.currentLapData.startTime) / 1000;
+                raceState.currentLapData.mark10mFinish = elapsed;
+                document.getElementById('opt-10m').disabled = true;
+            }
+        }
+        
+        // Timer
+        let timerInterval;
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if (raceState.startTime) {
+                    const elapsed = (performance.now() - raceState.startTime) / 1000;
+                    document.getElementById('timer').textContent = formatTime(elapsed);
+                }
+            }, 10);
+        }
+        
+        function stopTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+        }
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            const centis = Math.floor((seconds % 1) * 100);
+            return `${mins}:${secs.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
+        }
+        
+        // Live data display
+        function updateLiveData() {
+            const container = document.getElementById('live-data');
+            container.innerHTML = '<h3 style="margin-bottom: 1rem;">Captured Data</h3>';
+            
+            raceState.data.laps.forEach((lap, index) => {
+                const lapDiv = document.createElement('div');
+                lapDiv.className = 'lap-section';
+                lapDiv.innerHTML = `
+                    <div class="lap-header">Lap ${lap.lap} - ${formatTime(lap.lapTime)}</div>
+                    <div class="lap-data">
+                        <div class="data-item">
+                            <div class="data-label">Cumulative</div>
+                            <div class="data-value">${formatTime(lap.cumulativeTime)}</div>
+                        </div>
+                        ${lap.breakTime ? `
+                        <div class="data-item">
+                            <div class="data-label">Break Time</div>
+                            <div class="data-value">${lap.breakTime.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.mark15m ? `
+                        <div class="data-item">
+                            <div class="data-label">15m Start</div>
+                            <div class="data-value">${lap.mark15m.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.cyclesPerMinute ? `
+                        <div class="data-item">
+                            <div class="data-label">Tempo</div>
+                            <div class="data-value">${lap.cyclesPerMinute.toFixed(1)} c/min</div>
+                        </div>
+                        <div class="data-item">
+                            <div class="data-label">Cycle Count</div>
+                            <div class="data-value">${lap.cycleCount}</div>
+                        </div>
+                        ` : ''}
+                        ${lap.turnFlagsIn ? `
+                        <div class="data-item">
+                            <div class="data-label">Flags In (5m)</div>
+                            <div class="data-value">${lap.turnFlagsIn.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.turnFlagsOut ? `
+                        <div class="data-item">
+                            <div class="data-label">Flags Out (5m)</div>
+                            <div class="data-value">${lap.turnFlagsOut.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.turnApproach ? `
+                        <div class="data-item">
+                            <div class="data-label">Approach (to wall)</div>
+                            <div class="data-value">${lap.turnApproach.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.turnPushOff ? `
+                        <div class="data-item">
+                            <div class="data-label">Push-off (from wall)</div>
+                            <div class="data-value">${lap.turnPushOff.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.turnTime ? `
+                        <div class="data-item">
+                            <div class="data-label">Turn Time (old)</div>
+                            <div class="data-value">${lap.turnTime.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                        ${lap.mark10mFinish ? `
+                        <div class="data-item">
+                            <div class="data-label">10m Finish</div>
+                            <div class="data-value">${lap.mark10mFinish.toFixed(2)}s</div>
+                        </div>
+                        ` : ''}
+                    </div>
+                `;
+                container.appendChild(lapDiv);
+            });
+        }
+        
+        // Finish race
+        function finishRace() {
+            stopTimer();
+            raceState.status = 'complete';
+            calculateResults();
+            document.getElementById('timing-interface').classList.remove('active');
+            document.getElementById('results-section').classList.add('active');
+            displayResults();
+        }
+        
+        // Calculate results
+        function calculateResults() {
+            raceState.data.laps.forEach((lap, index) => {
+                if (lap.breakTime) {
+                    const underwaterSpeed = 2.2;
+                    lap.breakDistance = (lap.breakTime * underwaterSpeed).toFixed(2);
+                }
+                
+                if (lap.cycleCount && lap.lapTime) {
+                    const swimDistance = raceState.lapDistance - (parseFloat(lap.breakDistance) || 0);
+                    lap.dpc = (swimDistance / lap.cycleCount).toFixed(2);
+                }
+                
+                lap.velocity = (raceState.lapDistance / lap.lapTime).toFixed(2);
+                
+                // Calculate turn metrics if flags timing was captured
+                if (lap.turnFlagsIn && lap.lapTime) {
+                    lap.turnApproach = (lap.lapTime - lap.turnFlagsIn).toFixed(2);
+                }
+                if (lap.turnFlagsOut && lap.lapTime) {
+                    lap.turnPushOff = (lap.turnFlagsOut - lap.lapTime).toFixed(2);
+                }
+                
+                if (index > 0) {
+                    const prevLap = raceState.data.laps[index - 1];
+                    lap.dropOff = (lap.lapTime - prevLap.lapTime).toFixed(2);
+                } else {
+                    lap.dropOff = '-';
+                }
+            });
+        }
+        
+        // Display results
+        function displayResults() {
+            const totalTime = raceState.data.laps[raceState.data.laps.length - 1].cumulativeTime;
+            const avgVelocity = (raceState.data.laps.reduce((sum, lap) => sum + parseFloat(lap.velocity), 0) / raceState.data.laps.length).toFixed(2);
+            const totalCycles = raceState.data.laps.reduce((sum, lap) => sum + (lap.cycleCount || 0), 0);
+            const avgTempo = raceState.data.laps.reduce((sum, lap) => sum + (lap.cyclesPerMinute || 0), 0) / raceState.data.laps.filter(lap => lap.cyclesPerMinute).length;
+            
+            document.getElementById('summary-metrics').innerHTML = `
+                <div class="metric-box">
+                    <div class="metric-label">Final Time</div>
+                    <div class="metric-value">${formatTime(totalTime)}</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Avg Velocity</div>
+                    <div class="metric-value">${avgVelocity}</div>
+                    <div class="metric-unit">m/s</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Total Strokes</div>
+                    <div class="metric-value">${totalCycles}</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Avg Tempo</div>
+                    <div class="metric-value">${avgTempo.toFixed(1)}</div>
+                    <div class="metric-unit">cycles/min</div>
+                </div>
+            `;
+            
+            const tbody = document.getElementById('results-body');
+            tbody.innerHTML = '';
+            
+            raceState.data.laps.forEach(lap => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${lap.lap}</td>
+                    <td>${formatTime(lap.lapTime)}</td>
+                    <td>${lap.breakTime ? lap.breakTime.toFixed(2) : '-'}</td>
+                    <td>${lap.breakDistance || '-'}</td>
+                    <td>${lap.turnApproach || '-'}</td>
+                    <td>${lap.turnPushOff || '-'}</td>
+                    <td>${lap.cyclesPerMinute ? lap.cyclesPerMinute.toFixed(1) : '-'}</td>
+                    <td>${lap.dpc || '-'}</td>
+                    <td>${lap.velocity}</td>
+                    <td>${lap.dropOff}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Export CSV
+        function exportResults() {
+            const event = document.getElementById('event').value;
+            const swimmer = document.getElementById('swimmer-name').value || 'Swimmer';
+            const date = new Date().toISOString().split('T')[0];
+            
+            let csv = 'Lap,Split Time,Cumulative,Break Time,Break Dist,Turn Approach,Turn Push-off,Tempo,Cycle Count,DPC,Velocity,Drop-off\n';
+            
+            raceState.data.laps.forEach(lap => {
+                csv += `${lap.lap},${formatTime(lap.lapTime)},${formatTime(lap.cumulativeTime)},`;
+                csv += `${lap.breakTime ? lap.breakTime.toFixed(2) : ''},`;
+                csv += `${lap.breakDistance || ''},`;
+                csv += `${lap.turnApproach || ''},`;
+                csv += `${lap.turnPushOff || ''},`;
+                csv += `${lap.cyclesPerMinute ? lap.cyclesPerMinute.toFixed(1) : ''},`;
+                csv += `${lap.cycleCount || ''},`;
+                csv += `${lap.dpc || ''},`;
+                csv += `${lap.velocity},`;
+                csv += `${lap.dropOff}\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${swimmer}_${event}_${date}.csv`;
+            a.click();
+        }
+        
+        // Reset
+        function resetRace() {
+            if (!confirm('Are you sure? All timing data will be lost.')) return;
+            
+            stopTimer();
+            location.reload();
+        }
+        
+        function startNewRace() {
+            resetRace();
+        }
+    
     </script>
 </body>
 </html>
