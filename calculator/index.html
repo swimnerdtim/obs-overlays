@@ -81,7 +81,7 @@
     
 
         /* Video Timing Tool Styles */
-.card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
+        .card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
         .card-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #333; }
         
         /* Video section */
@@ -545,6 +545,153 @@
         </div>
         
         <div id="race-analysis" class="content">
+<div class="card">
+            <div class="card-title">🎬 Video Race Analysis</div>
+            
+            <!-- Video Upload/URL -->
+            <div class="video-container">
+                <div class="video-controls">
+                    <div class="video-input">
+                        <input type="text" id="video-url" placeholder="Paste YouTube URL or video file URL...">
+                    </div>
+                    <input type="file" id="video-file" accept="video/*" style="display:none;">
+                    <button onclick="document.getElementById('video-file').click()">Upload Video</button>
+                    <button onclick="loadVideo()">Load Video</button>
+                </div>
+                <video id="race-video" controls></video>
+            </div>
+            
+            <!-- Race Setup -->
+            <div class="instruction-box">
+                <strong>Simple timing:</strong> Just click the big button (or press SPACEBAR) at each key moment. The app knows what you're timing!
+            </div>
+            
+            <div class="race-setup">
+                <div class="form-group">
+                    <label>Event</label>
+                    <select id="event">
+                        <option value="50-free">50 Free</option>
+                        <option value="100-free">100 Free</option>
+                        <option value="200-free">200 Free</option>
+                        <option value="400-free">400 Free</option>
+                        <option value="800-free">800 Free</option>
+                        <option value="1500-free">1500 Free</option>
+                        <option value="50-back">50 Back</option>
+                        <option value="100-back">100 Back</option>
+                        <option value="200-back">200 Back</option>
+                        <option value="50-breast">50 Breast</option>
+                        <option value="100-breast">100 Breast</option>
+                        <option value="200-breast">200 Breast</option>
+                        <option value="50-fly">50 Fly</option>
+                        <option value="100-fly">100 Fly</option>
+                        <option value="200-fly">200 Fly</option>
+                        <option value="200-im">200 IM</option>
+                        <option value="400-im">400 IM</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Pool</label>
+                    <select id="pool">
+                        <option value="scy">SCY (25 yards)</option>
+                        <option value="scm">SCM (25 meters)</option>
+                        <option value="lcm">LCM (50 meters)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Swimmer Name</label>
+                    <input type="text" id="swimmer-name" placeholder="Your name">
+                </div>
+                <div class="form-group">
+                    <label>Meet/Date</label>
+                    <input type="text" id="meet-name" placeholder="Meet name (optional)">
+                </div>
+            </div>
+            
+            <button onclick="startRace()" id="start-race-btn" style="width: 100%; padding: 1.5rem; font-size: 1.3rem;">
+                🏁 Ready to Time Race
+            </button>
+        </div>
+        
+        <!-- Timing Interface - SIMPLIFIED -->
+        <div class="card timing-interface" id="timing-interface">
+            <div class="card-title">
+                Timing: <span id="current-lap">Lap 1</span> 
+                <span class="status-indicator status-timing" id="status">TIMING</span>
+            </div>
+            
+            <div class="timer-display" id="timer">0:00.00</div>
+            
+            <div class="instruction-box" id="instruction">
+                Ready to start timing
+            </div>
+            
+            <!-- THREE MAIN BUTTONS -->
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                <button class="main-timing-btn" id="main-btn" onclick="handleMainButton()">
+                    <div id="btn-text">START RACE</div>
+                    <div class="hint" id="btn-hint">Starting signal or dive</div>
+                </button>
+                
+                <button class="main-timing-btn cycle" id="cycle-btn" onclick="handleCycle()" disabled style="font-size: 1.5rem;">
+                    <div>CYCLE</div>
+                    <div class="cycle-count" id="cycle-info">0 cycles</div>
+                </button>
+                
+                <button class="main-timing-btn" id="turn-btn" onclick="handleTurn()" disabled style="font-size: 1.5rem; background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);">
+                    <div id="turn-text">TURN</div>
+                    <div class="hint" id="turn-hint" style="font-size: 0.75rem;">Flags in/out</div>
+                </button>
+            </div>
+            
+            <div class="spacebar-hint">💡 SPACEBAR = main | C = cycle | T = turn flags</div>
+            
+            <!-- Optional timing buttons (smaller) -->
+            <div class="optional-buttons">
+                <button class="optional-btn" id="opt-15m" onclick="handleOptional('15m')" disabled>
+                    📏 15M Mark<br><small>(underwater distance)</small>
+                </button>
+                <button class="optional-btn" id="opt-turn" onclick="handleOptional('turn')" disabled>
+                    🔄 Turn In<br><small>(5m before wall)</small>
+                </button>
+                <button class="optional-btn" id="opt-10m" onclick="handleOptional('10m')" disabled>
+                    🏁 10M Finish<br><small>(last lap only)</small>
+                </button>
+            </div>
+            
+            <button onclick="resetRace()" style="background: #dc3545; width: 100%;">🔄 Reset Race</button>
+            
+            <!-- Live Data Display -->
+            <div class="live-data" id="live-data"></div>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="card results-section" id="results-section">
+            <div class="card-title">📊 Race Analysis Results</div>
+            
+            <div class="metric-grid" id="summary-metrics"></div>
+            
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>Lap</th>
+                        <th>Split</th>
+                        <th>Break (s)</th>
+                        <th>Break Dist (m)</th>
+                        <th>Turn Approach (s)</th>
+                        <th>Turn Push-off (s)</th>
+                        <th>Tempo (c/min)</th>
+                        <th>DPC (m)</th>
+                        <th>Velocity (m/s)</th>
+                        <th>Drop-off</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body"></tbody>
+            </table>
+            
+            <button onclick="exportResults()" style="margin-top: 2rem;">💾 Export Results (CSV)</button>
+            <button onclick="startNewRace()" style="margin-top: 2rem; background: #28a745;">🔄 Analyze Another Race</button>
+        </div>
+    </div>
         </div>
     </div>
     
