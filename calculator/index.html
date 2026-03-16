@@ -7383,13 +7383,16 @@
             }
         }, true); // Use capture phase to intercept before video gets it
         
-        // Also prevent spacebar on video element directly
-        document.getElementById('race-video').addEventListener('keydown', function(e) {
-            if (e.code === 'Space' && raceState.status === 'timing') {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        });
+        // Also prevent spacebar on video element directly (wait for element to exist)
+        const raceVideoEl = document.getElementById('race-video');
+        if (raceVideoEl) {
+            raceVideoEl.addEventListener('keydown', function(e) {
+                if (e.code === 'Space' && raceState.status === 'timing') {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+        }
         
         // Load video
         function loadVideo() {
@@ -7411,9 +7414,12 @@
             }
         }
         
-        document.getElementById('video-file').addEventListener('change', function() {
-            loadVideo();
-        });
+        const videoFileEl = document.getElementById('video-file');
+        if (videoFileEl) {
+            videoFileEl.addEventListener('change', function() {
+                loadVideo();
+            });
+        }
         
         // Start race
         function startRace() {
