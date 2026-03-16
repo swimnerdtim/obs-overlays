@@ -78,124 +78,6 @@
             .card { box-shadow: none; padding: 0; }
             #training-zones-content { display: block !important; }
         }
-    
-
-        /* Video Timing Tool Styles */
-        .card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.1); margin-bottom: 1.5rem; }
-        .card-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; color: #333; }
-        
-        /* Video section */
-        .video-container { margin-bottom: 2rem; }
-        .video-controls { display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
-        .video-input { flex: 1; min-width: 300px; }
-        input[type="text"], input[type="file"], select { padding: 0.75rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem; width: 100%; }
-        input:focus, select:focus { outline: none; border-color: #667eea; }
-        button { padding: 0.75rem 1.5rem; background: #667eea; color: white; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: 600; transition: all 0.3s; }
-        button:hover { background: #5568d3; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
-        button:disabled { background: #ccc; cursor: not-allowed; transform: none; }
-        
-        video { width: 100%; max-height: 500px; background: #000; border-radius: 8px; }
-        
-        /* Race setup */
-        .race-setup { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-        .form-group { display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem; }
-        
-        /* Timing interface - SIMPLIFIED */
-        .timing-interface { display: none; }
-        .timing-interface.active { display: block; }
-        
-        .main-timing-btn { 
-            width: 100%; 
-            padding: 4rem 2rem; 
-            font-size: 2rem; 
-            font-weight: bold; 
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            border-radius: 16px; 
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.3);
-            transition: all 0.2s;
-            position: relative;
-        }
-        .main-timing-btn:hover:not(:disabled) { 
-            transform: scale(1.02); 
-            box-shadow: 0 12px 32px rgba(40, 167, 69, 0.4);
-        }
-        .main-timing-btn:active:not(:disabled) { 
-            transform: scale(0.98); 
-        }
-        .main-timing-btn.cycle { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
-        }
-        .main-timing-btn .hint { 
-            font-size: 0.9rem; 
-            opacity: 0.9; 
-            margin-top: 0.5rem; 
-            font-weight: normal;
-        }
-        .main-timing-btn .cycle-count {
-            font-size: 1.2rem;
-            margin-top: 0.5rem;
-            opacity: 0.9;
-        }
-        
-        /* Optional buttons */
-        .optional-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        .optional-btn {
-            flex: 1;
-            min-width: 150px;
-            padding: 1rem;
-            background: #6c757d;
-            font-size: 0.9rem;
-        }
-        .optional-btn:disabled {
-            opacity: 0.3;
-        }
-        
-        .timer-display { font-size: 3rem; font-weight: bold; text-align: center; padding: 1.5rem; background: #f8f9fa; border-radius: 12px; margin-bottom: 2rem; font-family: 'Courier New', monospace; }
-        
-        .instruction-box { background: #e7f3ff; border-left: 4px solid #667eea; padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 1.1rem; }
-        .instruction-box strong { color: #667eea; }
-        
-        /* Live data capture */
-        .live-data { background: #f8f9fa; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
-        .lap-section { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 2px solid #dee2e6; }
-        .lap-section:last-child { border-bottom: none; margin-bottom: 0; }
-        .lap-header { font-size: 1.2rem; font-weight: 600; color: #667eea; margin-bottom: 1rem; }
-        .lap-data { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; }
-        .data-item { background: white; padding: 0.75rem; border-radius: 6px; }
-        .data-label { font-size: 0.75rem; color: #666; margin-bottom: 0.25rem; }
-        .data-value { font-size: 1.1rem; font-weight: 600; color: #333; }
-        
-        /* Results */
-        .results-section { display: none; }
-        .results-section.active { display: block; }
-        .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-        .metric-box { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.5rem; border-radius: 8px; text-align: center; }
-        .metric-label { font-size: 0.9rem; opacity: 0.9; margin-bottom: 0.5rem; }
-        .metric-value { font-size: 2rem; font-weight: bold; }
-        .metric-unit { font-size: 0.8rem; opacity: 0.9; margin-top: 0.25rem; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        th { background: #f8f9fa; padding: 0.75rem; text-align: left; font-weight: 600; border-bottom: 2px solid #dee2e6; font-size: 0.9rem; }
-        td { padding: 0.75rem; border-bottom: 1px solid #f0f0f0; }
-        tr:hover { background: #f8f9fa; }
-        
-        .status-indicator { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
-        .status-timing { background: #fff3cd; color: #856404; }
-        
-        .spacebar-hint {
-            text-align: center;
-            color: #666;
-            font-size: 0.9rem;
-            margin-top: 1rem;
-        }
     </style>
 </head>
 <body>
@@ -252,8 +134,8 @@
             <div class="tab" onclick="showTab('meet-goals', this)">Meet Goals</div>
             <div class="tab" onclick="showTab('practice-goals', this)">Practice Goals</div>
             <div class="tab" onclick="showTab('progression', this)">Progression</div>
-            <div class="tab" onclick="showTab('chunks-15m', this)">15m Chunks</div>
-            <div class="tab" onclick="showTab('race-analysis', this)">🔍 Race Analysis</div>
+            <div class="tab" onclick="showTab('chunks15m', this)">15m Chunks</div>
+            <div class="tab" onclick="showTab('workouts', this)">Workouts</div>
         </div>
         
         <div id="personal-bests" class="content active">
@@ -518,182 +400,75 @@
             </div>
         </div>
         <div id="progression" class="content"><div class="card"><div class="card-title">Progression</div><div id="progression-content"></div></div></div>
-        
-        <div id="chunks-15m" class="content">
+    </div>
+        <div id="chunks15m" class="content">
             <div class="card">
-                <div class="card-title">15m Chunks Speed Chart</div>
+                <div class="card-title">15m Chunks Speed Chart - 100 LCM</div>
                 <p style="color: #666; margin-bottom: 1.5rem;">
-                    Ultra-detailed pacing for 100 LCM events. Shows 15m splits for start, turn, and finish segments.
-                    <strong>Gender neutral model</strong> - applies to both men and women.
+                    Ultra-detailed pacing for 100m events showing 15m splits. Gender neutral model.
                 </p>
                 
-                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-                    <select id="chunks-event-select" onchange="updateChunksDisplay()" style="flex: 1; min-width: 150px;">
-                        <option value="100-free">100 Free LCM</option>
-                        <option value="100-back">100 Back LCM</option>
-                        <option value="100-breast">100 Breast LCM</option>
-                        <option value="100-fly">100 Fly LCM</option>
+                <div style="margin-bottom: 1.5rem;">
+                    <select id="chunks-stroke" onchange="showChunks()" style="padding: 0.75rem; font-size: 1rem; border-radius: 6px;">
+                        <option value="free">100 Free LCM</option>
+                        <option value="back">100 Back LCM</option>
+                        <option value="breast">100 Breast LCM</option>
+                        <option value="fly">100 Fly LCM</option>
                     </select>
                     
-                    <select id="chunks-time-select" onchange="updateChunksDisplay()" style="flex: 1; min-width: 150px;">
-                        <!-- Populated dynamically -->
+                    <select id="chunks-time" onchange="showChunks()" style="padding: 0.75rem; font-size: 1rem; border-radius: 6px; margin-left: 1rem;">
+                        <option value="50">50.0s</option>
+                        <option value="52">52.0s</option>
+                        <option value="54">54.0s</option>
+                        <option value="56">56.0s</option>
+                        <option value="58">58.0s</option>
                     </select>
                 </div>
                 
-                <div id="chunks-display"></div>
+                <div id="chunks-result"></div>
             </div>
         </div>
-        
-        <div id="race-analysis" class="content">
-<div class="card">
-            <div class="card-title">🎬 Video Race Analysis</div>
-            
-            <!-- Video Upload/URL -->
-            <div class="video-container">
-                <div class="video-controls">
-                    <div class="video-input">
-                        <input type="text" id="video-url" placeholder="Paste YouTube URL or video file URL...">
+
+        <div id="workouts" class="content">
+            <div class="card">
+                <div class="card-title">Masters Workouts Library</div>
+                <p style="color: #666; margin-bottom: 1.5rem;">Browse 85 Masters swimming workouts from 2023-2024 season (Sept 2023 - May 2024)</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.25rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.25rem;" id="workout-count">85</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9;">Total Workouts</div>
                     </div>
-                    <input type="file" id="video-file" accept="video/*" style="display:none;">
-                    <button onclick="document.getElementById('video-file').click()">Upload Video</button>
-                    <button onclick="loadVideo()">Load Video</button>
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.25rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.25rem;">2,195m</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9;">Average Distance</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.25rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.25rem;">2,900m</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9;">Max Distance</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1.25rem; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2rem; font-weight: bold; margin-bottom: 0.25rem;">3</div>
+                        <div style="font-size: 0.85rem; opacity: 0.9;">Pool Locations</div>
+                    </div>
                 </div>
-                <video id="race-video" controls></video>
-            </div>
-            
-            <!-- Race Setup -->
-            <div class="instruction-box">
-                <strong>Simple timing:</strong> Just click the big button (or press SPACEBAR) at each key moment. The app knows what you're timing!
-            </div>
-            
-            <div class="race-setup">
-                <div class="form-group">
-                    <label>Event</label>
-                    <select id="event">
-                        <option value="50-free">50 Free</option>
-                        <option value="100-free">100 Free</option>
-                        <option value="200-free">200 Free</option>
-                        <option value="400-free">400 Free</option>
-                        <option value="800-free">800 Free</option>
-                        <option value="1500-free">1500 Free</option>
-                        <option value="50-back">50 Back</option>
-                        <option value="100-back">100 Back</option>
-                        <option value="200-back">200 Back</option>
-                        <option value="50-breast">50 Breast</option>
-                        <option value="100-breast">100 Breast</option>
-                        <option value="200-breast">200 Breast</option>
-                        <option value="50-fly">50 Fly</option>
-                        <option value="100-fly">100 Fly</option>
-                        <option value="200-fly">200 Fly</option>
-                        <option value="200-im">200 IM</option>
-                        <option value="400-im">400 IM</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Pool</label>
-                    <select id="pool">
-                        <option value="scy">SCY (25 yards)</option>
-                        <option value="scm">SCM (25 meters)</option>
-                        <option value="lcm">LCM (50 meters)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Swimmer Name</label>
-                    <input type="text" id="swimmer-name" placeholder="Your name">
-                </div>
-                <div class="form-group">
-                    <label>Meet/Date</label>
-                    <input type="text" id="meet-name" placeholder="Meet name (optional)">
-                </div>
-            </div>
-            
-            <button onclick="startRace()" id="start-race-btn" style="width: 100%; padding: 1.5rem; font-size: 1.3rem;">
-                🏁 Ready to Time Race
-            </button>
-        </div>
-        
-        <!-- Timing Interface - SIMPLIFIED -->
-        <div class="card timing-interface" id="timing-interface">
-            <div class="card-title">
-                Timing: <span id="current-lap">Lap 1</span> 
-                <span class="status-indicator status-timing" id="status">TIMING</span>
-            </div>
-            
-            <div class="timer-display" id="timer">0:00.00</div>
-            
-            <div class="instruction-box" id="instruction">
-                Ready to start timing
-            </div>
-            
-            <!-- THREE MAIN BUTTONS -->
-            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
-                <button class="main-timing-btn" id="main-btn" onclick="handleMainButton()">
-                    <div id="btn-text">START RACE</div>
-                    <div class="hint" id="btn-hint">Starting signal or dive</div>
-                </button>
                 
-                <button class="main-timing-btn cycle" id="cycle-btn" onclick="handleCycle()" disabled style="font-size: 1.5rem;">
-                    <div>CYCLE</div>
-                    <div class="cycle-count" id="cycle-info">0 cycles</div>
-                </button>
+                <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center;">
+                    <div style="flex: 1; min-width: 250px;">
+                        <input type="text" id="workout-search" placeholder="🔍 Search workouts..." style="width: 100%; padding: 0.75rem 1rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;">
+                    </div>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button onclick="filterWorkouts('all')" class="workout-filter active" style="padding: 0.6rem 1.2rem; border: 2px solid #667eea; background: #667eea; color: white; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">All</button>
+                        <button onclick="filterWorkouts('bayside')" class="workout-filter" style="padding: 0.6rem 1.2rem; border: 2px solid #e0e0e0; background: white; color: #333; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">Bayside</button>
+                        <button onclick="filterWorkouts('greatneck')" class="workout-filter" style="padding: 0.6rem 1.2rem; border: 2px solid #e0e0e0; background: white; color: #333; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">Great Neck</button>
+                        <button onclick="filterWorkouts('2000+')" class="workout-filter" style="padding: 0.6rem 1.2rem; border: 2px solid #e0e0e0; background: white; color: #333; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">2000+</button>
+                        <button onclick="filterWorkouts('2500+')" class="workout-filter" style="padding: 0.6rem 1.2rem; border: 2px solid #e0e0e0; background: white; color: #333; border-radius: 8px; cursor: pointer; font-size: 0.9rem;">2500+</button>
+                    </div>
+                </div>
                 
-                <button class="main-timing-btn" id="turn-btn" onclick="handleTurn()" disabled style="font-size: 1.5rem; background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);">
-                    <div id="turn-text">TURN</div>
-                    <div class="hint" id="turn-hint" style="font-size: 0.75rem;">Flags in/out</div>
-                </button>
+                <div id="workout-list"></div>
             </div>
-            
-            <div class="spacebar-hint">💡 SPACEBAR = main | C = cycle | T = turn flags</div>
-            
-            <!-- Optional timing buttons (smaller) -->
-            <div class="optional-buttons">
-                <button class="optional-btn" id="opt-15m" onclick="handleOptional('15m')" disabled>
-                    📏 15M Mark<br><small>(underwater distance)</small>
-                </button>
-                <button class="optional-btn" id="opt-turn" onclick="handleOptional('turn')" disabled>
-                    🔄 Turn In<br><small>(5m before wall)</small>
-                </button>
-                <button class="optional-btn" id="opt-10m" onclick="handleOptional('10m')" disabled>
-                    🏁 10M Finish<br><small>(last lap only)</small>
-                </button>
-            </div>
-            
-            <button onclick="resetRace()" style="background: #dc3545; width: 100%;">🔄 Reset Race</button>
-            
-            <!-- Live Data Display -->
-            <div class="live-data" id="live-data"></div>
         </div>
-        
-        <!-- Results Section -->
-        <div class="card results-section" id="results-section">
-            <div class="card-title">📊 Race Analysis Results</div>
-            
-            <div class="metric-grid" id="summary-metrics"></div>
-            
-            <table id="results-table">
-                <thead>
-                    <tr>
-                        <th>Lap</th>
-                        <th>Split</th>
-                        <th>Break (s)</th>
-                        <th>Break Dist (m)</th>
-                        <th>Turn Approach (s)</th>
-                        <th>Turn Push-off (s)</th>
-                        <th>Tempo (c/min)</th>
-                        <th>DPC (m)</th>
-                        <th>Velocity (m/s)</th>
-                        <th>Drop-off</th>
-                    </tr>
-                </thead>
-                <tbody id="results-body"></tbody>
-            </table>
-            
-            <button onclick="exportResults()" style="margin-top: 2rem;">💾 Export Results (CSV)</button>
-            <button onclick="startNewRace()" style="margin-top: 2rem; background: #28a745;">🔄 Analyze Another Race</button>
-        </div>
-    </div>
-        </div>
-    </div>
     
     <script>
         function genPracticeGoals(pb) {
@@ -735,463 +510,7 @@
         };
         
         // Detailed checkpoint data from British/Australian models
-        const meetGoalsData = {"50-free-scy":{"personalized":{"pb":"18.88","checkpoints":{"50y":"18.88"}}},"100-free-scy":{"personalized":{"pb":"42.56","checkpoints":{"50y":"20.24","100y":"42.56"}}},"200-free-scy":{"personalized":{"pb":"1:37.01","checkpoints":{"50y":"21.80","100y":"46.10","150y":"71.27","200y":"97.01"}}},"50-back-scy":{"personalized":{"pb":"21.52","checkpoints":{"50y":"21.52"}}},"100-back-scy":{"personalized":{"pb":"46.5","checkpoints":{"50y":"22.60","100y":"46.50"}}},"200-back-scy":{"personalized":{"pb":"1:43.15","checkpoints":{"50y":"23.81","100y":"49.53","150y":"76.35","200y":"103.15"}}},"50-breast-scy":{"personalized":{"pb":"23.56","checkpoints":{"50y":"23.56"}}},"100-breast-scy":{"personalized":{"pb":"51.18","checkpoints":{"50y":"23.32","100y":"51.18"}}},"200-breast-scy":{"personalized":{"pb":"1:54.06","checkpoints":{"50y":"25.22","100y":"53.76","150y":"83.41","200y":"114.06"}}},"50-fly-scy":{"personalized":{"pb":"20.6","checkpoints":{"50y":"20.60"}}},"100-fly-scy":{"personalized":{"pb":"45.47","checkpoints":{"50y":"20.89","100y":"45.47"}}},"200-fly-scy":{"personalized":{"pb":"1:45.39","checkpoints":{"50y":"22.97","100y":"49.44","150y":"76.84","200y":"105.39"}}},"100-im-scy":{"personalized":{"pb":"47.34","checkpoints":{"50y":"21.38","100y":"47.34"}}},"200-im-scy":{"personalized":{"pb":"1:42.77","checkpoints":{"50y":"21.65","100y":"47.26","150y":"77.04","200y":"102.77"}}},"400-im-scy":{"personalized":{"pb":"3:49.57","checkpoints":{"50y":"23.57","100y":"50.99","150y":"80.69","200y":"108.78","250y":"140.43","300y":"172.81","350y":"201.40","400y":"229.57"}}},"100-free-scm":{"british":{"pb":"48.89","checkpoints":{"15m":"7.26","20m":"9.61","25m":"11.94","35m":"16.39","40m":"18.74","45m":"21.08","50m":"23.42","60m":"28.54","65m":"31.08","70m":"33.63","75m":"36.15","85m":"41.21","90m":"43.74","95m":"46.28","100m":"48.89"}},"personalized":{"pb":"48.89","checkpoints":{"50m":"23.14","100m":"48.89"}}},"100-back-scm":{"british":{"pb":"50.36","checkpoints":{"15m":"7.75","20m":"10.17","25m":"12.6","35m":"16.96","40m":"19.38","45m":"21.8","50m":"24.22","60m":"29.45","65m":"31.87","70m":"34.29","75m":"37.29","85m":"42.51","90m":"45.16","95m":"47.76","100m":"50.36"}},"personalized":{"pb":"50.36","checkpoints":{"50m":"24.23","100m":"50.36"}}},"100-breast-scm":{"british":{"pb":"57.24","checkpoints":{"15m":"6.59","20m":"9.57","25m":"12.32","35m":"17.9","40m":"20.86","45m":"23.82","50m":"26.65","60m":"32.41","65m":"36.32","70m":"38.78","75m":"41.72","85m":"47.69","90m":"50.88","95m":"54.08","100m":"57.24"}},"personalized":{"pb":"57.24","checkpoints":{"50m":"26.44","100m":"57.24"}}},"100-fly-scm":{"british":{"pb":"50.61","checkpoints":{"15m":"7.08","20m":"9.43","25m":"11.79","35m":"16.51","40m":"18.86","45m":"21.22","50m":"23.58","60m":"28.99","65m":"31.7","70m":"34.4","75m":"37.1","85m":"42.51","90m":"45.21","95m":"47.91","100m":"50.61"}},"personalized":{"pb":"50.61","checkpoints":{"50m":"22.97","100m":"50.61"}}},"50-free-lcm":{"australian":{"pb":"21.41","checkpoints":{"15m":"5.47","20m":"7.66","25m":"9.84","35m":"14.4","40m":"16.78","45m":"19.16","50m":"21.41"}}},"100-free-lcm":{"british":{"pb":"49.46","checkpoints":{"15m":"5.97","20m":"8.4","25m":"10.83","35m":"15.86","40m":"18.37","45m":"20.89","50m":"23.65","60m":"28.04","65m":"30.63","70m":"33.21","75m":"35.8","85m":"41.16","90m":"43.84","95m":"46.52","100m":"49.46"}},"australian":{"pb":"49.46","checkpoints":{"15m":"6.73","20m":"9.47","25m":"12.2","35m":"17.67","40m":"20.41","45m":"22.04","50m":"23.65","60m":"29.3","65m":"32.04","70m":"34.77","75m":"37.51","85m":"42.98","90m":"45.11","95m":"47.29","100m":"49.46"}},"personalized":{"pb":"49.46","checkpoints":{"50m":"23.62","100m":"49.46"}}},"200-free-lcm":{"australian":{"pb":"1:56.35","checkpoints":{"15m":"12.32","20m":"27.15","25m":"41.23","35m":"1:11.14","40m":"1:26.98","45m":"1:41.55","50m":"1:56.35"}},"personalized":{"pb":"116.35","checkpoints":{"50m":"25.62","100m":"28.94","150m":"30.81","200m":"30.98","100-free-lcm":{
-    "chunks15m": {
-        "name": "15m Chunks Model",
-        "data": [
-            {
-                "goal": 45.0,
-                "start": 5.4,
-                "turn": 6.55,
-                "finish": 7.24
-            },
-            {
-                "goal": 45.5,
-                "start": 5.47,
-                "turn": 6.62,
-                "finish": 7.31
-            },
-            {
-                "goal": 46.0,
-                "start": 5.54,
-                "turn": 6.7,
-                "finish": 7.39
-            },
-            {
-                "goal": 46.5,
-                "start": 5.61,
-                "turn": 6.77,
-                "finish": 7.47
-            },
-            {
-                "goal": 47.0,
-                "start": 5.69,
-                "turn": 6.85,
-                "finish": 7.54
-            },
-            {
-                "goal": 47.5,
-                "start": 5.76,
-                "turn": 6.92,
-                "finish": 7.62
-            },
-            {
-                "goal": 48.0,
-                "start": 5.83,
-                "turn": 7.0,
-                "finish": 7.7
-            },
-            {
-                "goal": 48.5,
-                "start": 5.9,
-                "turn": 7.07,
-                "finish": 7.77
-            },
-            {
-                "goal": 49.0,
-                "start": 5.97,
-                "turn": 7.15,
-                "finish": 7.85
-            },
-            {
-                "goal": 50.0,
-                "start": 6.11,
-                "turn": 7.3,
-                "finish": 8.0
-            },
-            {
-                "goal": 51.0,
-                "start": 6.26,
-                "turn": 7.45,
-                "finish": 8.15
-            },
-            {
-                "goal": 52.0,
-                "start": 6.4,
-                "turn": 7.6,
-                "finish": 8.31
-            },
-            {
-                "goal": 53.0,
-                "start": 6.54,
-                "turn": 7.76,
-                "finish": 8.46
-            },
-            {
-                "goal": 54.0,
-                "start": 6.68,
-                "turn": 7.91,
-                "finish": 8.62
-            },
-            {
-                "goal": 55.0,
-                "start": 6.83,
-                "turn": 8.06,
-                "finish": 8.77
-            },
-            {
-                "goal": 56.0,
-                "start": 6.97,
-                "turn": 8.21,
-                "finish": 8.92
-            },
-            {
-                "goal": 57.0,
-                "start": 7.11,
-                "turn": 8.36,
-                "finish": 9.08
-            },
-            {
-                "goal": 58.0,
-                "start": 7.25,
-                "turn": 8.51,
-                "finish": 9.23
-            }
-        ]
-    }
-},"100-back-lcm":{
-    "chunks15m": {
-        "name": "15m Chunks Model",
-        "data": [
-            {
-                "goal": 45.0,
-                "start": 4.99,
-                "turn": 5.99,
-                "finish": 7.42
-            },
-            {
-                "goal": 45.5,
-                "start": 5.07,
-                "turn": 6.07,
-                "finish": 7.49
-            },
-            {
-                "goal": 46.0,
-                "start": 5.16,
-                "turn": 6.16,
-                "finish": 7.57
-            },
-            {
-                "goal": 46.5,
-                "start": 5.25,
-                "turn": 6.24,
-                "finish": 7.64
-            },
-            {
-                "goal": 47.0,
-                "start": 5.33,
-                "turn": 6.32,
-                "finish": 7.71
-            },
-            {
-                "goal": 47.5,
-                "start": 5.42,
-                "turn": 6.4,
-                "finish": 7.78
-            },
-            {
-                "goal": 48.0,
-                "start": 5.51,
-                "turn": 6.49,
-                "finish": 7.86
-            },
-            {
-                "goal": 48.5,
-                "start": 5.59,
-                "turn": 6.57,
-                "finish": 7.93
-            },
-            {
-                "goal": 49.0,
-                "start": 5.68,
-                "turn": 6.65,
-                "finish": 8.0
-            },
-            {
-                "goal": 50.0,
-                "start": 5.86,
-                "turn": 6.82,
-                "finish": 8.15
-            },
-            {
-                "goal": 51.0,
-                "start": 6.03,
-                "turn": 6.98,
-                "finish": 8.29
-            },
-            {
-                "goal": 52.0,
-                "start": 6.2,
-                "turn": 7.14,
-                "finish": 8.43
-            },
-            {
-                "goal": 53.0,
-                "start": 6.38,
-                "turn": 7.31,
-                "finish": 8.58
-            },
-            {
-                "goal": 54.0,
-                "start": 6.55,
-                "turn": 7.47,
-                "finish": 8.72
-            },
-            {
-                "goal": 55.0,
-                "start": 6.72,
-                "turn": 7.64,
-                "finish": 8.87
-            },
-            {
-                "goal": 56.0,
-                "start": 6.89,
-                "turn": 7.8,
-                "finish": 9.01
-            },
-            {
-                "goal": 57.0,
-                "start": 7.07,
-                "turn": 7.96,
-                "finish": 9.16
-            },
-            {
-                "goal": 58.0,
-                "start": 7.24,
-                "turn": 8.13,
-                "finish": 9.3
-            }
-        ]
-    }
-},"100-breast-lcm":{
-    "chunks15m": {
-        "name": "15m Chunks Model",
-        "data": [
-            {
-                "goal": 45.0,
-                "start": 4.46,
-                "turn": 6.41,
-                "finish": 7.55
-            },
-            {
-                "goal": 45.5,
-                "start": 4.54,
-                "turn": 6.49,
-                "finish": 7.63
-            },
-            {
-                "goal": 46.0,
-                "start": 4.61,
-                "turn": 6.56,
-                "finish": 7.7
-            },
-            {
-                "goal": 46.5,
-                "start": 4.69,
-                "turn": 6.64,
-                "finish": 7.77
-            },
-            {
-                "goal": 47.0,
-                "start": 4.77,
-                "turn": 6.72,
-                "finish": 7.85
-            },
-            {
-                "goal": 47.5,
-                "start": 4.84,
-                "turn": 6.8,
-                "finish": 7.92
-            },
-            {
-                "goal": 48.0,
-                "start": 4.92,
-                "turn": 6.87,
-                "finish": 7.99
-            },
-            {
-                "goal": 48.5,
-                "start": 4.99,
-                "turn": 6.95,
-                "finish": 8.07
-            },
-            {
-                "goal": 49.0,
-                "start": 5.07,
-                "turn": 7.03,
-                "finish": 8.14
-            },
-            {
-                "goal": 50.0,
-                "start": 5.22,
-                "turn": 7.19,
-                "finish": 8.29
-            },
-            {
-                "goal": 51.0,
-                "start": 5.37,
-                "turn": 7.34,
-                "finish": 8.43
-            },
-            {
-                "goal": 52.0,
-                "start": 5.52,
-                "turn": 7.5,
-                "finish": 8.58
-            },
-            {
-                "goal": 53.0,
-                "start": 5.68,
-                "turn": 7.65,
-                "finish": 8.73
-            },
-            {
-                "goal": 54.0,
-                "start": 5.83,
-                "turn": 7.81,
-                "finish": 8.87
-            },
-            {
-                "goal": 55.0,
-                "start": 5.98,
-                "turn": 7.96,
-                "finish": 9.02
-            },
-            {
-                "goal": 56.0,
-                "start": 6.13,
-                "turn": 8.12,
-                "finish": 9.17
-            },
-            {
-                "goal": 57.0,
-                "start": 6.29,
-                "turn": 8.27,
-                "finish": 9.31
-            },
-            {
-                "goal": 58.0,
-                "start": 6.44,
-                "turn": 8.43,
-                "finish": 9.46
-            }
-        ]
-    }
-},"100-fly-lcm":{
-    "chunks15m": {
-        "name": "15m Chunks Model",
-        "data": [
-            {
-                "goal": 45.0,
-                "start": 4.82,
-                "turn": 6.74,
-                "finish": 7.31
-            },
-            {
-                "goal": 45.5,
-                "start": 4.89,
-                "turn": 6.82,
-                "finish": 7.39
-            },
-            {
-                "goal": 46.0,
-                "start": 4.97,
-                "turn": 6.9,
-                "finish": 7.47
-            },
-            {
-                "goal": 46.5,
-                "start": 5.04,
-                "turn": 6.97,
-                "finish": 7.55
-            },
-            {
-                "goal": 47.0,
-                "start": 5.12,
-                "turn": 7.05,
-                "finish": 7.63
-            },
-            {
-                "goal": 47.5,
-                "start": 5.19,
-                "turn": 7.13,
-                "finish": 7.71
-            },
-            {
-                "goal": 48.0,
-                "start": 5.27,
-                "turn": 7.21,
-                "finish": 7.79
-            },
-            {
-                "goal": 48.5,
-                "start": 5.34,
-                "turn": 7.28,
-                "finish": 7.87
-            },
-            {
-                "goal": 49.0,
-                "start": 5.42,
-                "turn": 7.36,
-                "finish": 7.95
-            },
-            {
-                "goal": 50.0,
-                "start": 5.57,
-                "turn": 7.51,
-                "finish": 8.11
-            },
-            {
-                "goal": 51.0,
-                "start": 5.72,
-                "turn": 7.67,
-                "finish": 8.27
-            },
-            {
-                "goal": 52.0,
-                "start": 5.87,
-                "turn": 7.82,
-                "finish": 8.43
-            },
-            {
-                "goal": 53.0,
-                "start": 6.03,
-                "turn": 7.98,
-                "finish": 8.6
-            },
-            {
-                "goal": 54.0,
-                "start": 6.18,
-                "turn": 8.13,
-                "finish": 8.76
-            },
-            {
-                "goal": 55.0,
-                "start": 6.33,
-                "turn": 8.29,
-                "finish": 8.92
-            },
-            {
-                "goal": 56.0,
-                "start": 6.48,
-                "turn": 8.44,
-                "finish": 9.08
-            },
-            {
-                "goal": 57.0,
-                "start": 6.63,
-                "turn": 8.6,
-                "finish": 9.24
-            },
-            {
-                "goal": 58.0,
-                "start": 6.78,
-                "turn": 8.75,
-                "finish": 9.4
-            }
-        ]
-    }
-}};;
+        const meetGoalsData = {"50-free-scy":{"personalized":{"pb":"18.88","checkpoints":{"50y":"18.88"}}},"100-free-scy":{"personalized":{"pb":"42.56","checkpoints":{"50y":"20.24","100y":"42.56"}}},"200-free-scy":{"personalized":{"pb":"1:37.01","checkpoints":{"50y":"21.80","100y":"46.10","150y":"71.27","200y":"97.01"}}},"50-back-scy":{"personalized":{"pb":"21.52","checkpoints":{"50y":"21.52"}}},"100-back-scy":{"personalized":{"pb":"46.5","checkpoints":{"50y":"22.60","100y":"46.50"}}},"200-back-scy":{"personalized":{"pb":"1:43.15","checkpoints":{"50y":"23.81","100y":"49.53","150y":"76.35","200y":"103.15"}}},"50-breast-scy":{"personalized":{"pb":"23.56","checkpoints":{"50y":"23.56"}}},"100-breast-scy":{"personalized":{"pb":"51.18","checkpoints":{"50y":"23.32","100y":"51.18"}}},"200-breast-scy":{"personalized":{"pb":"1:54.06","checkpoints":{"50y":"25.22","100y":"53.76","150y":"83.41","200y":"114.06"}}},"50-fly-scy":{"personalized":{"pb":"20.6","checkpoints":{"50y":"20.60"}}},"100-fly-scy":{"personalized":{"pb":"45.47","checkpoints":{"50y":"20.89","100y":"45.47"}}},"200-fly-scy":{"personalized":{"pb":"1:45.39","checkpoints":{"50y":"22.97","100y":"49.44","150y":"76.84","200y":"105.39"}}},"100-im-scy":{"personalized":{"pb":"47.34","checkpoints":{"50y":"21.38","100y":"47.34"}}},"200-im-scy":{"personalized":{"pb":"1:42.77","checkpoints":{"50y":"21.65","100y":"47.26","150y":"77.04","200y":"102.77"}}},"400-im-scy":{"personalized":{"pb":"3:49.57","checkpoints":{"50y":"23.57","100y":"50.99","150y":"80.69","200y":"108.78","250y":"140.43","300y":"172.81","350y":"201.40","400y":"229.57"}}},"100-free-scm":{"british":{"pb":"48.89","checkpoints":{"15m":"7.26","20m":"9.61","25m":"11.94","35m":"16.39","40m":"18.74","45m":"21.08","50m":"23.42","60m":"28.54","65m":"31.08","70m":"33.63","75m":"36.15","85m":"41.21","90m":"43.74","95m":"46.28","100m":"48.89"}},"personalized":{"pb":"48.89","checkpoints":{"50m":"23.14","100m":"48.89"}}},"100-back-scm":{"british":{"pb":"50.36","checkpoints":{"15m":"7.75","20m":"10.17","25m":"12.6","35m":"16.96","40m":"19.38","45m":"21.8","50m":"24.22","60m":"29.45","65m":"31.87","70m":"34.29","75m":"37.29","85m":"42.51","90m":"45.16","95m":"47.76","100m":"50.36"}},"personalized":{"pb":"50.36","checkpoints":{"50m":"24.23","100m":"50.36"}}},"100-breast-scm":{"british":{"pb":"57.24","checkpoints":{"15m":"6.59","20m":"9.57","25m":"12.32","35m":"17.9","40m":"20.86","45m":"23.82","50m":"26.65","60m":"32.41","65m":"36.32","70m":"38.78","75m":"41.72","85m":"47.69","90m":"50.88","95m":"54.08","100m":"57.24"}},"personalized":{"pb":"57.24","checkpoints":{"50m":"26.44","100m":"57.24"}}},"100-fly-scm":{"british":{"pb":"50.61","checkpoints":{"15m":"7.08","20m":"9.43","25m":"11.79","35m":"16.51","40m":"18.86","45m":"21.22","50m":"23.58","60m":"28.99","65m":"31.7","70m":"34.4","75m":"37.1","85m":"42.51","90m":"45.21","95m":"47.91","100m":"50.61"}},"personalized":{"pb":"50.61","checkpoints":{"50m":"22.97","100m":"50.61"}}},"50-free-lcm":{"australian":{"pb":"21.41","checkpoints":{"15m":"5.47","20m":"7.66","25m":"9.84","35m":"14.4","40m":"16.78","45m":"19.16","50m":"21.41"}}},"100-free-lcm":{"british":{"pb":"49.46","checkpoints":{"15m":"5.97","20m":"8.4","25m":"10.83","35m":"15.86","40m":"18.37","45m":"20.89","50m":"23.65","60m":"28.04","65m":"30.63","70m":"33.21","75m":"35.8","85m":"41.16","90m":"43.84","95m":"46.52","100m":"49.46"}},"australian":{"pb":"49.46","checkpoints":{"15m":"6.73","20m":"9.47","25m":"12.2","35m":"17.67","40m":"20.41","45m":"22.04","50m":"23.65","60m":"29.3","65m":"32.04","70m":"34.77","75m":"37.51","85m":"42.98","90m":"45.11","95m":"47.29","100m":"49.46"}},"personalized":{"pb":"49.46","checkpoints":{"50m":"23.62","100m":"49.46"}}},"200-free-lcm":{"australian":{"pb":"1:56.35","checkpoints":{"15m":"12.32","20m":"27.15","25m":"41.23","35m":"1:11.14","40m":"1:26.98","45m":"1:41.55","50m":"1:56.35"}},"personalized":{"pb":"116.35","checkpoints":{"50m":"25.62","100m":"28.94","150m":"30.81","200m":"30.98"}}}};
         
         // Championship speed charts data (58 events: LCM + SCY)
         // Embedded inline to avoid CORS issues with local files
@@ -5867,34 +5186,27 @@
         };
         
         function showTab(tabName, clickedTab) {
-            console.log('[DEBUG] showTab called:', tabName, clickedTab);
-            try {
-                document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                const targetContent = document.getElementById(tabName);
-                console.log('[DEBUG] Target content element:', targetContent);
-                if (!targetContent) {
-                    console.error('[ERROR] Could not find content element:', tabName);
-                    return;
-                }
-                targetContent.classList.add('active');
-                clickedTab.classList.add('active');
-                
-                // Show/hide event selector
-                const selector = document.getElementById('event-selector');
-                if (tabName === 'personal-bests') {
-                    selector.classList.remove('show');
-                } else {
-                    selector.classList.add('show');
-                }
-                
-                // Update content when switching tabs
-                if (tabName !== 'personal-bests') {
-                    updateData();
-                }
-                console.log('[DEBUG] showTab completed successfully');
-            } catch (error) {
-                console.error('[ERROR] showTab failed:', error);
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            clickedTab.classList.add('active');
+            
+            // Show/hide event selector
+            const selector = document.getElementById('event-selector');
+            if (tabName === 'personal-bests' || tabName === 'workouts') {
+                selector.classList.remove('show');
+            } else {
+                selector.classList.add('show');
+            }
+            
+            // Update content when switching tabs
+            if (tabName !== 'personal-bests' && tabName !== 'workouts') {
+                updateData();
+            }
+            
+            // Render workouts if switching to workouts tab
+            if (tabName === 'workouts') {
+                renderWorkouts();
             }
         }
         
@@ -5917,7 +5229,7 @@
             const is50 = data.name.includes('50');
             const is25 = data.name.includes('25');
             
-            let html = '<p style="color: #666; margin-bottom: 1.5rem;">Click on a goal level to see detailed pacing from up to 5 models: Personalized, Championship, British, Australian, and 15m Chunks (for 100 LCM events).</p>';
+            let html = '<p style="color: #666; margin-bottom: 1.5rem;">Click on a goal level to see detailed pacing from 4 models: Personalized, Championship, British, and Australian.</p>';
             let hasAnyPB = false;
             let courseIndex = 0;
             
@@ -6394,1501 +5706,153 @@
                 html += `</div></div>`;
             }
             
-            // 15m Chunks Model (only for 100 LCM events)
-            const is100LCM = eventKey.includes('100-') && course === 'lcm' && 
-                             (eventKey.includes('free') || eventKey.includes('back') || 
-                              eventKey.includes('breast') || eventKey.includes('fly'));
-            
-            if (is100LCM) {
-                // Get chunks data for this event
-                const chunksKey = eventKey; // e.g. "100-free"
-                const chunksEventData = chunksData[chunksKey];
-                
-                if (chunksEventData) {
-                    // Find closest time in chunks data
-                    let closestEntry = chunksEventData[0];
-                    let minDiff = Math.abs(chunksEventData[0].goal - goalTime);
-                    
-                    for (let i = 1; i < chunksEventData.length; i++) {
-                        const diff = Math.abs(chunksEventData[i].goal - goalTime);
-                        if (diff < minDiff) {
-                            minDiff = diff;
-                            closestEntry = chunksEventData[i];
-                        }
-                    }
-                    
-                    // Scale the chunks to match goal time
-                    const chunkScaleFactor = goalTime / closestEntry.goal;
-                    const scaledStart = closestEntry.start * chunkScaleFactor;
-                    const scaledTurn = closestEntry.turn * chunkScaleFactor;
-                    const scaledFinish = closestEntry.finish * chunkScaleFactor;
-                    
-                    html += `
-                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #8b5cf6;">
-                            <div style="font-weight: 600; margin-bottom: 0.75rem; color: #8b5cf6;">📏 15m Chunks Model</div>
-                            <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.75rem;">Ultra-detailed 15m segments (gender neutral)</div>
-                            <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                                <div style="background: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #e5e7eb; flex: 0 0 auto;">
-                                    <div style="font-size: 0.7rem; color: #666; margin-bottom: 0.15rem;">15m start</div>
-                                    <div style="font-weight: 600; color: #8b5cf6;">${formatTime(scaledStart)}</div>
-                                </div>
-                                <div style="background: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #e5e7eb; flex: 0 0 auto;">
-                                    <div style="font-size: 0.7rem; color: #666; margin-bottom: 0.15rem;">15m turn</div>
-                                    <div style="font-weight: 600; color: #8b5cf6;">${formatTime(scaledTurn)}</div>
-                                </div>
-                                <div style="background: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px solid #e5e7eb; flex: 0 0 auto;">
-                                    <div style="font-size: 0.7rem; color: #666; margin-bottom: 0.15rem;">15m finish</div>
-                                    <div style="font-weight: 600; color: #8b5cf6;">${formatTime(scaledFinish)}</div>
-                                </div>
-                            </div>
-                            <div style="font-size: 0.75rem; color: #666; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
-                                💡 <strong>Tip:</strong> See full 15m Chunks tab for detailed breakdown of underwater + turn execution
-                            </div>
-                        </div>
-                    `;
-                }
-            }
-            
             html += '</div>';
             container.innerHTML = html;
         }
         
         updateData();
-    
-        
-        // ========== 15M CHUNKS FUNCTIONS ==========
-        
-        function updateChunksDisplay() {
-            const eventKey = document.getElementById('chunks-event-select').value;
-            const timeSelect = document.getElementById('chunks-time-select');
-            const display = document.getElementById('chunks-display');
+
+        function showChunks() {
+            const stroke = document.getElementById('chunks-stroke').value;
+            const time = parseFloat(document.getElementById('chunks-time').value);
             
-            // Get data for selected event
-            const eventData = chunksData[eventKey];
-            if (!eventData) {
-                display.innerHTML = '<div class="no-data">No data available</div>';
-                return;
-            }
+            // Simple hardcoded data for 50.0s (base)
+            const base = {
+                free: {start: 6.11, turn: 7.30, finish: 8.00},
+                back: {start: 5.86, turn: 6.82, finish: 8.15},
+                breast: {start: 5.22, turn: 7.19, finish: 8.29},
+                fly: {start: 5.57, turn: 7.51, finish: 8.11}
+            };
             
-            // Update time dropdown
-            if (timeSelect.options.length === 0 || timeSelect.dataset.event !== eventKey) {
-                timeSelect.innerHTML = '';
-                eventData.forEach(entry => {
-                    const opt = document.createElement('option');
-                    opt.value = entry.goal;
-                    opt.textContent = formatTime(entry.goal);
-                    timeSelect.appendChild(opt);
-                });
-                timeSelect.dataset.event = eventKey;
-            }
+            // Scale to selected time
+            const scale = time / 50.0;
+            const data = base[stroke];
+            const scaled = {
+                start: (data.start * scale).toFixed(2),
+                turn: (data.turn * scale).toFixed(2),
+                finish: (data.finish * scale).toFixed(2)
+            };
             
-            // Get selected time
-            const selectedTime = parseFloat(timeSelect.value);
-            const entry = eventData.find(e => e.goal === selectedTime);
-            
-            if (!entry) {
-                display.innerHTML = '<div class="no-data">No data found</div>';
-                return;
-            }
-            
-            // Build display
             const html = `
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                    <div style="font-size: 2.5rem; font-weight: bold; text-align: center;">
-                        ${formatTime(entry.goal)}
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
+                    <div style="font-size: 2.5rem; font-weight: bold;">${time.toFixed(1)}s</div>
+                    <div style="opacity: 0.9; margin-top: 0.5rem;">100 ${stroke.charAt(0).toUpperCase() + stroke.slice(1)} LCM</div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                    <div style="background: #e7f3ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #667eea;">
+                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">15m FROM START</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: #667eea;">${scaled.start}s</div>
+                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">Underwater + breakout</div>
                     </div>
-                    <div style="text-align: center; opacity: 0.9; margin-top: 0.5rem;">
-                        ${document.getElementById('chunks-event-select').options[document.getElementById('chunks-event-select').selectedIndex].text}
+                    
+                    <div style="background: #fff4e6; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">15m TURN OUT</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: #f59e0b;">${scaled.turn}s</div>
+                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">7.5m in + 7.5m out</div>
+                    </div>
+                    
+                    <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #10b981;">
+                        <div style="font-size: 0.85rem; color: #666; margin-bottom: 0.5rem;">15m TO FINISH</div>
+                        <div style="font-size: 2rem; font-weight: bold; color: #10b981;">${scaled.finish}s</div>
+                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.5rem;">Final sprint to touch</div>
                     </div>
                 </div>
                 
-                <div class="checkpoint-grid" style="grid-template-columns: repeat(3, 1fr);">
-                    <div class="checkpoint" style="background: #e7f3ff; border-left: 4px solid #667eea;">
-                        <div class="checkpoint-label">15m FROM START</div>
-                        <div class="checkpoint-time">${formatTime(entry.start)}</div>
-                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.25rem;">
-                            Underwater + breakout
-                        </div>
-                    </div>
-                    
-                    <div class="checkpoint" style="background: #fff4e6; border-left: 4px solid #f59e0b;">
-                        <div class="checkpoint-label">15m TURN OUT</div>
-                        <div class="checkpoint-time">${formatTime(entry.turn)}</div>
-                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.25rem;">
-                            7.5m in + 7.5m out
-                        </div>
-                    </div>
-                    
-                    <div class="checkpoint" style="background: #f0fdf4; border-left: 4px solid #10b981;">
-                        <div class="checkpoint-label">15m TO FINISH</div>
-                        <div class="checkpoint-time">${formatTime(entry.finish)}</div>
-                        <div style="font-size: 0.75rem; color: #666; margin-top: 0.25rem;">
-                            Final sprint to touch
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="pacing-note" style="margin-top: 1.5rem;">
-                    <strong>💡 How to use:</strong> These 15m chunks help identify weak spots in your race execution. 
-                    Compare your actual splits to these targets:
-                    <ul style="margin: 0.5rem 0 0 1.5rem;">
-                        <li><strong>Start:</strong> Underwater efficiency and breakout timing</li>
-                        <li><strong>Turn:</strong> Wall approach + push-off power + streamline</li>
-                        <li><strong>Finish:</strong> Final 15m sprint + touch technique</li>
-                    </ul>
+                <div style="background: #e7f3ff; padding: 1rem; border-radius: 6px; margin-top: 1.5rem; font-size: 0.9rem;">
+                    <strong>💡 How to use:</strong> Compare your actual 15m splits to these targets to identify weak spots in underwater efficiency, turn execution, and finish sprint.
                 </div>
             `;
             
-            display.innerHTML = html;
+            document.getElementById('chunks-result').innerHTML = html;
         }
         
-        // Chunks data (embedded inline)
-        const chunksData = {
-        "100-free": [
-                {
-                        "goal": 45.0,
-                        "start": 5.4,
-                        "turn": 6.55,
-                        "finish": 7.24
-                },
-                {
-                        "goal": 45.5,
-                        "start": 5.47,
-                        "turn": 6.62,
-                        "finish": 7.31
-                },
-                {
-                        "goal": 46.0,
-                        "start": 5.54,
-                        "turn": 6.7,
-                        "finish": 7.39
-                },
-                {
-                        "goal": 46.5,
-                        "start": 5.61,
-                        "turn": 6.77,
-                        "finish": 7.47
-                },
-                {
-                        "goal": 47.0,
-                        "start": 5.69,
-                        "turn": 6.85,
-                        "finish": 7.54
-                },
-                {
-                        "goal": 47.5,
-                        "start": 5.76,
-                        "turn": 6.92,
-                        "finish": 7.62
-                },
-                {
-                        "goal": 48.0,
-                        "start": 5.83,
-                        "turn": 7.0,
-                        "finish": 7.7
-                },
-                {
-                        "goal": 48.5,
-                        "start": 5.9,
-                        "turn": 7.07,
-                        "finish": 7.77
-                },
-                {
-                        "goal": 49.0,
-                        "start": 5.97,
-                        "turn": 7.15,
-                        "finish": 7.85
-                },
-                {
-                        "goal": 50.0,
-                        "start": 6.11,
-                        "turn": 7.3,
-                        "finish": 8.0
-                },
-                {
-                        "goal": 51.0,
-                        "start": 6.26,
-                        "turn": 7.45,
-                        "finish": 8.15
-                },
-                {
-                        "goal": 52.0,
-                        "start": 6.4,
-                        "turn": 7.6,
-                        "finish": 8.31
-                },
-                {
-                        "goal": 53.0,
-                        "start": 6.54,
-                        "turn": 7.76,
-                        "finish": 8.46
-                },
-                {
-                        "goal": 54.0,
-                        "start": 6.68,
-                        "turn": 7.91,
-                        "finish": 8.62
-                },
-                {
-                        "goal": 55.0,
-                        "start": 6.83,
-                        "turn": 8.06,
-                        "finish": 8.77
-                },
-                {
-                        "goal": 56.0,
-                        "start": 6.97,
-                        "turn": 8.21,
-                        "finish": 8.92
-                },
-                {
-                        "goal": 57.0,
-                        "start": 7.11,
-                        "turn": 8.36,
-                        "finish": 9.08
-                },
-                {
-                        "goal": 58.0,
-                        "start": 7.25,
-                        "turn": 8.51,
-                        "finish": 9.23
-                }
-        ],
-        "100-back": [
-                {
-                        "goal": 45.0,
-                        "start": 4.99,
-                        "turn": 5.99,
-                        "finish": 7.42
-                },
-                {
-                        "goal": 45.5,
-                        "start": 5.07,
-                        "turn": 6.07,
-                        "finish": 7.49
-                },
-                {
-                        "goal": 46.0,
-                        "start": 5.16,
-                        "turn": 6.16,
-                        "finish": 7.57
-                },
-                {
-                        "goal": 46.5,
-                        "start": 5.25,
-                        "turn": 6.24,
-                        "finish": 7.64
-                },
-                {
-                        "goal": 47.0,
-                        "start": 5.33,
-                        "turn": 6.32,
-                        "finish": 7.71
-                },
-                {
-                        "goal": 47.5,
-                        "start": 5.42,
-                        "turn": 6.4,
-                        "finish": 7.78
-                },
-                {
-                        "goal": 48.0,
-                        "start": 5.51,
-                        "turn": 6.49,
-                        "finish": 7.86
-                },
-                {
-                        "goal": 48.5,
-                        "start": 5.59,
-                        "turn": 6.57,
-                        "finish": 7.93
-                },
-                {
-                        "goal": 49.0,
-                        "start": 5.68,
-                        "turn": 6.65,
-                        "finish": 8.0
-                },
-                {
-                        "goal": 50.0,
-                        "start": 5.86,
-                        "turn": 6.82,
-                        "finish": 8.15
-                },
-                {
-                        "goal": 51.0,
-                        "start": 6.03,
-                        "turn": 6.98,
-                        "finish": 8.29
-                },
-                {
-                        "goal": 52.0,
-                        "start": 6.2,
-                        "turn": 7.14,
-                        "finish": 8.43
-                },
-                {
-                        "goal": 53.0,
-                        "start": 6.38,
-                        "turn": 7.31,
-                        "finish": 8.58
-                },
-                {
-                        "goal": 54.0,
-                        "start": 6.55,
-                        "turn": 7.47,
-                        "finish": 8.72
-                },
-                {
-                        "goal": 55.0,
-                        "start": 6.72,
-                        "turn": 7.64,
-                        "finish": 8.87
-                },
-                {
-                        "goal": 56.0,
-                        "start": 6.89,
-                        "turn": 7.8,
-                        "finish": 9.01
-                },
-                {
-                        "goal": 57.0,
-                        "start": 7.07,
-                        "turn": 7.96,
-                        "finish": 9.16
-                },
-                {
-                        "goal": 58.0,
-                        "start": 7.24,
-                        "turn": 8.13,
-                        "finish": 9.3
-                }
-        ],
-        "100-breast": [
-                {
-                        "goal": 45.0,
-                        "start": 4.46,
-                        "turn": 6.41,
-                        "finish": 7.55
-                },
-                {
-                        "goal": 45.5,
-                        "start": 4.54,
-                        "turn": 6.49,
-                        "finish": 7.63
-                },
-                {
-                        "goal": 46.0,
-                        "start": 4.61,
-                        "turn": 6.56,
-                        "finish": 7.7
-                },
-                {
-                        "goal": 46.5,
-                        "start": 4.69,
-                        "turn": 6.64,
-                        "finish": 7.77
-                },
-                {
-                        "goal": 47.0,
-                        "start": 4.77,
-                        "turn": 6.72,
-                        "finish": 7.85
-                },
-                {
-                        "goal": 47.5,
-                        "start": 4.84,
-                        "turn": 6.8,
-                        "finish": 7.92
-                },
-                {
-                        "goal": 48.0,
-                        "start": 4.92,
-                        "turn": 6.87,
-                        "finish": 7.99
-                },
-                {
-                        "goal": 48.5,
-                        "start": 4.99,
-                        "turn": 6.95,
-                        "finish": 8.07
-                },
-                {
-                        "goal": 49.0,
-                        "start": 5.07,
-                        "turn": 7.03,
-                        "finish": 8.14
-                },
-                {
-                        "goal": 50.0,
-                        "start": 5.22,
-                        "turn": 7.19,
-                        "finish": 8.29
-                },
-                {
-                        "goal": 51.0,
-                        "start": 5.37,
-                        "turn": 7.34,
-                        "finish": 8.43
-                },
-                {
-                        "goal": 52.0,
-                        "start": 5.52,
-                        "turn": 7.5,
-                        "finish": 8.58
-                },
-                {
-                        "goal": 53.0,
-                        "start": 5.68,
-                        "turn": 7.65,
-                        "finish": 8.73
-                },
-                {
-                        "goal": 54.0,
-                        "start": 5.83,
-                        "turn": 7.81,
-                        "finish": 8.87
-                },
-                {
-                        "goal": 55.0,
-                        "start": 5.98,
-                        "turn": 7.96,
-                        "finish": 9.02
-                },
-                {
-                        "goal": 56.0,
-                        "start": 6.13,
-                        "turn": 8.12,
-                        "finish": 9.17
-                },
-                {
-                        "goal": 57.0,
-                        "start": 6.29,
-                        "turn": 8.27,
-                        "finish": 9.31
-                },
-                {
-                        "goal": 58.0,
-                        "start": 6.44,
-                        "turn": 8.43,
-                        "finish": 9.46
-                }
-        ],
-        "100-fly": [
-                {
-                        "goal": 45.0,
-                        "start": 4.82,
-                        "turn": 6.74,
-                        "finish": 7.31
-                },
-                {
-                        "goal": 45.5,
-                        "start": 4.89,
-                        "turn": 6.82,
-                        "finish": 7.39
-                },
-                {
-                        "goal": 46.0,
-                        "start": 4.97,
-                        "turn": 6.9,
-                        "finish": 7.47
-                },
-                {
-                        "goal": 46.5,
-                        "start": 5.04,
-                        "turn": 6.97,
-                        "finish": 7.55
-                },
-                {
-                        "goal": 47.0,
-                        "start": 5.12,
-                        "turn": 7.05,
-                        "finish": 7.63
-                },
-                {
-                        "goal": 47.5,
-                        "start": 5.19,
-                        "turn": 7.13,
-                        "finish": 7.71
-                },
-                {
-                        "goal": 48.0,
-                        "start": 5.27,
-                        "turn": 7.21,
-                        "finish": 7.79
-                },
-                {
-                        "goal": 48.5,
-                        "start": 5.34,
-                        "turn": 7.28,
-                        "finish": 7.87
-                },
-                {
-                        "goal": 49.0,
-                        "start": 5.42,
-                        "turn": 7.36,
-                        "finish": 7.95
-                },
-                {
-                        "goal": 50.0,
-                        "start": 5.57,
-                        "turn": 7.51,
-                        "finish": 8.11
-                },
-                {
-                        "goal": 51.0,
-                        "start": 5.72,
-                        "turn": 7.67,
-                        "finish": 8.27
-                },
-                {
-                        "goal": 52.0,
-                        "start": 5.87,
-                        "turn": 7.82,
-                        "finish": 8.43
-                },
-                {
-                        "goal": 53.0,
-                        "start": 6.03,
-                        "turn": 7.98,
-                        "finish": 8.6
-                },
-                {
-                        "goal": 54.0,
-                        "start": 6.18,
-                        "turn": 8.13,
-                        "finish": 8.76
-                },
-                {
-                        "goal": 55.0,
-                        "start": 6.33,
-                        "turn": 8.29,
-                        "finish": 8.92
-                },
-                {
-                        "goal": 56.0,
-                        "start": 6.48,
-                        "turn": 8.44,
-                        "finish": 9.08
-                },
-                {
-                        "goal": 57.0,
-                        "start": 6.63,
-                        "turn": 8.6,
-                        "finish": 9.24
-                },
-                {
-                        "goal": 58.0,
-                        "start": 6.78,
-                        "turn": 8.75,
-                        "finish": 9.4
-                }
-        ]
-};
-        
-        // Initialize chunks display on page load
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-            if (document.getElementById('chunks-event-select')) {
-                updateChunksDisplay();
+            if (document.getElementById('chunks-stroke')) {
+                showChunks();
             }
-            // Initialize race analysis inputs
-            updateAnalysisInputs();
+            
+            // Setup workout search
+            const searchInput = document.getElementById('workout-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const query = e.target.value.toLowerCase();
+                    window.filteredWorkouts = window.allWorkouts.filter(w => 
+                        w.date.toLowerCase().includes(query) ||
+                        w.location.toLowerCase().includes(query) ||
+                        w.sets.some(s => s.toLowerCase().includes(query))
+                    );
+                    renderWorkouts();
+                });
+            }
         });
         
-        // Race Analysis Functions
-        function updateAnalysisInputs() {
-            const event = document.getElementById('analysis-event').value;
-            const course = document.getElementById('analysis-course').value;
-            const inputContainer = document.getElementById('analysis-splits-input');
+        // Workouts data
+        const WORKOUTS = [{"workout_id": 1, "date": "09/30/23", "location": "Bayside", "course": "SCM", "total_distance": 2000, "sets": ["300 choice / 8x25 No Breath @ :40", "12x50 Fly/BK, BK/Brst, Brst/Free @ 1:00 (600/1100)", "5x100 Free Best Average @ 3:00 (500/1600)", "8x25 Flutter Kick w/a board FAST @ 1:00 (200/1800)", "4x50 easy @ 1:00"], "source_image": "1.jpg"}, {"workout_id": 2, "date": "10/02/23", "location": "Bayside", "course": "SCM", "total_distance": 2200, "sets": ["300 choice / 200 Pull / 100 ROIM @ 9 (600)", "4x {125 (100 IM + 25 Fly) @ 2:30, 75 Back or Breast (odd rds/even rds) @ 1:30} (800/1100)", "16x25 Sprint w/ fins, O - UW Kick, E - Choice @ 1:00 (400/2100)", "100 EZ"], "source_image": "2.jpg"}, {"workout_id": 3, "date": "10/04/23", "location": "Bayside", "course": "SCM", "total_distance": 2300, "sets": ["300 choice / 6x50 IM @ 1:00 (600)", "100 last 25 FAST @ 1:45 (2:00)", "200 last 50 FAST @ 3:30 (4:00)", "300 last 75 FAST @ 5:15 (6:00)", "400 last 100 FAST @ 7:00 (8:00) (1600/2200)", "300 last 75 FAST @ 5:15 (6:00)", "200 last 50 FAST @ 3:30 (4:00)", "100 last 25 FAST @ 1:45 (2:00)", "100 EZ"], "source_image": "3.jpg"}, {"workout_id": 4, "date": "10/07/23", "location": "Bayside", "course": "SCM", "total_distance": 2200, "sets": ["Note: Image too small/blurry to extract details"], "source_image": "4.jpg"}, {"workout_id": 5, "date": "10/14/23", "location": "Great Neck", "course": "SCM", "total_distance": 2200, "sets": ["300 choice", "100 Kick Fast @ 2:00", "8x50 Free @ :45 (:50) (:55)", "200 Kick Fast @ 4:00", "8x50 Free @ :45 (:50) (:55)", "300 Kick Fast @ 6:00", "8x50 Free @ :45 (:50) (:55) (1800/2100)", "100 EZ"], "source_image": "5.jpg"}, {"workout_id": 6, "date": "10/18/23", "location": "Bayside", "course": "SCM", "total_distance": 2100, "sets": ["3x100 choice", "12x25 Fly @ :35", "6x50 Back @ 1:00", "3x100 Breast @ 2:00", "5x {4x25 Max @ :30, 1x50 EZ @ 2:00}", "100 EZ"], "source_image": "6.jpg"}, {"workout_id": 7, "date": "10/21/23", "location": "Bayside", "course": "SCM", "total_distance": 2150, "sets": ["300 choice", "4x {4x100 Freestyle aerobic threshold @ :40/:45/:50/:55/1:00 for 50s, 1:20/1:30/1:40/1:50/2:00 for 100s}", "1x25 Free, 1x25 Kick Underwater, 2x25 Free, 2x25 Kick Underwater @ :35 w/ Fins", "100 EZ"], "source_image": "7.jpg"}, {"workout_id": 8, "date": "10/23/23", "location": "Bayside", "course": "SCM", "total_distance": 2500, "sets": ["300 choice", "8x75 @ 1:30 (25 D.P. / 25 Fingertip / 25 Build)", "2x {50 @ 1:00, 100 @ 2:00, 150 @ 3:00, 200 @ 4:00, 250 @ 5:00} All Fast, All Choice", "100 EZ"], "source_image": "8.jpg"}, {"workout_id": 9, "date": "10/25/23", "location": "Bayside", "course": "SCM", "total_distance": 2500, "sets": ["400 choice", "40x50 @ 1:00 (16: every 4th is FAST, 12: every 3rd is FAST, 8: every other is FAST, 4: all of them are FAST)", "100 EZ"], "source_image": "9.jpg"}, {"workout_id": 10, "date": "10/28/23", "location": "Bayside", "course": "SCM", "total_distance": 2000, "sets": ["300 choice", "8x25 @ :45 Setup + Drive Drill (2 Rt/Lt Kick on side, 2 Rt/Lt w/ Hard Out, 2 Dog Paddle/6 Kick Switch, 2 Build to All Out)", "2x {200 IM @ 4:00, 4x75 (O-Backstroke, E-Breaststroke) @ 1:30, 8x25 Max Speed Fly or Free @ :45/1:00}", "100 EZ"], "source_image": "10.jpg"}, {"workout_id": 11, "date": "10/30/23", "location": "Bayside", "course": "SCM", "total_distance": 2450, "sets": ["400 RO IM - D/K/S - whatever", "8x25 (25 skull / 25- / 25-)", "3x {25 Scull @ :30, 50 D.P./Tarzan @ 1:00, 75 Freestyle @ 1:30}", "4x {3x100 Hold the Fastest Interval Possible @ 1:15/1:20/1:25/1:30/1:35/1:40/1:45/1:50}", "100 EZ"], "source_image": "11.jpg"}, {"workout_id": 12, "date": "11/01/23", "location": "Bayside", "course": "SCM", "total_distance": 1800, "sets": ["300 choice", "16x50 No Fins! (2 Kick @ 1:10, 2 Freestyle @ :55)", "8x50 Off the Blocks - FES (25 all out / 25 easy) @ 2:00", "8x25 (O-BES, E-EZ) @ :45", "100 EZ"], "source_image": "12.jpg"}, {"workout_id": 13, "date": "11/06/23", "location": "Bayside", "course": "SCM", "total_distance": 2100, "sets": ["300 choice", "8x75 @ 1:30 (25 1-Arm Butterfly 1Rt/1Lt, 25 Free w/ Fly Kick, 25 Free)", "8x {4x25 @ :30 (25 Kick w/ Board FAST, 25 1st 15m FAST/10 EZ, 25 1st 15m EZ/10 FAST, 25 Easy)} Extra :60 between rounds", "1x25 Easy Free, 1x25 Fast Underwater Kick w/1 breath at 15m, 2x25, 2x25, 3x25, 3x25 All @ :30", "100 EZ"], "source_image": "13.jpg"}, {"workout_id": 14, "date": "11/08/23", "location": "Bayside", "course": "SCM", "total_distance": 2200, "sets": ["200 Swim / 200 FKOB / 200 IM Drill", "4x150 @ 3:00 (25 Build to FAST, 50 Flutter Kick on Back, 75 Free)", "3x {3x50 (1 FAST/1 EZ/1 FAST) @ 1:30, 6x25 (1 EZ/1 FAST) @ :35/:30/:25}", "100 EZ"], "source_image": "14.jpg"}, {"workout_id": 15, "date": "11/11/23", "location": "Bayside", "course": "SCM", "total_distance": 2500, "sets": ["300 choice", "2x {2x75 Dog Paddle/Fingertip/Tarzan, 2x75 Fly/Back/Breast, 2x75 Kick on Back} all @ 1:30", "6x {50 Kick w/ Board FAST @ 1:30, 3x50 Free Aerobic @ :40/:45/:50}", "100 EZ"], "source_image": "15.jpg"}, {"workout_id": 16, "date": "11/13/23", "location": "Bayside", "course": "SCM", "total_distance": 1850, "sets": ["300 choice", "2x {6x50 (35m @ 80%, 15m @ 90%) @ 1:00, 3x25 (15m @ 100%, 10m @ 60%) @ :45} (850/1150)", "2x {2x50 Paddles, 2x50 Fins, 2x50 Fins + Paddles} @ 2:00, 1st Rd w/ Drag Suit or Sox, 2nd Rd w/out (600/1750)", "100 EZ"], "source_image": "16.jpg"}, {"workout_id": 17, "date": "11/16/23", "location": "GN", "course": "SCM", "total_distance": 1700, "sets": ["300 choice", "6x100 IM @ 2:00/1:50/1:40 (2x each) (600/900)", "6x50 (25 Kick on Back, 25 Swim - Build to FAST) @ 1:10 (300/1200)", "16x25 FAST @ 1:00 - Speed Endurance (400/1600)", "100 EZ"], "source_image": "17.jpg"}, {"workout_id": 18, "date": "11/21/23", "location": "G. Neck", "course": "SCM", "total_distance": 2900, "sets": ["300 choice", "12x75 the IM 75s @ 1:30 (900/1200)", "4x {4x100 @ 1:30/1:25/1:20/1:15, Extra :60 rest b/w rounds; intervals descend each round: Rd2 1:35/1:30/1:25/1:20, Rd3 1:50/1:45/1:40/1:35} (1600/2800)", "100 EZ"], "source_image": "18.jpg"}, {"workout_id": 19, "date": "11/21/23", "location": "Great Neck", "course": "SCM", "total_distance": 2000, "sets": ["300 choice", "12x75 the IM 75s @ 1:30 (900/1200)", "4x {3x50 all out @ 2:00, 1x50 EZ @ 1:00} - Choice of stroke & equipment (800/2000)"], "source_image": "19.jpg"}, {"workout_id": 20, "date": "11/24/23", "location": "Bayville", "course": "SCM", "total_distance": 2550, "sets": ["300 choice / 16x25 IM order @ :30 (700)", "2x50 Free, 400 Kick Best Effort", "4x50 Free, 200 Kick Best Effort", "6x50 Free, 100 Kick Best Effort", "8x50 Free, 50 Kick Best Effort (1750)", "100 EZ"], "source_image": "20.jpg"}, {"workout_id": 21, "date": "11/25/23", "location": "Bayside", "course": "SCM", "total_distance": 1500, "sets": ["300 choice", "3x {8x25 (O - Tarzan, E - FKOB) 1st Rd @ :40, 2nd Rd @ :35, 3rd Rd @ :30} (600/900)", "4x25 REALLY REALLY REALLY FAST @ 1:00", "3x50 REALLY REALLY REALLY FAST @ 2:00", "2x75 REALLY REALLY REALLY FAST @ 3:00", "1x100 FAST @ 4:00 (500/1400)", "100 EZ"], "source_image": "21.jpg"}, {"workout_id": 22, "date": "11/28/23", "location": "G. Neck", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x25 @ :45 (O - UW pullouts, E - Scull breast) (500)", "4x150 (O - 25 Fly/50 Back/75 Breast @ 3:00, E - Freestyle 75 Easy/50 Build/25 Fast @ 2:30) (600/1100)", "8x100 Freestyle Best Ave. @ 2:00 (800/1900)", "1x25 Underwater Kick FAST w/1 breath at the 15m, 1x25 Freestyle Easy, 2x25, 2x25, 3x25, 3x25 - all w/ fins, all on :40 (400/2300)", "100 EZ"], "source_image": "22.jpg"}, {"workout_id": 23, "date": "12/03/23", "location": "Bayside", "course": "SCM", "total_distance": 2100, "sets": ["300 choice", "2x {200 Kick @ 4:00, 2x100 IM @ 1:45, 4x50 Free @ :45 (:50)} - Choice but No Fins! Go shorter if need be. (1200/1500)", "5x {4x25 at 100 Pace @ :30, 1:00 b/w Rounds} (500/2000)", "100 EZ"], "source_image": "23.jpg"}, {"workout_id": 24, "date": "12/05/23", "location": "Great Neck", "course": "SCM", "total_distance": 2400, "sets": ["300 choice", "12x50 (1 - D.P., 1 - Tarzan, 1 - Free) @ 1:00 (600/900)", "14x {75 @ 400 Pace, 25 EZ} @ 1:50 (1400/2300)", "100 EZ"], "source_image": "24.jpg"}, {"workout_id": 25, "date": "12/07/23", "location": "G. Neck", "course": "SCM", "total_distance": 1900, "sets": ["300 choice", "8x25 Fly @ :40, 4x75 (25 Back/50 Breast) @ 1:30, 2x100 IM @ 2:00 (700/1000)", "3x {3x50 @ 200 Pace @ 1:00, 1x50 Easy @ 2:00} (600/1600)", "8x25 Kick w/ Board FAST @ 1:00", "100 EZ"], "source_image": "25.jpg"}, {"workout_id": 26, "date": "12/12/23", "location": "Bayside", "course": "SCM", "total_distance": 1900, "sets": ["300 choice", "8x75 (50 choice Non-Free / 25 Free) @ 1:30", "3x {12x25 Fast @ :45} - 1st Rd = Swim, 2nd Rd = Pull, 3rd Rd = Kick", "100 EZ"], "source_image": "26.jpg"}, {"workout_id": 27, "date": "12/19/23", "location": "Great Neck", "course": "SCM", "total_distance": 1800, "sets": ["300 choice", "4x {75 FKOB @ 1:45, 50 Tarzan @ 1:00, 25 Freestyle Build to FAST @ 1:00}", "4x {8x25 @ 200 Pace @ :30}", "100 EZ"], "source_image": "27.jpg"}, {"workout_id": 28, "date": "12/21/23", "location": "G. Neck", "course": "SCM", "total_distance": 2000, "sets": ["300 choice / 8x25 EF/FE, FP/EE @ :35", "8x50 Make the Interval @ :50 (:55) (1:00)", "6x50 Make the Interval @ :45 (:50) (:55)", "4x50 Make the Interval @ :40 (:45) (:50)", "2x50 Make the Interval @ :35 (:40) (:45)", "8x50 Make the Interval @ :40 (:45) (:50)", "100 EZ"], "source_image": "28.jpg"}, {"workout_id": 29, "date": "12/23/23", "location": "Bayside", "course": "SCM", "total_distance": 2200, "sets": ["300 choice / 6x50 IM @ 1:00", "2x25 Kick w/ Board FAST @ :45", "4x100 Free Best Ave @ 2:00", "4x25, 3x100, 6x25, 2x100, 8x25, 1x100 (descending ladder set)", "100 EZ"], "source_image": "29.jpg"}, {"workout_id": 30, "date": "12/26/23", "location": "G. Neck", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x50 (O - FKOB, E - Tarzan) @ 1:05", "400 aerobic free swim or pull", "200 Kick FAST", "400 Free", "200 Kick FAST", "400 Free", "100 EZ"], "source_image": "30.jpg"}, {"workout_id": 31, "date": "12/28/23", "location": "G. Neck", "course": "SCM", "total_distance": 2000, "sets": ["300 choice / 8x25 (O - Kick, E - Swim No Breath) @ :40", "12x75 IM 75s @ 1:30", "4x {5x25 @ 1:00 - 1x 10m FAST, 1x 15m FAST, 1x 20m FAST, 1x 25m FAST, 1x 25m EZ}", "100 EZ"], "source_image": "31.jpg"}, {"workout_id": 32, "date": "12/30/23", "location": "Bayside", "course": "SCM", "total_distance": 2500, "sets": ["300 choice", "8x75 (O - 25 Rotor Kick/25 D.P./25 Free, E - Fly/Bk/Brst) @ 1:40", "2x {100 Near Threshold @ 2:00, 200 Hold what you went in the 100 @ 4:00, 400 same @ continuous}", "4x25 all out Kick w/ Board @ 1:00", "100 EZ"], "source_image": "32.jpg"}, {"workout_id": 33, "date": "01/02/24", "location": "G. Neck", "course": "SCM", "total_distance": 2500, "sets": ["300 choice / 300 {8x25 Free No Breath @ :30}", "75 FKOB, 25 Tarzan, 50 FKOB, 50 Tarzan, 25 FKOB, 75 Tarzan", "16x {75 @ 400 Pace @ 1:50, 25 EZ}", "100 EZ"], "source_image": "33.jpg"}, {"workout_id": 34, "date": "01/04/24", "location": "G. Neck", "course": "SCM", "total_distance": 1900, "sets": ["300 choice / 8x25 Sprint Forms @ :40", "4x {2x50 Fast @ 1:00, 1x100 EZ @ 4:00}", "1x25 UW H2O Kick Fast w/ 1 Breath, 1x25 EZ Free, 2x25, 2x25, 3x25, 3x25, 4x25, 4x25 @ :30 All w/ Fins (ascending ladder)", "100 EZ"], "source_image": "34.jpg"}, {"workout_id": 35, "date": "01/06/24", "location": "Bayside", "course": "SCM", "total_distance": 2600, "sets": ["300 choice", "4x150 (75 Kick / 50 Drill / 25 Swim) @ 3:00", "3x {4x100 Fastest Interval Possible @ 1:15 (1:20)(1:30)(1:40)(1:50)}", "4x100 Best Ave Kick @ 2:00", "100 EZ"], "source_image": "35.jpg"}, {"workout_id": 36, "date": "01/09/24", "location": "G.Neck", "course": "SCM", "total_distance": 1800, "sets": ["300 choice", "2x {200 FKOB @ 4:00, 4x50 RO IM @ 1:00, 4x25 Free 1ez/1FAST @ :45}", "16x25 @ 1:00 - 1-15m, 1-20m, 1-25m, 1-EZ, As Fast As Possible, Fins Pads & Any Resistance", "100 EZ"], "source_image": "36.jpg"}, {"workout_id": 37, "date": "01/11/24", "location": "G.Neck", "course": "SCM", "total_distance": 2000, "sets": ["300 choice", "4x25 Tarzan @ :30, 100 FKOB @ 2:00, 6x25 Tarzan @ :30, 200 FKOB @ 4:00, 8x25 Tarzan @ :30, 300 FKOB @ 6:00", "150 Easy Swim", "8x50 Free Best Ave. @ 1:00", "100 EZ"], "source_image": "37.jpg"}, {"workout_id": 38, "date": "01/16/24", "location": "G.Necks", "course": "SCM", "total_distance": 2150, "sets": ["300 choice", "4x50 IM @ 1:00", "8x25 No Breath Free @ :35", "3x {300 Free Negative Split @ 5:00, 6x25 All Out Kick w/ Board @ :45}", "100 EZ"], "source_image": "38.jpg"}, {"workout_id": 39, "date": "01/23/24", "location": "G.Neck", "course": "SCM", "total_distance": 2600, "sets": ["300 choice", "8x25 No Breath @ :35", "4x100 Make the Interval @ 1:20, 3x200 Make the Interval @ 2:40, 2x300 Interval @ 4:00, 1x400 @ 5:20 - Pull or Swim!", "100 EZ"], "source_image": "39.jpg"}, {"workout_id": 40, "date": "01/25/24", "location": "G.Neck", "course": "SCM", "total_distance": 1700, "sets": ["300 choice", "12x75 the IM 75's! @ 1:30", "4x {4x25 Broken 100 Pace @ :30, Extra 2 min. b/w rounds}", "100 EZ"], "source_image": "40.jpg"}, {"workout_id": 41, "date": "01/27/24", "location": "Bayside", "course": "SCM", "total_distance": 2600, "sets": ["300 choice", "6x50 IM @ 1:00", "12x25 O-FKOB / E-Tarzan @ :35", "16x {75 @ 400 Pace/Threshold, 25 EZ} @ 2:00", "100 EZ"], "source_image": "41.jpg"}, {"workout_id": 42, "date": "01/30/24", "location": "G.Neck", "course": "SCM", "total_distance": 2600, "sets": ["300 choice", "4x75 25 K/D/S 1 each stroke @ 1:40", "4x25 Free No Breath @ :25", "8x25 Fly @ :45 (:40) (:35), 8x50 Free @ :45 (:50) (:55), 8x25 Fly, 8x50 Free, 8x25 Fly, 8x50 Free", "100 EZ"], "source_image": "42.jpg"}, {"workout_id": 43, "date": "02/01/24", "location": "G.Neck", "course": "SCM", "total_distance": 2600, "sets": ["300 choice", "4x150 Kick @ 3:00", "12x25 Free No Breath @ :35", "4x {200 Pull @ 3:30, 4x50 Free Threshold @ :50}", "100 EZ"], "source_image": "43.jpg"}, {"workout_id": 44, "date": "02/06/24", "location": "Bayside", "course": "SCM", "total_distance": 2600, "sets": ["300 choice / 8x25 No Breath Odds on :25 Evens on :35", "50 - 25 FKOB/25 Tarzan @ 1:00, 100 @ 2:00, 150 @ 3:00, 200 @ 4:00", "12x125 Swim or Pull - 3x {2 Pace, 1 Attack, 1 Cruise} @ 2:00 (2:15) (2:30)", "100 EZ"], "source_image": "44.jpg"}, {"workout_id": 45, "date": "02/08/24", "location": "Bayside", "course": "SCM", "total_distance": 2300, "sets": ["300 choice / 8x25 Free No Breath @ :30", "6x100 @ 2:00 - 2 Fly/BK, 2 BK/Brst, 2 Brst/Free", "16x25 Fly @ :40", "12x25 Fly @ :35", "8x25 Fly @ :30", "4x25 Fly @ :25", "100 EZ"], "source_image": "45.jpg"}, {"workout_id": 46, "date": "02/10/24", "location": "Bayside", "course": "SCM", "total_distance": 1800, "sets": ["300 choice", "12x75 @1:30 - 2 D.P./Fingertip/Freestyle, 2 Tarzan/Free w/Fly Kick/Catch Up, 2 Freestyle", "20x25 FAST choice @1:00", "100 EZ"], "source_image": "46.jpg"}, {"workout_id": 47, "date": "02/12/24", "location": "Bayside", "course": "SCM", "total_distance": 2150, "sets": ["300 choice / 8x25 @:30", "2x{2x75 Fly/Bk/Brst @1:30, 2x50 FKOB @1:00, 4x25 Tarzan @:25}", "6x100 Just Paddles, Normal Distance Stroke @1:30 (1:45)(2:00)", "4x{50 Any & All Equipment Max Effort @:45, 25 Equipment @:30, 25 Easy @1:45}", "100 EZ"], "source_image": "47.jpg"}, {"workout_id": 48, "date": "02/14/24", "location": "Bayside", "course": "SCM", "total_distance": 2600, "sets": ["300 choice / 8x25 Free @:35 - Focus on stroke count rather than # of breaths", "4x{8x50 Pull @:45 (:50)(:55) - Make the interval - Try w/out Paddles, 1x100 Kick FAST @4:00 No Fins}", "100 Easy"], "source_image": "48.jpg"}, {"workout_id": 49, "date": "02/17/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x25 @:30", "Happy Birthday Gregor! 18x{75 @400 Pace, 25 EZ} @2:00", "100 EZ"], "source_image": "49.jpg"}, {"workout_id": 50, "date": "02/19/24", "location": "Bayside", "course": "SCM", "total_distance": 2900, "sets": ["300 choice / 8x25 @:30 - How many strokes do you take before you breathe?", "46x50 @1:00 - 16 every 4th FAST, 12 every 3rd FAST, 8 every other FAST, 4 ALL FAST", "6x50 Kick FAST w/Fins & Board or FKOB @1:00", "100 EZ"], "source_image": "50.jpg"}, {"workout_id": 51, "date": "02/24/24", "location": "Bayside", "course": "SCM", "total_distance": 2100, "sets": ["300 choice / 8x25 @:30", "3x{300 Swim or Pull @4:30, 4x25 Kick w/Board MAX @:45}", "100 EZ"], "source_image": "51.jpg"}, {"workout_id": 52, "date": "02/26/24", "location": "Bayside", "course": "SCM", "total_distance": 2225, "sets": ["300 choice / 8x25 @:35", "5x{4x25 Fly @:30, 2x50 (25 Dog Paddle/25 Tarzan) @1:00, 1x75 Free - Threshold} - 2nd Rd the 1x75 goes to 1x100, 3rd Rd = 1x125, 4th Rd = 1x150, 5th Rd = 1x175", "100 EZ"], "source_image": "52.jpg"}, {"workout_id": 53, "date": "02/28/24", "location": "Bayside", "course": "SCM", "total_distance": 1800, "sets": ["300 choice / 8x25 @:30", "4x125 IM + 25 Fly @2:15", "5x100 Best Average @3:00", "8x25 All Out Kick @1:00", "100 EZ"], "source_image": "53.jpg"}, {"workout_id": 54, "date": "03/02/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x25 @:25/:35", "200 Kick @4:30, 8x25 Fly @:35, 200 Kick @4:30, 16x25 Fly @:35, 200 Kick @4:30, 24x25 Fly @:35", "100 EZ"], "source_image": "54.jpg"}, {"workout_id": 55, "date": "03/04/24", "location": "Bayside", "course": "SCM", "total_distance": 1500, "sets": ["300 choice / 8x25 @:30", "5x100 (25 Kick/50 Tarzan/25 Kick) @2:00 (2:10)(2:20)", "4x{4x25 Max Effort - 1st Rd @1:00, 2nd Rd @:45, 3rd Rd @:30, 4th Rd @:15}", "100 EZ"], "source_image": "55.jpg"}, {"workout_id": 56, "date": "03/06/24", "location": "Bayside", "course": "SCM", "total_distance": 2000, "sets": ["300 choice / 8x25 O-Pullouts @:45, E-Free @:45", "2x {100, 200, 300} Swim or Pull Free - 100 @1:20 (1:30)(1:45), 200 @2:40 (3:00)(3:30), 300 @4:00 (4:30)(5:15)", "8x25 All Out, All Equipment, All Resistance @1:00", "100 EZ"], "source_image": "56.jpg"}, {"workout_id": 57, "date": "03/09/24", "location": "Bayside", "course": "SCM", "total_distance": 2100, "sets": ["300 choice / 8x25 O-Pullouts, E-Streamline Flutter Kick @:45", "5x {3x100 Make the Interval @1:15 (1:20)(1:30)(1:40)}", "100 EZ"], "source_image": "57.jpg"}, {"workout_id": 58, "date": "03/12/24", "location": "Great Neck", "course": "SCM", "total_distance": 2100, "sets": ["300 choice / 8x25 Free @:30", "2x {50 @1, 100 @2, 150 @3, 200 @4, 250 @5} Best Average - 1st Rd = No Equipment, 2nd Rd = Pull w/anything", "100 EZ"], "source_image": "58.jpg"}, {"workout_id": 59, "date": "03/14/24", "location": "Great Neck", "course": "SCM", "total_distance": 2100, "sets": ["300 choice / 8x25 Pullouts @:45", "3x {300 Flutter Kick w/ Board - Not Fast, 8x25 Fly (or whatever) @:45, 200 Pace}", "100 EZ"], "source_image": "59.jpg"}, {"workout_id": 60, "date": "03/16/24", "location": "Bayside", "course": "SCM", "total_distance": 2300, "sets": ["300 choice / 8x25 @:30", "12x25 the IM 75s @:30", "4x200 Descend 1-4 @4:00 (or 4x150 or 4x100) - #4 is FAST", "100 EZ"], "source_image": "60.jpg"}, {"workout_id": 61, "date": "03/19/24", "location": "Great Neck", "course": "SCM", "total_distance": 2000, "sets": ["300 choice / 8x25 @:30 Least # of Breaths", "2x {4x75 50 FKOB/25 Tarzan @1:45, 1x400 Negative Split @8:00}", "100 EZ"], "source_image": "61.jpg"}, {"workout_id": 62, "date": "03/21/24", "location": "Great Neck", "course": "SCM", "total_distance": 1900, "sets": ["300 choice / 8x25 Free 1@:25, 1@:35", "2x {4x75 - 25 Flutter Kick on Back, 25 Dog Paddle - focus on your catch, 25 Freestyle @1:45}", "4x50 - 1: 25 Easy/25 FAST, 1: 25 FAST/25 Easy, 1: 50 FAST, 1: 50 EZ @1:15", "4x25 MAX SPEED choice @1:00", "100 EZ @4:00"], "source_image": "62.jpg"}, {"workout_id": 63, "date": "03/23/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x25 Sprint Series @:40", "3x100 25 Back/25 Free @2:00", "6x50 25 Fly/25 Breast @1:00", "12x100 Free @1:30 (1:45)(2:00) - 1: 1st 25 is FAST, 1: 2nd 25 is FAST, 1: 3rd 25 is FAST, 1: 4th 25 is FAST - FAST = Threshold", "100 EZ"], "source_image": "63.jpg"}, {"workout_id": 64, "date": "03/20/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x25 Fly @:45 No Breath", "6x50 Freestyle Long & Strong @:45 (:50)", "3x100 @1:30 (1:45)", "1x600 @9:00 (10:00)", "3x100 @1:30 (1:45)", "6x50 Maybe practice sighting? @:45 (:50)", "100 EZ"], "source_image": "64.jpg"}, {"workout_id": 65, "date": "03/27/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x25 O-Free @:35, E-Pullouts @:40", "4x {2x50 FKOB @1:00, 4x25 Fly or Free @:30}", "10x {75 @400 Pace, 25 EZ} @1:40 (1:50)(2:00)", "100 EZ"], "source_image": "65.jpg"}, {"workout_id": 66, "date": "03/30/24", "location": "Bayside", "course": "SCM", "total_distance": 1800, "sets": ["300 choice", "4x50 IM @ 1:00", "4x25 Free @ :25 No Breath", "12x75 @ 1:30 - 3: 25 Fly/50 Back, 3: 25 Back/50 Breast, 3: 25 Breast/50 Free, 3: 25 Free/50 Fly", "4x50 All Out, One Each Stroke @ 3:00", "100 EZ"], "source_image": "66.jpg"}, {"workout_id": 67, "date": "04/01/24", "location": "Bayside", "course": "SCM", "total_distance": 2700, "sets": ["300 choice", "4x50 IM @ 1:00", "4x25 Free @ :25 No Breath", "8x100 Make the Interval @ 1:30 (1:45)", "6x100 Make the Interval @ 1:25 (1:40)", "4x100 Pull or Swim @ 1:20 (1:35)", "2x100 or do them as 75s @ 1:15 (1:30)", "100 EZ"], "source_image": "67.jpg"}, {"workout_id": 68, "date": "04/03/24", "location": "Bayside", "course": "SCM", "total_distance": 1800, "sets": ["300 choice", "8x25 Fly No Breath @ :45", "16x50 O: 25 FKOB/25 Tarzan, E: Free @ 1:00", "16x25 Max Speed @ 1:00", "100 EZ"], "source_image": "68.jpg"}, {"workout_id": 69, "date": "04/06/24", "location": "Bayside", "course": "SCM", "total_distance": 1800, "sets": ["300 choice", "8x25 Pullouts @ :45", "1x75 FKOB @ 1:30", "1x25 Free @ :30", "2x75 FKOB @ 1:30", "1x25 Free @ :30", "3x75 FKOB @ 1:30", "50 EZ", "4x100 Free - Fastest Interval Possible @ 1:15", "50 EZ", "8x25 All Out Kick @ 1:00", "100 EZ"], "source_image": "69.jpg"}, {"workout_id": 70, "date": "04/08/24", "location": "Bayside", "course": "SCM", "total_distance": 2200, "sets": ["300 choice", "8x25 Free @ :30", "4x150 @ 3:30 - 25 RT side Flutter Kick, 25 LT side Flutter Kick, 50 Dog Paddle b/c 3, 50 Free build to Threshold", "4x25 Fly - Aerobic @ :30", "100 Free Threshold @ 3:00", "8x25 Fly - Aerobic @ :30", "100 Free - Threshold @ 3:00", "16x25 Fly - Aerobic @ :30", "100 Free - Threshold @ 3:00", "100 EZ"], "source_image": "70.jpg"}, {"workout_id": 71, "date": "04/10/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice", "8x25 Pullouts @ :45", "8x75 @ 1:30 - 25 Kick (no fins), 25 Tarzan, 25 Free", "8x25 200 Pace @ :45 :30", "100 EZ", "8x25 200 Pace @ :40 :35", "100 EZ", "8x25 200 Pace @ :35 :40", "100 EZ", "8x25 200 Pace @ :30 :45", "100 EZ"], "source_image": "71.jpg"}, {"workout_id": 72, "date": "04/13/24", "location": "Bayside", "course": "SCM", "total_distance": 2050, "sets": ["300 choice", "6x25 Streamline Flutter Kick @ 1:00", "4x100 IM @ 2:00 - Fly/Bk/Brst/Free, Bk/Brst/Free/Fly, Brst/Free/Fly/Back, Free/Fly/Back/Breast", "2x {2x25 Max Effort @ :30, 1x50 EZ @ 2:00, 4x25 Max Effort @ :30, 2x50 EZ @ 2:00, 8x25 Max Effort @ :30, 100 EZ} Choice of Everything"], "source_image": "72.jpg"}, {"workout_id": 73, "date": "04/15/24", "location": "Bayside", "course": "SCM", "total_distance": 2500, "sets": ["300 choice", "8x25 Free @ :30", "4x {2x50 Kick @ 1:15 No Fins, 4x25 O: Tarzan, E: OW Freestyle @ :30, 100 Free @ 400 Pace - Add 100 More Per Round}"], "source_image": "73.jpg"}, {"workout_id": 74, "date": "04/16/24", "location": "Bayside", "course": "SCM", "total_distance": 2000, "sets": ["300 choice", "8x25 Free @ :35 Least # of breaths", "16x25 Sprint Series @ :45 - 12.5 Fast/12.5 EZ - 4x {1@ Streamline Flutter Kick, 1@ Long Dog Paddle, 1@ Head Out of Water, 1@ Max Effort No Breath}", "20x50 Free @ 1:00 - 4@ Aerobic, 1@ 400 Pace, 3@ Aerobic, 2@ 400 Pace, 2@ Aerobic, 3@ 400 Pace, 1@ Aerobic, 4@ 400 Pace", "100 EZ"], "source_image": "74.jpg"}, {"workout_id": 75, "date": "04/20/24", "location": "Bayside", "course": "SCM", "total_distance": 2300, "sets": ["300 choice", "8x25 Pullouts @ :50", "8x25 @ :30 O: Tarzan, E: OW Freestyle", "16x100 @ 1:50 - 75 @ 400 Pace, 25 EZ", "100 EZ"], "source_image": "75.jpg"}, {"workout_id": 76, "date": "04/22/24", "location": "Bayside", "course": "SCM", "total_distance": 1750, "sets": ["300 choice / 8x25 Fly @:45, breath every 10", "8x50 (25 Build Stroke IM order, 25 Free EZ) @1:00", "3x {Broken 200: 50 @1:00, 100 @1:30, 50 @1:00 + 50 easy @3:30}", "100 EZ"], "source_image": "76.jpg"}, {"workout_id": 77, "date": "04/24/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x25 Free @:30, Have You Improved?", "12x75 the IM 75s! @1:30", "12x50 (2-FKOB, 1-Free) @1:00", "12x25 All Out, choice of Everything @:45", "100 EZ"], "source_image": "77.jpg"}, {"workout_id": 78, "date": "04/27/24", "location": "Bayside", "course": "SCM", "total_distance": 1900, "sets": ["300 choice / 8x50 (O-K/S, E-D/S) @1:05", "2x {4x100 @400 Pace: 1 @2:00 (1:45), 1 @1:45 (1:30), 1 @1:30 (1:15), 1 @1:15}", "12x25 @:45 Power & Resistance, Use Equipment", "100 EZ"], "source_image": "78.jpg"}, {"workout_id": 79, "date": "04/29/24", "location": "Bayside", "course": "SCM", "total_distance": 2800, "sets": ["300 choice / 8x50 (O-25 FKOB/25 Tarzan, E-25 Tarzan/25 Free OW) @1:00 (1:05) (1:10)", "2x {4x100 @1:25, 3x100 @1:20, 2x100 @1:15, 1x100 @1:10} Freestyle, 2nd Rd = Pull", "100 EZ"], "source_image": "79.jpg"}, {"workout_id": 80, "date": "05/01/24", "location": "Bayside", "course": "SCM", "total_distance": 1500, "sets": ["300 choice / 8x50 (O-25 Free w/Dolphin Kick, 25 OW Free; E-25 Dog Paddle, 25 OW Free) @1:00", "12x25 EF/FE/FF/EE 12.5 each @:40", "3x50 Max Effort @3:00", "100 EZ", "6x25 Max Effort @1:30", "100 EZ"], "source_image": "80.jpg"}, {"workout_id": 81, "date": "05/04/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice / 8x25 Free @:35, Least # of breaths", "2x {4x75 (25-FKOB, 25-Tarzan, 25-Free) @1:30, 4x25 Fly @:30}", "20x50 (1 EZ / 1 Fast) choice of everything @1:00", "100 EZ"], "source_image": "81.jpg"}, {"workout_id": 82, "date": "05/06/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["41 DAYS OUT!", "300 choice / 8x50 (O-25 Tarzan/25 FKOB, E-25 FKOB/25 Tarzan) @1:00 (1:05) (1:10)", "4x {8x25 Fly @:35, 200 Free @- (Last 200 of the Jack King)}", "100 EZ"], "source_image": "82.jpg"}, {"workout_id": 83, "date": "05/11/24", "location": "Bayside", "course": "SCM", "total_distance": 2350, "sets": ["300 choice", "3x {25 Fly @:30, 50 Back @1:00, 75 Breast @1:30, 100 IM @2:00}", "12x100 (O-FKOB, E-Freestyle @ Threshold) @2:00", "100 EZ"], "source_image": "83.jpg"}, {"workout_id": 84, "date": "05/15/24", "location": "Bayside", "course": "SCM", "total_distance": 2400, "sets": ["300 choice", "4x50 IM 12.5 each @1:00", "8x25 No Breath Speed Play @:40", "16x {75 @400 Pace, 25 EZ} @1:50 (2:00)", "100 EZ"], "source_image": "84.jpg"}, {"workout_id": 85, "date": "05/18/24", "location": "Bayside", "course": "SCM", "total_distance": 2300, "sets": ["300 choice", "8x50 (O-Kick @1:10, E-Swim @1:00) Preferably, no fins!", "300 Pull Buoy Only @5:30", "6x50 OW Freestyle @:45 (:50) (:55)", "300 Pull Paddles Only @5:30", "6x50 (25 Tarzan, 25 Free) @:45 (:50) (:55)", "300 Pull choice of equipment, As Fast As Possible", "100 EZ"], "source_image": "85.jpg"}];
+        
+        window.allWorkouts = WORKOUTS;
+        window.filteredWorkouts = WORKOUTS;
+        
+        function renderWorkouts() {
+            const container = document.getElementById('workout-list');
+            if (!container) return;
             
-            // Determine split structure based on event and course
-            const splits = getSplitsStructure(event, course);
+            if (!window.filteredWorkouts || window.filteredWorkouts.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 3rem; color: #6c757d;">No workouts found matching your filters.</div>';
+                return;
+            }
             
-            let html = '<h4 style="margin-bottom: 0.75rem; font-size: 1rem;">Enter Splits:</h4>';
-            html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem;">';
-            
-            splits.forEach(split => {
-                html += `
+            container.innerHTML = window.filteredWorkouts.map(w => `
+                <div style="background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #dee2e6;">
+                        <div>
+                            <div style="font-size: 1.2rem; font-weight: bold; color: #667eea;">${w.date}</div>
+                            <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+                                <span style="background: #e7f3ff; color: #0066cc; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">${w.location}</span>
+                                <span style="background: #fff3cd; color: #856404; padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600;">${w.course}</span>
+                            </div>
+                        </div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: #28a745;">${w.total_distance}m</div>
+                    </div>
                     <div>
-                        <label style="font-size: 0.85rem; color: #666; display: block; margin-bottom: 0.25rem;">${split.label}</label>
-                        <input type="text" id="split-${split.distance}" placeholder="${split.label}" 
-                               style="width: 100%; padding: 0.5rem; border: 2px solid #e0e0e0; border-radius: 6px;">
+                        ${w.sets.map(s => `<div style="padding: 0.5rem 0; color: #495057; line-height: 1.6; border-left: 3px solid #667eea; padding-left: 1rem; margin: 0.5rem 0; background: white; border-radius: 0 6px 6px 0;">${s}</div>`).join('')}
                     </div>
-                `;
-            });
-            
-            html += '</div>';
-            inputContainer.innerHTML = html;
-        }
-        
-        function getSplitsStructure(event, course) {
-            const distance = event.split('-')[0];
-            const stroke = event.split('-')[1];
-            
-            // Define split structure based on event
-            if (distance === '50') {
-                if (course === 'lcm') {
-                    return []; // No intermediate splits for 50 LCM typically
-                } else {
-                    return [
-                        { distance: '25', label: '25' }
-                    ];
-                }
-            } else if (distance === '100') {
-                return [
-                    { distance: '50', label: '50' }
-                ];
-            } else if (distance === '200') {
-                return [
-                    { distance: '50', label: '50' },
-                    { distance: '100', label: '100' },
-                    { distance: '150', label: '150' }
-                ];
-            } else if (distance === '400') {
-                return [
-                    { distance: '50', label: '50' },
-                    { distance: '100', label: '100' },
-                    { distance: '150', label: '150' },
-                    { distance: '200', label: '200' },
-                    { distance: '250', label: '250' },
-                    { distance: '300', label: '300' },
-                    { distance: '350', label: '350' }
-                ];
-            }
-            
-            return [];
-        }
-        
-        function calculateAnalysis() {
-            const event = document.getElementById('analysis-event').value;
-            const course = document.getElementById('analysis-course').value;
-            const finalTimeStr = document.getElementById('analysis-final-time').value.trim();
-            
-            if (!finalTimeStr) {
-                alert('Please enter a final time');
-                return;
-            }
-            
-            // Parse final time
-            const finalTime = parseTimeToSeconds(finalTimeStr);
-            
-            // Get actual splits from inputs
-            const splits = getSplitsStructure(event, course);
-            const actualSplits = {};
-            
-            splits.forEach(split => {
-                const input = document.getElementById(`split-${split.distance}`);
-                if (input && input.value.trim()) {
-                    actualSplits[split.distance] = parseTimeToSeconds(input.value.trim());
-                }
-            });
-            
-            // Get comparison data
-            const pbData = getPBData(event, course);
-            const modelData = getModelData(event, course);
-            
-            // Generate analysis
-            displayAnalysis(event, course, finalTime, actualSplits, pbData, modelData);
-        }
-        
-        function parseTimeToSeconds(timeStr) {
-            // Handle MM:SS.SS or SS.SS format
-            if (timeStr.includes(':')) {
-                const parts = timeStr.split(':');
-                const minutes = parseInt(parts[0]);
-                const seconds = parseFloat(parts[1]);
-                return minutes * 60 + seconds;
-            } else {
-                return parseFloat(timeStr);
-            }
-        }
-        
-        function formatTime(seconds) {
-            if (seconds >= 60) {
-                const mins = Math.floor(seconds / 60);
-                const secs = (seconds % 60).toFixed(2).padStart(5, '0');
-                return `${mins}:${secs}`;
-            } else {
-                return `${seconds.toFixed(2)}`;
-            }
-        }
-        
-        function getPBData(event, course) {
-            const eventKey = `${event}-${course}`;
-            const pbSplits = meetGoalsData[eventKey]?.personalized?.checkpoints || {};
-            const pbTime = eventData[event]?.pbs[course];
-            
-            return {
-                time: pbTime,
-                splits: pbSplits
-            };
-        }
-        
-        function getModelData(event, course) {
-            const eventKey = `${event}-${course}`;
-            const models = [];
-            
-            // Check for British model
-            if (meetGoalsData[eventKey]?.british) {
-                models.push({
-                    name: 'British',
-                    data: meetGoalsData[eventKey].british
-                });
-            }
-            
-            // Check for Australian model
-            if (meetGoalsData[eventKey]?.australian) {
-                models.push({
-                    name: 'Australian',
-                    data: meetGoalsData[eventKey].australian
-                });
-            }
-            
-            return models;
-        }
-        
-        function displayAnalysis(event, course, finalTime, actualSplits, pbData, modelData) {
-            const resultsDiv = document.getElementById('analysis-results');
-            resultsDiv.style.display = 'block';
-            
-            let html = '<h3 style="margin-bottom: 1rem; font-size: 1.3rem; color: #667eea;">📊 Race Analysis Results</h3>';
-            
-            // Overall comparison with PB
-            if (pbData.time) {
-                const delta = finalTime - pbData.time;
-                const percentDiff = ((delta / pbData.time) * 100).toFixed(2);
-                const isPB = delta <= 0;
-                
-                html += `
-                    <div style="background: ${isPB ? 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' : '#f8f9fa'}; 
-                                padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; color: ${isPB ? 'white' : '#333'};">
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-                            <div>
-                                <div style="font-size: 0.9rem; ${isPB ? 'opacity: 0.9' : 'color: #666'};">Final Time</div>
-                                <div style="font-size: 2rem; font-weight: bold;">${formatTime(finalTime)}</div>
-                            </div>
-                            <div>
-                                <div style="font-size: 0.9rem; ${isPB ? 'opacity: 0.9' : 'color: #666'};">vs PB (${formatTime(pbData.time)})</div>
-                                <div style="font-size: 1.5rem; font-weight: bold;">
-                                    ${delta > 0 ? '+' : ''}${formatTime(Math.abs(delta))} 
-                                    <span style="font-size: 1rem;">(${delta > 0 ? '+' : ''}${percentDiff}%)</span>
-                                </div>
-                            </div>
-                            <div style="font-size: 2rem;">
-                                ${isPB ? '🎉' : delta < 1 ? '💪' : '📈'}
-                            </div>
-                        </div>
-                        ${isPB ? '<div style="margin-top: 1rem; font-weight: 600; font-size: 1.1rem;">🏆 NEW PERSONAL BEST!</div>' : ''}
-                    </div>
-                `;
-            }
-            
-            // Split-by-split analysis
-            if (Object.keys(actualSplits).length > 0) {
-                html += '<div style="background: white; border: 2px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem;">';
-                html += '<h4 style="margin-bottom: 1rem; font-size: 1.1rem;">Split Analysis</h4>';
-                html += '<table style="width: 100%;">';
-                html += '<thead><tr style="background: #f8f9fa;"><th style="padding: 0.75rem; text-align: left;">Distance</th><th style="padding: 0.75rem; text-align: right;">Actual</th><th style="padding: 0.75rem; text-align: right;">PB Split</th><th style="padding: 0.75rem; text-align: right;">Difference</th></tr></thead>';
-                html += '<tbody>';
-                
-                let prevActual = 0;
-                let prevPB = 0;
-                
-                Object.keys(actualSplits).sort((a, b) => parseInt(a) - parseInt(b)).forEach(distance => {
-                    const actualCum = actualSplits[distance];
-                    const actualSplit = actualCum - prevActual;
-                    
-                    // Find PB split
-                    const pbKey = distance + (course === 'scy' ? 'y' : 'm');
-                    const pbCum = pbData.splits[pbKey] ? parseTimeToSeconds(pbData.splits[pbKey]) : null;
-                    
-                    if (pbCum !== null) {
-                        const pbSplit = pbCum - prevPB;
-                        const splitDiff = actualSplit - pbSplit;
-                        const diffPercent = ((splitDiff / pbSplit) * 100).toFixed(1);
-                        
-                        const isFaster = splitDiff < 0;
-                        const bgColor = isFaster ? '#e7f9f0' : (splitDiff > 0.3 ? '#ffe7e7' : '#f8f9fa');
-                        
-                        html += `
-                            <tr style="background: ${bgColor};">
-                                <td style="padding: 0.75rem; font-weight: 600;">${distance}</td>
-                                <td style="padding: 0.75rem; text-align: right;">${formatTime(actualSplit)}</td>
-                                <td style="padding: 0.75rem; text-align: right;">${formatTime(pbSplit)}</td>
-                                <td style="padding: 0.75rem; text-align: right; font-weight: 600; color: ${isFaster ? '#10b981' : '#ef4444'};">
-                                    ${splitDiff > 0 ? '+' : ''}${formatTime(Math.abs(splitDiff))} 
-                                    <span style="font-size: 0.85rem;">(${splitDiff > 0 ? '+' : ''}${diffPercent}%)</span>
-                                    ${isFaster ? '⚡' : '🐢'}
-                                </td>
-                            </tr>
-                        `;
-                        
-                        prevPB = pbCum;
-                    }
-                    
-                    prevActual = actualCum;
-                });
-                
-                html += '</tbody></table>';
-                html += '</div>';
-            }
-            
-            // Strengths & Weaknesses Summary
-            html += generateInsights(actualSplits, pbData, finalTime);
-            
-            resultsDiv.innerHTML = html;
-            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        function generateInsights(actualSplits, pbData, finalTime) {
-            const strengths = [];
-            const weaknesses = [];
-            
-            let prevActual = 0;
-            let prevPB = 0;
-            let fastestSegment = null;
-            let slowestSegment = null;
-            let maxDiff = -Infinity;
-            let minDiff = Infinity;
-            
-            Object.keys(actualSplits).sort((a, b) => parseInt(a) - parseInt(b)).forEach(distance => {
-                const actualCum = actualSplits[distance];
-                const actualSplit = actualCum - prevActual;
-                
-                const pbKey = distance + 'y'; // Simplified for now
-                const pbCum = pbData.splits[pbKey] ? parseTimeToSeconds(pbData.splits[pbKey]) : null;
-                
-                if (pbCum !== null) {
-                    const pbSplit = pbCum - prevPB;
-                    const splitDiff = actualSplit - pbSplit;
-                    
-                    if (splitDiff < minDiff) {
-                        minDiff = splitDiff;
-                        fastestSegment = { distance, diff: splitDiff };
-                    }
-                    
-                    if (splitDiff > maxDiff) {
-                        maxDiff = splitDiff;
-                        slowestSegment = { distance, diff: splitDiff };
-                    }
-                    
-                    prevPB = pbCum;
-                }
-                
-                prevActual = actualCum;
-            });
-            
-            let html = '<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">';
-            
-            // Strengths
-            html += '<div style="background: #e7f9f0; border-left: 4px solid #10b981; padding: 1.5rem; border-radius: 8px;">';
-            html += '<h4 style="color: #10b981; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1.5rem;">💪</span> Strengths</h4>';
-            
-            if (fastestSegment && fastestSegment.diff < -0.1) {
-                html += `<div style="margin-bottom: 0.75rem;">✅ <strong>Best split:</strong> ${fastestSegment.distance}m (${formatTime(Math.abs(fastestSegment.diff))} faster)</div>`;
-            }
-            
-            if (Object.keys(actualSplits).length >= 3) {
-                html += `<div style="margin-bottom: 0.75rem;">✅ <strong>Consistent pacing:</strong> ${Object.keys(actualSplits).length} splits recorded</div>`;
-            }
-            
-            if (pbData.time && finalTime - pbData.time < 0.5) {
-                html += `<div>✅ <strong>Near-PB performance</strong></div>`;
-            }
-            
-            html += '</div>';
-            
-            // Weaknesses
-            html += '<div style="background: #ffe7e7; border-left: 4px solid #ef4444; padding: 1.5rem; border-radius: 8px;">';
-            html += '<h4 style="color: #ef4444; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><span style="font-size: 1.5rem;">🎯</span> Focus Areas</h4>';
-            
-            if (slowestSegment && slowestSegment.diff > 0.3) {
-                html += `<div style="margin-bottom: 0.75rem;">⚠️ <strong>Weakest split:</strong> ${slowestSegment.distance}m (${formatTime(slowestSegment.diff)} slower)</div>`;
-            }
-            
-            // Check for negative splitting
-            const splitKeys = Object.keys(actualSplits).sort((a, b) => parseInt(a) - parseInt(b));
-            if (splitKeys.length >= 2) {
-                const firstHalf = actualSplits[splitKeys[0]];
-                const secondHalf = actualSplits[splitKeys[splitKeys.length - 1]] - actualSplits[splitKeys[Math.floor(splitKeys.length / 2) - 1]];
-                
-                if (secondHalf > firstHalf * 1.1) {
-                    html += `<div style="margin-bottom: 0.75rem;">⚠️ <strong>Died in back half</strong> - work on closing speed</div>`;
-                }
-            }
-            
-            html += '</div>';
-            html += '</div>';
-            
-            return html;
-        }
-        
-    
-
-        /* Video Timing Tool JavaScript */
-// Race state machine
-        let raceState = {
-            phase: 'setup', // setup, start, break, swimming
-            status: 'setup',
-            startTime: null,
-            currentLap: 1,
-            totalLaps: 0,
-            lapDistance: 0,
-            event: null,
-            pool: null,
-            data: { laps: [] },
-            currentLapData: {},
-            lastButtonTime: null,
-            cycleCount: 0,
-            cycleTimes: [],
-            minCycles: 3,
-            turnClickCount: 0
-        };
-        
-        // Event configurations
-        const eventConfig = {
-            '50-free': { distance: 50, laps: { scy: 2, scm: 2, lcm: 1 } },
-            '100-free': { distance: 100, laps: { scy: 4, scm: 4, lcm: 2 } },
-            '200-free': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
-            '400-free': { distance: 400, laps: { scy: 16, scm: 16, lcm: 8 } },
-            '800-free': { distance: 800, laps: { scy: 32, scm: 32, lcm: 16 } },
-            '1500-free': { distance: 1500, laps: { scy: 60, scm: 60, lcm: 30 } },
-            '50-back': { distance: 50, laps: { scy: 2, scm: 2, lcm: 1 } },
-            '100-back': { distance: 100, laps: { scy: 4, scm: 4, lcm: 2 } },
-            '200-back': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
-            '50-breast': { distance: 50, laps: { scy: 2, scm: 2, lcm: 1 } },
-            '100-breast': { distance: 100, laps: { scy: 4, scm: 4, lcm: 2 } },
-            '200-breast': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
-            '50-fly': { distance: 50, laps: { scy: 2, scm: 2, lcm: 1 } },
-            '100-fly': { distance: 100, laps: { scy: 4, scm: 4, lcm: 2 } },
-            '200-fly': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
-            '200-im': { distance: 200, laps: { scy: 8, scm: 8, lcm: 4 } },
-            '400-im': { distance: 400, laps: { scy: 16, scm: 16, lcm: 8 } }
-        };
-        
-        // Keyboard support - prevent video pause
-        document.addEventListener('keydown', function(e) {
-            if (e.code === 'Space') {
-                // Always prevent default to stop video pause
-                if (raceState.status === 'timing' || document.getElementById('timing-interface').classList.contains('active')) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-                // Trigger timing if active
-                if (raceState.status === 'timing') {
-                    handleMainButton();
-                }
-            } else if (e.code === 'KeyC') {
-                // C key for cycles
-                if (raceState.status === 'timing' && raceState.phase === 'swimming') {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleCycle();
-                }
-            } else if (e.code === 'KeyT') {
-                // T key for turn flags
-                if (raceState.status === 'timing' && raceState.phase === 'swimming') {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    handleTurn();
-                }
-            }
-        }, true); // Use capture phase to intercept before video gets it
-        
-        // Also prevent spacebar on video element directly (wait for element to exist)
-        const raceVideoEl = document.getElementById('race-video');
-        if (raceVideoEl) {
-            raceVideoEl.addEventListener('keydown', function(e) {
-                if (e.code === 'Space' && raceState.status === 'timing') {
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-            });
-        }
-        
-        // Load video
-        function loadVideo() {
-            const url = document.getElementById('video-url').value.trim();
-            const fileInput = document.getElementById('video-file');
-            const video = document.getElementById('race-video');
-            
-            if (url) {
-                if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                    alert('YouTube direct embedding requires API. Please download the video first or use a direct video URL.');
-                    return;
-                }
-                video.src = url;
-            } else if (fileInput.files.length > 0) {
-                const file = fileInput.files[0];
-                video.src = URL.createObjectURL(file);
-            } else {
-                alert('Please provide a video URL or upload a file.');
-            }
-        }
-        
-        const videoFileEl = document.getElementById('video-file');
-        if (videoFileEl) {
-            videoFileEl.addEventListener('change', function() {
-                loadVideo();
-            });
-        }
-        
-        // Start race
-        function startRace() {
-            const event = document.getElementById('event').value;
-            const pool = document.getElementById('pool').value;
-            
-            if (!event || !pool) {
-                alert('Please select event and pool type.');
-                return;
-            }
-            
-            raceState.event = event;
-            raceState.pool = pool;
-            raceState.totalLaps = eventConfig[event].laps[pool];
-            raceState.lapDistance = pool === 'lcm' ? 50 : 25;
-            if (pool === 'scy') raceState.lapDistance = 22.86;
-            
-            raceState.status = 'timing';
-            raceState.phase = 'start';
-            raceState.currentLap = 1;
-            raceState.data.laps = [];
-            
-            document.getElementById('timing-interface').classList.add('active');
-            document.getElementById('start-race-btn').style.display = 'none';
-            
-            // Blur video so spacebar doesn't pause it
-            document.getElementById('race-video').blur();
-            
-            updateButton();
-        }
-        
-        // Main button handler - START → BREAK → SPLIT progression
-        function handleMainButton() {
-            const now = performance.now();
-            
-            if (raceState.phase === 'start') {
-                // Race start
-                raceState.startTime = now;
-                raceState.lastButtonTime = now;
-                raceState.currentLapData = {
-                    lap: raceState.currentLap,
-                    startTime: now,
-                    cycles: []
-                };
-                startTimer();
-                raceState.phase = 'break';
-                
-                // Enable 15m optional on first lap
-                if (raceState.currentLap === 1) {
-                    document.getElementById('opt-15m').disabled = false;
-                }
-                
-            } else if (raceState.phase === 'break') {
-                // Head breaks surface
-                const elapsed = (now - raceState.lastButtonTime) / 1000;
-                raceState.currentLapData.breakTime = elapsed;
-                raceState.lastButtonTime = now;
-                raceState.phase = 'swimming';
-                raceState.cycleCount = 0;
-                raceState.cycleTimes = [];
-                raceState.turnClickCount = 0;
-                
-                // Enable cycle and turn buttons
-                document.getElementById('cycle-btn').disabled = false;
-                document.getElementById('turn-btn').disabled = false;
-                document.getElementById('turn-text').textContent = 'FLAGS IN';
-                document.getElementById('turn-hint').textContent = '5m before wall';
-                
-                // Enable turn in optional
-                document.getElementById('opt-turn').disabled = false;
-                
-            } else if (raceState.phase === 'swimming') {
-                // Wall touch - lap complete
-                const lapTime = (now - raceState.currentLapData.startTime) / 1000;
-                raceState.currentLapData.lapTime = lapTime;
-                raceState.currentLapData.cumulativeTime = (now - raceState.startTime) / 1000;
-                
-                // Calculate turn time if recorded
-                if (raceState.currentLapData.turnInTime) {
-                    raceState.currentLapData.turnTime = lapTime - raceState.currentLapData.turnInTime;
-                }
-                
-                // Calculate cycle metrics
-                if (raceState.cycleTimes.length > 0) {
-                    const avgCycleTime = raceState.cycleTimes.reduce((a, b) => a + b, 0) / raceState.cycleTimes.length;
-                    raceState.currentLapData.avgCycleTime = avgCycleTime;
-                    raceState.currentLapData.cyclesPerMinute = 60 / avgCycleTime;
-                    raceState.currentLapData.cycleCount = raceState.cycleCount;
-                }
-                
-                // Save lap
-                raceState.data.laps.push({...raceState.currentLapData});
-                updateLiveData();
-                
-                // Check if race complete
-                if (raceState.currentLap >= raceState.totalLaps) {
-                    finishRace();
-                    return;
-                }
-                
-                // Next lap
-                raceState.currentLap++;
-                raceState.currentLapData = {
-                    lap: raceState.currentLap,
-                    startTime: now
-                };
-                raceState.lastButtonTime = now;
-                raceState.phase = 'break';
-                
-                document.getElementById('current-lap').textContent = `Lap ${raceState.currentLap}`;
-                
-                // Disable cycle, turn, and optional buttons
-                document.getElementById('cycle-btn').disabled = true;
-                document.getElementById('turn-btn').disabled = true;
-                document.getElementById('opt-15m').disabled = true;
-                document.getElementById('opt-turn').disabled = true;
-                
-                // Enable 10m on last lap
-                if (raceState.currentLap === raceState.totalLaps) {
-                    document.getElementById('opt-10m').disabled = false;
-                }
-            }
-            
-            updateButton();
-        }
-        
-        // Separate cycle button handler
-        function handleCycle() {
-            if (raceState.phase !== 'swimming') return;
-            
-            const now = performance.now();
-            const cycleTime = (now - raceState.lastButtonTime) / 1000;
-            raceState.cycleTimes.push(cycleTime);
-            raceState.lastButtonTime = now;
-            raceState.cycleCount++;
-            
-            // Update cycle counter
-            document.getElementById('cycle-info').textContent = `${raceState.cycleCount} cycles`;
-            
-            // Update instruction
-            if (raceState.cycleCount < raceState.minCycles) {
-                document.getElementById('instruction').innerHTML = 
-                    `<strong>Keep tapping CYCLE:</strong> ${raceState.minCycles - raceState.cycleCount} more needed (then click SPLIT)`;
-            } else {
-                document.getElementById('instruction').innerHTML = 
-                    '<strong>Ready!</strong> Click main button when hands touch wall';
-            }
-        }
-        
-        // Turn timing handler (flags in → flags out)
-        function handleTurn() {
-            if (raceState.phase !== 'swimming') return;
-            
-            const now = performance.now();
-            const elapsed = (now - raceState.currentLapData.startTime) / 1000;
-            
-            if (raceState.turnClickCount === 0) {
-                // First click = flags in (5m before wall)
-                raceState.currentLapData.turnFlagsIn = elapsed;
-                raceState.turnClickCount = 1;
-                document.getElementById('turn-text').textContent = 'FLAGS OUT';
-                document.getElementById('turn-hint').textContent = 'After wall push-off';
-            } else if (raceState.turnClickCount === 1) {
-                // Second click = flags out (5m after wall)
-                raceState.currentLapData.turnFlagsOut = elapsed;
-                raceState.turnClickCount = 2;
-                document.getElementById('turn-btn').disabled = true;
-                document.getElementById('turn-text').textContent = 'TURN';
-                document.getElementById('turn-hint').textContent = 'Complete!';
-            }
-        }
-        
-        // Update button text based on phase
-        function updateButton() {
-            const btnText = document.getElementById('btn-text');
-            const btnHint = document.getElementById('btn-hint');
-            const cycleInfo = document.getElementById('cycle-info');
-            const mainBtn = document.getElementById('main-btn');
-            const instruction = document.getElementById('instruction');
-            
-            mainBtn.classList.remove('cycle');
-            cycleInfo.style.display = 'none';
-            
-            if (raceState.phase === 'start') {
-                btnText.textContent = 'START RACE';
-                btnHint.textContent = 'Starting signal or dive';
-                instruction.innerHTML = '<strong>Click when:</strong> Race starts (beep/dive)';
-                
-            } else if (raceState.phase === 'break') {
-                btnText.textContent = 'HEAD BREAKS SURFACE';
-                btnHint.textContent = 'After underwater kick';
-                instruction.innerHTML = '<strong>Click when:</strong> Swimmer\'s head comes above water';
-                
-            } else if (raceState.phase === 'swimming') {
-                btnText.textContent = 'WALL TOUCH';
-                btnHint.textContent = 'Hands/feet touch wall';
-                
-                if (raceState.cycleCount < raceState.minCycles) {
-                    instruction.innerHTML = `<strong>Tap CYCLE button:</strong> ${raceState.minCycles - raceState.cycleCount} more needed (then click this)`;
-                } else {
-                    instruction.innerHTML = '<strong>Ready!</strong> Click when hands/feet touch wall';
-                }
-            }
-        }
-        
-        // Optional timing buttons
-        function handleOptional(type) {
-            const now = performance.now();
-            
-            if (type === '15m') {
-                const elapsed = (now - raceState.currentLapData.startTime) / 1000;
-                raceState.currentLapData.mark15m = elapsed;
-                document.getElementById('opt-15m').disabled = true;
-                
-            } else if (type === 'turn') {
-                raceState.currentLapData.turnInTime = (now - raceState.currentLapData.startTime) / 1000;
-                document.getElementById('opt-turn').disabled = true;
-                
-            } else if (type === '10m') {
-                const elapsed = (now - raceState.currentLapData.startTime) / 1000;
-                raceState.currentLapData.mark10mFinish = elapsed;
-                document.getElementById('opt-10m').disabled = true;
-            }
-        }
-        
-        // Timer
-        let timerInterval;
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                if (raceState.startTime) {
-                    const elapsed = (performance.now() - raceState.startTime) / 1000;
-                    document.getElementById('timer').textContent = formatTime(elapsed);
-                }
-            }, 10);
-        }
-        
-        function stopTimer() {
-            if (timerInterval) clearInterval(timerInterval);
-        }
-        
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            const centis = Math.floor((seconds % 1) * 100);
-            return `${mins}:${secs.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
-        }
-        
-        // Live data display
-        function updateLiveData() {
-            const container = document.getElementById('live-data');
-            container.innerHTML = '<h3 style="margin-bottom: 1rem;">Captured Data</h3>';
-            
-            raceState.data.laps.forEach((lap, index) => {
-                const lapDiv = document.createElement('div');
-                lapDiv.className = 'lap-section';
-                lapDiv.innerHTML = `
-                    <div class="lap-header">Lap ${lap.lap} - ${formatTime(lap.lapTime)}</div>
-                    <div class="lap-data">
-                        <div class="data-item">
-                            <div class="data-label">Cumulative</div>
-                            <div class="data-value">${formatTime(lap.cumulativeTime)}</div>
-                        </div>
-                        ${lap.breakTime ? `
-                        <div class="data-item">
-                            <div class="data-label">Break Time</div>
-                            <div class="data-value">${lap.breakTime.toFixed(2)}s</div>
-                        </div>
-                        ` : ''}
-                        ${lap.mark15m ? `
-                        <div class="data-item">
-                            <div class="data-label">15m Start</div>
-                            <div class="data-value">${lap.mark15m.toFixed(2)}s</div>
-                        </div>
-                        ` : ''}
-                        ${lap.cyclesPerMinute ? `
-                        <div class="data-item">
-                            <div class="data-label">Tempo</div>
-                            <div class="data-value">${lap.cyclesPerMinute.toFixed(1)} c/min</div>
-                        </div>
-                        <div class="data-item">
-                            <div class="data-label">Cycle Count</div>
-                            <div class="data-value">${lap.cycleCount}</div>
-                        </div>
-                        ` : ''}
-                        ${lap.turnFlagsIn ? `
-                        <div class="data-item">
-                            <div class="data-label">Flags In (5m)</div>
-                            <div class="data-value">${lap.turnFlagsIn.toFixed(2)}s</div>
-                        </div>
-                        ` : ''}
-                        ${lap.turnFlagsOut ? `
-                        <div class="data-item">
-                            <div class="data-label">Flags Out (5m)</div>
-                            <div class="data-value">${lap.turnFlagsOut.toFixed(2)}s</div>
-                        </div>
-                        ` : ''}
-                        ${lap.turnApproach ? `
-                        <div class="data-item">
-                            <div class="data-label">Approach (to wall)</div>
-                            <div class="data-value">${lap.turnApproach.toFixed(2)}s</div>
-                        </div>
-                        ` : ''}
-                        ${lap.turnPushOff ? `
-                        <div class="data-item">
-                            <div class="data-label">Push-off (from wall)</div>
-                            <div class="data-value">${lap.turnPushOff.toFixed(2)}s</div>
-                        </div>
-                        ` : ''}
-                        ${lap.turnTime ? `
-                        <div class="data-item">
-                            <div class="data-label">Turn Time (old)</div>
-                            <div class="data-value">${lap.turnTime.toFixed(2)}s</div>
-                        </div>
-                        ` : ''}
-                        ${lap.mark10mFinish ? `
-                        <div class="data-item">
-                            <div class="data-label">10m Finish</div>
-                            <div class="data-value">${lap.mark10mFinish.toFixed(2)}s</div>
-                        </div>
-                        ` : ''}
-                    </div>
-                `;
-                container.appendChild(lapDiv);
-            });
-        }
-        
-        // Finish race
-        function finishRace() {
-            stopTimer();
-            raceState.status = 'complete';
-            calculateResults();
-            document.getElementById('timing-interface').classList.remove('active');
-            document.getElementById('results-section').classList.add('active');
-            displayResults();
-        }
-        
-        // Calculate results
-        function calculateResults() {
-            raceState.data.laps.forEach((lap, index) => {
-                if (lap.breakTime) {
-                    const underwaterSpeed = 2.2;
-                    lap.breakDistance = (lap.breakTime * underwaterSpeed).toFixed(2);
-                }
-                
-                if (lap.cycleCount && lap.lapTime) {
-                    const swimDistance = raceState.lapDistance - (parseFloat(lap.breakDistance) || 0);
-                    lap.dpc = (swimDistance / lap.cycleCount).toFixed(2);
-                }
-                
-                lap.velocity = (raceState.lapDistance / lap.lapTime).toFixed(2);
-                
-                // Calculate turn metrics if flags timing was captured
-                if (lap.turnFlagsIn && lap.lapTime) {
-                    lap.turnApproach = (lap.lapTime - lap.turnFlagsIn).toFixed(2);
-                }
-                if (lap.turnFlagsOut && lap.lapTime) {
-                    lap.turnPushOff = (lap.turnFlagsOut - lap.lapTime).toFixed(2);
-                }
-                
-                if (index > 0) {
-                    const prevLap = raceState.data.laps[index - 1];
-                    lap.dropOff = (lap.lapTime - prevLap.lapTime).toFixed(2);
-                } else {
-                    lap.dropOff = '-';
-                }
-            });
-        }
-        
-        // Display results
-        function displayResults() {
-            const totalTime = raceState.data.laps[raceState.data.laps.length - 1].cumulativeTime;
-            const avgVelocity = (raceState.data.laps.reduce((sum, lap) => sum + parseFloat(lap.velocity), 0) / raceState.data.laps.length).toFixed(2);
-            const totalCycles = raceState.data.laps.reduce((sum, lap) => sum + (lap.cycleCount || 0), 0);
-            const avgTempo = raceState.data.laps.reduce((sum, lap) => sum + (lap.cyclesPerMinute || 0), 0) / raceState.data.laps.filter(lap => lap.cyclesPerMinute).length;
-            
-            document.getElementById('summary-metrics').innerHTML = `
-                <div class="metric-box">
-                    <div class="metric-label">Final Time</div>
-                    <div class="metric-value">${formatTime(totalTime)}</div>
                 </div>
-                <div class="metric-box">
-                    <div class="metric-label">Avg Velocity</div>
-                    <div class="metric-value">${avgVelocity}</div>
-                    <div class="metric-unit">m/s</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-label">Total Strokes</div>
-                    <div class="metric-value">${totalCycles}</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-label">Avg Tempo</div>
-                    <div class="metric-value">${avgTempo.toFixed(1)}</div>
-                    <div class="metric-unit">cycles/min</div>
-                </div>
-            `;
+            `).join('');
             
-            const tbody = document.getElementById('results-body');
-            tbody.innerHTML = '';
-            
-            raceState.data.laps.forEach(lap => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${lap.lap}</td>
-                    <td>${formatTime(lap.lapTime)}</td>
-                    <td>${lap.breakTime ? lap.breakTime.toFixed(2) : '-'}</td>
-                    <td>${lap.breakDistance || '-'}</td>
-                    <td>${lap.turnApproach || '-'}</td>
-                    <td>${lap.turnPushOff || '-'}</td>
-                    <td>${lap.cyclesPerMinute ? lap.cyclesPerMinute.toFixed(1) : '-'}</td>
-                    <td>${lap.dpc || '-'}</td>
-                    <td>${lap.velocity}</td>
-                    <td>${lap.dropOff}</td>
-                `;
-                tbody.appendChild(row);
-            });
+            document.getElementById('workout-count').textContent = window.filteredWorkouts.length;
         }
         
-        // Export CSV
-        function exportResults() {
-            const event = document.getElementById('event').value;
-            const swimmer = document.getElementById('swimmer-name').value || 'Swimmer';
-            const date = new Date().toISOString().split('T')[0];
-            
-            let csv = 'Lap,Split Time,Cumulative,Break Time,Break Dist,Turn Approach,Turn Push-off,Tempo,Cycle Count,DPC,Velocity,Drop-off\n';
-            
-            raceState.data.laps.forEach(lap => {
-                csv += `${lap.lap},${formatTime(lap.lapTime)},${formatTime(lap.cumulativeTime)},`;
-                csv += `${lap.breakTime ? lap.breakTime.toFixed(2) : ''},`;
-                csv += `${lap.breakDistance || ''},`;
-                csv += `${lap.turnApproach || ''},`;
-                csv += `${lap.turnPushOff || ''},`;
-                csv += `${lap.cyclesPerMinute ? lap.cyclesPerMinute.toFixed(1) : ''},`;
-                csv += `${lap.cycleCount || ''},`;
-                csv += `${lap.dpc || ''},`;
-                csv += `${lap.velocity},`;
-                csv += `${lap.dropOff}\n`;
+        function filterWorkouts(filter) {
+            // Update active button
+            document.querySelectorAll('.workout-filter').forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.background = 'white';
+                btn.style.color = '#333';
+                btn.style.borderColor = '#e0e0e0';
             });
             
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${swimmer}_${event}_${date}.csv`;
-            a.click();
-        }
-        
-        // Reset
-        function resetRace() {
-            if (!confirm('Are you sure? All timing data will be lost.')) return;
+            event.target.classList.add('active');
+            event.target.style.background = '#667eea';
+            event.target.style.color = 'white';
+            event.target.style.borderColor = '#667eea';
             
-            stopTimer();
-            location.reload();
+            if (filter === 'all') {
+                window.filteredWorkouts = window.allWorkouts;
+            } else if (filter === 'bayside') {
+                window.filteredWorkouts = window.allWorkouts.filter(w => w.location.toLowerCase() === 'bayside');
+            } else if (filter === 'greatneck') {
+                window.filteredWorkouts = window.allWorkouts.filter(w => w.location.toLowerCase().includes('neck'));
+            } else if (filter === '2000+') {
+                window.filteredWorkouts = window.allWorkouts.filter(w => w.total_distance >= 2000);
+            } else if (filter === '2500+') {
+                window.filteredWorkouts = window.allWorkouts.filter(w => w.total_distance >= 2500);
+            }
+            
+            renderWorkouts();
         }
         
-        function startNewRace() {
-            resetRace();
-        }
     </script>
 </body>
 </html>
