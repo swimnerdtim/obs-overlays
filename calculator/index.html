@@ -262,8 +262,8 @@
             <div class="tab" data-tab="practice-goals">Practice Goals</div>
             <div class="tab" data-tab="progression">Progression</div>
             <div class="tab" data-tab="workouts">Workouts</div>
+            <div class="tab" data-tab="sets">📚 Sets</div>
             <div class="tab" data-tab="race-analysis">🎬 Race Analysis</div>
-            <div class="tab" data-tab="swimnerd-ai">🤖 Swimnerd AI</div>
         </div>
         
         <div id="personal-bests" class="content active">
@@ -569,6 +569,147 @@
                 <div id="workout-list"></div>
             </div>
         </div>
+
+        
+<!-- SETS Tab Content -->
+<div id="sets" class="content">
+    <div class="section-header">
+        <h2>Signature Sets Library</h2>
+        <p class="subtitle">Curated sets from Swimnerd Masters 2025-2026 season • Ready to use in your next practice</p>
+    </div>
+
+    <div class="sets-container">
+        
+        <div class="set-category sprint">
+            <h3>Sprint</h3>
+            <div class="set-item">8x25 FAST @ 1:00</div>\n            <div class="set-item">8x25 FAST Swim @ 1:00</div>\n            <div class="set-item">16x25 FAST @ :35 - all out sprint</div>\n            <div class="set-item">4x25 MAX SPEED @ 1:00</div>\n            <div class="set-item">2x25 Swim Fast @ 1:00</div>
+        </div>
+\n
+        <div class="set-category threshold">
+            <h3>Threshold</h3>
+            <div class="set-item">12x100 (75 @ 400 Pace / 25 EZ) @ 2:00</div>\n            <div class="set-item">20x100 @ 1:30 - threshold pace</div>\n            <div class="set-item">12x100 @ 1:45 (2:00) (2:15) - IM pattern</div>\n            <div class="set-item">8x200 @ 3:00 - lactate tolerance</div>
+        </div>
+\n
+        <div class="set-category endurance">
+            <h3>Endurance</h3>
+            <div class="set-item">40x50 The Grant Hackett Set @ 1:00 (16→every 4th FAST, 12→every 3rd FAST, 8→every other FAST, 4→FAST)</div>\n            <div class="set-item">30x100 @ 1:20 - aerobic base</div>\n            <div class="set-item">3x1000 @ 15:00 - distance work</div>\n            <div class="set-item">12x50 Free - aerobic @ :45 (:50)(1:00)</div>
+        </div>
+\n
+        <div class="set-category im">
+            <h3>IM</h3>
+            <div class="set-item">3x100 IM @ 1:45 (2:00) (2:15)</div>\n            <div class="set-item">12x50 (1-Fly/BK, 1-BK/BRST, 1-BRST/FREE) @ 1:00</div>\n            <div class="set-item">10x100 IM @ 2:00</div>\n            <div class="set-item">12x100 IM pattern (Fly/Back, Back/Breast, Breast/Free, Free/Fly) @ 1:45</div>
+        </div>
+\n
+        <div class="set-category kick">
+            <h3>Kick</h3>
+            <div class="set-item">200 Kick aerobic 70% @ 4:00</div>\n            <div class="set-item">150 Kick 80% @ 3:30</div>\n            <div class="set-item">100 Kick 90% @ 2:00</div>\n            <div class="set-item">50 Kick 100% @ 1:00</div>\n            <div class="set-item">4x75 (50 FKOB / 25 Free) @ 1:30</div>\n            <div class="set-item">12x50 (25 FKOB / 25 Tarzan) @ 1:00</div>
+        </div>
+\n
+        <div class="set-category drill-technique">
+            <h3>Drill/Technique</h3>
+            <div class="set-item">8x25 O- Free, E- Pullouts @ :35</div>\n            <div class="set-item">12x50 (O - 25 FKOB / 25 Tarzan, E - 25 Fly / 25 Free) @ 1:00</div>\n            <div class="set-item">4x75 (25 RT side flutter kick / 25 LT side flutter kick / 25 Free) @ 1:30</div>\n            <div class="set-item">2x25 Fly w/ 15m Kick Out @ :30</div>\n            <div class="set-item">8x25 15m Kickouts @ :30</div>
+        </div>
+\n
+        <div class="set-category pull">
+            <h3>Pull</h3>
+            <div class="set-item">300 Pull w/ buoy only @ 4:30 (5:00) (5:30)</div>\n            <div class="set-item">300 Pull w/ paddles only @ 4:30</div>\n            <div class="set-item">400 Pull Lung Buster 3/5/7/9 x 100</div>\n            <div class="set-item">10x100 Paddles @ 1:30</div>
+        </div>
+\n
+        <div class="set-category race-prep">
+            <h3>Race Prep</h3>
+            <div class="set-item">4x{100 broken 25/25/25/25 @ :05} @ 2:00</div>\n            <div class="set-item">3x{1x200 Broken 75/75/50 :15 :15 @ 3:00}</div>\n            <div class="set-item">200 Descend 1-4 @ 3:00</div>\n            <div class="set-item">4x50 Build @ 1:00</div>
+        </div>
+
+    </div>
+
+    <div class="sets-footer">
+        <p><strong>How to use:</strong> Click any set to copy to clipboard. Adjust intervals based on your swimmers' ability.</p>
+        <p><strong>Notation:</strong> O = Odd rounds, E = Even rounds, FKOB = Flutter Kick On Back, RT/LT = Right/Left</p>
+    </div>
+</div>
+
+<style>
+.sets-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.set-category {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.set-category h3 {
+    margin-top: 0;
+    color: #2c5282;
+    border-bottom: 2px solid #4299e1;
+    padding-bottom: 10px;
+}
+
+.set-item {
+    padding: 12px;
+    margin: 8px 0;
+    background: #f7fafc;
+    border-left: 4px solid #4299e1;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+
+.set-item:hover {
+    background: #edf2f7;
+    transform: translateX(5px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.set-item.copied {
+    border-left-color: #48bb78;
+    background: #f0fff4;
+}
+
+.sets-footer {
+    margin-top: 30px;
+    padding: 20px;
+    background: #edf2f7;
+    border-radius: 8px;
+}
+
+.sets-footer p {
+    margin: 8px 0;
+}
+
+/* Category-specific colors */
+.set-category.sprint { border-left: 6px solid #e53e3e; }
+.set-category.threshold { border-left: 6px solid #ed8936; }
+.set-category.endurance { border-left: 6px solid #48bb78; }
+.set-category.im { border-left: 6px solid #4299e1; }
+.set-category.kick { border-left: 6px solid #9f7aea; }
+.set-category.drill { border-left: 6px solid #ed64a6; }
+.set-category.pull { border-left: 6px solid #38b2ac; }
+.set-category.race-prep { border-left: 6px solid #ecc94b; }
+</style>
+
+<script>
+// Copy set to clipboard on click
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('set-item')) {
+        const text = e.target.textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            e.target.classList.add('copied');
+            setTimeout(() => {
+                e.target.classList.remove('copied');
+            }, 1500);
+        });
+    }
+});
+</script>
+
 
         <div id="race-analysis" class="content">
             <div class="card">
@@ -6695,111 +6836,6 @@
             }
         });
 
-    
-
-// Swimnerd AI functionality
-const AI_API_URL = 'https://swimnerd-ai-api.onrender.com/api/ask';
-
-async function askAI() {
-    const input = document.getElementById('ai-question');
-    const question = input.value.trim();
-    const button = document.getElementById('ask-button');
-    const status = document.getElementById('ai-status');
-    
-    if (!question) return;
-    
-    addMessage('user', question);
-    input.value = '';
-    button.disabled = true;
-    status.textContent = 'Thinking...';
-    
-    try {
-        const response = await fetch(AI_API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question })
-        });
-        
-        const data = await response.json();
-        
-        if (data.error) {
-            addMessage('error', 'Error: ' + data.error);
-        } else {
-            addMessage('assistant', data.answer, data.sources);
-        }
-        
-        status.textContent = data.mode === 'mock' ? '⚠️ POC Mode' : `✓ Answered using ${data.sources || 0} sources`;
-        
-    } catch (error) {
-        addMessage('error', 'Unable to reach AI server. The API may be starting up (takes ~30 seconds on first request).');
-        status.textContent = '❌ Connection error';
-    } finally {
-        button.disabled = false;
-    }
-}
-
-function addMessage(role, content, sources = null) {
-    const messages = document.getElementById('chat-messages');
-    const messageDiv = document.createElement('div');
-    
-    const roleColors = {
-        'user': '#667eea',
-        'assistant': '#667eea',
-        'error': '#dc3545'
-    };
-    
-    const roleNames = {
-        'user': 'You',
-        'assistant': 'Swimnerd AI 🤖',
-        'error': 'Error'
-    };
-    
-    messageDiv.style.cssText = 'margin-bottom: 1rem; padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid ' + roleColors[role];
-    
-    messageDiv.innerHTML = `
-        <div style="font-weight: 600; color: ${roleColors[role]}; margin-bottom: 0.5rem;">
-            ${roleNames[role]}
-            ${sources ? ` <span style="font-size: 0.75rem; font-weight: normal; color: #666;">(${sources} sources)</span>` : ''}
-        </div>
-        <div style="white-space: pre-wrap; line-height: 1.6;">${content}</div>
-    `;
-    
-    messages.appendChild(messageDiv);
-    messages.scrollTop = messages.scrollHeight;
-}
-
-
-</script>
-
-    <!-- Swimnerd AI Content -->
-    <div id="swimnerd-ai" class="content">
-        <div class="card">
-            <div class="card-title">🤖 Ask Swimnerd AI</div>
-            <p style="color: #666; margin-bottom: 2rem;">Get personalized swimming advice powered by championship coaching knowledge.</p>
-            
-            <div class="chat-container" style="display: flex; flex-direction: column; height: 600px;">
-                <div id="chat-messages" style="flex: 1; overflow-y: auto; padding: 1rem; background: #f8f9fa; border-radius: 8px; margin-bottom: 1rem;">
-                    <div class="chat-message assistant" style="margin-bottom: 1rem; padding: 1rem; background: white; border-radius: 8px; border-left: 4px solid #667eea;">
-                        <div style="font-weight: 600; color: #667eea; margin-bottom: 0.5rem;">Swimnerd AI 🤖</div>
-                        <div>Hi! I'm your personal swimming coach AI, trained on championship knowledge from Bob Bowman, elite training methodology, and race analysis data. What would you like to know?</div>
-                    </div>
-                </div>
-                
-                <div class="chat-input-area" style="display: flex; gap: 1rem;">
-                    <input 
-                        type="text" 
-                        id="ai-question" 
-                        placeholder="Ask me anything about swimming technique, training, taper strategies..."
-                        style="flex: 1; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1rem;"
-                        onkeypress="if(event.key === 'Enter') askAI()"
-                    />
-                    <button onclick="askAI()" id="ask-button" style="padding: 1rem 2rem;">Ask</button>
-                </div>
-                
-                <div id="ai-status" style="margin-top: 0.5rem; font-size: 0.85rem; color: #666; text-align: center;"></div>
-            </div>
-        </div>
-    </div>
-
+    </script>
 </body>
 </html>
