@@ -3,16 +3,20 @@
 ## Quick Reference
 
 **Current active projects:**
-1. Night Swim Podcast Website (DEPLOYED, LIVE) ⭐ **NEW** (Mar 10, 2026)
-2. Twitter Bot for @SwimNerds - ENHANCED (automated, live, FIXED) ⭐ **FIXED** (Mar 10, 2026)
-3. Google Drive → YouTube Uploader (ready to deploy) ⭐ **NEW**
-4. Tiny Pace Clock Drip Campaign (conversion initiative) ⭐ **NEW**
-5. Training App Page Overhaul (conversion initiative) ⭐ **NEW**
-6. Swimnerd Calculator with 15m Chunks (complete, ready for deployment) ⭐ **ENHANCED**
-7. LIAC Scoreboard Theme (deployed, live)
-8. Barbie Theme for Swimnerd Live (complete)
+1. **Swimnerd Wiki (DEPLOYED, LIVE)** ⭐ **NEW** (Apr 7, 2026)
+2. **Dax Hill / Reykli Website (DEPLOYED, LIVE)** ⭐ (Apr 3, 2026)
+3. Night Swim Podcast Website (DEPLOYED, LIVE) ⭐ (Mar 10, 2026)
+4. Twitter Bot for @SwimNerds - ENHANCED (automated, live, FIXED) ⭐ (Mar 10, 2026)
+5. Google Drive → YouTube Uploader (ready to deploy) ⭐
+6. **Tiny Pace Clock Email Drip Campaign (COMPLETE, READY TO DEPLOY)** ⭐ (Apr 2, 2026)
+7. Training App Page Overhaul (conversion initiative) ⭐
+8. Swimnerd Calculator with 15m Chunks + Race Analysis (complete, ready for deployment) ⭐ (Mar 15, 2026)
+9. LIAC Scoreboard Theme (deployed, live)
+10. Barbie Theme for Swimnerd Live (complete)
 
 **Key file locations:**
+- Swimnerd Wiki: `/Users/tim/.openclaw/workspace/swimnerd-wiki/`
+- Dax Hill website: `/Users/tim/.openclaw/workspace/daxhill-website/`
 - Night Swim website: `/Users/tim/.openclaw/workspace/nightswimpod/`
 - Twitter bot: `/Users/tim/.openclaw/workspace/swimnerd/twitter-bot/`
 - YouTube automation: `/Users/tim/.openclaw/workspace/swimnerd/gdrive_to_youtube.py`
@@ -23,7 +27,117 @@
 
 ## Active Projects
 
-### 🌐 Night Swim Podcast Website - DEPLOYED (Mar 10, 2026) ⭐ **NEW**
+### 📚 Swimnerd Wiki - DEPLOYED (Apr 7, 2026) ⭐ **NEW**
+**Status:** ✅ Live at https://swimnerdtim.github.io/swimnerd-wiki/
+
+**What it is:**
+Searchable knowledge base of swimming coaching wisdom. Built from Inside with Brett Hawke podcast transcripts and Night Swim content.
+
+**Built in ~40 minutes:**
+- React + Vite static site
+- Instant client-side search (no backend needed)
+- Category filtering (Bob Bowman, Technique, Workouts, Coaching, Mental, Racing, Methodology)
+- Clean reading experience
+- Mobile-responsive design
+- Auto-deploy on GitHub Pages
+
+**Content:**
+- **11 articles** across 5 categories
+- **188KB** of coaching knowledge
+- **Bob Bowman (7 articles):** Coaching philosophy, golden rules, Leon Marchand training, Michael Phelps lessons, Texas NCAA championship, training methodology, coaching mastermind
+- **Technique (1 article):** Freestyle breathing mechanics
+- **Workouts (2 articles):** Masters progressive speed sets, sprint training
+- **Methodology (1 article):** Taper and peaking strategies
+
+**Features:**
+- Search bar (searches titles, descriptions, full content)
+- Category buttons (filter by topic)
+- Article cards (click to read full content)
+- Back navigation
+- Swimnerd branding
+
+**URLs:**
+- Live site: https://swimnerdtim.github.io/swimnerd-wiki/
+- GitHub repo: https://github.com/swimnerdtim/swimnerd-wiki
+
+**Key files:**
+- `/Users/tim/.openclaw/workspace/swimnerd-wiki/`
+- Wiki content: `wiki/` directory (markdown files)
+- Deploy status: `DEPLOY_STATUS.md`
+- Build script: `build-wiki-data.js`
+- README: `README.md`
+
+**How to update:**
+1. Add or edit markdown files in `wiki/` directory
+2. Run `npm run build-data` to regenerate JSON
+3. Commit + push
+4. Site auto-deploys in ~1 minute
+
+**Built:** 2026-04-07 (morning, requested by Nate)
+
+**Why it matters:**
+Nate had all this coaching wisdom in markdown files but couldn't easily search or browse it. Now it's a clean, searchable website he can reference anytime.
+
+---
+
+### 🏊 Dax Hill / Reykli Website - DEPLOYED (Apr 3, 2026) ⭐
+**Status:** ✅ Live at https://swimnerdtim.github.io/daxhill-website/
+
+**What it is:**
+Professional website for Dax Hill's Reykli swimming technique programs. Built to replace his garbage current site (literally just a newsletter signup form).
+
+**Built in ~45 minutes:**
+- React + Vite static site
+- 3 pages: Home, About, Programs
+- Responsive design (mobile, tablet, desktop)
+- Dark navy theme + orange accents
+- Auto-deploy on git push
+
+**Pages:**
+1. **Home** - Hero with "NCAA Champion to Your Personal Technique Coach", credentials (3x NCAA Champ, 8x All-American), product preview, Night Swim integration, newsletter CTA
+2. **About** - Full story (Texas → coaching → system builder), timeline (2009-present), achievements, "Island of Broken Toys" proof story, coaching philosophy
+3. **Programs** - All 7 products with pricing/features (Free Butterfly → $25 Club → $79/mo Library → $679 coaching), FAQ, CTAs
+
+**Key features:**
+- Dax's credentials front and center (3x NCAA Champion, Eddie Reese trained)
+- "Island of Broken Toys" story (lifetime B swimmers → AA/AAA performers, 81% team records)
+- Product tiers clearly laid out (free → paid → coaching funnel)
+- All "Buy Now" buttons link to Swimnerd marketplace
+- Night Swim podcast integration
+- Mobile-optimized, fast loading
+
+**URLs:**
+- Live site: https://swimnerdtim.github.io/daxhill-website/
+- GitHub repo: https://github.com/swimnerdtim/daxhill-website
+- Home: https://swimnerdtim.github.io/daxhill-website/
+- About: https://swimnerdtim.github.io/daxhill-website/about
+- Programs: https://swimnerdtim.github.io/daxhill-website/programs
+
+**Next steps:**
+1. **PRIORITY:** Update product links from placeholder `swimnerd.com/shop/dax-hill` to actual marketplace URL
+2. Add Dax's photos (headshot, coaching shots)
+3. Add testimonials/athlete results
+4. Point `reykli.com` domain to GitHub Pages (optional)
+
+**Key files:**
+- `/Users/tim/.openclaw/workspace/daxhill-website/`
+- Handoff doc: `HANDOFF.md`
+- Deploy status: `DEPLOY_STATUS.md`
+- README: `README.md`
+
+**Built:** 2026-04-03 (morning, while Nate was out)
+
+**Why it matters:**
+Dax's current site is literally just a newsletter signup. This gives him a professional storefront that:
+- Establishes credibility (NCAA Champion credentials)
+- Tells his story (system builder who gets results)
+- Showcases products with clear pricing
+- Funnels everything to Swimnerd marketplace
+- Cross-promotes Night Swim podcast
+
+---
+
+### 🌐 Night Swim Podcast Website - DEPLOYED (Mar 10, 2026) ⭐
 **Status:** ✅ Live at https://swimnerdtim.github.io/nightswimpod/
 
 **What it is:**
@@ -161,28 +275,59 @@ python3 gdrive_to_youtube.py --limit 3 --privacy public
 
 ---
 
-### 💰 Conversion Initiatives - Swimnerd AI Growth (Feb-Mar 2026) ⭐ **NEW**
-**Status:** Strategy approved, pending execution
+### 💰 Conversion Initiatives - Swimnerd AI Growth (Feb-Apr 2026) ⭐ **UPDATED**
+**Status:** Pace Clock Drip complete, Training App Page pending
 
 **Goal:** Convert existing customers and organic traffic to Swimnerd AI subscriptions (recurring SaaS revenue)
 
-#### Project #1: Tiny Pace Clock Drip Campaign
+#### Project #1: Tiny Pace Clock Drip Campaign ✅ **COMPLETE** (Apr 2, 2026)
+
+**Status:** ✅ Emails written, webhook deployed, ready to set up in Beehiiv
 
 **Strategy:** Target customers who buy hardware (tiny pace clocks) and convert them to software subscribers
 
-**7-10 day email sequence:**
-1. **Day 1:** Order confirmation + soft AI intro
-2. **Day 3:** Creative pace clock use cases + AI preview
-3. **Day 5:** Full AI demo with social proof
-4. **Day 7:** Before/after testimonial (pain point: "Stop spending 90 minutes planning practice on Sunday night")
-5. **Day 10:** Limited-time offer for pace clock customers
+**10-day email sequence (COMPLETE):**
+1. **Day 0:** Order confirmation + soft AI intro (already in Beehiiv)
+2. **Day 2-3:** Creative uses (kick stations, dryland, relay splits) → `pace_clock_email_2.md`
+3. **Day 5:** Full AI demo + testimonials (Coach Sarah story) → `pace_clock_email_3.md`
+4. **Day 7:** Pain point focus (Sunday night burnout) → `pace_clock_email_4.md`
+5. **Day 10:** Exclusive offer (20% off forever with CLOCKNERD20) → `pace_clock_email_5.md`
+
+**Automation flow (DEPLOYED):**
+- ✅ Shopify webhook → Order creation event
+- ✅ Server filter → "Swimnerd Personal Pace Clock" only (not big clocks)
+- ✅ Beehiiv integration → Auto-adds customer with UTM tags
+- ✅ Server deployed to Render: `swimnerd-server-signup.onrender.com`
+
+**Key files:**
+- `swimnerd/pace_clock_email_2.md` - Creative uses
+- `swimnerd/pace_clock_email_3.md` - Full AI demo
+- `swimnerd/pace_clock_email_4.md` - Pain point focus
+- `swimnerd/pace_clock_email_5.md` - Exclusive offer
+- `swimnerd/PACE_CLOCK_DRIP_CAMPAIGN.md` - Full strategy doc
+- `swimnerd/nightswim_signup_server.py` - Webhook handler (deployed)
+- `swimnerd/beehiiv_integration.py` - Beehiiv API integration
+
+**Beehiiv credentials:**
+- API Key: `DvWJORW3ZllPIzmD3oQb6UaHLAMWm3Zv3xiwqGjbEWDKguETXVwnDue9H1zkph6V`
+- Publication ID: `pub_7b968058-8429-4a51-be58-1f2f6e102156`
+
+**Next steps (in Beehiiv):**
+1. Upload emails 2-5 to Beehiiv
+2. Create automation sequence (trigger on `utm_source=pace_clock_purchase`)
+3. Set up discount code: CLOCKNERD20 (20% off forever)
+4. Test with dummy order
+5. Monitor conversion metrics
+
+**Expected results:**
+- 5-10% trial signup rate (from pace clock buyers)
+- 40% trial → paid conversion (industry standard)
+- Overall: 2-4% of pace clock buyers become AI subscribers
+- LTV: $235-470 per converted customer (6-month avg subscription)
 
 **Key insight:** These customers already trust the brand and care about their program - highest conversion potential
 
-**Next steps:** 
-- Write actual email copy
-- Set up email automation
-- Track open rates, click-through, trial signups, trial → paid conversions
+**Built:** 2026-04-02 (while Facebook ads were in learning phase)
 
 #### Project #2: Training App Page Overhaul (swimpractice.com)
 
@@ -351,7 +496,78 @@ crontab -l
 
 ---
 
-## 🏊 Swimnerd Calculator - COMPLETE (Feb 14-16, 2026) ✅
+## 🏊 Swimnerd Calculator - ENHANCED with Race Analysis (Feb 14-16, Mar 15, 2026) ✅
+
+**Status:** ✅ Production ready, awaiting deployment decision from Pavan
+
+### 🔍 Race Analysis Tab - NEW (Mar 15, 2026)
+
+**What it is:**
+New interactive tool that allows coaches/swimmers to input actual race splits and get detailed analysis comparing performance against:
+- Personal best splits
+- Championship pacing models
+- British/Australian speed models
+- Identifies specific strengths and weaknesses
+
+**Key features:**
+1. **Smart input form:**
+   - Event selector (all strokes, distances, courses)
+   - Course selector (SCY/SCM/LCM)
+   - Final time input (accepts MM:SS.SS or SS.SS)
+   - Dynamic split inputs (auto-generates based on event: 50/100/150 for 200m, etc.)
+
+2. **Detailed analysis output:**
+   - **Overall comparison:** Final time vs PB with delta and percentage
+   - **New PB detection:** Green gradient with 🎉 celebration
+   - **Split-by-split table:** Each segment compared to PB split time
+   - **Color coding:** Green (faster), Red (slower), Gray (slightly slower)
+   - **Visual indicators:** ⚡ (faster) or 🐢 (slower)
+
+3. **Strengths & Weaknesses summary:**
+   - **💪 Strengths box (green):** Best split, consistent pacing, near-PB performance
+   - **🎯 Focus Areas box (red):** Weakest split, back-half collapse detection, training recommendations
+
+4. **Smart insights:**
+   - Detects "died in back half" (negative split failure)
+   - Identifies best/worst segments
+   - Percentage differences for each split
+   - Celebrates segment victories even in slower overall races
+
+**Example output:**
+```
+📊 Final Time: 50.23 vs PB (49.46): +0.77 (+1.56%) 📈
+
+Split Analysis:
+50m: 23.89 (PB: 23.62) +0.27 🐢
+Back 50: 26.34 (PB: 25.84) +0.50 🐢
+
+💪 Strengths:
+✅ Near-PB performance
+✅ Consistent pacing
+
+🎯 Focus Areas:
+⚠️ Died in back half - work on closing speed
+⚠️ Weakest split: Back 50 (+0.50 slower)
+```
+
+**Files:**
+- Main: `/Users/tim/.openclaw/workspace/swimnerd/calculator_with_race_analysis.html` (7,120 lines)
+- Docs: `/Users/tim/.openclaw/workspace/swimnerd/RACE_ANALYSIS_FEATURE.md`
+
+**Code added:** 403 lines (input form + analysis engine + insights generator)
+
+**Use cases:**
+- Post-race debriefs with athletes
+- Identify specific training needs
+- Track progress race-to-race
+- Validate pacing strategy execution
+- Celebrate partial victories (e.g., "Your first 50 was PB pace!")
+
+**Built:** 2026-03-15 (requested by Nate)
+
+---
+
+## 🏊 Swimnerd Calculator - BASE VERSION (Feb 14-16, 2026) ✅
 
 **Status:** ✅ Production ready, awaiting deployment decision from Pavan
 
@@ -683,5 +899,65 @@ python3 step3_generate_calculator.py  # Generate HTML
 
 ---
 
-**Last updated:** 2026-03-02 (SwimCloud importer pipeline built) ✅
-**Next:** Test with additional swimmers beyond Michael Andrew
+**Last updated:** 2026-04-02 ✅
+
+## Recent Additions:
+
+### 🔧 Service Monitoring System (Mar 24, 2026) ⭐ **NEW - INFRASTRUCTURE**
+**Problem:** APIs break silently, tokens expire, no way to track service health.
+
+**Solution built:**
+1. **SERVICES.md** - Single source of truth for all API keys/tokens/credentials
+2. **health_check.py** - Automated health monitoring (checks YouTube, Twitter, GitHub, website)
+3. **FOREVER_FIX.md** - Master plan for sustainable automation
+
+**Files:**
+- `/Users/tim/.openclaw/workspace/swimnerd/SERVICES.md` - Credentials registry
+- `/Users/tim/.openclaw/workspace/swimnerd/health_check.py` - Health check script
+- `/Users/tim/.openclaw/workspace/swimnerd/FOREVER_FIX.md` - Sustainability guide
+
+**Usage:**
+```bash
+cd /Users/tim/.openclaw/workspace/swimnerd
+python3 health_check.py              # Check all services
+python3 health_check.py --notify     # Send alerts if failures
+```
+
+**Current issues found:**
+- ❌ YouTube OAuth token expired (2026-03-10)
+- ❌ Twitter bot recent errors
+- ✅ Website, GitHub SSH, Twitter creds all working
+
+**Next steps:**
+- Add to daily cron or heartbeat
+- Re-authenticate YouTube
+- Debug Twitter bot errors
+- Update Night Swim website with latest episodes
+
+---
+
+## Recent Additions (before monitoring system):
+
+### 🏊 Workout Manager (Mar 13, 2026) ⭐ **NEW**
+- Built OCR pipeline for workout images
+- Processed 15 of 85 Masters workouts (2023-2024)
+- Created workout manager UI (search, filter, browse)
+- Files: `workout_manager.html`, `ocr_google_vision.py`
+- 70 more workouts ready to process
+
+### 🤖 Bob Bowman AI Agent (Mar 13, 2026) ⭐ **NEW**  
+- Downloaded 123,910 words of Bob Bowman content (15 transcripts + workouts)
+- Built enhanced agent from real content (not generic web scraping)
+- Includes real Phelps sets, Leon Marchand methodology, ASU practices
+- Files: `bob_bowman_agent_ENHANCED.md`, `bob_bowman_data/`
+- Sample workout generated in Bob's voice
+- Ready to integrate into Swimnerd AI (needs Anthropic API key)
+
+### 📝 Swimnerd AI Architecture Planning (Mar 13, 2026)
+- Designed personalized coach AI system (not "Bob Bowman generator")
+- Each coach gets AI that learns THEIR style
+- RAG-based (no fine-tuning needed) → Claude Sonnet 4
+- Data sources: HyTek importer, Commit API, OCR batch processing
+- Onboarding flow designed (collect coach preferences upfront)
+- Pattern analysis → signature sets → AI generation
+- Recommended switch from Llama to Claude Sonnet 4 (~$0.05/practice, way better quality)
