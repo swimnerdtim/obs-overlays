@@ -68,6 +68,54 @@
         .goal-box-active { box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3) !important; }
         .detailed-pacing-container { min-height: 0; }
         
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .header { padding: 1rem; }
+            .header-content { flex-direction: column; gap: 0.5rem; text-align: center; }
+            .swimmer-info { text-align: center; }
+            .logo { font-size: 1.2rem; }
+            .swimmer-name { font-size: 1rem; }
+            
+            .container { padding: 0 0.5rem; margin: 1rem auto; }
+            .card { padding: 1rem; }
+            .card-title { font-size: 1.2rem; margin-bottom: 1rem; }
+            
+            .tabs { gap: 0.25rem; margin-bottom: 0.5rem; }
+            .tab { padding: 0.5rem 0.75rem; font-size: 0.85rem; }
+            
+            /* Make tables scrollable */
+            .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            table { min-width: 600px; font-size: 0.85rem; }
+            th, td { padding: 0.5rem; }
+            
+            /* Stack stat boxes on mobile */
+            .stats-grid { grid-template-columns: 1fr !important; }
+            .stat-value { font-size: 2rem; }
+            
+            /* Smaller goal boxes */
+            .goal-box { padding: 1rem; }
+            .goal-label { font-size: 0.85rem; }
+            .goal-value { font-size: 1.8rem; }
+            
+            /* Race analysis mobile */
+            .race-setup { grid-template-columns: 1fr; }
+            .main-timing-btn { padding: 2rem 1rem; font-size: 1.5rem; }
+            
+            /* Workouts folder mobile */
+            .folder-header { padding: 0.75rem; }
+            .folder-name { font-size: 0.95rem; }
+            .folder-count { font-size: 0.75rem; }
+            .workout-item { padding: 0.75rem; }
+            .workout-title { font-size: 0.9rem; }
+            .workout-meta { font-size: 0.75rem; flex-wrap: wrap; }
+            
+            /* Sets tab mobile */
+            .category-section { margin-bottom: 1.5rem; }
+            .set-item { padding: 0.75rem; }
+            .set-name { font-size: 0.9rem; }
+            .set-details { font-size: 0.75rem; }
+        }
+        
         /* Print styles */
         .print-only { display: none; }
         @media print {
@@ -257,7 +305,8 @@
         </div>
         
         <div class="tabs">
-            <div class="tab active" data-tab="personal-bests">Personal Bests</div>
+            <div class="tab active" data-tab="home">🏠 HOME</div>
+            <div class="tab" data-tab="personal-bests">Personal Bests</div>
             <div class="tab" data-tab="meet-goals">Meet Goals</div>
             <div class="tab" data-tab="practice-goals">Practice Goals</div>
             <div class="tab" data-tab="progression">Progression</div>
@@ -267,7 +316,100 @@
             <div class="tab" data-tab="swimnerd-ai">🤖 Swimnerd AI</div>
         </div>
         
-        <div id="personal-bests" class="content active">
+        <div id="home" class="content active">
+            <div class="card">
+                <div class="card-title">🏠 Nate's Masters Team - 2025-2026 Season</div>
+                
+                <div class="stats-grid" style="grid-template-columns: repeat(3, 1fr);">
+                    <div class="stat-box">
+                        <div class="stat-label">Total Workouts</div>
+                        <div class="stat-value">66</div>
+                        <div class="stat-unit">Oct 2025 - Apr 2026</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Total Volume</div>
+                        <div class="stat-value">142,150</div>
+                        <div class="stat-unit">meters</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Avg Workout</div>
+                        <div class="stat-value">2,154</div>
+                        <div class="stat-unit">meters</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">🎯 Top Recurring Test Sets</h3>
+                
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-name">1. 75@400 Pace + 25 EZ Pattern</div>
+                        <div style="font-weight: bold; color: #28a745;">24 appearances</div>
+                    </div>
+                    <p style="margin: 0.5rem 0; color: #666;">Your most-used threshold set</p>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <button onclick="alert('Time logging coming soon')">Log New Time</button>
+                        <button onclick="alert('History view coming soon')" style="background: #6c757d;">View History</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-name">2. 15m Kickouts / Underwater Work</div>
+                        <div style="font-weight: bold; color: #28a745;">11 appearances</div>
+                    </div>
+                    <p style="margin: 0.5rem 0; color: #666;">Consistent skill development focus</p>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <button onclick="alert('Time logging coming soon')">Log New Time</button>
+                        <button onclick="alert('History view coming soon')" style="background: #6c757d;">View History</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-name">3. 100 Pull Sets</div>
+                        <div style="font-weight: bold; color: #28a745;">10 appearances</div>
+                    </div>
+                    <p style="margin: 0.5rem 0; color: #666;">Upper body strength foundation</p>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <button onclick="alert('Time logging coming soon')">Log New Time</button>
+                        <button onclick="alert('History view coming soon')" style="background: #6c757d;">View History</button>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-header">
+                        <div class="event-name">4. IM 75s</div>
+                        <div style="font-weight: bold; color: #28a745;">6 appearances</div>
+                    </div>
+                    <p style="margin: 0.5rem 0; color: #666;">Multi-stroke technical work</p>
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
+                        <button onclick="alert('Time logging coming soon')">Log New Time</button>
+                        <button onclick="alert('History view coming soon')" style="background: #6c757d;">View History</button>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 2rem; margin-bottom: 1rem;">💡 Coaching Insights (from 3-Season Analysis)</h3>
+                
+                <div class="pacing-note">
+                    <strong>⭐ Threshold Training Dominance:</strong> Your program runs 40% threshold volume (vs. 25-30% typical Masters). This "Threshold Wins Races" philosophy shows in your 75+25 pattern appearing 24 times.
+                </div>
+                
+                <div class="pacing-note" style="margin-top: 1rem; background: #fff3cd;">
+                    <strong>📊 IM Integration:</strong> 26% IM work (3x higher than typical). "IM Makes Better Freestylers" is clearly a core principle.
+                </div>
+                
+                <div class="pacing-note" style="margin-top: 1rem; background: #d4edda;">
+                    <strong>✅ Consistency:</strong> 100% of workouts have 300m warmup + 100m cooldown. Stable 2,192m avg (±2.8% variance across 3 years).
+                </div>
+                
+                <p style="margin-top: 2rem; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                    <strong>📈 Overall Grade: A- (92/100)</strong><br>
+                    Gold-standard Masters program backed by 121 workouts of proof. See full 3-season analysis in <a href="https://swimnerdtim.github.io/swimnerd-wiki/" target="_blank" style="color: #667eea;">Swimnerd Wiki</a>.
+                </p>
+            </div>
+        </div>
+
+        <div id="personal-bests" class="content">
             <div class="card">
                 <div class="stats-grid">
                     <div class="stat-box">
