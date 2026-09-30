@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swimnerd Live — Mario Theme Overlays</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mario-blue: #049CD8;
+            --mario-yellow: #FBD000;
+            --mario-red: #E52521;
+            --mario-green: #43B047;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(180deg, #049CD8 0%, #037ba8 70%, #2d8032 70%, #43B047 100%);
+            min-height: 100vh;
+            color: #fff;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+        .title {
+            font-size: 2rem;
+            color: var(--mario-yellow);
+            text-shadow: 4px 4px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000;
+            text-align: center;
+            line-height: 1.6;
+        }
+        .subtitle {
+            font-size: 0.8rem;
+            color: #fff;
+            text-shadow: 2px 2px 0 #000;
+            text-align: center;
+        }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            justify-content: center;
+            max-width: 1000px;
+        }
+        .card {
+            background: linear-gradient(180deg, var(--mario-red) 0%, #b01815 100%);
+            border: 4px solid var(--mario-yellow);
+            border-radius: 8px;
+            padding: 28px;
+            width: 280px;
+            text-decoration: none;
+            color: #fff;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.3), 0 6px 12px rgba(0,0,0,0.5);
+            transition: transform 0.15s ease;
+        }
+        .card:hover { transform: translateY(-6px); }
+        .card h2 {
+            font-size: 1rem;
+            color: var(--mario-yellow);
+            text-shadow: 2px 2px 0 #000;
+            margin-bottom: 14px;
+        }
+        .card p {
+            font-size: 0.6rem;
+            line-height: 1.8;
+            text-shadow: 1px 1px 0 #000;
+        }
+        .card .url {
+            display: block;
+            margin-top: 16px;
+            font-size: 0.5rem;
+            color: var(--mario-green);
+            word-break: break-all;
+        }
+        .note {
+            max-width: 700px;
+            font-size: 0.6rem;
+            line-height: 1.9;
+            text-shadow: 1px 1px 0 #000;
+            background: rgba(0,0,0,0.35);
+            border: 3px solid var(--mario-yellow);
+            border-radius: 8px;
+            padding: 24px;
+        }
+        .note strong { color: var(--mario-yellow); }
+    </style>
+</head>
+<body>
+    <h1 class="title">⭐ MARIO THEME ⭐</h1>
+    <p class="subtitle">Swimnerd Live Scoreboard Overlays</p>
+
+    <div class="cards">
+        <a class="card" href="HeaderOverlay.html">
+            <h2>Header</h2>
+            <p>Event, heat, and event name bar. Question-block styling.</p>
+            <span class="url">HeaderOverlay.html</span>
+        </a>
+        <a class="card" href="LaneOverlay.html">
+            <h2>Lanes</h2>
+            <p>Swimmer lineup, places, splits, and final times. Star-power 1st place.</p>
+            <span class="url">LaneOverlay.html</span>
+        </a>
+        <a class="card" href="TimerOverlay.html">
+            <h2>Timer</h2>
+            <p>Running race clock. Mario pipe-blue styling.</p>
+            <span class="url">TimerOverlay.html</span>
+        </a>
+    </div>
+
+    <div class="note">
+        <strong>OBS SETUP:</strong> Add each overlay as its own Browser Source in OBS.
+        They connect to Swimnerd Live via BroadcastChannel and update live during the meet.
+        Set the source width/height to match your layout and enable transparent background.
+    </div>
+</body>
+</html>
